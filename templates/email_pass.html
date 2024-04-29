@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        background: #ffffff;
+        border: 1px solid #ddd;
+    }
+    .logo {
+        text-align: center;
+        padding: 20px;
+    }
+    .content {
+        padding: 20px;
+        text-align: center;
+    }
+    .footer {
+        background-color: #eee;
+        color: #333;
+        text-align: center;
+        padding: 10px;
+        font-size: 12px;
+    }
+    @media only screen and (max-width: 600px) {
+        .container {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <!-- Sostituisci src con il percorso del tuo logo -->
+            <img src="https://www.linkbay.it/images/Logo.png" alt="Logo" style="max-width: 100px;">
+        </div>
+        <div class="content">
+            <h1>Ripristino Password</h1>
+            <p>Ciao {{nome}}!</p>
+            <p>Ecco il tuo link per ripristinare la password del tuo account {{nome_negozio}}:</p>
+            <br>
+            <a href="https://{{sitoweb}}/admin/ripristina_process.php?id_admin={{id_admin}}">Ripristina Password</a>
+        </div>
+        <div class="footer">
+            &copy; 2024 LinkBay Tutti i diritti riservati a Spotex Srl.
+        </div>
+    </div>
+</body>
+</html>

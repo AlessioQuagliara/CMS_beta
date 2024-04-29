@@ -1,0 +1,19 @@
+{
+    "name": "alessio/cms",
+    "description": "CMS Payments Stripe",
+    "autoload": {
+        "psr-4": {
+            "Alessio\\Cms\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Spotex Srl"
+        }
+    ],
+    "require": {
+        "stripe/stripe-php": "^13.9",
+        "paypal/rest-api-sdk-php": "^1.14",
+        "twbs/bootstrap": "^5.3"
+    }
+}

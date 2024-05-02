@@ -1,6 +1,48 @@
 <?php 
 require '../../app.php'; // Inclusione Principale
 loggato();
+
+if(isset($_GET['id']) && is_numeric($_GET['id']) ){
+    $id_order = $_GET['id'];
+} else {
+    $result = 'Id Ordine non trovato';
+    exit;
+}
+
+$dettagli_ordine = dettagliOrdine($id_order);
+
+if(isset($dettagli_ordine['error'])){
+    echo $dettagli_ordine['error'];
+} else {
+    $id_ordine = $dettagli_ordine['id_ordine'];
+    $email = $dettagli_ordine['email'];
+    $data_ordine = $dettagli_ordine['data_ordine'];
+    $stato_ordine = $dettagli_ordine['stato_ordine'];
+    $totale_ordine = $dettagli_ordine['totale_ordine'];
+    $indirizzo_spedizione = $dettagli_ordine['indirizzo_spedizione'];
+    $paese = $dettagli_ordine['paese'];
+    $cap = $dettagli_ordine['cap'];
+    $citta = $dettagli_ordine['citta'];
+    $provincia = $dettagli_ordine['provincia'];
+    $telefono = $dettagli_ordine['telefono'];
+    $nome = $dettagli_ordine['nome'];
+    $cognome = $dettagli_ordine['cognome'];
+    $tipo_spedizione = $dettagli_ordine['tipo_spedizione'];
+}
+
+$dettagli_articoli = dettagliArticoliOrdine($id_order);
+
+function dettagliTabella($dettagli_articoli) {
+    foreach ($dettagli_articoli as $articolo) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($articolo['id_prodotto']) . "</td>";
+        echo "<td>" . htmlspecialchars($articolo['quantita']) . "</td>";
+        echo "<td>" . htmlspecialchars($articolo['prezzo']) . "€</td>";
+        echo "</tr>";
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -20,11 +62,11 @@ loggato();
 <form action="" method="POST" style="padding: 10px;">
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom bg-dark text-light rounded-2">
-            <h1 class="h2">&nbsp;&nbsp;Ordine ""</h1> <!-- Modificato per usare il titolo dal database -->
+            <h1 class="h2">&nbsp;&nbsp;Totale Ordine: <?php echo $totale_ordine;?>€</h1> <!-- Modificato per usare il titolo dal database -->
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <button type="submit" name="modifica" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-floppy-disk"></i>&nbsp; Salva Modifiche</button>
-                <a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteOrder();"><i class="fa-solid fa-trash"></i>&nbsp; Elimina Ordine</a>
+                <button type="submit" name="modifica" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-circle-check"></i>&nbsp; Evadi Ordine</button>
+                <a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteOrder();"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Abbandona Ordine</a>
                 <a href="#" class="btn btn-sm btn-outline-light" onclick="exit();"><i class="fa-solid fa-rectangle-xmark"></i>&nbsp; Chiudi Scheda</a>
             </div>
         </div>
@@ -41,6 +83,29 @@ loggato();
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Dettagli Ordine</h5>
+                    <!-- Qui inserire i dettagli ordine -->
+                    
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">ID ORDINE</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="#ODV00<?php echo $id_ordine;?>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Data Ordine</label>
+                        <div class="col-sm-10">
+                            <input type="date" readonly class="form-control" value="<?php echo $data_ordine;?>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Stato Ordine</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $stato_ordine;?>">
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -48,6 +113,49 @@ loggato();
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Dettagli Spedizione</h5>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Tipo di Spedizione</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $tipo_spedizione;?>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Paese</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $paese;?>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Città</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $citta;?>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Cap</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $cap;?>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Provincia</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $provincia;?>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Indirizzo</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $indirizzo_spedizione;?>">
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -58,12 +166,6 @@ loggato();
                 </div>
             </div>
 
-            <!-- ANALISI CONSUMATORE, inserisci l'analisi di quanti ordini ha fatto il cliente -->
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Analisi Cliente</h5>
-                </div>
-            </div>
         </div>
 
         <!-- Colonna di destra -->
@@ -72,6 +174,67 @@ loggato();
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Dettagli Cliente</h5>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Nome</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $nome;?>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Cognome</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $cognome;?>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $email;?>">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Telefono</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $telefono;?>">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ANALISI CONSUMATORE, inserisci l'analisi di quanti ordini ha fatto il cliente -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Analisi Cliente</h5>
+                </div>
+            </div>
+
+            <!-- LISTA ARTICOLI ORDINATI -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Articoli Ordinati</h5>
+
+                    <div class="mb-3 row">
+                        <div>
+                             
+                            <div class='table-responsive'>
+                                <table class='table table-striped table-hover'>
+                                    <thead class='thead-dark'>
+                                        <tr><th>ID Prodotto</th><th>Quantità</th><th>Prezzo</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php dettagliTabella($dettagli_articoli); ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

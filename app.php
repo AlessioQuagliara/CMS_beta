@@ -752,286 +752,58 @@ function aggiuntaOrdine(){
     }
 }
 // ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI ORDINE 2 ----------------------------------------------------------------------------------------
-function modificaOrdine($idOrdine) {
-    require '../../conn.php'; // Assicurati che il percorso sia corretto
+// FUNZIONE PER DETTAGLI ORDINE ----------------------------------------------------------------------------------------
+function dettagliOrdine($id_order){
+    require ('conn.php');
 
-    // Verifica se l'ID dell'ordine è valido (puoi aggiungere ulteriori controlli)
-    if (!is_numeric($idOrdine)) {
-        return "ID dell'ordine non valido.";
+    $stmt = $conn->prepare("SELECT * FROM ordini WHERE id_ordine = ?");
+    $stmt->bind_param("i", $id_order);
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $ordine = array();
+
+    if($result->num_rows > 0) {
+        $ordine = $result->fetch_assoc();
+    } else{
+        $ordine['error'] = "Nessun ordine trovato con l'ID specificato.";
     }
 
-    $result = ""; // Variabile per i messaggi di errore o successo
-
-    // Controlla se è stata richiesta l'eliminazione dell'ordine
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'delete') {
-        $query = "DELETE FROM ordini WHERE id_ordine = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $id_prodotto);
-        if ($stmt->execute()) {
-            $stmt->close();
-            $conn->close();
-            return "Ordine eliminato con successo."; // Potresti voler restituire qualcosa che il chiamante possa verificare
-        } else {
-            $stmt->close();
-            $conn->close();
-            return "Errore durante l'eliminazione dell'ordine: " . $stmt->error;
-        }
-    }
-
-    // Processa la modifica del prodotto se il modulo è stato inviato
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST['action']) || $_POST['action'] !== 'delete')) {
-        // Ottieni i dati del modulo
-        $titolo = $_POST["titolo"];
-        $descrizione = $_POST["descrizione"];
-        $prezzo = $_POST["prezzo"];
-        $prezzo_comparato = $_POST["prezzo_comparato"];
-        $stato = $_POST["stato"];
-        $peso = $_POST["peso"];
-        $quantita = $_POST["quantita"];
-        $categoria = $_POST["categoria"];
-        $collezione = $_POST["collezione"];
-        $varianti = $_POST["varianti"];
-
-        // Esegui la query di aggiornamento
-        $query = "UPDATE prodotti SET titolo=?, descrizione=?, categoria=?, collezione=?, stato=?, prezzo=?, prezzo_comparato=?, quantita=?, peso=?, varianti=? WHERE id_prodotto = ?";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("ssssssdiisi", $titolo, $descrizione, $categoria, $collezione, $stato, $prezzo, $prezzo_comparato, $quantita, $peso, $varianti, $id_prodotto);
-            if ($stmt->execute()) {
-                $result = "Modifiche apportate con successo.";
-            } else {
-                $result = "Errore durante la modifica del prodotto: " . $stmt->error;
-            }
-            $stmt->close();
-        } else {
-            $result = "Errore nella preparazione della query: " . $conn->error;
-        }
-    }
-
+    $stmt->close();
     $conn->close();
-    return $result;
+
+    return $ordine;
 }
 // ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI ORDINE ----------------------------------------------------------------------------------------
-function ottieniDettagliOrdine($idOrdine) {
-    // Connessione al database
-    require('../../conn.php');
-    
-    // Inizializza l'HTML del contenuto
-    $html = '<div class="container mt-5">';
-    
-    // Query per ottenere i dettagli dell'ordine
-    $query_ordine = "SELECT * FROM ordini WHERE id_ordine = $idOrdine";
-    $result_ordine = mysqli_query($conn, $query_ordine);
-    if ($result_ordine && $row_ordine = mysqli_fetch_assoc($result_ordine)) {
-        // Estrazione dati dell'ordine
-        $id_ordine = $row_ordine['id_ordine'];
-        $nome = $row_ordine['nome'];
-        $cognome = $row_ordine['cognome'];
-        $indirizzo_spedizione = $row_ordine['indirizzo_spedizione'];
-        $paese = $row_ordine['paese'];
-        $cap = $row_ordine['cap'];
-        $citta = $row_ordine['citta'];
-        $provincia = $row_ordine['provincia'];
-        $stato_ordine = $row_ordine['stato_ordine'];
-        $data_ordine = $row_ordine['data_ordine'];
-        $email = $row_ordine['email'];
-        $telefono = $row_ordine['telefono'];
-        $tipo_spedizione = $row_ordine['tipo_spedizione'];
-        $totale_ordine = $row_ordine['totale_ordine'];
-    
+// FUNZIONE PER DETTAGLI ARTICOLI ORDINE -------------------------------------------------------------------------------
+function dettagliArticoliOrdine($id_order){
+    require ('conn.php');
 
-        // Query per ottenere i dettagli dei prodotti ordinati
-        $queryDettagliOrdine = "SELECT dettagli_ordini.quantita, dettagli_ordini.prezzo, prodotti.titolo 
-                                FROM dettagli_ordini 
-                                JOIN prodotti ON dettagli_ordini.id_prodotto = prodotti.id_prodotto 
-                                WHERE dettagli_ordini.id_ordine = $idOrdine";
-        $resultDettagliOrdine = mysqli_query($conn, $queryDettagliOrdine);
-        $totale = 0;
-        while ($resultDettagliOrdine && $dettagli = mysqli_fetch_assoc($resultDettagliOrdine)) {
-            $html .= "<tr>
-                        <td>" . $dettagli['titolo'] . "</td>
-                        <td>" . $dettagli['quantita'] . "</td>
-                        <td>€" . number_format($dettagli['prezzo'], 2) . "</td>
-                      </tr>";
-            $totale += $dettagli['quantita'] * $dettagli['prezzo'];
+    $stmt = $conn->prepare("SELECT * FROM dettagli_ordini WHERE id_ordine = ?");
+    $stmt->bind_param("i", $id_order);
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $dettagli = array();
+
+    if($result->num_rows > 0){
+        while ($row = $result->fetch_assoc()) {
+            $dettagli[] = $row;
         }
-
-        // Calcola il costo di spedizione
-        $tipo_spedizione = mysqli_real_escape_string($conn, $tipo_spedizione);
-        $querySpedizione = "SELECT * FROM spedizioni WHERE tipo_spedizione = '$tipo_spedizione'";
-        $resultSpedizione = mysqli_query($conn, $querySpedizione);
-        $prezzo_spedizione = 0;
-        if ($rowSpedizione = mysqli_fetch_assoc($resultSpedizione)) {
-            $prezzo_spedizione = $rowSpedizione['prezzo_spedizione']; // Prezzo spedizione dal database
-        }
-
-        // Aggiungi i totali all'HTML
-        $html .= "<tr>
-                    <td>Spedizione</td>
-                    <td>1</td>
-                    <td>€" . number_format($prezzo_spedizione, 2) . "</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Totale</strong></td>
-                    <td></td>
-                    <td><strong>€" . number_format($totale + $prezzo_spedizione, 2) . "</strong></td>
-                  </tr>
-                  </tbody>
-                  </table>";
-
-        // Modifica lo stato dell'ordine con un menu a tendina
-        $html .= "<form action='cambia_stato_ordine' method='POST'>
-                    <input type='hidden' name='id_ordine' value='$id_ordine'>
-                    <p><strong>Stato Ordine:</strong>
-                    <select name='stato_ordine' onchange='this.form.submit()'>
-                        <option value='Inevaso' " . ($stato_ordine == 'Inevaso' ? 'selected' : '') . ">Inevaso</option>
-                        <option value='Da Spedire' " . ($stato_ordine == 'Da Spedire' ? 'selected' : '') . ">Da Spedire</option>
-                        <option value='Completo' " . ($stato_ordine == 'Completo' ? 'selected' : '') . ">Completo</option>
-                        <option value='Abbandonato' " . ($stato_ordine == 'Abbandonato' ? 'selected' : '') . ">Abbandonato</option>
-                    </select>
-                    </p>
-                  </form>";
+    } else{
+        $dettagli['error'] = "Non è stato trovato nessun dettaglio per questo ordine";
     }
 
-    $html .= '</div></div></div>';
-
-    return $html;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI ORDINE ----------------------------------------------------------------------------------------
-function mostraDettagliOrdine($idOrdine) {
-    // Connessione al database
-    require('../../conn.php');
+    $stmt->close();
+    $conn->close();
     
-    // Inizializza l'HTML del contenuto
-    $html = '<div class="container mt-5">';
-    
-    // Query per ottenere i dettagli dell'ordine
-    $query_ordine = "SELECT * FROM ordini WHERE id_ordine = $idOrdine";
-    $result_ordine = mysqli_query($conn, $query_ordine);
-    if ($result_ordine && $row_ordine = mysqli_fetch_assoc($result_ordine)) {
-        // Estrazione dati dell'ordine
-        $id_ordine = $row_ordine['id_ordine'];
-        $nome = $row_ordine['nome'];
-        $cognome = $row_ordine['cognome'];
-        $indirizzo_spedizione = $row_ordine['indirizzo_spedizione'];
-        $paese = $row_ordine['paese'];
-        $cap = $row_ordine['cap'];
-        $citta = $row_ordine['citta'];
-        $provincia = $row_ordine['provincia'];
-        $stato_ordine = $row_ordine['stato_ordine'];
-        $data_ordine = $row_ordine['data_ordine'];
-        $email = $row_ordine['email'];
-        $telefono = $row_ordine['telefono'];
-        $tipo_spedizione = $row_ordine['tipo_spedizione'];
-        $totale_ordine = $row_ordine['totale_ordine'];
-    
-        // Aggiungi le informazioni dell'ordine all'HTML
-        $html .= "<h1>Ordine #00$id_ordine</h1>
-                  <p><strong>Cliente:</strong> $nome $cognome</p>
-                  <p><strong>Indirizzo di Spedizione:</strong> $indirizzo_spedizione, $paese, $cap, $citta, $provincia</p>
-                  <p><strong>Tipo Di Spedizione Selezionata:</strong> $tipo_spedizione</p>
-                  <p><strong>Numero di Telefono:</strong> $telefono</p>
-                  <table class='table'>
-                      <thead>
-                          <tr>
-                              <th>Prodotto</th>
-                              <th>Quantità</th>
-                              <th>Prezzo</th>
-                          </tr>
-                      </thead>
-                      <tbody>";
-
-        // Query per ottenere i dettagli dei prodotti ordinati
-        $queryDettagliOrdine = "SELECT dettagli_ordini.quantita, dettagli_ordini.prezzo, prodotti.titolo 
-                                FROM dettagli_ordini 
-                                JOIN prodotti ON dettagli_ordini.id_prodotto = prodotti.id_prodotto 
-                                WHERE dettagli_ordini.id_ordine = $idOrdine";
-        $resultDettagliOrdine = mysqli_query($conn, $queryDettagliOrdine);
-        $totale = 0;
-        while ($resultDettagliOrdine && $dettagli = mysqli_fetch_assoc($resultDettagliOrdine)) {
-            $html .= "<tr>
-                        <td>" . $dettagli['titolo'] . "</td>
-                        <td>" . $dettagli['quantita'] . "</td>
-                        <td>€" . number_format($dettagli['prezzo'], 2) . "</td>
-                      </tr>";
-            $totale += $dettagli['quantita'] * $dettagli['prezzo'];
-        }
-
-        // Calcola il costo di spedizione
-        $tipo_spedizione = mysqli_real_escape_string($conn, $tipo_spedizione);
-        $querySpedizione = "SELECT * FROM spedizioni WHERE tipo_spedizione = '$tipo_spedizione'";
-        $resultSpedizione = mysqli_query($conn, $querySpedizione);
-        $prezzo_spedizione = 0;
-        if ($rowSpedizione = mysqli_fetch_assoc($resultSpedizione)) {
-            $prezzo_spedizione = $rowSpedizione['prezzo_spedizione']; // Prezzo spedizione dal database
-        }
-
-        // Aggiungi i totali all'HTML
-        $html .= "<tr>
-                    <td>Spedizione</td>
-                    <td>1</td>
-                    <td>€" . number_format($prezzo_spedizione, 2) . "</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Totale</strong></td>
-                    <td></td>
-                    <td><strong>€" . number_format($totale + $prezzo_spedizione, 2) . "</strong></td>
-                  </tr>
-                  </tbody>
-                  </table>";
-
-        // Modifica lo stato dell'ordine con un menu a tendina
-        $html .= "<form action='cambia_stato_ordine' method='POST'>
-                    <input type='hidden' name='id_ordine' value='$id_ordine'>
-                    <p><strong>Stato Ordine:</strong>
-                    <select name='stato_ordine' onchange='this.form.submit()'>
-                        <option value='Inevaso' " . ($stato_ordine == 'Inevaso' ? 'selected' : '') . ">Inevaso</option>
-                        <option value='Da Spedire' " . ($stato_ordine == 'Da Spedire' ? 'selected' : '') . ">Da Spedire</option>
-                        <option value='Completo' " . ($stato_ordine == 'Completo' ? 'selected' : '') . ">Completo</option>
-                        <option value='Abbandonato' " . ($stato_ordine == 'Abbandonato' ? 'selected' : '') . ">Abbandonato</option>
-                    </select>
-                    </p>
-                  </form>";
-    }
-
-    $html .= '</div></div></div>';
-
-    return $html;
+    return $dettagli;
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER MODIFICA ORDINE ----------------------------------------------------------------------------------------
-function modificaDettagliOrdine() {
-    // Includi il file di connessione al database
-    require('../../conn.php');
 
-    // Verifica se l'ID dell'ordine e il nuovo stato sono stati forniti
-    if (isset($_POST['id_ordine']) && isset($_POST['stato_ordine'])) {
-        $idOrdine = $_POST['id_ordine'];
-        $nuovoStato = $_POST['stato_ordine'];
-
-        // Proteggi contro l'SQL Injection
-        $idOrdine = mysqli_real_escape_string($conn, $idOrdine);
-        $nuovoStato = mysqli_real_escape_string($conn, $nuovoStato);
-
-        // Crea e esegui la query SQL per aggiornare lo stato dell'ordine
-        $query = "UPDATE ordini SET stato_ordine = '$nuovoStato' WHERE id_ordine = '$idOrdine'";
-        $result = mysqli_query($conn, $query);
-
-        // Chiudi la connessione al database
-        mysqli_close($conn);
-
-        // Reindirizza l'utente alla pagina di modifica dell'ordine
-        header("Location: ordine_modifica?id=$idOrdine");
-        exit;
-    } else {
-        // Se l'ID dell'ordine o il nuovo stato non sono stati forniti, reindirizza l'utente alla pagina di errore o di elenco ordini
-        header("Location: errore.php"); // Sostituisci 'errore.php' con la pagina di errore o di elenco ordini appropriata
-        exit;
-    }
-}
 // ---------------------------------------------------------------------------------------------------------------------
 // OrdiniSpedire.php ---------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

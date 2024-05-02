@@ -227,7 +227,13 @@ function dettagliTabella($dettagli_articoli) {
                                         <tr><th>ID Prodotto</th><th>Quantità</th><th>Prezzo</th></tr>
                                     </thead>
                                     <tbody>
-                                        <?php dettagliTabella($dettagli_articoli); ?>
+                                        <?php 
+                                        if (isset($dettagli_articoli['error'])) {
+                                            echo $dettagli_articoli['error'];
+                                        } else {
+                                            dettagliTabella($dettagli_articoli); 
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>

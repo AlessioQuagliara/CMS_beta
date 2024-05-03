@@ -807,6 +807,32 @@ function dettagliArticoliOrdine($id_order){
     return $dettagli;
 }
 // ---------------------------------------------------------------------------------------------------------------------
+// FUNZIONE PER PREZZO TOTALE ----------------------------------------------------------------------------------------
+function stampaTotaleOrdine($id_order) {
+    require('conn.php'); 
+
+    $query = "SELECT quantita, prezzo FROM dettagli_ordini WHERE id_ordine = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id_order);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $totale = 0; // Inizializza il totale a 0
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $totale += $row['quantita'] * $row['prezzo'];
+        }
+        echo "Il tuo ordine da: €" . number_format($totale, 2);
+    } else {
+        echo "Nessun totale, aggiungi articoli all'ordine.";
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER MODIFICA ORDINE ----------------------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------------------------------------------------

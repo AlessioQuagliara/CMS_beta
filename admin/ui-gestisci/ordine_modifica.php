@@ -69,7 +69,7 @@ function dettagliTabella($dettagli_articoli) {
 <form action="" method="POST" style="padding: 10px;">
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom bg-dark text-light rounded-2">
-            <h1 class="h2">&nbsp;&nbsp;Totale Ordine: <?php echo $totale_ordine;?>€</h1> <!-- Modificato per usare il titolo dal database -->
+            <h1 class="h2">&nbsp;&nbsp;<?php stampaTotaleOrdine($id_order) ?></h1> <!-- Modificato per usare il titolo dal database -->
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
                 <button type="submit" name="modifica" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-circle-check"></i>&nbsp; Evadi Ordine</button>

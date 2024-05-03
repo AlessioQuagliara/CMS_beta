@@ -780,19 +780,24 @@ function dettagliOrdine($id_order){
 function dettagliArticoliOrdine($id_order){
     require ('conn.php');
 
-    $stmt = $conn->prepare("SELECT * FROM dettagli_ordini WHERE id_ordine = ?");
-    $stmt->bind_param("i", $id_order);
+    $query = "SELECT do.id_dettaglio, do.id_ordine, do.id_prodotto, do.quantita, do.prezzo, 
+                     p.titolo, p.descrizione, p.categoria, p.collezione, p.stato, p.prezzo_comparato, p.quantita AS quantita_disponibile, p.peso, p.varianti
+              FROM dettagli_ordini do
+              JOIN prodotti p ON do.id_prodotto = p.id_prodotto
+              WHERE do.id_ordine = ?";
 
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id_order);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $dettagli = array();
+    $dettagli = [];
 
     if($result->num_rows > 0){
         while ($row = $result->fetch_assoc()) {
             $dettagli[] = $row;
         }
-    } else{
+    } else {
         $dettagli['error'] = "Non è stato trovato nessun dettaglio per questo ordine";
     }
 

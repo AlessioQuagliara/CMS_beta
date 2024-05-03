@@ -31,14 +31,21 @@ if(isset($dettagli_ordine['error'])){
 }
 
 $dettagli_articoli = dettagliArticoliOrdine($id_order);
+if(isset($dettagli_articoli['error'])){
+    echo $dettagli_articoli['error'];
+} else {
+    $id_prodotto = $dettagli_articoli['id_prodotto'];
+}
 
 function dettagliTabella($dettagli_articoli) {
     foreach ($dettagli_articoli as $articolo) {
-        echo "<tr>";
+        echo '<tr>';
         echo "<td>" . htmlspecialchars($articolo['id_prodotto']) . "</td>";
+        echo "<td>" . htmlspecialchars($articolo['titolo']) . "</td>";
+        echo "<td>" . htmlspecialchars($articolo['varianti']) . "</td>";
         echo "<td>" . htmlspecialchars($articolo['quantita']) . "</td>";
         echo "<td>" . htmlspecialchars($articolo['prezzo']) . "€</td>";
-        echo "</tr>";
+        echo '</tr>';
     }
 }
 
@@ -224,7 +231,7 @@ function dettagliTabella($dettagli_articoli) {
                             <div class='table-responsive'>
                                 <table class='table table-striped table-hover'>
                                     <thead class='thead-dark'>
-                                        <tr><th>ID Prodotto</th><th>Quantità</th><th>Prezzo</th></tr>
+                                        <tr><th>img</th><th>Nome prodotto</th><th>Variante</th><th>Quantità</th><th>Prezzo</th></tr>
                                     </thead>
                                     <tbody>
                                         <?php 

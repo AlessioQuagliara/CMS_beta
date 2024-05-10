@@ -57,12 +57,12 @@ loggato()
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'bar', // Cambia il tipo a 'line', 'pie', ecc., a seconda delle necessità
+            type: 'bar', 
             data: {
-                labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile'], // Questi dati possono essere dinamici
+                labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile'], 
                 datasets: [{
                     label: '# di Vendite',
-                    data: [12, 19, 3, 5], // Questi dati dovrebbero provenire dal database
+                    data: [12, 19, 3, 5], 
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

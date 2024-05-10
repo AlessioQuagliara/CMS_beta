@@ -55,8 +55,6 @@ $conteggiOrdini = ordiniNav();
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
                 <!-- MODIFICA CON PHP IL  custom-link-active-->
                 <li><a href="ordini_inevasi" class="link-dark rounded <?php if($currentPage == 'ordini_inevasi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ordini Inevasi&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge bg-danger rounded-pill"><?php echo $conteggiOrdini['inevaso']; ?></span></a></li>
-                <li><a href="ordini_spedire" class="link-dark rounded <?php if($currentPage == 'ordini_spedire.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ordini da Spedire&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge bg-danger rounded-pill"><?php echo $conteggiOrdini['da spedire']; ?></span></a></li>
-                <li><a href="ordini_completi" class="link-dark rounded <?php if($currentPage == 'ordini_completi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ordini Completi</a></li>
                 <li><a href="ordini_abbandonati" class="link-dark rounded <?php if($currentPage == 'ordini_abbandonati.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ordini abbandonati</a></li>
               </ul>
             </div>

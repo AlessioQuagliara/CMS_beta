@@ -647,7 +647,7 @@ function stampaTabellaOrdiniInevasi() {
     require '../../conn.php';
     
     // Prepara e esegui la query per ottenere i dati degli ordini
-    $ordersQuery = "SELECT id_ordine, email, data_ordine, stato_ordine, totale_ordine, tipo_spedizione FROM ordini WHERE stato_ordine = 'Inevaso'";
+    $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = 'Inevaso'";
     $ordersResult = $conn->query($ordersQuery);
     
     // Costruisci l'HTML per la tabella
@@ -656,6 +656,7 @@ function stampaTabellaOrdiniInevasi() {
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
+    $html .= '<th></th>';
     $html .= '<th>ID Ordine</th>';
     $html .= '<th>Email</th>';
     $html .= '<th>Stato Ordine</th>';
@@ -669,7 +670,13 @@ function stampaTabellaOrdiniInevasi() {
     // Verifica se ci sono risultati
     if ($ordersResult->num_rows > 0) {
         while($row = $ordersResult->fetch_assoc()) {
+            if($row['selected'] == 'false' ){
+                $selected = '<i class="fa-regular fa-square no-click"></i>';
+            } else {
+                $selected = '<i class="fa-solid fa-square-check no-click"></i>';
+            }
             $html .= '<tr style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')">';
+            $html .= '<td class="clickable-row" data-id="'.$row['id_ordine'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
             $html .= '<td>#00' . $row['id_ordine'] . '</td>';
             $html .= '<td>' . $row['email'] . '</td>';
             $html .= '<td>' . $row['stato_ordine'] . '</td>';

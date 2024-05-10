@@ -1,5 +1,5 @@
 <?php 
-require '../../app.php'; // Inclusione Principale
+require '../../app.php';
 loggato();
 
 if(isset($_GET['id']) && is_numeric($_GET['id']) ){
@@ -72,7 +72,7 @@ function dettagliTabella($dettagli_articoli) {
             <h1 class="h2">&nbsp;&nbsp;<?php stampaTotaleOrdine($id_order) ?></h1> <!-- Modificato per usare il titolo dal database -->
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <button type="submit" name="modifica" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-circle-check"></i>&nbsp; Evadi Ordine</button>
+                <a href="evadi_ordine?id=<?php echo $id_order; ?>" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-circle-check"></i>&nbsp; Evadi Ordine</a>
                 <a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteOrder();"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Abbandona Ordine</a>
                 <a href="#" class="btn btn-sm btn-outline-light" onclick="exit();"><i class="fa-solid fa-rectangle-xmark"></i>&nbsp; Chiudi Scheda</a>
             </div>
@@ -172,7 +172,6 @@ function dettagliTabella($dettagli_articoli) {
                     <h5 class="card-title">Tracciabilità Pacco</h5>
                 </div>
             </div>
-
         </div>
 
         <!-- Colonna di destra -->

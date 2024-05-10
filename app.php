@@ -1152,7 +1152,7 @@ function stampaTabellaOrdiniCompleti() {
     require '../../conn.php';
     
     // Prepara e esegui la query per ottenere i dati degli ordini
-    $ordersQuery = "SELECT id_ordine, email, data_ordine, stato_ordine, totale_ordine, tipo_spedizione FROM ordini WHERE stato_ordine = 'Completo'";
+    $ordersQuery = "SELECT id_ordine, email, data_ordine, stato_ordine, totale_ordine, tipo_spedizione FROM ordini WHERE stato_ordine = 'Evaso'";
     $ordersResult = $conn->query($ordersQuery);
     
     // Costruisci l'HTML per la tabella

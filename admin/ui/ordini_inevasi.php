@@ -39,7 +39,6 @@ loggato()
 
     
     <!-- TABELLA CONTENUTI -->
-
         <?php echo stampaTabellaOrdiniInevasi(); ?>
     </main>
 

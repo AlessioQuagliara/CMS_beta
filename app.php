@@ -671,18 +671,18 @@ function stampaTabellaOrdiniInevasi() {
     if ($ordersResult->num_rows > 0) {
         while($row = $ordersResult->fetch_assoc()) {
             if($row['selected'] == 'false' ){
-                $selected = '<i class="fa-regular fa-square no-click"></i>';
+                $selected = '<i class="fa-regular fa-square fs-5"></i>';
             } else {
-                $selected = '<i class="fa-solid fa-square-check no-click"></i>';
+                $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
             }
-            $html .= '<tr style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')">';
+            $html .= '<tr>';
             $html .= '<td class="clickable-row" data-id="'.$row['id_ordine'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
-            $html .= '<td>#00' . $row['id_ordine'] . '</td>';
-            $html .= '<td>' . $row['email'] . '</td>';
-            $html .= '<td>' . $row['stato_ordine'] . '</td>';
-            $html .= '<td>' . $row['data_ordine'] . '</td>';
-            $html .= '<td>' . $row['tipo_spedizione'] . '</td>';
-            $html .= '<td>' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >#00' . $row['id_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['email'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['stato_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['data_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_spedizione'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
             $html .= '</tr>';
         }
     } else {
@@ -695,6 +695,7 @@ function stampaTabellaOrdiniInevasi() {
     $html .= '</table>';
     $html .= '</div>';
     $html .= '</div>';
+
     
     // Chiudi la connessione se necessario
     $conn->close();

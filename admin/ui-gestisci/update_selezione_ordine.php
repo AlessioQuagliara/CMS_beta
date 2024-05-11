@@ -2,30 +2,24 @@
 require ('../../app.php');
 loggato();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $id = $data['id'];
-    $selected = $data['selected'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST['id'];
+    $nuovoStato = $_POST['nuovoStato'];
 
-    // Connessione al database
-    require('../../conn.php');
-
-    // Prepara e esegui la query di aggiornamento
+    // Assumi di avere una connessione al database già configurata ($conn)
     $query = "UPDATE ordini SET selected = ? WHERE id_ordine = ?";
-    if ($stmt = mysqli_prepare($conn, $query)) {
-        mysqli_stmt_bind_param($stmt, 'si', $selected, $id);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("si", $nuovoStato, $id);
+    $stmt->execute();
 
-        // Restituisci una risposta JSON
-        echo json_encode(['success' => true]);
+    if ($stmt->affected_rows > 0) {
+        echo "Stato aggiornato.";
     } else {
-        // Restituisci un errore se la query non può essere preparata
-        echo json_encode(['success' => false, 'error' => mysqli_error($conn)]);
+        echo "Errore nell'aggiornamento.";
     }
 
-    // Chiudi la connessione al database
-    mysqli_close($conn);
+    $stmt->close();
+    $conn->close();
 }
 
 ?>

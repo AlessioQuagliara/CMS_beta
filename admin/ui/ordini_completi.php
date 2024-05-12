@@ -80,7 +80,7 @@ loggato()
                 <select class="form-select" aria-label="Selezione">
                     <option selected><?php echo $currentViews; ?></option>
                     <option value="0">Ordini Inevasi</option>
-                    <option value="1">Ordini da Spedire</option>
+                    <option value="1">Ordini Spediti</option>
                     <option value="2">Ordini Evasi</option>
                 </select>
             </div>

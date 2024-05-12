@@ -32,7 +32,7 @@ if(isset($dettagli_ordine['error'])){
 
 $dettagli_articoli = dettagliArticoliOrdine($id_order);
 if(isset($dettagli_articoli['error'])){
-    echo $dettagli_articoli['error'];
+
 } else {
     $id_prodotto = $dettagli_articoli['id_prodotto'];
 }
@@ -72,7 +72,9 @@ function dettagliTabella($dettagli_articoli) {
             <h1 class="h2">&nbsp;&nbsp;<?php stampaTotaleOrdine($id_order) ?></h1> <!-- Modificato per usare il titolo dal database -->
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <a href="evadi_ordine?id=<?php echo $id_order; ?>" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-circle-check"></i>&nbsp; Evadi Ordine</a>
+            <?php if($stato_ordine == 'Inevaso'){echo '<a href="evadi_ordine?id='.$id_order.'" onclick="autoSaveEvaso()" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-circle-check"></i>&nbsp; Evadi Ordine</a>';}
+                    else if($stato_ordine == 'Evaso'){echo '<a href="inevadi_ordine?id='.$id_order.'" onclick="autoSaveInevaso()" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-circle-check"></i>&nbsp;Torna Inevaso</a>';}
+                    else{echo '<a href="" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-circle-check"></i>&nbsp;Spedito</a>';}?>
                 <a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteOrder();"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Abbandona Ordine</a>
                 <a href="#" class="btn btn-sm btn-outline-light" onclick="exit();"><i class="fa-solid fa-rectangle-xmark"></i>&nbsp; Chiudi Scheda</a>
             </div>
@@ -107,9 +109,10 @@ function dettagliTabella($dettagli_articoli) {
                     </div>
 
                     <div class="mb-3 row">
+                        <?php if($stato_ordine == 'Inevaso'){$colore_ordine = 'text-danger';}else if($stato_ordine == 'Evaso'){$colore_ordine = 'text-success';}else{$colore_ordine = 'text-warning';}?>
                         <label class="col-sm-2 col-form-label">Stato Ordine</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $stato_ordine;?>">
+                            <input type="text" readonly class="form-control <?php echo $colore_ordine; ?>" value="<?php echo $stato_ordine;?>">
                         </div>
                     </div>
 
@@ -287,11 +290,22 @@ function confirmDeleteOrder() {
     });
 }
 
-function closeAndRefresh() {
+function autoSaveEvaso() {
         if (window.opener && !window.opener.closed) {
-            window.opener.location.href = '../ui/ordini_inevasi'; // Aggiorna la pagina genitore
+            window.opener.location.href = '../ui/ordini_inevasi'; // Aggiorna le pagine genitore
+            window.opener.location.href = '../ui/ordini_completi'; 
         }
-        window.close(); // Chiude la finestra corrente
+    }
+function autoSaveInevaso() {
+        if (window.opener && !window.opener.closed) {
+            window.opener.location.href = '../ui/ordini_completi'; 
+            window.opener.location.href = '../ui/ordini_inevasi'; // Aggiorna le pagine genitore
+        }
+    }
+function autoSaveAbbandonato() {
+        if (window.opener && !window.opener.closed) {
+            window.opener.location.href = '../ui/ordini_abbandonati'; 
+        }
     }
 
 

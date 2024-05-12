@@ -715,7 +715,7 @@ function aggiuntaOrdine(){
         // Valori predefiniti
         $email = 'scrivi@laemail.it';	
         $data_ordine = 'inserisci la data';	
-        $stato_ordine = 'inevaso';	
+        $stato_ordine = 'Inevaso';	
         $totale_ordine = '0';	
         $indirizzo_spedizione = 'Inserisci la via';	
         $paese = 'Inserisci il paese';	
@@ -806,7 +806,10 @@ function dettagliArticoliOrdine($id_order){
             $dettagli[] = $row;
         }
     } else {
-        $dettagli['error'] = "Non è stato trovato nessun dettaglio per questo ordine";
+        $dettagli['error'] = '
+        <div class="alert alert-warning" role="alert">
+            Nessun Prodotto è stato associato a questo ordine
+        </div>';
     }
 
     $stmt->close();

@@ -15,7 +15,8 @@ loggato()
     
     <?php
     $sidebar_cate = 'ordini'; 
-    $currentPage = basename($_SERVER['PHP_SELF']);
+    $currentView = 'ordini';
+    $currentViews = 'Ordini Inevasi';
     include '../materials/sidebar.php'; 
     ?>
 
@@ -66,7 +67,7 @@ loggato()
             <div class="col-md-2">
                 <input class="form-control" id="searchInput" type="text" placeholder="Cerca..." aria-label="Cerca">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <button class="btn btn-sm btn-outline-success" title="Esporta in Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
                 <button class="btn btn-sm btn-outline-light" title="Seleziona Tutte le Righe { CTRL + A }" onclick="setSelectedTrueForAll()"><i class="fa-regular fa-square-check"></i></button>
                 <form action="../ui-gestisci/aggiunta_ordine.php" method="POST" style="display: inline;">&nbsp;
@@ -77,9 +78,18 @@ loggato()
             </div>
             <div class="col-md-2">
                 <select class="form-select" aria-label="Selezione">
-                    <option selected>Ordini Inevasi</option>
+                    <option selected><?php echo $currentViews; ?></option>
+                    <option value="0">Ordini Inevasi</option>
                     <option value="1">Ordini da Spedire</option>
                     <option value="2">Ordini Evasi</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-select" id="rowsPerPage">
+                    <option selected value="10">Mostra 10 Righe</option>
+                    <option value="20">Mostra 20 Righe</option>
+                    <option value="50">Mostra 50 Righe</option>
+                    <option value="Tutti">Mostra Tutto</option>
                 </select>
             </div>
         </div>
@@ -111,11 +121,6 @@ loggato()
             toolbar.classList.toggle('expanded');
             // Salva lo stato della toolbar in localStorage
             localStorage.setItem('toolbarExpanded', toolbar.classList.contains('expanded'));
-        }
-        
-        function exportToExcel() {
-            // Implementa la logica per esportare i dati in Excel
-            console.log('Exporting to Excel');
         }
     </script>
     </div>
@@ -194,7 +199,7 @@ loggato()
             const ws = XLSX.utils.table_to_sheet(cloneTable);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Tabella");
-            XLSX.writeFile(wb, "<?php echo substr($currentPage, 0, -4); ?>.xlsx");
+            XLSX.writeFile(wb, "<?php echo $currentView; ?>.xlsx");
         }
 
 
@@ -216,6 +221,9 @@ loggato()
             selectElement.addEventListener('change', function() {
                 const value = this.value;
                 switch(value) {
+                    case '0':
+                        window.location.href = 'ordini_inevasi'; // Cambia con il tuo URL effettivo
+                        break;
                     case '1':
                         window.location.href = 'ordini_spedire'; // Cambia con il tuo URL effettivo
                         break;
@@ -227,7 +235,33 @@ loggato()
                 }
             });
         });
-
+        
+        //SCRIPT DI SELECT PAGINE
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectElement = document.getElementById('rowsPerPage');
+        
+            function updateVisibleRows() {
+                const selectedValue = selectElement.value === 'Tutti' ? Number.MAX_SAFE_INTEGER : parseInt(selectElement.value, 10);
+                const tableRows = document.getElementById('myTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+                for (let i = 0; i < tableRows.length; i++) {
+                    tableRows[i].style.display = i < selectedValue ? '' : 'none';
+                }
+            }
+        
+            // Recupera il valore dal Local Storage se disponibile
+            if (localStorage.getItem('selectedRowsPerPage')) {
+                selectElement.value = localStorage.getItem('selectedRowsPerPage');
+            }
+        
+            // Applica il filtro basato sul valore selezionato al caricamento della pagina
+            updateVisibleRows();
+        
+            // Applica il filtro e salva nel Local Storage ogni volta che l'utente cambia selezione
+            selectElement.addEventListener('change', function() {
+                updateVisibleRows();
+                localStorage.setItem('selectedRowsPerPage', selectElement.value);
+            });
+        });
         </script>
 
 <!---------------------------------------------------------------------- LINK SCRIPT PREDEFINITI ------------------------------------------------------------------------------------------>

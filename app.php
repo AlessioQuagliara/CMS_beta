@@ -853,7 +853,7 @@ function stampaTabellaOrdiniSpedire() {
     require '../../conn.php';
     
     // Prepara e esegui la query per ottenere i dati degli ordini
-    $ordersQuery = "SELECT id_ordine, email, data_ordine, stato_ordine, totale_ordine, tipo_spedizione FROM ordini WHERE stato_ordine = 'Da Spedire'";
+    $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = 'Da Spedire'";
     $ordersResult = $conn->query($ordersQuery);
     
     // Costruisci l'HTML per la tabella
@@ -862,6 +862,7 @@ function stampaTabellaOrdiniSpedire() {
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
+    $html .= '<th></th>';
     $html .= '<th>ID Ordine</th>';
     $html .= '<th>Email</th>';
     $html .= '<th>Stato Ordine</th>';
@@ -875,13 +876,19 @@ function stampaTabellaOrdiniSpedire() {
     // Verifica se ci sono risultati
     if ($ordersResult->num_rows > 0) {
         while($row = $ordersResult->fetch_assoc()) {
-            $html .= '<tr style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')">';
-            $html .= '<td>#00' . $row['id_ordine'] . '</td>';
-            $html .= '<td>' . $row['email'] . '</td>';
-            $html .= '<td>' . $row['stato_ordine'] . '</td>';
-            $html .= '<td>' . $row['data_ordine'] . '</td>';
-            $html .= '<td>' . $row['tipo_spedizione'] . '</td>';
-            $html .= '<td>' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
+            if($row['selected'] == 'false' ){
+                $selected = '<i class="fa-regular fa-square fs-5"></i>';
+            } else {
+                $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
+            }
+            $html .= '<tr>';
+            $html .= '<td class="clickable-row" data-id="'.$row['id_ordine'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >#00' . $row['id_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['email'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['stato_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['data_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_spedizione'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
             $html .= '</tr>';
         }
     } else {
@@ -894,6 +901,7 @@ function stampaTabellaOrdiniSpedire() {
     $html .= '</table>';
     $html .= '</div>';
     $html .= '</div>';
+
     
     // Chiudi la connessione se necessario
     $conn->close();
@@ -1102,7 +1110,7 @@ function stampaTabellaOrdiniAbbandonati() {
     require '../../conn.php';
     
     // Prepara e esegui la query per ottenere i dati degli ordini
-    $ordersQuery = "SELECT id_ordine, email, data_ordine, stato_ordine, totale_ordine, tipo_spedizione FROM ordini WHERE stato_ordine = 'Abbandonato'";
+    $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = 'Abbandonati'";
     $ordersResult = $conn->query($ordersQuery);
     
     // Costruisci l'HTML per la tabella
@@ -1111,6 +1119,7 @@ function stampaTabellaOrdiniAbbandonati() {
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
+    $html .= '<th></th>';
     $html .= '<th>ID Ordine</th>';
     $html .= '<th>Email</th>';
     $html .= '<th>Stato Ordine</th>';
@@ -1124,13 +1133,19 @@ function stampaTabellaOrdiniAbbandonati() {
     // Verifica se ci sono risultati
     if ($ordersResult->num_rows > 0) {
         while($row = $ordersResult->fetch_assoc()) {
-            $html .= '<tr style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')">';
-            $html .= '<td>#00' . $row['id_ordine'] . '</td>';
-            $html .= '<td>' . $row['email'] . '</td>';
-            $html .= '<td>' . $row['stato_ordine'] . '</td>';
-            $html .= '<td>' . $row['data_ordine'] . '</td>';
-            $html .= '<td>' . $row['tipo_spedizione'] . '</td>';
-            $html .= '<td>' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
+            if($row['selected'] == 'false' ){
+                $selected = '<i class="fa-regular fa-square fs-5"></i>';
+            } else {
+                $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
+            }
+            $html .= '<tr>';
+            $html .= '<td class="clickable-row" data-id="'.$row['id_ordine'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >#00' . $row['id_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['email'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['stato_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['data_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_spedizione'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
             $html .= '</tr>';
         }
     } else {
@@ -1143,6 +1158,7 @@ function stampaTabellaOrdiniAbbandonati() {
     $html .= '</table>';
     $html .= '</div>';
     $html .= '</div>';
+
     
     // Chiudi la connessione se necessario
     $conn->close();
@@ -1160,7 +1176,7 @@ function stampaTabellaOrdiniCompleti() {
     require '../../conn.php';
     
     // Prepara e esegui la query per ottenere i dati degli ordini
-    $ordersQuery = "SELECT id_ordine, email, data_ordine, stato_ordine, totale_ordine, tipo_spedizione FROM ordini WHERE stato_ordine = 'Evaso'";
+    $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = 'Evaso'";
     $ordersResult = $conn->query($ordersQuery);
     
     // Costruisci l'HTML per la tabella
@@ -1169,6 +1185,7 @@ function stampaTabellaOrdiniCompleti() {
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
+    $html .= '<th></th>';
     $html .= '<th>ID Ordine</th>';
     $html .= '<th>Email</th>';
     $html .= '<th>Stato Ordine</th>';
@@ -1182,13 +1199,19 @@ function stampaTabellaOrdiniCompleti() {
     // Verifica se ci sono risultati
     if ($ordersResult->num_rows > 0) {
         while($row = $ordersResult->fetch_assoc()) {
-            $html .= '<tr style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')">';
-            $html .= '<td>#00' . $row['id_ordine'] . '</td>';
-            $html .= '<td>' . $row['email'] . '</td>';
-            $html .= '<td>' . $row['stato_ordine'] . '</td>';
-            $html .= '<td>' . $row['data_ordine'] . '</td>';
-            $html .= '<td>' . $row['tipo_spedizione'] . '</td>';
-            $html .= '<td>' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
+            if($row['selected'] == 'false' ){
+                $selected = '<i class="fa-regular fa-square fs-5"></i>';
+            } else {
+                $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
+            }
+            $html .= '<tr>';
+            $html .= '<td class="clickable-row" data-id="'.$row['id_ordine'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >#00' . $row['id_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['email'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['stato_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['data_ordine'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_spedizione'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
             $html .= '</tr>';
         }
     } else {
@@ -1201,6 +1224,7 @@ function stampaTabellaOrdiniCompleti() {
     $html .= '</table>';
     $html .= '</div>';
     $html .= '</div>';
+
     
     // Chiudi la connessione se necessario
     $conn->close();

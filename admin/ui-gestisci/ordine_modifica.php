@@ -69,13 +69,23 @@ function dettagliTabella($dettagli_articoli) {
 <form action="" method="POST" style="padding: 10px;">
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom bg-dark text-light rounded-2">
-            <h1 class="h2">&nbsp;&nbsp;<?php stampaTotaleOrdine($id_order) ?></h1> <!-- Modificato per usare il titolo dal database -->
+        <h1 class="h2">&nbsp;&nbsp;<?php stampaTotaleOrdine($id_order); ?></h1> <!-- Modificato per usare il titolo dal database -->
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-            <?php if($stato_ordine == 'Inevaso'){echo '<a href="evadi_ordine?id='.$id_order.'" onclick="autoSaveEvaso()" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-circle-check"></i>&nbsp; Evadi Ordine</a>';}
-                    else if($stato_ordine == 'Evaso'){echo '<a href="inevadi_ordine?id='.$id_order.'" onclick="autoSaveInevaso()" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-circle-check"></i>&nbsp;Torna Inevaso</a>';}
-                    else{echo '<a href="" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-circle-check"></i>&nbsp;Spedito</a>';}?>
-                <a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteOrder();"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Abbandona Ordine</a>
+                <?php 
+                if ($stato_ordine == 'Inevaso') {
+                    echo '<a href="evadi_ordine?id='.$id_order.'" onclick="autoSaveEvaso()" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-circle-check"></i>&nbsp; Evadi Ordine</a>';
+                } else if ($stato_ordine == 'Evaso') {
+                    echo '<a href="inevadi_ordine?id='.$id_order.'" onclick="autoSaveInevaso()" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-circle-check"></i>&nbsp; Torna Inevaso</a>';
+                } else if ($stato_ordine == 'Spedito') {
+                    echo '<a href="" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-circle-check"></i>&nbsp; Spedito</a>';
+                }
+                ?>
+                <?php 
+                if ($stato_ordine != 'abbandonato') {
+                    echo '<a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteOrder('.$id_order.');"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Abbandona Ordine</a>';
+                }
+                ?>
                 <a href="#" class="btn btn-sm btn-outline-light" onclick="exit();"><i class="fa-solid fa-rectangle-xmark"></i>&nbsp; Chiudi Scheda</a>
             </div>
         </div>
@@ -275,7 +285,8 @@ function exit() {
         }
     });
 }
-function confirmDeleteOrder() {
+
+function confirmDeleteOrder(id_order) {
     swal({
         title: "Sei sicuro?",
         text: "Vuoi abbandonare questo ordine? Verrà notificato il cliente ma non rimborsato, per rimborsare il cliente dovrai accedere alla sezione 'rimborsi'.",
@@ -285,29 +296,29 @@ function confirmDeleteOrder() {
     })
     .then((willDelete) => {
         if (willDelete) {
-            document.getElementById('deleteOrderForm').submit();
+            window.location.href = 'abbandona_ordine?id=' + id_order;
         }
     });
 }
 
-function autoSaveEvaso() {
-        if (window.opener && !window.opener.closed) {
-            window.opener.location.href = '../ui/ordini_inevasi'; // Aggiorna le pagine genitore
-            window.opener.location.href = '../ui/ordini_completi'; 
-        }
-    }
-function autoSaveInevaso() {
-        if (window.opener && !window.opener.closed) {
-            window.opener.location.href = '../ui/ordini_completi'; 
-            window.opener.location.href = '../ui/ordini_inevasi'; // Aggiorna le pagine genitore
-        }
-    }
-function autoSaveAbbandonato() {
-        if (window.opener && !window.opener.closed) {
-            window.opener.location.href = '../ui/ordini_abbandonati'; 
-        }
-    }
 
+function autoSaveEvaso() {
+    if (window.opener && !window.opener.closed) {
+        window.opener.location.href = '../ui/ordini_completi';
+    }
+}
+
+function autoSaveInevaso() {
+    if (window.opener && !window.opener.closed) { 
+        window.opener.location.href = '../ui/ordini_inevasi';
+    }
+}
+
+function autoSaveAbbandonato() {
+    if (window.opener && !window.opener.closed) {
+        window.opener.location.href = '../ui/ordini_abbandonati';
+    }
+}
 
 
 </script>

@@ -213,7 +213,7 @@ function resetTimer() {
 function showToast() {
     const toastContainer = document.getElementById('toastContainer');
     const toastHTML = `
-        <div class="toast show align-items-center text-white bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="z-index: 999;">
+        <div class="toast show align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="z-index: 999;">
             <div class="d-flex">
                 <div class="toast-body">
                 <i class="fa-solid fa-link-slash"></i> La tua sessione è scaduta. <a href="../logout" class="btn btn-outline-light btn-sm">Accedi</a>
@@ -221,6 +221,7 @@ function showToast() {
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
+        <br><br>
     `;
     toastContainer.innerHTML = toastHTML;
     const toastElement = new bootstrap.Toast(toastContainer.querySelector('.toast'), {delay: 300000});

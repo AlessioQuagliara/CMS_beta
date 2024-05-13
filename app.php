@@ -642,12 +642,12 @@ function visualizzaClientiELeads() {
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER Tabella Inevasi ----------------------------------------------------------------------------------------
-function stampaTabellaOrdiniInevasi() {
+function stampaTabellaOrdini($whichPage) {
     // Includi la connessione al database
     require '../../conn.php';
     
     // Prepara e esegui la query per ottenere i dati degli ordini
-    $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = 'Inevaso'";
+    $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = '$whichPage'";
     $ordersResult = $conn->query($ordersQuery);
     
     // Costruisci l'HTML per la tabella
@@ -655,7 +655,7 @@ function stampaTabellaOrdiniInevasi() {
     $html .= '<div class="table-responsive">';
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
-    $html .= '<tr>';
+    $html .= '<tr id="columns">';
     $html .= '<th></th>';
     $html .= '<th>ID Ordine</th>';
     $html .= '<th>Email</th>';
@@ -850,69 +850,6 @@ function stampaTotaleOrdine($id_order) {
 // OrdiniSpedire.php ---------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER Tabella Spedizioni -------------------------------------------------------------------------------------
-function stampaTabellaOrdiniSpedire() {
-    // Includi la connessione al database
-    require '../../conn.php';
-    
-    // Prepara e esegui la query per ottenere i dati degli ordini
-    $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = 'Da Spedire'";
-    $ordersResult = $conn->query($ordersQuery);
-    
-    // Costruisci l'HTML per la tabella
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="table-responsive">';
-    $html .= '<table class="table table-bordered table-hover" id="myTable">';
-    $html .= '<thead class="table-dark">';
-    $html .= '<tr>';
-    $html .= '<th></th>';
-    $html .= '<th>ID Ordine</th>';
-    $html .= '<th>Email</th>';
-    $html .= '<th>Stato Ordine</th>';
-    $html .= '<th>Data Ordine</th>';
-    $html .= '<th>Tipo Spedizione</th>';
-    $html .= '<th>Totale Ordine</th>';
-    $html .= '</tr>';
-    $html .= '</thead>';
-    $html .= '<tbody class="table-light">';
-    
-    // Verifica se ci sono risultati
-    if ($ordersResult->num_rows > 0) {
-        while($row = $ordersResult->fetch_assoc()) {
-            if($row['selected'] == 'false' ){
-                $selected = '<i class="fa-regular fa-square fs-5"></i>';
-            } else {
-                $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
-            }
-            $html .= '<tr>';
-            $html .= '<td class="clickable-row" data-id="'.$row['id_ordine'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >#00' . $row['id_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['email'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['stato_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['data_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_spedizione'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
-            $html .= '</tr>';
-        }
-    } else {
-        $html .= '<tr>';
-        $html .= '<td colspan="6">Nessun ordine trovato</td>';
-        $html .= '</tr>';
-    }
-    
-    $html .= '</tbody>';
-    $html .= '</table>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    
-    // Chiudi la connessione se necessario
-    $conn->close();
-    
-    // Restituisci l'HTML costruito
-    return $html;
-}
-// ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER Spedizioni ---------------------------------------------------------------------------------------------
 function mostraDettagliOrdineSpedizione($idOrdine) {
     // Connessione al database
@@ -1103,138 +1040,6 @@ function aggiornaDettagliTracking() {
     }
 }
 
-// ---------------------------------------------------------------------------------------------------------------------
-// OrdiniAbbandonati.php -----------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER Tabella Inevasi ----------------------------------------------------------------------------------------
-function stampaTabellaOrdiniAbbandonati() {
-    // Includi la connessione al database
-    require '../../conn.php';
-    
-    // Prepara e esegui la query per ottenere i dati degli ordini
-    $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = 'Abbandonati'";
-    $ordersResult = $conn->query($ordersQuery);
-    
-    // Costruisci l'HTML per la tabella
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="table-responsive">';
-    $html .= '<table class="table table-bordered table-hover" id="myTable">';
-    $html .= '<thead class="table-dark">';
-    $html .= '<tr>';
-    $html .= '<th></th>';
-    $html .= '<th>ID Ordine</th>';
-    $html .= '<th>Email</th>';
-    $html .= '<th>Stato Ordine</th>';
-    $html .= '<th>Data Ordine</th>';
-    $html .= '<th>Tipo Spedizione</th>';
-    $html .= '<th>Totale Ordine</th>';
-    $html .= '</tr>';
-    $html .= '</thead>';
-    $html .= '<tbody class="table-light">';
-    
-    // Verifica se ci sono risultati
-    if ($ordersResult->num_rows > 0) {
-        while($row = $ordersResult->fetch_assoc()) {
-            if($row['selected'] == 'false' ){
-                $selected = '<i class="fa-regular fa-square fs-5"></i>';
-            } else {
-                $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
-            }
-            $html .= '<tr>';
-            $html .= '<td class="clickable-row" data-id="'.$row['id_ordine'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >#00' . $row['id_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['email'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['stato_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['data_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_spedizione'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
-            $html .= '</tr>';
-        }
-    } else {
-        $html .= '<tr>';
-        $html .= '<td colspan="6">Nessun ordine trovato</td>';
-        $html .= '</tr>';
-    }
-    
-    $html .= '</tbody>';
-    $html .= '</table>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    
-    // Chiudi la connessione se necessario
-    $conn->close();
-    
-    // Restituisci l'HTML costruito
-    return $html;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// OrdiniCompleti.php --------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER Tabella Inevasi ----------------------------------------------------------------------------------------
-function stampaTabellaOrdiniCompleti() {
-    // Includi la connessione al database
-    require '../../conn.php';
-    
-    // Prepara e esegui la query per ottenere i dati degli ordini
-    $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = 'Evaso'";
-    $ordersResult = $conn->query($ordersQuery);
-    
-    // Costruisci l'HTML per la tabella
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="table-responsive">';
-    $html .= '<table class="table table-bordered table-hover" id="myTable">';
-    $html .= '<thead class="table-dark">';
-    $html .= '<tr>';
-    $html .= '<th></th>';
-    $html .= '<th>ID Ordine</th>';
-    $html .= '<th>Email</th>';
-    $html .= '<th>Stato Ordine</th>';
-    $html .= '<th>Data Ordine</th>';
-    $html .= '<th>Tipo Spedizione</th>';
-    $html .= '<th>Totale Ordine</th>';
-    $html .= '</tr>';
-    $html .= '</thead>';
-    $html .= '<tbody class="table-light">';
-    
-    // Verifica se ci sono risultati
-    if ($ordersResult->num_rows > 0) {
-        while($row = $ordersResult->fetch_assoc()) {
-            if($row['selected'] == 'false' ){
-                $selected = '<i class="fa-regular fa-square fs-5"></i>';
-            } else {
-                $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
-            }
-            $html .= '<tr>';
-            $html .= '<td class="clickable-row" data-id="'.$row['id_ordine'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >#00' . $row['id_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['email'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['stato_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['data_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_spedizione'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
-            $html .= '</tr>';
-        }
-    } else {
-        $html .= '<tr>';
-        $html .= '<td colspan="6">Nessun ordine trovato</td>';
-        $html .= '</tr>';
-    }
-    
-    $html .= '</tbody>';
-    $html .= '</table>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    
-    // Chiudi la connessione se necessario
-    $conn->close();
-    
-    // Restituisci l'HTML costruito
-    return $html;
-}
 // ---------------------------------------------------------------------------------------------------------------------
 // ListaProdotti.php ---------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------

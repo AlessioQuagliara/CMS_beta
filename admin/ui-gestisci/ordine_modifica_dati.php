@@ -61,32 +61,16 @@ function dettagliTabella($dettagli_articoli) {
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
-    
-<form id="deleteOrderForm" action="" method="POST">
-    <input type="hidden" name="action" value="delete">
-</form>
 
-<form action="" method="POST" style="padding: 10px;">
+<!-- FORM --> 
+<form action="ordine_modifica_dati_esegui.php" method="POST" style="padding: 10px;">
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom bg-dark text-light rounded-2">
-        <h1 class="h2">&nbsp;&nbsp;<?php stampaTotaleOrdine($id_order); ?></h1> <!-- Modificato per usare il titolo dal database -->
+        <h1 class="h2">&nbsp;&nbsp;Modifica Ordine #ODV00<?php echo $id_ordine; ?></h1> <!-- Modificato per usare il titolo dal database -->
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <?php 
-                if ($stato_ordine == 'Inevaso') {
-                    echo '<a href="evadi_ordine?id='.$id_order.'" onclick="autoSaveEvaso()" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-circle-check"></i>&nbsp; Evadi Ordine</a>';
-                } else if ($stato_ordine == 'Evaso') {
-                    echo '<a href="inevadi_ordine?id='.$id_order.'" onclick="autoSaveInevaso()" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-circle-check"></i>&nbsp; Torna Inevaso</a>';
-                } else if ($stato_ordine == 'Spedito') {
-                    echo '<a href="" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-circle-check"></i>&nbsp; Spedito</a>';
-                }
-                ?>
-                <?php 
-                if ($stato_ordine != 'abbandonato') {
-                    echo '<a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteOrder('.$id_order.');"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Abbandona Ordine</a>';
-                }
-                ?>
-                <a href="#" class="btn btn-sm btn-outline-light" onclick="exit();"><i class="fa-solid fa-rectangle-xmark"></i>&nbsp; Chiudi Scheda</a>
+                <button type="submit" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-floppy-disk"></i>&nbsp; Salva</button>
+                <a href="ordine_modifica?id=<?php echo $id_ordine; ?>" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-chevron-left"></i>&nbsp; Torna Indietro</a>
             </div>
         </div>
     </div>
@@ -114,7 +98,7 @@ function dettagliTabella($dettagli_articoli) {
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Data Ordine</label>
                         <div class="col-sm-10">
-                            <input type="date" readonly class="form-control" value="<?php echo $data_ordine;?>">
+                            <input type="date" class="form-control" value="<?php echo $data_ordine;?>">
                         </div>
                     </div>
 
@@ -128,7 +112,7 @@ function dettagliTabella($dettagli_articoli) {
 
                     <div class="mb-6 row">
                         <div class="col-12 d-flex justify-content-end">
-                            <a href="ordine_modifica_dati?id=<?php echo $id_ordine; ?>" class="btn btn-outline-secondary">Modifica Dati</a>
+                            <a href="" class="btn btn-outline-secondary">Modifica Dati</a>
                         </div>
                     </div>
 
@@ -143,55 +127,47 @@ function dettagliTabella($dettagli_articoli) {
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Tipo di Spedizione</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $tipo_spedizione;?>">
+                            <input type="text" class="form-control" value="<?php echo $tipo_spedizione;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Paese</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $paese;?>">
+                            <input type="text" class="form-control" value="<?php echo $paese;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Città</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $citta;?>">
+                            <input type="text" class="form-control" value="<?php echo $citta;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Cap</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $cap;?>">
+                            <input type="text" class="form-control" value="<?php echo $cap;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Provincia</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $provincia;?>">
+                            <input type="text" class="form-control" value="<?php echo $provincia;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Indirizzo</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $indirizzo_spedizione;?>">
+                            <input type="text" class="form-control" value="<?php echo $indirizzo_spedizione;?>">
                         </div>
                     </div>
 
                 </div>
             </div>
-
-            <!-- TRACK NUMBER, inserisci qui il tracking -->
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Tracciabilità Pacco</h5>
-                </div>
-            </div>
-        </div>
 
         <!-- Colonna di destra -->
         <div class="col-md-6">
@@ -203,66 +179,28 @@ function dettagliTabella($dettagli_articoli) {
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Nome</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $nome;?>">
+                            <input type="text" class="form-control" value="<?php echo $nome;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Cognome</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $cognome;?>">
+                            <input type="text" class="form-control" value="<?php echo $cognome;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $email;?>">
+                            <input type="email" class="form-control" value="<?php echo $email;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Telefono</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $telefono;?>">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- ANALISI CONSUMATORE, inserisci l'analisi di quanti ordini ha fatto il cliente -->
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Analisi Cliente</h5>
-                </div>
-            </div>
-
-            <!-- LISTA ARTICOLI ORDINATI -->
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Articoli Ordinati</h5>
-
-                    <div class="mb-3 row">
-                        <div>
-                             
-                            <div class='table-responsive'>
-                                <table class='table table-striped table-hover'>
-                                    <thead class='thead-dark'>
-                                        <tr><th>img</th><th>Nome prodotto</th><th>Variante</th><th>Quantità</th><th>Prezzo</th></tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                        if (isset($dettagli_articoli['error'])) {
-                                            echo $dettagli_articoli['error'];
-                                        } else {
-                                            dettagliTabella($dettagli_articoli); 
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-
+                            <input type="number" class="form-control" value="<?php echo $telefono;?>">
                         </div>
                     </div>
 
@@ -302,7 +240,7 @@ function confirmDeleteOrder(id_order) {
     })
     .then((willDelete) => {
         if (willDelete) {
-            window.location.href = 'abbandona_ordine?id=' + id_order;
+            window.location.href = 'ordine_modifica?id=' + id_order;
         }
     });
 }

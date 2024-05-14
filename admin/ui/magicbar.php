@@ -17,7 +17,7 @@
         
         .toggle-button {
             position: absolute;
-            left: -125px; /* Posiziona il pulsante a sinistra della toolbar */
+            left: -115px; /* Posiziona il pulsante a sinistra della toolbar */
             top: 10px;
             cursor: pointer;
             padding: 8px 15px;

@@ -735,7 +735,7 @@ function aggiuntaOrdine(){
             $stmt->bind_param("sssssssssssss", $email, $data_ordine, $stato_ordine, $totale_ordine, $indirizzo_spedizione, $paese, $cap, $citta, $provincia, $telefono, $nome, $cognome, $tipo_spedizione);
             $result = $stmt->execute();
             if ($result) {
-                $feedback = "Ordine aggiunto con successo.";
+                $feedback = "&nbsp;&nbsp;Ordine aggiunto con successo.";
                 // Reindirizza alla pagina desiderata con un messaggio di successo
                 header('Location: ../ui/ordini_inevasi?success=' . urlencode($feedback));
                 exit;

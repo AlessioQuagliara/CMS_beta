@@ -184,13 +184,6 @@ function dettagliTabella($dettagli_articoli) {
 
                 </div>
             </div>
-
-            <!-- TRACK NUMBER, inserisci qui il tracking -->
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Tracciabilità Pacco</h5>
-                </div>
-            </div>
         </div>
 
         <!-- Colonna di destra -->
@@ -231,13 +224,6 @@ function dettagliTabella($dettagli_articoli) {
                 </div>
             </div>
 
-            <!-- ANALISI CONSUMATORE, inserisci l'analisi di quanti ordini ha fatto il cliente -->
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Analisi Cliente</h5>
-                </div>
-            </div>
-
             <!-- LISTA ARTICOLI ORDINATI -->
             <div class="card mb-3">
                 <div class="card-body">
@@ -266,6 +252,13 @@ function dettagliTabella($dettagli_articoli) {
                         </div>
                     </div>
 
+                </div>
+            </div>
+
+            <!-- TRACK NUMBER, inserisci qui il tracking -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Tracciabilità Pacco</h5>
                 </div>
             </div>
 

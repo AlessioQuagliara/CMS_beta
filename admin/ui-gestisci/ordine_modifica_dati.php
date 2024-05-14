@@ -110,12 +110,6 @@ function dettagliTabella($dettagli_articoli) {
                         </div>
                     </div>
 
-                    <div class="mb-6 row">
-                        <div class="col-12 d-flex justify-content-end">
-                            <a href="" class="btn btn-outline-secondary">Modifica Dati</a>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 

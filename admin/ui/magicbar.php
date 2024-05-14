@@ -33,7 +33,7 @@
             cursor: pointer;
         }
         .table-responsive {
-            height: 800px; /* Altezza fissa per la tabella */
+            height: 795px; /* Altezza fissa per la tabella */
             overflow-y: auto;
         }
         .table thead th {
@@ -41,8 +41,14 @@
             top: 0;
             z-index: 2;
         }
+        @media only screen and (max-width: 1440px) {
+            .table-responsive {
+            height: 615px; /* Altezza fissa per la tabella */
+            overflow-y: auto;
+        }
+        }
     </style>
-    <div class="toggle-button" title="Shortcut { CTRL + < }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
+    <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + < }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
     <div class="toolbar-content">
         <div class="row">
             <div class="col-md-2">

@@ -1,11 +1,11 @@
-<!---------------------------------------------------------------------- MAGIC ITEMS BAR ------------------------------------------------------------------------------------------>
+<!---------------------------------------------------------------------- PROMETHEUS ------------------------------------------------------------------------------------------>
 <div id="itembar" class="toolbar bg-dark text-white">
     <style>
         .toolbar {
             position: fixed;
             bottom: 0;
             right: 0; /* Posizione iniziale a destra */
-            width: 75%; /* Larghezza della toolbar */
+            width: 70%; /* Larghezza della toolbar */
             transform: translateX(100%); /* Nasconde la toolbar fuori dallo schermo */
             transition: transform 0.2s ease;
         }
@@ -17,7 +17,7 @@
         
         .toggle-button {
             position: absolute;
-            left: -115px; /* Posiziona il pulsante a sinistra della toolbar */
+            left: -140px; /* Posiziona il pulsante a sinistra della toolbar */
             top: 10px;
             cursor: pointer;
             padding: 8px 15px;
@@ -57,6 +57,8 @@
             <div class="col-md-6">
                 <button class="btn btn-sm btn-outline-success" title="Esporta in Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
                 <button class="btn btn-sm btn-outline-light" title="Seleziona Tutte le Righe { CTRL + A }" onclick="setSelectedTrueForAll()"><i class="fa-regular fa-square-check"></i></button>
+                <button class="btn btn-sm btn-outline-primary" title="Evadi Selezionati { CTRL + M }" onclick=""><i class="fa-solid fa-boxes-packing"></i></button>
+                <button class="btn btn-sm btn-outline-info" title="Tutorial & Istruzioni" onclick=""><i class="fa-solid fa-circle-info"></i></button>
                 <form action="../ui-gestisci/aggiunta_ordine.php" method="POST" style="display: inline;">&nbsp;
                     <input type="hidden" name="action" value="addOrder"> <!-- Campo nascosto per controllare l'azione nel backend -->
                     <button type="submit" class="btn btn-sm btn-outline-danger" title="Aggiungi Ordine Manuale">
@@ -124,4 +126,4 @@
         }
     </script>
     </div>
-<!---------------------------------------------------------------------- MAGIC ITEMS BAR ------------------------------------------------------------------------------------------>
+<!---------------------------------------------------------------------- PROMETHEUS ------------------------------------------------------------------------------------------>

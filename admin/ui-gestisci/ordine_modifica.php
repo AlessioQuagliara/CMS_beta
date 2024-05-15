@@ -86,6 +86,7 @@ function dettagliTabella($dettagli_articoli) {
                     echo '<a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteOrder('.$id_order.');"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Abbandona Ordine</a>';
                 }
                 ?>
+                <a href="ordine_modifica_dati?id=<?php echo $id_ordine; ?>" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-pen-to-square"></i>&nbsp; Modifica Dati</a>
                 <a href="#" class="btn btn-sm btn-outline-light" onclick="exit();"><i class="fa-solid fa-rectangle-xmark"></i>&nbsp; Chiudi Scheda</a>
             </div>
         </div>
@@ -123,12 +124,6 @@ function dettagliTabella($dettagli_articoli) {
                         <label class="col-sm-2 col-form-label">Stato Ordine</label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control <?php echo $colore_ordine; ?>" value="<?php echo $stato_ordine;?>">
-                        </div>
-                    </div>
-
-                    <div class="mb-6 row">
-                        <div class="col-12 d-flex justify-content-end">
-                            <a href="ordine_modifica_dati?id=<?php echo $id_ordine; ?>" class="btn btn-outline-secondary">Modifica Dati</a>
                         </div>
                     </div>
 
@@ -303,7 +298,7 @@ function confirmDeleteOrder(id_order) {
 
 function autoSaveEvaso() {
     if (window.opener && !window.opener.closed) {
-        window.opener.location.href = '../ui/ordini_completi';
+        window.opener.location.href = '../ui/ordini_inevasi';
     }
 }
 
@@ -315,7 +310,7 @@ function autoSaveInevaso() {
 
 function autoSaveAbbandonato() {
     if (window.opener && !window.opener.closed) {
-        window.opener.location.href = '../ui/ordini_abbandonati';
+        window.opener.location.href = '../ui/ordini_inevasi';
     }
 }
 

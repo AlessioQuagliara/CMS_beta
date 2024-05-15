@@ -710,8 +710,7 @@ function aggiuntaOrdine(){
     
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
-    
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addOrder') {
+
         // Valori predefiniti
         $email = 'scrivi@laemail.it';	
         $data_ordine = 'inserisci la data';	
@@ -726,8 +725,6 @@ function aggiuntaOrdine(){
         $nome = 'Inserisci il nome';	
         $cognome = 'inserisci il cognome';	
         $tipo_spedizione = 'Inserisci la spedizione';	
-
-        
 
         $query = "INSERT INTO ordini (email, data_ordine, stato_ordine, totale_ordine, indirizzo_spedizione, paese, cap, citta, provincia, telefono, nome, cognome, tipo_spedizione) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
@@ -753,11 +750,7 @@ function aggiuntaOrdine(){
             exit;
         }
         $conn->close();
-    } else {
-        // Se il metodo non è POST o l'azione non corrisponde, reindirizza l'utente
-        header('Location: ../ui/ordini_inevasi');
-        exit;
-    }
+
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI ORDINE ----------------------------------------------------------------------------------------

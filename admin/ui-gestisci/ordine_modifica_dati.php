@@ -91,14 +91,16 @@ function dettagliTabella($dettagli_articoli) {
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">ID ORDINE</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="#ODV00<?php echo $id_ordine;?>">
+                            <input name="id_ordine" type="text" readonly class="form-control" value="<?php echo $id_ordine;?>">
                         </div>
                     </div>
+
+                    <input name="totale_ordine" type="text" value="<?php echo $totale_ordine;?>">
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Data Ordine</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" value="<?php echo $data_ordine;?>">
+                            <input name="data_ordine" type="date" class="form-control" value="<?php echo $data_ordine;?>">
                         </div>
                     </div>
 
@@ -106,7 +108,7 @@ function dettagliTabella($dettagli_articoli) {
                         <?php if($stato_ordine == 'Inevaso'){$colore_ordine = 'text-danger';}else if($stato_ordine == 'Evaso'){$colore_ordine = 'text-success';}else{$colore_ordine = 'text-warning';}?>
                         <label class="col-sm-2 col-form-label">Stato Ordine</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control <?php echo $colore_ordine; ?>" value="<?php echo $stato_ordine;?>">
+                            <input name="stato_ordine" type="text" readonly class="form-control <?php echo $colore_ordine; ?>" value="<?php echo $stato_ordine;?>">
                         </div>
                     </div>
 
@@ -121,42 +123,42 @@ function dettagliTabella($dettagli_articoli) {
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Tipo di Spedizione</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php echo $tipo_spedizione;?>">
+                            <input name="tipo_spedizione" type="text" class="form-control" value="<?php echo $tipo_spedizione;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Paese</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php echo $paese;?>">
+                            <input name="paese" type="text" class="form-control" value="<?php echo $paese;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Città</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php echo $citta;?>">
+                            <input name="citta" type="text" class="form-control" value="<?php echo $citta;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Cap</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php echo $cap;?>">
+                            <input name="cap" type="text" class="form-control" value="<?php echo $cap;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Provincia</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php echo $provincia;?>">
+                            <input name="provincia" type="text" class="form-control" value="<?php echo $provincia;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Indirizzo</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php echo $indirizzo_spedizione;?>">
+                            <input name="indirizzo_spedizione" type="text" class="form-control" value="<?php echo $indirizzo_spedizione;?>">
                         </div>
                     </div>
 
@@ -173,28 +175,28 @@ function dettagliTabella($dettagli_articoli) {
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Nome</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php echo $nome;?>">
+                            <input name="nome" type="text" class="form-control" value="<?php echo $nome;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Cognome</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php echo $cognome;?>">
+                            <input name="cognome" type="text" class="form-control" value="<?php echo $cognome;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" value="<?php echo $email;?>">
+                            <input name="email" type="email" class="form-control" value="<?php echo $email;?>">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Telefono</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" value="<?php echo $telefono;?>">
+                            <input name="telefono" type="number" class="form-control" value="<?php echo $telefono;?>">
                         </div>
                     </div>
 

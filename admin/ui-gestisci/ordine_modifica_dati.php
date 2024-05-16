@@ -95,7 +95,7 @@ function dettagliTabella($dettagli_articoli) {
                         </div>
                     </div>
 
-                    <input name="totale_ordine" type="text" value="<?php echo $totale_ordine;?>">
+                    <input name="totale_ordine" type="text" class="d-none" value="<?php echo $totale_ordine;?>">
 
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Data Ordine</label>

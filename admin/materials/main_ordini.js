@@ -1,12 +1,12 @@
 // SCRIPT PAGINA -------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
-        // SCRIPT DI APERTURA MODIFICA ---------------------------------------------------------------------------------------------------------
+        // SCRIPT DI APERTURA MODIFICA ----------------------------------------------------------------------------------------------------------------------------------------------------------------
         function apriModifica(idOrdine) {
             // Apri una nuova finestra con l'URL desiderato e specifica le dimensioni
             window.open('../ui-gestisci/ordine_modifica.php?id=' + idOrdine, 'ModificaOrdine', 'width=1920,height=1080');
         }
         
-        // Funzione per filtrare le righe della tabella ---------------------------------------------------------------------------------------------------------
+        // Funzione per filtrare le righe della tabella ----------------------------------------------------------------------------------------------------------------------------------------------------------------
         function filterTable(searchValue) {
             var tableRows = document.getElementById('myTable').getElementsByTagName('tr');
             for (var i = 1; i < tableRows.length; i++) {
@@ -20,7 +20,7 @@
             }
         }
         
-        // SCRIPT DI RICERCA ---------------------------------------------------------------------------------------------------------
+        // SCRIPT DI RICERCA -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchInput');
             // Imposta il valore dell'input con il valore salvato nel localStorage
@@ -39,7 +39,7 @@
             });
         });
         
-        // SCRIPT DI ESPORTAZIONE EXCEL ---------------------------------------------------------------------------------------------------------
+        // SCRIPT DI ESPORTAZIONE EXCEL ----------------------------------------------------------------------------------------------------------------------------------------------------------------
         function exportToExcel() {
             const table = document.getElementById("myTable"); // La tua tabella originale
             const cloneTable = document.createElement("table"); // Creazione di una tabella temporanea
@@ -74,7 +74,7 @@
 
 
 
-        // STOP PROPAGAZIONE SELECT ---------------------------------------------------------------------------------------------------------
+        // STOP PROPAGAZIONE SELECT -------------------------------------------------------------------------------------------------------------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', function() {
             var noClickElements = document.querySelectorAll('.no-click');
             
@@ -84,7 +84,7 @@
                 });
             });
         });
-        // SCRIPT CAMBIO PAGINA ---------------------------------------------------------------------------------------------------------
+        // SCRIPT CAMBIO PAGINA -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', function() {
             const selectElement = document.querySelector('.form-select');
         
@@ -109,7 +109,7 @@
             });
         });
         
-        //SCRIPT DI SELECT PAGINE
+        //SCRIPT DI SELECT PAGINE ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', function() {
             const selectElement = document.getElementById('rowsPerPage');
         
@@ -136,7 +136,7 @@
             });
         });
 
-        // FAI APPARIRE UN TOAST PER L'AGGIUNTA DEL PRODOTTO
+        // FAI APPARIRE UN TOAST PER L'AGGIUNTA DEL PRODOTTO ----------------------------------------------------------------------------------------------------------------------------------------------------------------
         
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -171,14 +171,14 @@
         
 
 
-// LINK SCRIPT PREDEFINITI ------------------------------------------------------------------------------------------
+// LINK SCRIPT PREDEFINITI -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
-// SCRIPT SELEZIONE RIGHE --------------------------------------------------------------------------------------------------------------------------
+// SCRIPT SELEZIONE RIGHE ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 $(document).ready(function() {
     $('.clickable-row').click(function() {
         var $this = $(this);  // Cattura l'elemento cliccato

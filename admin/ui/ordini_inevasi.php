@@ -42,7 +42,7 @@ include '../materials/sidebar.php';
 <!---------------------------------------------------------------------- MAGIC ITEMS BAR ------------------------------------------------------------------------------------------>
 
 <?php include '../materials/script.php'; ?>
-<script src="../materials/main.js"></script>
+<script src="../materials/main_ordini.js"></script>
 
 </body>
 </html>

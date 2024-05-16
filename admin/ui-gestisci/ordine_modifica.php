@@ -59,6 +59,7 @@ function dettagliTabella($dettagli_articoli) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkBay - Ordine </title>
     <?php include '../materials/head_content.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body style="background-color: #f1f1f1;">
     
@@ -247,6 +248,10 @@ function dettagliTabella($dettagli_articoli) {
                         </div>
                     </div>
 
+                    <div class="mb-3">
+                        <a href="aggiunta_articoli_ordine.php?id=<?php echo $id_order; ?>" class="btn btn-outline-secondary">Aggiungi Articoli</a>
+                    </div>
+
                 </div>
             </div>
 
@@ -254,6 +259,18 @@ function dettagliTabella($dettagli_articoli) {
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Tracciabilità Pacco</h5>
+                    <div class="mb-3">
+                        <input type="text" readonly class="form-control" value="<?php echo $corriere;?>">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" readonly class="form-control" value="<?php echo $stato_spedizione;?>">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" readonly class="form-control" value="<?php echo $tracking;?>">
+                    </div>
+                    <div class="mb-3">
+                        <a href="aggiunta_tracking_ordine.php?id=<?php echo $id_order; ?>" class="btn btn-outline-secondary">Aggiungi Tracking</a>
+                    </div>
                 </div>
             </div>
 

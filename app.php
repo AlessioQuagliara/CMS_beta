@@ -1118,8 +1118,6 @@ function aggiuntaProdotto(){
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
     
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addProduct') {
-        // Valori predefiniti
         $titolo = 'Nuovo Prodotto';
         $descrizione = 'Descrizione del tuo Prodotto';
         $categoria = 'Categoria Predefinita';
@@ -1138,29 +1136,25 @@ function aggiuntaProdotto(){
             $result = $stmt->execute();
             if ($result) {
                 $feedback = "Prodotto aggiunto con successo.";
-                // Reindirizza alla pagina desiderata con un messaggio di successo
                 header('Location: ../ui/prodotti?success=' . urlencode($feedback));
                 exit;
             } else {
                 $feedback = "Errore durante l'inserimento del prodotto: " . $stmt->error;
-                // Reindirizza alla pagina desiderata con un messaggio di errore
                 header('Location: ../ui/prodotti?error=' . urlencode($feedback));
                 exit;
             }
             $stmt->close();
         } else {
             $feedback = "Errore durante la preparazione della query: " . $conn->error;
-            // Reindirizza alla pagina desiderata con un messaggio di errore
             header('Location: ../ui/prodotti?error=' . urlencode($feedback));
             exit;
         }
         $conn->close();
-    } else {
-        // Se il metodo non è POST o l'azione non corrisponde, reindirizza l'utente
+
         header('Location: ../ui/prodotti');
         exit;
     }
-}
+
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER AGGIUNTA IMMAGINI PRODOTTO -----------------------------------------------------------------------------
 function aggiuntaImmagini($id_prodotto) {

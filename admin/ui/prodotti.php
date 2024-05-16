@@ -26,21 +26,21 @@ loggato()
 
         <!-- BARRA STRUMENTI -->
 
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <!--         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <div class="input-group">
                 <input class="form-control" id="searchInput" type="text" placeholder="Cerca..." aria-label="Cerca">
                 <button class="btn btn-sm btn-outline-secondary" type="button" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i>&nbsp; Esporta Tabella</button>&nbsp;
                 <form action="../ui-gestisci/aggiunta_prodotto.php" method="POST" style="display: inline;">&nbsp;
-                    <input type="hidden" name="action" value="addProduct"> <!-- Campo nascosto per controllare l'azione nel backend -->
+                    <input type="hidden" name="action" value="addProduct"> // Campo nascosto per controllare l'azione nel backend 
                     <button type="submit" class="btn btn-sm btn-outline-dark">
                         <i class="fa-solid fa-plus"></i>&nbsp; Aggiungi Prodotto
                     </button>
                 </form>
             </div>
-        </div>
+        </div> -->
         <!-- SELECT PER PAGINE-->
 
-        <div class="row mb-3">
+        <!--         <div class="row mb-3">
             <div class="col-auto">
                 <label for="rowsPerPage" class="col-form-label">Righe per pagina:</label>
             </div>
@@ -52,7 +52,8 @@ loggato()
                     <option value="Tutti">Tutti</option>
                 </select>
             </div>
-        </div>
+        </div> -->
+        
         <!-- TABELLA CONTENUTI ------------------------>
 
         <?php echo listaProdotti(); ?>
@@ -67,7 +68,11 @@ loggato()
             </div>
         <?php endif; ?>
 
-        <!-- MESSAGGIO ------------------------------->
+        <div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 999;"></div>
+
+        <!-- PROMETHEUS ------------------------------->
+
+        <?php include 'prometheus.php'; ?>
 
     </main>
 
@@ -95,7 +100,7 @@ loggato()
 
         // SCRIPT DI RICERCA
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
+            const searchInput = document.getElementById('searchInputProdotti');
             // Imposta il valore dell'input con il valore salvato nel localStorage
             const savedSearchValue = localStorage.getItem('searchValue') || '';
             searchInput.value = savedSearchValue;
@@ -123,7 +128,7 @@ loggato()
 
         //SCRIPT DI SELECT PAGINE
         document.addEventListener('DOMContentLoaded', function() {
-            const selectElement = document.getElementById('rowsPerPage');
+            const selectElement = document.getElementById('rowsPerPageProdotti');
 
             function updateVisibleRows() {
                 const selectedValue = selectElement.value === 'Tutti' ? Number.MAX_SAFE_INTEGER : parseInt(selectElement.value, 10);
@@ -139,12 +144,14 @@ loggato()
             // Applica il filtro ogni volta che l'utente cambia selezione
             selectElement.addEventListener('change', updateVisibleRows);
         });
-    </script>
 
-    <!---------------------------------------------------------------------- MAGIC ITEMS BAR ------------------------------------------------------------------------------------------>
-    <?php include 'prometheus.php'; ?>
-    <!---------------------------------------------------------------------- MAGIC ITEMS BAR ------------------------------------------------------------------------------------------>
+        document.addEventListener('DOMContentLoaded', function(){
+            const selectState = document.getElementById('statoProdotto')
+        })
+
+    </script>
     <?php include '../materials/script.php'; ?>
+    <script src="../materials/main_prodotti.js"></script>
 </body>
 
 </html>

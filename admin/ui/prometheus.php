@@ -60,7 +60,7 @@
                 }
             }
         </style>
-        <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + < }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
+        <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + Q }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
         <div class="toolbar-content">
             <div class="row">
                 <div class="col-md-2">
@@ -259,7 +259,7 @@
                 if (event.key === 'f' && event.ctrlKey) {
                     var toolbar = document.getElementById('itembar');
                     if (toolbar.classList.contains('expanded')) {
-                        document.getElementById('searchInput').focus();
+                        document.getElementById('searchInputProdotti').focus();
                     } else {
                         toggleToolbar();
                         // Usare setTimeout per aspettare la fine dell'animazione di espansione

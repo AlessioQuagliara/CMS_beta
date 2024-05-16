@@ -1045,6 +1045,7 @@ function listaProdotti() {
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
+    $html .= '<th></th>';
     $html .= '<th>Pic</th>';
     $html .= '<th>Prodotto</th>';
     $html .= '<th>Stato</th>';
@@ -1091,15 +1092,20 @@ function listaProdotti() {
         } else {
             $check_qnt = '<b class="text-success">Scorte Sufficenti</b>'; // Nessun messaggio se la quantità è maggiore di 5
         }
-        // Inserimento delle informazioni del prodotto nell'HTML
-        $html .= "<tr style='cursor: pointer;' onclick='apriModifica($idProdotto)'>";
-        $html .= "<td><img src='" . htmlspecialchars($immagine, ENT_QUOTES) . "' width='30px'></td>";
-        $html .= "<td>" . htmlspecialchars($row['titolo'], ENT_QUOTES) . "</td>";
-        $html .= "<td>$check&nbsp;" . htmlspecialchars($row['stato'], ENT_QUOTES) . "</td>"; // Aggiungi qui la logica per visualizzare $check
-        $html .= "<td>" . htmlspecialchars($row['collezione'], ENT_QUOTES) . "</td>";
-        $html .= "<td>" . htmlspecialchars($row['quantita'], ENT_QUOTES) . "</td>"; // Aggiungi qui la logica per visualizzare $check_qnt
-        $html .= "<td>" .$check_qnt. "</td>"; // Aggiungi qui la logica per visualizzare $check_qnt
-        $html .= "<td>" . htmlspecialchars($row['prezzo'], ENT_QUOTES) . "€</td>";
+        if($row['selected'] == 'false' ){
+            $selected = '<i class="fa-regular fa-square fs-5"></i>';
+        } else {
+            $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
+        }
+        $html .= '<tr>';
+        $html .= '<td class="clickable-row" data-id="'.$row['id_prodotto'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
+        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' ><img src='" . htmlspecialchars($immagine, ENT_QUOTES) . "' width='30px'></td>";
+        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['titolo'], ENT_QUOTES) . "</td>";
+        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >$check&nbsp;" . htmlspecialchars($row['stato'], ENT_QUOTES) . "</td>"; // Aggiungi qui la logica per visualizzare $check
+        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['collezione'], ENT_QUOTES) . "</td>";
+        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['quantita'], ENT_QUOTES) . "</td>"; // Aggiungi qui la logica per visualizzare $check_qnt
+        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" .$check_qnt. "</td>"; // Aggiungi qui la logica per visualizzare $check_qnt
+        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['prezzo'], ENT_QUOTES) . "€</td>";
         $html .= "</tr>";
     }
 

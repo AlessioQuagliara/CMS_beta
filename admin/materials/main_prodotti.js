@@ -57,3 +57,113 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+  // SCRIPT DI APERTURA MODIFICA
+  function apriModifica(idProdotto) {
+    // Apri una nuova finestra con l'URL desiderato e specifica le dimensioni
+    window.open('../ui-gestisci/prodotto_modifica.php?id=' + idProdotto, 'ModificaProdotto', 'width=1920,height=1080');
+}
+
+
+// Funzione per filtrare le righe della tabella
+function filterTable(searchValue) {
+    var tableRows = document.getElementById('myTable').getElementsByTagName('tr');
+    for (var i = 1; i < tableRows.length; i++) {
+        var currentRow = tableRows[i];
+        var textContent = currentRow.textContent.toLowerCase();
+        if (textContent.includes(searchValue)) {
+            currentRow.style.display = '';
+        } else {
+            currentRow.style.display = 'none';
+        }
+    }
+}
+
+// SCRIPT DI RICERCA
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInputProdotti');
+    // Imposta il valore dell'input con il valore salvato nel localStorage
+    const savedSearchValue = localStorage.getItem('searchValue') || '';
+    searchInput.value = savedSearchValue;
+
+    // Applica il filtro basato sul valore salvato non appena la pagina viene caricata
+    filterTable(savedSearchValue);
+
+    searchInput.addEventListener('keyup', function() {
+        var searchValue = this.value.toLowerCase();
+        // Salva il valore corrente nel localStorage
+        localStorage.setItem('searchValue', searchValue);
+        // Filtra le righe della tabella basandosi sul valore di ricerca
+        filterTable(searchValue);
+    });
+});
+
+// SCRIPT DI ESPORTAZIONE EXCEL
+function exportToExcel() {
+    const table = document.getElementById("myTable");
+    const ws = XLSX.utils.table_to_sheet(table);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Tabella");
+    XLSX.writeFile(wb, "<?php echo substr($currentPage, 0, -4); ?>.xlsx");
+}
+
+//SCRIPT DI SELECT PAGINE
+document.addEventListener('DOMContentLoaded', function() {
+    const selectElement = document.getElementById('rowsPerPageProdotti');
+
+    function updateVisibleRows() {
+        const selectedValue = selectElement.value === 'Tutti' ? Number.MAX_SAFE_INTEGER : parseInt(selectElement.value, 10);
+        const tableRows = document.getElementById('myTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+        for (let i = 0; i < tableRows.length; i++) {
+            tableRows[i].style.display = i < selectedValue ? '' : 'none';
+        }
+    }
+
+    // Applica il filtro basato sul valore selezionato al caricamento della pagina
+    updateVisibleRows();
+
+    // Applica il filtro ogni volta che l'utente cambia selezione
+    selectElement.addEventListener('change', updateVisibleRows);
+});
+
+// SCRIPT SELEZIONE RIGHE ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+$(document).ready(function() {
+    $('.clickable-row').click(function() {
+        var $this = $(this);  // Cattura l'elemento cliccato
+        var id = $this.data('id');
+        var stato = $this.data('stato');
+        var nuovoStato = (stato === 'true' ? 'false' : 'true');  // Cambia lo stato logicamente
+
+        $.ajax({
+            url: '../ui-gestisci/update_selezione_prodotto.php',  // Percorso al tuo file PHP che gestisce l'update
+            type: 'POST',
+            data: {id: id, nuovoStato: nuovoStato},
+            success: function(response) {
+                $this.data('stato', nuovoStato);
+                if (nuovoStato === 'true') {
+                    $this.html('<i class="fa-solid fa-square-check fs-5"></i>');
+                } else {
+                    $this.html('<i class="fa-regular fa-square fs-5"></i>');
+                }
+            },
+            error: function() {
+                alert('Errore nella selezione della riga.');
+            }
+        });
+    });
+});
+function setSelectedTrueForAll() {
+    $.ajax({
+        url: '../ui-gestisci/update_selezioni_prodotti.php', 
+        type: 'POST',
+        data: {
+            action: 'toggleAllSelected',
+        },
+        success: function(response) {
+            location.reload();  // Ricarica la pagina per riflettere le modifiche
+        },
+        error: function() {
+            alert('Errore');
+        }
+    });
+}

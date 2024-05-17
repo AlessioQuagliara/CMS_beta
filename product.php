@@ -1,26 +1,20 @@
 <?php require_once ('app.php'); require 'visita.php'; require ('conn.php');
 
-// Recupera il titolo del prodotto dall'URL
 $productTitle = isset($_GET['titolo']) ? $_GET['titolo'] : '';
 
-// Prepara la dichiarazione SQL per prevenire SQL injection
 $stmt = $conn->prepare("SELECT * FROM prodotti WHERE titolo = ?");
 $stmt->bind_param("s", $productTitle);
 
-// Esegui la dichiarazione
 $stmt->execute();
 
-// Ottieni il risultato
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
-    // Recupera i dati del prodotto
     $product = $result->fetch_assoc();
 } else {
     echo "Prodotto non trovato.";
     exit;
 }
 
-// Chiudi la connessione
 $stmt->close();
 $conn->close();
 

@@ -259,17 +259,26 @@ function dettagliTabella($dettagli_articoli) {
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Tracciabilità Pacco</h5>
-                    <div class="mb-3">
-                        <input type="text" readonly class="form-control" value="<?php echo $corriere;?>">
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Corriere</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $corriere;?>">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Tacking</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $tracking;?>">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Stato Spedizione</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control" value="<?php echo $stato_spedizione;?>">
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <input type="text" readonly class="form-control" value="<?php echo $stato_spedizione;?>">
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" readonly class="form-control" value="<?php echo $tracking;?>">
-                    </div>
-                    <div class="mb-3">
-                        <a href="aggiunta_tracking_ordine.php?id=<?php echo $id_order; ?>" class="btn btn-outline-secondary">Aggiungi Tracking</a>
+                        <a href="aggiunta_spedizione_ordine.php?id=<?php echo $id_order; ?>" class="btn btn-outline-secondary">Modifica Spedizione</a>
                     </div>
                 </div>
             </div>

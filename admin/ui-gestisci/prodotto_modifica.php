@@ -21,10 +21,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         </script>";
     }
 
-    // Ora puoi recuperare i dettagli correnti del prodotto per mostrarli nella pagina
     $dettagliProdotto = ottieniDettagliProdotto($id_prodotto); // Funzione che recupera i dettagli del prodotto
 } else {
-    header("Location: prodotto_modifica.php"); // Reindirizza se l'ID del prodotto non è valido o mancante
+    header("Location: ../ui/prodotti?warning=Prodotto+non+trovato"); // Reindirizza se l'ID del prodotto non è valido o mancante
     exit;
 }
 loggato();
@@ -49,7 +48,7 @@ loggato();
     <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
         <button type="submit" name="modifica" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-floppy-disk"></i>&nbsp; Salva Modifiche</button>
-        <a href="<?php echo 'https://www.spinaudiohifi.com/prodotto.php?id_prodotto=' . $id_prodotto;?>" target="__blank" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-eye"></i>&nbsp; Visualizza</a>
+        <a href="../../prodotti/<?php echo urlencode($dettagliProdotto['titolo']); ?>" target="__blank" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-eye"></i>&nbsp; Visualizza</a>
         <a href="#" class="btn btn-sm btn-outline-light" onclick="creaVarianteProdotto(<?php echo $id_prodotto; ?>);"><i class="fa-solid fa-clone"></i> Crea Variante</a>
         <a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteProduct();"><i class="fa-solid fa-trash"></i>&nbsp; Elimina Prodotto</a>
         <a href="#" class="btn btn-sm btn-outline-light" onclick="exit();"><i class="fa-solid fa-rectangle-xmark"></i>&nbsp; Chiudi Scheda</a>

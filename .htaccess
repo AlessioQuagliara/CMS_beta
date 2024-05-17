@@ -1,6 +1,12 @@
 RewriteEngine On
+
+# Regola per prodotti con nome SEO-friendly
+RewriteRule ^prodotti/([a-zA-Z0-9-]+)$ product.php?titolo=$1 [L]
+
+# Regole generali per riscrivere gli URL in modo che puntino a file PHP
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
-ErrorDocument 404 "404.php"
+# Specifica il percorso completo per l'errore 404
+ErrorDocument 404 /404.php

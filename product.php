@@ -1,4 +1,30 @@
-<?php require_once ('app.php'); require 'visita.php';?>
+<?php require_once ('app.php'); require 'visita.php'; require ('conn.php');
+
+// Recupera il titolo del prodotto dall'URL
+$productTitle = isset($_GET['titolo']) ? $_GET['titolo'] : '';
+
+// Prepara la dichiarazione SQL per prevenire SQL injection
+$stmt = $conn->prepare("SELECT * FROM prodotti WHERE titolo = ?");
+$stmt->bind_param("s", $productTitle);
+
+// Esegui la dichiarazione
+$stmt->execute();
+
+// Ottieni il risultato
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+    // Recupera i dati del prodotto
+    $product = $result->fetch_assoc();
+} else {
+    echo "Prodotto non trovato.";
+    exit;
+}
+
+// Chiudi la connessione
+$stmt->close();
+$conn->close();
+
+?>
 <!DOCTYPE html>
 <html lang="it">
 <!-- TESTA -->
@@ -6,12 +32,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- SEO -->
-    <title></title>
+    <title><?php echo htmlspecialchars($product['titolo']); ?></title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link rel="shortcut icon" href="src/media_system/favicon.ico" type="image/x-icon">
     <!-- LINK STILE BOOTSTRAP -->
-    <link href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <!-- GOOGLE & FACEBOOK -->

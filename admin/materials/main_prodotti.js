@@ -25,21 +25,31 @@
     });
 });
 
-// FAI APPARIRE UN TOAST PER L'AGGIUNTA DEL PRODOTTO
-
+// FAI APPARIRE UN TOAST PER L'AGGIUNTA DEL PRODOTTO o ERRORE DI RICERCA-----------------------------------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const successMessage = urlParams.get('success');
-    
+    const warningMessage = urlParams.get('warning');
+
     if (successMessage) {
+        displayToast('success', successMessage);
+    }
+    if (warningMessage) {
+        displayToast('warning', warningMessage);
+    }
+
+    function displayToast(type, message) {
         const toastContainer = document.getElementById('toastContainer');
+        const backgroundColor = type === 'success' ? 'bg-success' : 'bg-warning';
+        const icon = type === 'success' ? 'fa-circle-check' : 'fa-triangle-exclamation'; // Aggiungi qui l'icona per warning se diversa
+
         const toastHTML = `
-            <div class="toast show align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+            <div class="toast show align-items-center text-white ${backgroundColor} border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                 <div class="d-flex">
                     <div class="toast-body">
-                        <i class="fa-solid fa-circle-check"></i> ${decodeURIComponent(successMessage.replace(/\+/g, ' '))}
+                        <i class="fa-solid ${icon}"></i> ${decodeURIComponent(message.replace(/\+/g, ' '))}
                     </div>
-                    <button id="closeToastButton" type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
             <br><br>
@@ -48,15 +58,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const toastElement = toastContainer.querySelector('.toast');
         const toast = new bootstrap.Toast(toastElement);
         toast.show();
-        
-        document.getElementById('closeToastButton').addEventListener('click', function() {
-            // Rimuovi il parametro 'success' dalla URL
-            const url = new URL(window.location);
-            url.searchParams.delete('success');
-            window.history.pushState({}, document.title, url.toString());
+
+        toastElement.querySelector('.btn-close').addEventListener('click', function() {
+            urlParams.delete(type === 'success' ? 'success' : 'warning');
+            window.history.pushState({}, document.title, '?' + urlParams.toString());
         });
     }
 });
+
 
   // SCRIPT DI APERTURA MODIFICA
   function apriModifica(idProdotto) {

@@ -1,4 +1,4 @@
-    <!-- Google Analytics -->
+    <!-- Google Analytics --------------------------------------------------------------------------------------------->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -16,7 +16,7 @@
         gtag('config', 'AW-XXXXXXX'); // Sostituisci con l'ID di Google Ads
     </script>
 
-    <!-- Facebook Pixel -->
+    <!-- Facebook Pixel --------------------------------------------------------------------------------------------->
     <script>
         !function(f,b,e,v,n,t,s) {
             if(f.fbq)return;n=f.fbq=function(){n.callMethod?

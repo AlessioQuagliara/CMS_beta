@@ -1,5 +1,9 @@
 <?php
-require 'conn.php'; // Importa la funzione di connessione al database 
+if (!file_exists('conn.php')) {
+    header("Location: install_linkbay/");
+    exit();
+}
+require 'conn.php';
 
 
 // ---------------------------------------------------------------------------------------------------------------------

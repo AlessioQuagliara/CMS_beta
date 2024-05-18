@@ -40,8 +40,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Esegui i file SQL
-    runSQLFile($conn, 'path/to/schema.sql');
-    runSQLFile($conn, 'path/to/data.sql');
+    runSQLFile($conn, 'CMS.sql');
+
+    // Scrivi il file conn.php con le nuove credenziali di connessione
+    $connFileContent = "<?php\n\n";
+    $connFileContent .= "\$servername = \"$host\";\n";
+    $connFileContent .= "\$username = \"$username\";\n";
+    $connFileContent .= "\$password = \"$password\";\n";
+    $connFileContent .= "\$dbname = \"$dbname\";\n\n";
+    $connFileContent .= "\$conn = new mysqli(\$servername, \$username, \$password, \$dbname);\n";
+    $connFileContent .= "if (\$conn->connect_error) {\n";
+    $connFileContent .= "    die(\"Connessione al database fallita: \" . \$conn->connect_error);\n";
+    $connFileContent .= "}\n\n?>";
+
+    file_put_contents('../../conn.php', $connFileContent);
 
     $conn->close();
 }
@@ -53,19 +65,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Installazione Database</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
 </head>
 <body>
-    <h1>Installazione Database</h1>
-    <form method="post">
-        <label for="host">Host:</label><br>
-        <input type="text" id="host" name="host" required><br>
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br>
-        <label for="dbname">Nome Database:</label><br>
-        <input type="text" id="dbname" name="dbname" required><br><br>
-        <input type="submit" value="Installa">
-    </form>
+    <div class="card bg-light text-dark w-25">
+        <div class="card-header text-center">
+            <img src="../admin/materials/linkbay_logo.png" width="150px" alt="">
+            <br>
+            <h2>Installazione LinkBay</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="host" class="form-label">Host:</label>
+                    <input type="text" id="host" name="host" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="dbname" class="form-label">Nome Database:</label>
+                    <input type="text" id="dbname" name="dbname" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-danger w-100">Installa</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

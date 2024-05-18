@@ -2,7 +2,7 @@
 
 $productTitle = isset($_GET['titolo']) ? $_GET['titolo'] : '';
 
-$stmt = $conn->prepare("SELECT * FROM prodotti WHERE titolo = ?");
+$stmt = $conn->prepare("SELECT * FROM prodotti WHERE titolo_seo = ?");
 $stmt->bind_param("s", $productTitle);
 
 $stmt->execute();

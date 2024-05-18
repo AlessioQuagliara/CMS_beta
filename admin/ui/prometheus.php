@@ -70,7 +70,7 @@
                     <button class="btn btn-sm btn-outline-danger" title="Aggiungi Ordine Manuale { CTRL + N }" onclick="addOrder()"><i class="fa-solid fa-plus"></i></button>
                     <button class="btn btn-sm btn-outline-success" title="Esporta in Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
                     <button class="btn btn-sm btn-outline-light" title="Seleziona Tutte le Righe { CTRL + A }" onclick="setSelectedTrueForAll()"><i class="fa-regular fa-square-check"></i></button>
-                    <button class="btn btn-sm btn-outline-primary" title="Evadi Selezionati { CTRL + M }" onclick=""><i class="fa-solid fa-boxes-packing"></i></button>
+                    <button class="btn btn-sm btn-outline-primary" title="Evadi Selezionati { CTRL + M }" onclick="evadiSelezionati()"><i class="fa-solid fa-boxes-packing"></i></button>
                     <button class="btn btn-sm btn-outline-secondary" title="Aggiorna pagina { CTRL + R }" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate"></i></button>
                     <button class="btn btn-sm btn-outline-info" title="Tutorial & Istruzioni" onclick=""><i class="fa-solid fa-circle-info"></i></button>
                 </div>
@@ -111,6 +111,9 @@
                 if (event.key === 'n' && event.ctrlKey) {
                     addOrder();
                 }
+                if (event.key === 'd' && event.ctrlKey) {
+                    evadiSelezionati();
+                }
                 if (event.key === 'a' && event.ctrlKey) {
                     setSelectedTrueForAll();
                 }
@@ -137,6 +140,21 @@
 
             function addOrder() {
                 window.location.href = '../ui-gestisci/aggiunta_ordine.php';
+            }
+
+            function evadiSelezionati(){
+                swal({
+                    title: "Vuoi Evadere tutti gli ordini selezionati?",
+                    text: "Verranno evasi tutti gli ordini selezionati, l'azione è reversibile manualmente",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location.href = '../ui-gestisci/evadi_ordini_selezionati';
+                    }
+                });
             }
 
             function toggleToolbar() {
@@ -203,18 +221,17 @@
                 }
             }
         </style>
-        <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + < }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
+        <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + Q }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
         <div class="toolbar-content">
             <div class="row">
                 <div class="col-md-2">
                     <input class="form-control" id="searchInputProdotti" type="text" placeholder="Cerca..." aria-label="Cerca">
                 </div>
                 <div class="col-md-6">
-                    <a href="../ui-gestisci/aggiunta_prodotto.php" class="btn btn-sm btn-outline-danger" title="Aggiungi Prodotto { CTRL + N }" type="submit"><i class="fa-solid fa-plus"></i></a>
-                    <!-- <button class="btn btn-sm btn-outline-danger" title="Aggiungi Prodotto { CTRL + N }" onclick="addOrder()"><i class="fa-solid fa-plus"></i></button> -->
+                    <button class="btn btn-sm btn-outline-danger" title="Aggiungi Prodotto { CTRL + N }" onclick="addProduct()"><i class="fa-solid fa-plus"></i></button>
                     <button class="btn btn-sm btn-outline-success" title="Esporta in Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
                     <button class="btn btn-sm btn-outline-light" title="Seleziona Tutte le Righe { CTRL + A }" onclick="setSelectedTrueForAll()"><i class="fa-regular fa-square-check"></i></button>
-                    <button class="btn btn-sm btn-outline-primary" title="Cancella Selezionati { CTRL + M }" onclick=""><i class="fa-solid fa-boxes-packing"></i></button>
+                    <button class="btn btn-sm btn-outline-danger" title="Cancella Selezionati { CTRL + D }" onclick="deleteProduct()"><i class="fa-solid fa-trash"></i></button>
                     <button class="btn btn-sm btn-outline-secondary" title="Aggiorna pagina { CTRL + R }" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate"></i></button>
                     <button class="btn btn-sm btn-outline-info" title="Tutorial & Istruzioni" onclick=""><i class="fa-solid fa-circle-info"></i></button>
                 </div>
@@ -251,10 +268,13 @@
                     exportToExcel();
                 }
                 if (event.key === 'n' && event.ctrlKey) {
-                    addOrder();
+                    addProduct();
                 }
                 if (event.key === 'a' && event.ctrlKey) {
                     setSelectedTrueForAll();
+                }
+                if (event.key === 'd' && event.ctrlKey) {
+                    deleteProduct('');
                 }
                 if (event.key === 'f' && event.ctrlKey) {
                     var toolbar = document.getElementById('itembar');
@@ -277,12 +297,22 @@
                 location.reload(true);
             }
 
-            function refreshPage() {
-                location.reload(true);
+            function addProduct(){
+                window.location.href ='../ui-gestisci/aggiunta_prodotto.php';
             }
-
-            function addOrder() {
-                window.location.href = '../ui-gestisci/aggiunta_prodotto.php';
+            function deleteProduct(){
+                swal({
+                    title: "Cancellare i Prodotti Selezionati?",
+                    text: "Verranno cancellati tutti i prodotti che hai selezionato, l'azione è irreversibile.",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location.href ='../ui-gestisci/cancella_prodotti_selezionati';
+                    }
+                });
             }
 
             function toggleToolbar() {

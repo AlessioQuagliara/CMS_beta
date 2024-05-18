@@ -1260,11 +1260,14 @@ function modificaProdotto($id_prodotto) {
         $collezione = $_POST["collezione"];
         $varianti = $_POST["varianti"];
 
+        // Genera lo slug SEO-friendly
+        $titolo_seo = generateSlug($titolo);
+
         // Esegui la query di aggiornamento
-        $query = "UPDATE prodotti SET titolo=?, descrizione=?, categoria=?, collezione=?, stato=?, prezzo=?, prezzo_comparato=?, quantita=?, peso=?, varianti=? WHERE id_prodotto = ?";
+        $query = "UPDATE prodotti SET titolo=?, titolo_seo=?, descrizione=?, categoria=?, collezione=?, stato=?, prezzo=?, prezzo_comparato=?, quantita=?, peso=?, varianti=? WHERE id_prodotto = ?";
         $stmt = $conn->prepare($query);
         if ($stmt) {
-            $stmt->bind_param("ssssssdiisi", $titolo, $descrizione, $categoria, $collezione, $stato, $prezzo, $prezzo_comparato, $quantita, $peso, $varianti, $id_prodotto);
+            $stmt->bind_param("sssssssdiisi", $titolo, $titolo_seo, $descrizione, $categoria, $collezione, $stato, $prezzo, $prezzo_comparato, $quantita, $peso, $varianti, $id_prodotto);
             if ($stmt->execute()) {
                 $result = "Modifiche apportate con successo.";
             } else {

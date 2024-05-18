@@ -26,7 +26,9 @@ loggato()
 
         <!-- TABELLA CONTENUTI ------------------------>
 
-        <?php echo listaProdotti(); ?>
+        <?php
+            echo listaProdotti(); 
+         ?>
 
         <!-- MESSAGGIO ------------------------------->
 

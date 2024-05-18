@@ -107,13 +107,37 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// SCRIPT DI ESPORTAZIONE EXCEL
+// SCRIPT DI ESPORTAZIONE EXCEL ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 function exportToExcel() {
-    const table = document.getElementById("myTable");
-    const ws = XLSX.utils.table_to_sheet(table);
+    const table = document.getElementById("myTable"); // La tua tabella originale
+    const cloneTable = document.createElement("table"); // Creazione di una tabella temporanea
+
+    // Clona le intestazioni della tabella
+    cloneTable.appendChild(table.querySelector("thead").cloneNode(true));
+    cloneTable.appendChild(document.createElement("tbody")); // Assicurati che ci sia un tbody nella tabella clonata
+
+    // Filtra e clona solo le righe selezionate
+    const rows = table.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+        // Assicurati di ottenere correttamente il valore di data-stato
+        let stato = row.querySelector(".clickable-row").getAttribute("data-stato");
+        console.log("Stato:", stato); // Debug: stampa lo stato per verificare
+        if (stato === 'true') {
+            cloneTable.querySelector("tbody").appendChild(row.cloneNode(true));
+        }
+    });
+
+    // Controlla se ci sono righe da esportare
+    if (cloneTable.querySelectorAll("tbody tr").length === 0) {
+        alert("Nessuna riga selezionata per l'esportazione.");
+        return;
+    }
+
+    // Continua con la creazione del foglio Excel
+    const ws = XLSX.utils.table_to_sheet(cloneTable);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Tabella");
-    XLSX.writeFile(wb, "<?php echo substr($currentPage, 0, -4); ?>.xlsx");
+    XLSX.writeFile(wb, 'Prodotti' + ".xlsx");
 }
 
 //SCRIPT DI SELECT PAGINE

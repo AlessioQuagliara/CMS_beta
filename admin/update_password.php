@@ -1,6 +1,11 @@
-<?php
-include_once ('../app.php');
-$response = update_pass(); 
+<?php 
+if (!file_exists('../conn.php')) {
+  header("Location: error");
+  exit();
+} else {
+  include ('../app.php');
+  $response = update_pass(); 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

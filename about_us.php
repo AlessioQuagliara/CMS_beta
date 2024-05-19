@@ -1,4 +1,11 @@
-<?php require_once ('app.php'); require 'visita.php';?>
+<?php     
+if (!file_exists('conn.php')) {
+    header("Location: error");
+    exit();
+  } else {
+    require_once ('app.php'); require 'visita.php';
+  }
+?>
 <!DOCTYPE html>
 <html lang="it">
 <!-- TESTA -->

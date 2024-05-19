@@ -1,4 +1,10 @@
-<?php require_once ('app.php'); require 'visita.php'; require ('conn.php');
+<?php
+if (!file_exists('conn.php')) {
+    header("Location: error");
+    exit();
+  } else {
+    require_once ('app.php'); require 'visita.php';
+  }
 
 $productTitle = isset($_GET['titolo']) ? $_GET['titolo'] : '';
 

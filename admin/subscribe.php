@@ -1,5 +1,10 @@
 <?php 
-include_once ('../app.php');
+if (!file_exists('../conn.php')) {
+  header("Location: error");
+  exit();
+} else {
+  include ('../app.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

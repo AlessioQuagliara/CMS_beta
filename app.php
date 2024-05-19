@@ -1,10 +1,6 @@
 <?php
-if (!file_exists('conn.php')) {
-    header("Location: install_linkbay/");
-    exit();
-}
-require 'conn.php';
 
+require 'conn.php';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -164,11 +160,12 @@ function subscribe(){
     $query_dettagli_negozio = "SELECT * FROM dettagli_negozio";
     $result_dettagli_negozio = mysqli_query($conn, $query_dettagli_negozio);
     if ($dettagli = mysqli_fetch_assoc($result_dettagli_negozio)) {
-        // Estrai i dettagli del negozio e assegnali a variabili
         $nome_negozio = $dettagli['nome_negozio'];
-        $sitoweb = $dettagli['sitoweb'];
-        // Qui puoi aggiungere altre variabili se necessario
     }
+
+    // Ottenere l'host corrente
+    $host = $_SERVER['HTTP_HOST'];
+    $sitoweb = (string) $host;
 
     // Verifica se il form è stato inviato
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

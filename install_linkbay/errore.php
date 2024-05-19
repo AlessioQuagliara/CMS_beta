@@ -19,8 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Errore nella creazione del database: " . $conn->error);
     }
 
+    // Seleziona il database
     $conn->select_db($dbname);
 
+    // Funzione per eseguire file SQL
     function runSQLFile($conn, $file) {
         $queries = file_get_contents($file);
         $queries = explode(";", $queries);
@@ -37,8 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    // Esegui i file SQL
     runSQLFile($conn, 'CMS.sql');
 
+    // Scrivi il file conn.php con le nuove credenziali di connessione
     $connFileContent = "<?php\n\n";
     $connFileContent .= "\$servername = \"$host\";\n";
     $connFileContent .= "\$username = \"$username\";\n";
@@ -49,19 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $connFileContent .= "    die(\"Connessione al database fallita: \" . \$conn->connect_error);\n";
     $connFileContent .= "}\n\n?>";
 
-    $filePath = '../conn.php';
-
-    if (file_put_contents($filePath, $connFileContent) === FALSE) {
-        die("Errore durante la scrittura del file conn.php. Assicurati che la directory abbia i permessi di scrittura.");
-    } else {
-        echo "File conn.php creato con successo.";
-    }
+    file_put_contents('../../conn.php', $connFileContent);
 
     $conn->close();
-    echo "<script>window.location.href = 'installazione';</script>";
-    exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>

@@ -1,6 +1,11 @@
 <?php 
-include_once ('../app.php');
-$id_admin = $_GET['id_admin']; // Ottiene l'ID dall'URL
+if (!file_exists('../conn.php')) {
+  header("Location: error");
+  exit();
+} else {
+  include ('../app.php');
+  $id_admin = $_GET['id_admin']; // Ottiene l'ID dall'URL
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

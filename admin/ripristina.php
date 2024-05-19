@@ -1,6 +1,11 @@
 <?php 
-include_once ('../app.php');
-ripristina();
+if (!file_exists('../conn.php')) {
+  header("Location: error");
+  exit();
+} else {
+  include ('../app.php');
+  ripristina();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

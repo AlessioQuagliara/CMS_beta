@@ -1,6 +1,11 @@
 <?php 
-include_once ('../app.php');
-logout();
+if (!file_exists('../conn.php')) {
+  header("Location: error");
+  exit();
+} else {
+  include ('../app.php');
+  logout();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

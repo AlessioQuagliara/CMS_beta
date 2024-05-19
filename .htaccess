@@ -9,4 +9,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
 # Specifica il percorso completo per l'errore 404
-ErrorDocument 404 /404.php
+ErrorDocument 404 /error

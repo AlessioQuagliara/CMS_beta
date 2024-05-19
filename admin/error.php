@@ -1,43 +1,42 @@
-<?php 
-require ('../../app.php');
-loggato()
-?>
 <!DOCTYPE html>
 <html lang="it">
+<!-- TESTA -->
 <head>
-    <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - 404 Errore</title>
-    <?php include '../materials/head_content.php'; ?>
+    <!-- SEO -->
+    <title>404 Non trovata</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="shortcut icon" href="admin/materials/favicon_link.ico" type="image/x-icon">
+    <!-- LINK STILE BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- FINE TESTA -->
 </head>
-<body style="background-color: #f1f1f1;">
-    
-    <?php
-    include '../materials/sidebar.php'; 
-    ?>
+<body>    
 
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <!-- CANCELLA CONTENUTO DOPO AGGIORNAMENTO-->
-                <style>
-            /* Stile per centrare il div */
-            .centered-div {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 80vh; /* Altezza del viewport */
-            }
-        </style>
-        <div class="container centered-div">
-            <h1 class="display-4">404 <i class="fa-solid fa-ban"></i></h1>
-            <p class="lead">Pagina non trovata.</p>
-        </div>
+    <!-- CANCELLA CONTENUTO DOPO AGGIORNAMENTO-->
+    <style>
+    /* Stile per centrare il div */
+    .centered-div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh; /* Altezza del viewport */
+    }
+    </style>
+    <div class="container centered-div">
+        <img src="materials/linkbay_logo.png" width="150px" alt="">
+        <h1 class="display-4">404 <i class="fa-solid fa-ban"></i></h1>
+        <p class="lead">Pagina non trovata.</p>
+    </div>
+        
 
-    </main>
-
-    
-<?php include '../materials/script.php'; ?>
+<!-- SCRIPT BOOTSTRAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

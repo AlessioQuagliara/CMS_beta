@@ -24,13 +24,20 @@ if (!file_exists('../conn.php')) {
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="materials/dashboard.css" rel="stylesheet">
+    <style>
+            body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('materials/background.png') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+        }
+    </style>
   </head>
   <body class="text-center">
-
-  <video autoplay muted loop id="myVideo" style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%;">
-    <source src="materials/video_background.mp4" type="video/mp4">
-    Il tuo browser non supporta il tag video.
-  </video>
 
   <div class="card">
     <main class="form-signin">
@@ -50,7 +57,7 @@ if (!file_exists('../conn.php')) {
                 <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" placeholder="Conferma Nuova Password" required>
                 <label for="confirm_new_password">Conferma Nuova Password</label>
             </div>
-            <button class="btn btn-outline-secondary" type="submit">Cambia Password</button>
+            <button class="btn btn-danger" type="submit">Cambia Password</button>
             <?php
             if (!empty($errore)) {
                 echo '<p class="text-danger">' . $errore . '</p>';

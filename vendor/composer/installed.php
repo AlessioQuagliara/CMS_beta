@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'alessio/cms',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'c60f6a8c34d9e282009fbe7705a3a913fc594579',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'alessio/cms' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'c60f6a8c34d9e282009fbe7705a3a913fc594579',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -34,6 +34,15 @@
             'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/log',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'sonata-project/google-authenticator' => array(
+            'pretty_version' => '2.3.1',
+            'version' => '2.3.1.0',
+            'reference' => '71a4189228f93a9662574dc8c65e77ef55061b59',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../sonata-project/google-authenticator',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

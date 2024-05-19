@@ -10,10 +10,15 @@ class ComposerStaticInit038ffb696c43d4d8df783538ec562d9f
         'S' => 
         array (
             'Stripe\\' => 7,
+            'Sonata\\GoogleAuthenticator\\' => 27,
         ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+        ),
+        'G' => 
+        array (
+            'Google\\Authenticator\\' => 21,
         ),
         'A' => 
         array (
@@ -26,9 +31,17 @@ class ComposerStaticInit038ffb696c43d4d8df783538ec562d9f
         array (
             0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
+        'Sonata\\GoogleAuthenticator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sonata-project/google-authenticator/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Google\\Authenticator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sonata-project/google-authenticator/src',
         ),
         'Alessio\\Cms\\' => 
         array (

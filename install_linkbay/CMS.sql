@@ -152,21 +152,6 @@ CREATE TABLE `leads` (
   `data_rec` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dump dei dati per la tabella `leads`
---
-
-INSERT INTO `leads` (`lead`, `nome`, `email`, `telefono`, `messaggio`, `data_rec`) VALUES
-(1, 'alessio', 'quagliara.alessio@outlook.com', '3408213326', 'ciao', '2024-05-18 16:02:35'),
-(2, 'alessio', 'quagliara.alessio@outlook.com', '3408213326', 'ciao', '2024-04-18 16:02:35'),
-(3, 'alessio', 'quagliara.alessio@outlook.com', '3408213326', 'ciao', '2024-03-18 16:02:35'),
-(4, 'alessio', 'quagliara.alessio@outlook.com', '3408213326', 'ciao', '2024-02-18 16:02:35'),
-(5, 'alessio', 'quagliara.alessio@outlook.com', '3408213326', 'ciao', '2024-01-18 16:02:35'),
-(6, 'alessio', 'quagliara.alessio@outlook.com', '3408213326', 'ciao', '2024-03-18 16:02:00'),
-(7, 'alessio', 'quagliara.alessio@outlook.com', '3408213326', 'kkk', '2024-02-18 16:02:00'),
-(8, 'alessio', 'quagliara.alessio@outlook.com', '3408213326', 'ciao', '2024-02-18 16:02:35'),
-(9, 'alessio', 'quagliara.alessio@outlook.com', '3408213326', 'ciao', '2024-02-18 16:02:35');
-
 -- --------------------------------------------------------
 
 --
@@ -227,8 +212,8 @@ CREATE TABLE `payment_systems` (
 
 INSERT INTO `payment_systems` (`id_pay`, `provider`, `client_id`, `secret_key`, `environment`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Stripe', 'inserisci il client ID', 'Secret key', 'production', 'inactive', '2024-03-19 20:51:10', '2024-03-22 21:42:29'),
-(2, 'PayPal', 'Abo5G5DRkD7KFaElbymGulNpmTptnaFiBTTDri5R8RD1fmGIY3LFCv-jJS1G_ywCJXpa6HgFvFi3cm3r', 'ENChtxqVncwphEj3tTcqIAiEXiKN7al-qS2_1F-Amorqp52ATitZ985d6Vx0f8l7kod526jjL21CnmQd', 'production', 'active', '2024-03-19 21:06:19', '2024-03-25 17:53:37'),
-(3, 'Bonifico', 'SPINAUDIO DI LIOTTA STEFANIA', 'IT45G0760110900001065369744', 'production', 'active', '2024-03-19 21:06:32', '2024-03-22 21:45:15'),
+(2, 'PayPal', 'Inserisci il client ID', 'Inserisci la Secret Key', 'production', 'active', '2024-03-19 21:06:19', '2024-03-25 17:53:37'),
+(3, 'Bonifico', 'Inserisci Intestatario', 'Inserisci Iban', 'production', 'active', '2024-03-19 21:06:32', '2024-03-22 21:45:15'),
 (4, 'Pagolight', 'inserisci il client ID', 'Inserisci la secret key', 'production', 'inactive', '2024-03-19 21:06:32', '2024-03-19 22:40:47');
 
 -- --------------------------------------------------------

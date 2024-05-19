@@ -6,13 +6,18 @@
     <title>Installazione LinkBay</title>
     <link rel="shortcut icon" href="../admin/materials/favicon_link.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../admin/materials/login.css">
     <style>
         body {
-            background-color: #000;
+            height: 100%;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: url('../admin/materials/background.png') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
         }
         #message {
             margin-bottom: 20px;
@@ -36,8 +41,8 @@
     <div class="card bg-light text-dark w-25">
         <div class="card-header text-center">
             <img src="../admin/materials/linkbay_logo.png" width="150px" alt="">
-            <br>
-            <h2>Installazione LinkBay</h2>
+            <br><br>
+            <h2 class="h3 mb-3 fw-normal">Installazione LinkBay</h2>
         </div>
         <div class="card-body">
             <br>

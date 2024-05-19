@@ -3,27 +3,26 @@ if (!file_exists('conn.php')) {
     header("Location: error");
     exit();
   } else {
-    require_once ('app.php'); require 'visita.php';
+  require_once ('app.php'); require 'visita.php';
+  $productTitle = isset($_GET['titolo']) ? $_GET['titolo'] : '';
+  
+  require ('conn.php');
+  $stmt = $conn->prepare("SELECT * FROM prodotti WHERE titolo_seo = ?");
+  $stmt->bind_param("s", $productTitle);
+  
+  $stmt->execute();
+  
+  $result = $stmt->get_result();
+  if ($result->num_rows > 0) {
+      $product = $result->fetch_assoc();
+  } else {
+      echo "Prodotto non trovato.";
+      exit;
   }
-
-$productTitle = isset($_GET['titolo']) ? $_GET['titolo'] : '';
-
-$stmt = $conn->prepare("SELECT * FROM prodotti WHERE titolo_seo = ?");
-$stmt->bind_param("s", $productTitle);
-
-$stmt->execute();
-
-$result = $stmt->get_result();
-if ($result->num_rows > 0) {
-    $product = $result->fetch_assoc();
-} else {
-    echo "Prodotto non trovato.";
-    exit;
+  
+  $stmt->close();
+  $conn->close();
 }
-
-$stmt->close();
-$conn->close();
-
 ?>
 <!DOCTYPE html>
 <html lang="it">

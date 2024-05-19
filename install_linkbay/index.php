@@ -1,65 +1,69 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Abilita il buffer di output per prevenire l'output prima del header()
+    ob_start();
+
     $host = $_POST['host'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $dbname = $_POST['dbname'];
 
-    $conn = new mysqli($host, $username, $password);
+    try {
+        // Abilita le eccezioni per MySQLi
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+        // Creare una nuova connessione MySQLi
+        $conn = new mysqli($host, $username, $password);
 
-    // Creare il database
-    $sql = "CREATE DATABASE IF NOT EXISTS $dbname";
-    if ($conn->query($sql) === TRUE) {
-        echo "Database creato con successo<br>";
-    } else {
-        die("Errore nella creazione del database: " . $conn->error);
-    }
+        // Creare il database
+        $sql = "CREATE DATABASE IF NOT EXISTS $dbname";
+        $conn->query($sql);
 
-    $conn->select_db($dbname);
+        // Seleziona il database
+        $conn->select_db($dbname);
 
-    function runSQLFile($conn, $file) {
-        $queries = file_get_contents($file);
-        $queries = explode(";", $queries);
+        // Funzione per eseguire file SQL
+        function runSQLFile($conn, $file) {
+            $queries = file_get_contents($file);
+            $queries = explode(";", $queries);
 
-        foreach ($queries as $query) {
-            $query = trim($query);
-            if (!empty($query)) {
-                if ($conn->query($query) === TRUE) {
-                    echo "Query eseguita: $query<br>";
-                } else {
-                    echo "Errore nell'esecuzione della query: " . $conn->error . "<br>";
+            foreach ($queries as $query) {
+                $query = trim($query);
+                if (!empty($query)) {
+                    $conn->query($query);
                 }
             }
         }
+
+        // Esegui i file SQL
+        runSQLFile($conn, 'CMS.sql');
+
+        // Scrivi il file conn.php con le nuove credenziali di connessione
+        $connFileContent = "<?php\n\n";
+        $connFileContent .= "\$servername = \"$host\";\n";
+        $connFileContent .= "\$username = \"$username\";\n";
+        $connFileContent .= "\$password = \"$password\";\n";
+        $connFileContent .= "\$dbname = \"$dbname\";\n\n";
+        $connFileContent .= "\$conn = new mysqli(\$servername, \$username, \$password, \$dbname);\n";
+        $connFileContent .= "if (\$conn->connect_error) {\n";
+        $connFileContent .= "    die(\"Connessione al database fallita: \" . \$conn->connect_error);\n";
+        $connFileContent .= "}\n\n?>";
+
+        $filePath = '../conn.php';
+
+        if (file_put_contents($filePath, $connFileContent) === FALSE) {
+            throw new Exception("Errore durante la scrittura del file conn.php");
+        }
+
+        $conn->close();
+        ob_end_clean(); // Pulisce il buffer di output
+        echo "<script>window.location.href = 'installazione';</script>";
+        exit();
+    } catch (Exception $e) {
+        ob_end_clean(); // Pulisce il buffer di output
+        header("Location: errore.php?msg=" . urlencode($e->getMessage()));
+        exit();
     }
-
-    runSQLFile($conn, 'CMS.sql');
-
-    $connFileContent = "<?php\n\n";
-    $connFileContent .= "\$servername = \"$host\";\n";
-    $connFileContent .= "\$username = \"$username\";\n";
-    $connFileContent .= "\$password = \"$password\";\n";
-    $connFileContent .= "\$dbname = \"$dbname\";\n\n";
-    $connFileContent .= "\$conn = new mysqli(\$servername, \$username, \$password, \$dbname);\n";
-    $connFileContent .= "if (\$conn->connect_error) {\n";
-    $connFileContent .= "    die(\"Connessione al database fallita: \" . \$conn->connect_error);\n";
-    $connFileContent .= "}\n\n?>";
-
-    $filePath = '../conn.php';
-
-    if (file_put_contents($filePath, $connFileContent) === FALSE) {
-        die("Errore durante la scrittura del file conn.php. Assicurati che la directory abbia i permessi di scrittura.");
-    } else {
-        echo "File conn.php creato con successo.";
-    }
-
-    $conn->close();
-    echo "<script>window.location.href = 'installazione';</script>";
-    exit();
 }
 ?>
 <!DOCTYPE html>

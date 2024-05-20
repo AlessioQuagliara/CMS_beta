@@ -142,19 +142,19 @@
                 window.location.href = '../ui-gestisci/aggiunta_ordine.php';
             }
 
-            function evadiSelezionati(){
+            function evadiSelezionati() {
                 swal({
-                    title: "Vuoi Evadere tutti gli ordini selezionati?",
-                    text: "Verranno evasi tutti gli ordini selezionati, l'azione è reversibile manualmente",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        window.location.href = '../ui-gestisci/evadi_ordini_selezionati';
-                    }
-                });
+                        title: "Vuoi Evadere tutti gli ordini selezionati?",
+                        text: "Verranno evasi tutti gli ordini selezionati, l'azione è reversibile manualmente",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href = '../ui-gestisci/evadi_ordini_selezionati';
+                        }
+                    });
             }
 
             function toggleToolbar() {
@@ -297,22 +297,23 @@
                 location.reload(true);
             }
 
-            function addProduct(){
-                window.location.href ='../ui-gestisci/aggiunta_prodotto.php';
+            function addProduct() {
+                window.location.href = '../ui-gestisci/aggiunta_prodotto.php';
             }
-            function deleteProduct(){
+
+            function deleteProduct() {
                 swal({
-                    title: "Cancellare i Prodotti Selezionati?",
-                    text: "Verranno cancellati tutti i prodotti che hai selezionato, l'azione è irreversibile.",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        window.location.href ='../ui-gestisci/cancella_prodotti_selezionati';
-                    }
-                });
+                        title: "Cancellare i Prodotti Selezionati?",
+                        text: "Verranno cancellati tutti i prodotti che hai selezionato, l'azione è irreversibile.",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href = '../ui-gestisci/cancella_prodotti_selezionati';
+                        }
+                    });
             }
 
             function toggleToolbar() {
@@ -323,6 +324,159 @@
             }
         </script>
     </div>
+
+<?php elseif ($sidebar_cate == 'collezioni') : ?>
+    <!---------------------------------------------------------------------- PROMETHEUS COLLEZIONI ------------------------------------------------------------------------------------------>
+    <div id="itembar" class="toolbar bg-dark text-white">
+        <style>
+            .toolbar {
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                width: 70%;
+                transform: translateX(100%);
+                transition: transform 0.2s ease;
+            }
+
+            .toolbar.expanded {
+                border-radius: 20px 0 0 0;
+                transform: translateX(0);
+            }
+
+            .toggle-button {
+                position: absolute;
+                left: -140px;
+                top: 10px;
+                cursor: pointer;
+                padding: 8px 15px;
+                background: #ff5758;
+                color: black;
+                border-radius: 4px;
+            }
+
+            .toolbar-content {
+                padding: 10px;
+            }
+
+            .clickable-row {
+                cursor: pointer;
+            }
+
+            .table-responsive {
+                height: 795px;
+                overflow-y: auto;
+            }
+
+            .table thead th {
+                position: sticky;
+                top: 0;
+                z-index: 2;
+            }
+
+            @media only screen and (max-width: 1440px) {
+                .table-responsive {
+                    height: 615px;
+                    overflow-y: auto;
+                }
+            }
+        </style>
+        <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + Q }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
+        <div class="toolbar-content">
+            <div class="row">
+                <div class="col-md-2">
+                    <input class="form-control" id="searchInputCollezioni" type="text" placeholder="Cerca..." aria-label="Cerca">
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-sm btn-outline-danger" title="Aggiungi Collezione { CTRL + N }" onclick="addCollect()"><i class="fa-solid fa-plus"></i></button>
+                    <button class="btn btn-sm btn-outline-success" title="Esporta in Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+                    <button class="btn btn-sm btn-outline-light" title="Seleziona Tutte le Righe { CTRL + A }" onclick="setSelectedTrueForAll()"><i class="fa-regular fa-square-check"></i></button>
+                    <button class="btn btn-sm btn-outline-danger" title="Cancella Selezionati { CTRL + D }" onclick="deleteProduct()"><i class="fa-solid fa-trash"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary" title="Aggiorna pagina { CTRL + R }" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate"></i></button>
+                    <button class="btn btn-sm btn-outline-info" title="Tutorial & Istruzioni" onclick=""><i class="fa-solid fa-circle-info"></i></button>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" id="rowsPerPageCollezioni">
+                        <option selected value="10">Mostra 10 Righe</option>
+                        <option value="20">Mostra 20 Righe</option>
+                        <option value="50">Mostra 50 Righe</option>
+                        <option value="Tutti">Mostra Tutto</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var toolbar = document.getElementById('itembar');
+                if (localStorage.getItem('toolbarExpanded') === 'true') {
+                    toolbar.classList.add('expanded');
+                }
+            });
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'q' && event.ctrlKey) {
+                    toggleToolbar();
+                }
+                if (event.key === 'e' && event.ctrlKey) {
+                    exportToExcel();
+                }
+                if (event.key === 'n' && event.ctrlKey) {
+                    addCollect();
+                }
+                if (event.key === 'a' && event.ctrlKey) {
+                    setSelectedTrueForAll();
+                }
+                if (event.key === 'd' && event.ctrlKey) {
+                    deleteProduct('');
+                }
+                if (event.key === 'f' && event.ctrlKey) {
+                    var toolbar = document.getElementById('itembar');
+                    if (toolbar.classList.contains('expanded')) {
+                        document.getElementById('searchInputProdotti').focus();
+                    } else {
+                        toggleToolbar();
+                        // Usare setTimeout per aspettare la fine dell'animazione di espansione
+                        setTimeout(function() {
+                            document.getElementById('searchInputProdotti').focus();
+                        }, 200); // 200ms corrisponde alla durata della transizione CSS
+                    }
+                }
+                if (event.key === 'r' && event.ctrlKey) {
+                    refreshPage();
+                }
+            });
+
+            function refreshPage() {
+                location.reload(true);
+            }
+
+            function addCollect() {
+                window.location.href = '../ui-gestisci/aggiunta_collezione.php';
+            }
+
+            function deleteProduct() {
+                swal({
+                        title: "Cancellare i Prodotti Selezionati?",
+                        text: "Verranno cancellati tutti i prodotti che hai selezionato, l'azione è irreversibile.",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href = '../ui-gestisci/cancella_prodotti_selezionati';
+                        }
+                    });
+            }
+
+            function toggleToolbar() {
+                var toolbar = document.getElementById('itembar');
+                toolbar.classList.toggle('expanded');
+                // Salva lo stato della toolbar in localStorage
+                localStorage.setItem('toolbarExpanded', toolbar.classList.contains('expanded'));
+            }
+        </script>
+    </div>
+
 
 <?php else : ?>
 

@@ -34,7 +34,8 @@ require 'conn.php';
 
 // Funzione Autenticazione ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-function loggato() {
+function loggato()
+{
     session_start();
 
     // Verifica se l'utente è autenticato
@@ -61,7 +62,7 @@ function loggato() {
             header("Location: ../logout");
             exit;
         }
-    }   
+    }
 
     // Aggiorna il timestamp dell'ultimo accesso a ora
     $_SESSION['ultimo_accesso'] = time();
@@ -75,74 +76,76 @@ $resolution = "'width=1920,height=1080'";
 // Funzione di Login ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 
-function login(){
+function login()
+{
     session_start(); // Inizia la sessione 
 
-// Verifica se l'utente è già autenticato
-if (isset($_SESSION['loggato']) && $_SESSION['loggato'] === true) {
-    // Utente già autenticato, reindirizzalo alla dashboard
-    header("Location: ui/homepage");
-    exit;
-}
-
-$login_error = ""; // Inizializza la variabile qui per assicurarti che sia sempre definita
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Include il file di connessione al database
-    require '../conn.php';
-
-    // Ottieni i dati dal form e sanifica l'input
-    $email = strtolower(filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL));
-    $password = $_POST['password']; // La password verrà verificata, quindi non è necessario sanificarla
-
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $login_error = "Formato email non valido.";
-    } else {
-        // Esegui la query per verificare le credenziali dell'utente usando una dichiarazione preparata
-        $sql = "SELECT id_admin, nome, cognome, ruolo, email, telefono, password FROM administrator WHERE email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-
-            // Verifica la password
-            if (password_verify($password, $row['password'])) {
-                // Credenziali corrette, autentica l'utente
-                $_SESSION['loggato'] = true;
-                $_SESSION['id_admin'] = $row['id_admin'];
-                $_SESSION['nome'] = $row['nome'];
-                $_SESSION['cognome'] = $row['cognome'];
-                $_SESSION['ruolo'] = $row['ruolo'];
-                $_SESSION['telefono'] = $row['telefono'];
-                $_SESSION['email'] = $row['email'];
-
-                // Reindirizza l'utente alla dashboard
-                header("Location: ui/homepage");
-                exit;
-            } else {
-                $login_error = "Credenziali non valide. Riprova.";
-            }
-        } else {
-            $login_error = "Utente non trovato. Riprova.";
-        }
-
-        $stmt->close(); // Chiudi la dichiarazione preparata
+    // Verifica se l'utente è già autenticato
+    if (isset($_SESSION['loggato']) && $_SESSION['loggato'] === true) {
+        // Utente già autenticato, reindirizzalo alla dashboard
+        header("Location: ui/homepage");
+        exit;
     }
 
-    $conn->close(); // Chiudi la connessione al database
-}
+    $login_error = ""; // Inizializza la variabile qui per assicurarti che sia sempre definita
 
-return $login_error; // Restituisci la stringa di errore
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Include il file di connessione al database
+        require '../conn.php';
+
+        // Ottieni i dati dal form e sanifica l'input
+        $email = strtolower(filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL));
+        $password = $_POST['password']; // La password verrà verificata, quindi non è necessario sanificarla
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $login_error = "Formato email non valido.";
+        } else {
+            // Esegui la query per verificare le credenziali dell'utente usando una dichiarazione preparata
+            $sql = "SELECT id_admin, nome, cognome, ruolo, email, telefono, password FROM administrator WHERE email = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+
+                // Verifica la password
+                if (password_verify($password, $row['password'])) {
+                    // Credenziali corrette, autentica l'utente
+                    $_SESSION['loggato'] = true;
+                    $_SESSION['id_admin'] = $row['id_admin'];
+                    $_SESSION['nome'] = $row['nome'];
+                    $_SESSION['cognome'] = $row['cognome'];
+                    $_SESSION['ruolo'] = $row['ruolo'];
+                    $_SESSION['telefono'] = $row['telefono'];
+                    $_SESSION['email'] = $row['email'];
+
+                    // Reindirizza l'utente alla dashboard
+                    header("Location: ui/homepage");
+                    exit;
+                } else {
+                    $login_error = "Credenziali non valide. Riprova.";
+                }
+            } else {
+                $login_error = "Utente non trovato. Riprova.";
+            }
+
+            $stmt->close(); // Chiudi la dichiarazione preparata
+        }
+
+        $conn->close(); // Chiudi la connessione al database
+    }
+
+    return $login_error; // Restituisci la stringa di errore
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Funzione di Logout ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 
-function logout(){
+function logout()
+{
     session_start();
     session_destroy();
 }
@@ -151,11 +154,12 @@ function logout(){
 // Funzione di Registrazione ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 
-function subscribe(){
-    require ('../php_email.php');
+function subscribe()
+{
+    require('../php_email.php');
     // Includi il file di connessione al database
     require '../conn.php'; // Usa 'require' per assicurarti che il file esista.
-    
+
     // Estrai i dettagli del negozio
     $query_dettagli_negozio = "SELECT * FROM dettagli_negozio";
     $result_dettagli_negozio = mysqli_query($conn, $query_dettagli_negozio);
@@ -200,7 +204,7 @@ function subscribe(){
             $oggetto = 'Registrazione a LinkBay';
             $template = file_get_contents('../templates/email_subscribed.html'); // Assicurati che il percorso al file sia corretto
             $messaggio = str_replace(['{{nome}}', '{{nome_negozio}}', '{{sitoweb}}', '{{id_admin}}'], [$nome, $nome_negozio, $sitoweb, $id_admin], $template); // Nel template usa {{ nome }} per passare i valori
-    
+
             // Invia l'email all'utente con le istruzioni per resettare la password
             send_mail($email_user, $oggetto, $messaggio);
 
@@ -219,20 +223,20 @@ function subscribe(){
         header("Location: login");
         exit;
     }
-
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Funzione di Ripristino Password ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-    function ripristina(){
-        require ('../php_email.php'); // Assicurati che il percorso del file sia corretto
+function ripristina()
+{
+    require('../php_email.php'); // Assicurati che il percorso del file sia corretto
 
     $errore = ''; // Inizializza la variabile per memorizzare messaggi di errore
 
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        require ('../conn.php'); // Include il file di connessione al database
+        require('../conn.php'); // Include il file di connessione al database
 
         // Estrai i dettagli del negozio
         $query_dettagli_negozio = "SELECT * FROM dettagli_negozio";
@@ -243,7 +247,7 @@ function subscribe(){
             $sitoweb = $dettagli['sitoweb'];
             // Qui puoi aggiungere altre variabili se necessario
         }
-        
+
         // Prendi l'email inviata dal form
         $admin_email = $_POST['email'];
 
@@ -270,7 +274,6 @@ function subscribe(){
                 $url = "index?messaggio=" . urlencode($messaggio);
                 header('location:' . $url);
                 exit;
-
             } else {
                 $errore = "Si è verificato un errore durante l'invio dell'email.";
             }
@@ -280,15 +283,16 @@ function subscribe(){
         $stmt->close();
         $conn->close();
     }
-    }
+}
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Funzione di Aggiornamento Password ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-function update_pass() {
+function update_pass()
+{
     include '../conn.php'; // Includi il file di connessione al database
 
-    $response = ['errore' => "", 'risultato' => ''];    
+    $response = ['errore' => "", 'risultato' => ''];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id_admin = $_POST['id_admin'];
@@ -330,19 +334,20 @@ function update_pass() {
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER LE VISITE DEL SITO ---------------------------------------------------------------------------------------
-function visite(){
+function visite()
+{
     require '../../conn.php'; // Assicurati che questo file contenga la connessione al tuo database
-    
+
     // Prepara e esegui la query per il numero totale di visite
     $totalVisitsQuery = "SELECT COUNT(*) as total FROM visitatori";
     $totalResult = $conn->query($totalVisitsQuery);
     $totalRow = $totalResult->fetch_assoc();
     $totalVisits = $totalRow['total'];
-    
+
     // Prepara e esegui la query per le visite mensili
     $monthlyVisitsQuery = "SELECT YEAR(data_visita) as year, MONTH(data_visita) as month, COUNT(*) as visits FROM visitatori GROUP BY YEAR(data_visita), MONTH(data_visita) ORDER BY YEAR(data_visita) DESC, MONTH(data_visita) DESC";
     $monthlyResult = $conn->query($monthlyVisitsQuery);
-    
+
     // Costruisci l'HTML per la visualizzazione
     $html = '<div class="container mt-5">';
     $html .= '<div class="row">';
@@ -356,29 +361,30 @@ function visite(){
     $html .= '<div class="p-3 mb-3 bg-light rounded-3">';
     $html .= '<h4>Visite per Mese</h4>';
     $html .= '<ul class="list-group">';
-    
+
     while ($row = $monthlyResult->fetch_assoc()) {
         $html .= '<li class="list-group-item d-flex justify-content-between align-items-center">';
         $html .= $row['month'] . '/' . $row['year'];
         $html .= '<span class="badge bg-primary rounded-pill">' . $row['visits'] . '</span>';
         $html .= '</li>';
     }
-    
+
     $html .= '</ul>';
     $html .= '</div>';
     $html .= '</div>';
     $html .= '</div>';
     $html .= '</div>';
-    
+
     // Chiudi la connessione se necessario
     $conn->close();
-    
+
     // Restituisci l'HTML costruito
     return $html;
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER GLI ORDINI DELLA NAVBAR
-function ordiniNav() {
+function ordiniNav()
+{
     // Includi la connessione al database
     require '../../conn.php';
 
@@ -413,7 +419,8 @@ function ordiniNav() {
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER GLI ORDINI DEL SITO ---------------------------------------------------------------------------------------
-function ordini() {
+function ordini()
+{
     // Includi la connessione al database
     require '../../conn.php';
 
@@ -426,7 +433,7 @@ function ordini() {
     // Prepara e esegui le query per gli ordini in base allo stato
     $states = ['inevaso', 'completo', 'abbandonato'];
     $ordersByState = [];
-    
+
     foreach ($states as $state) {
         $query = "SELECT COUNT(*) as total FROM ordini WHERE stato_ordine = '$state'";
         $result = $conn->query($query);
@@ -446,7 +453,7 @@ function ordini() {
     $html .= '<div class="col-md-6">';
     $html .= '<div class="p-3 mb-3 bg-light rounded-3">';
     $html .= '<h4>Ordini per stato</h4>';
-    
+
     foreach ($ordersByState as $state => $total) {
         $html .= '<div>' . ucfirst($state) . ': ' . $total . '</div>';
     }
@@ -464,7 +471,8 @@ function ordini() {
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER LE VENDITE DEL SITO ---------------------------------------------------------------------------------------
-function vendite() {
+function vendite()
+{
     // Includi la connessione al database
     require '../../conn.php';
     // Prepara e esegui la query per il totale venduto
@@ -472,11 +480,11 @@ function vendite() {
     $totalSoldResult = $conn->query($totalSoldQuery);
     $totalSoldRow = $totalSoldResult->fetch_assoc();
     $totalSold = $totalSoldRow['totalSold'];
-    
+
     // Prepara e esegui la query per gli ordini raggruppati per mese
     $ordersByMonthQuery = "SELECT YEAR(data_ordine) as year, MONTH(data_ordine) as month, COUNT(*) as totalOrders FROM ordini GROUP BY YEAR(data_ordine), MONTH(data_ordine) ORDER BY YEAR(data_ordine) DESC, MONTH(data_ordine) DESC";
     $ordersByMonthResult = $conn->query($ordersByMonthQuery);
-    
+
     // Costruisci l'HTML per la visualizzazione
     $html = '<div class="container mt-5">';
     $html .= '<div class="row">';
@@ -490,34 +498,35 @@ function vendite() {
     $html .= '<div class="p-3 mb-3 bg-light rounded-3">';
     $html .= '<h4>Vendite per data</h4>';
     $html .= '<ul class="list-group">';
-    
+
     while ($row = $ordersByMonthResult->fetch_assoc()) {
         $html .= '<li class="list-group-item d-flex justify-content-between align-items-center">';
         $html .= $row['month'] . '/' . $row['year'];
         $html .= '<span class="badge bg-primary rounded-pill">' . $row['totalOrders'] . '</span>';
         $html .= '</li>';
     }
-    
+
     $html .= '</ul>';
     $html .= '</div>';
     $html .= '</div>';
     $html .= '</div>';
     $html .= '</div>';
-    
+
     // Chiudi la connessione se necessario
     $conn->close();
-    
+
     // Restituisci l'HTML costruito
     return $html;
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER POP DETTAGLI DEL NEGOZIO ---------------------------------------------------------------------------------------
-function dettagli_negozio() {
+function dettagli_negozio()
+{
     require '../../conn.php';  // Includi la connessione al database
 
-    $query = "SELECT COUNT(*) as total FROM dettagli_negozio"; 
+    $query = "SELECT COUNT(*) as total FROM dettagli_negozio";
     $result = mysqli_query($conn, $query);
-    
+
     // Inizializza le variabili
     $progresso = 0;
     $titolo = '';
@@ -543,9 +552,9 @@ function dettagli_negozio() {
         $descrizione = 'Errore nell\'esecuzione della query: ' . mysqli_error($conn);
         // Nessun pulsante in questo caso
     }
-    
+
     mysqli_close($conn); // Chiudi la connessione al database
-    
+
     // Costruisci l'HTML per la visualizzazione
     $html = '<div class="card">';
     $html .= '<div class="card-body">';
@@ -564,25 +573,26 @@ function dettagli_negozio() {
 //---------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER POPOLARE I DETTAGLI DEL NEGOZIO -----------------------------------------------------------------------------
 
-function stampaDettagli_negozio() {
+function stampaDettagli_negozio()
+{
     require '../../conn.php';  // Includi la connessione al database
 
-    $query_dettagli_negozio = "SELECT * FROM dettagli_negozio"; 
+    $query_dettagli_negozio = "SELECT * FROM dettagli_negozio";
     $result_dettagli_negozio = mysqli_query($conn, $query_dettagli_negozio);
-    
+
     // Prepariamo un array vuoto per i dettagli
     $dettagli = [];
-    
+
     // Popoliamo l'array con i risultati della query
     if ($result_dettagli_negozio) {
-        while($row_dettagli_negozio = mysqli_fetch_assoc($result_dettagli_negozio)) {
+        while ($row_dettagli_negozio = mysqli_fetch_assoc($result_dettagli_negozio)) {
             // Aggiungi ogni riga dei risultati all'array dei dettagli
             $dettagli[] = $row_dettagli_negozio;
         }
     }
 
     mysqli_close($conn); // Chiudi la connessione al database
-    
+
     // Restituisci i dettagli come array associativo
     return $dettagli;
 }
@@ -592,13 +602,14 @@ function stampaDettagli_negozio() {
 // $dettagli_negozio = stampaDettagli_negozio();
 //foreach ($dettagli_negozio as $dettaglio) {
 //    echo "Nome del negozio: " . $dettaglio['nome'] . "<br>";  // Assicurati che 'nome' corrisponda alla colonna del tuo database
-    // Aggiungi qui altre proprietà come necessario
+// Aggiungi qui altre proprietà come necessario
 //}
 
 
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER VISUALIZZARE LEADS E CLIENTI ---------------------------------------------------------------------------
-function visualizzaClientiELeads() {
+function visualizzaClientiELeads()
+{
     // Includi la connessione al database
     require '../../conn.php';
 
@@ -607,13 +618,13 @@ function visualizzaClientiELeads() {
     $totalClientsResult = $conn->query($totalClientsQuery);
     $totalClientsRow = $totalClientsResult->fetch_assoc();
     $totalClients = $totalClientsRow['totalClients'];
-    
+
     // Prepara e esegui la query per il numero totale di leads
     $totalLeadsQuery = "SELECT COUNT(*) as totalLeads FROM leads";
     $totalLeadsResult = $conn->query($totalLeadsQuery);
     $totalLeadsRow = $totalLeadsResult->fetch_assoc();
     $totalLeads = $totalLeadsRow['totalLeads'];
-    
+
     // Costruisci l'HTML per la visualizzazione
     $html = '<div class="container mt-5">';
     $html .= '<div class="row">';
@@ -631,10 +642,10 @@ function visualizzaClientiELeads() {
     $html .= '</div>';
     $html .= '</div>';
     $html .= '</div>';
-    
+
     // Chiudi la connessione se necessario
     $conn->close();
-    
+
     // Restituisci l'HTML costruito
     return $html;
 }
@@ -643,14 +654,15 @@ function visualizzaClientiELeads() {
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER Tabella Inevasi ----------------------------------------------------------------------------------------
-function stampaTabellaOrdini($whichPage) {
+function stampaTabellaOrdini($whichPage)
+{
     // Includi la connessione al database
     require '../../conn.php';
-    
+
     // Prepara e esegui la query per ottenere i dati degli ordini
     $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = '$whichPage'";
     $ordersResult = $conn->query($ordersQuery);
-    
+
     // Costruisci l'HTML per la tabella
     $html = '<div class="container mt-5">';
     $html .= '<div class="table-responsive">';
@@ -667,17 +679,17 @@ function stampaTabellaOrdini($whichPage) {
     $html .= '</tr>';
     $html .= '</thead>';
     $html .= '<tbody class="table-light">';
-    
+
     // Verifica se ci sono risultati
     if ($ordersResult->num_rows > 0) {
-        while($row = $ordersResult->fetch_assoc()) {
-            if($row['selected'] == 'false' ){
+        while ($row = $ordersResult->fetch_assoc()) {
+            if ($row['selected'] == 'false') {
                 $selected = '<i class="fa-regular fa-square fs-5"></i>';
             } else {
                 $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
             }
             $html .= '<tr>';
-            $html .= '<td class="clickable-row" data-id="'.$row['id_ordine'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
+            $html .= '<td class="clickable-row" data-id="' . $row['id_ordine'] . '" data-stato="' . $row['selected'] . '">' . $selected . '</td>';
             $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >#00' . $row['id_ordine'] . '</td>';
             $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['email'] . '</td>';
             $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['stato_ordine'] . '</td>';
@@ -691,72 +703,73 @@ function stampaTabellaOrdini($whichPage) {
         $html .= '<td colspan="6">Nessun ordine trovato</td>';
         $html .= '</tr>';
     }
-    
+
     $html .= '</tbody>';
     $html .= '</table>';
     $html .= '</div>';
     $html .= '</div>';
 
-    
+
     // Chiudi la connessione se necessario
     $conn->close();
-    
+
     // Restituisci l'HTML costruito
     return $html;
 }
 // ----------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER AGGIUNTA ORDINE MANUALE ---------------------------------------------------------------------------------
-function aggiuntaOrdine(){
+function aggiuntaOrdine()
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
-    
+
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
 
-        // Valori predefiniti
-        $email = 'scrivi@laemail.it';	
-        $data_ordine = 'inserisci la data';	
-        $stato_ordine = 'Inevaso';	
-        $totale_ordine = '0';	
-        $indirizzo_spedizione = 'Inserisci la via';	
-        $paese = 'Inserisci il paese';	
-        $cap = 'inserisci il cap';	
-        $citta = 'Inserisci la città';	
-        $provincia = 'Inserisci la provincia';	
-        $telefono = 'Inserisci il telefono';	
-        $nome = 'Inserisci il nome';	
-        $cognome = 'inserisci il cognome';	
-        $tipo_spedizione = 'Inserisci la spedizione';	
+    // Valori predefiniti
+    $email = 'scrivi@laemail.it';
+    $data_ordine = 'inserisci la data';
+    $stato_ordine = 'Inevaso';
+    $totale_ordine = '0';
+    $indirizzo_spedizione = 'Inserisci la via';
+    $paese = 'Inserisci il paese';
+    $cap = 'inserisci il cap';
+    $citta = 'Inserisci la città';
+    $provincia = 'Inserisci la provincia';
+    $telefono = 'Inserisci il telefono';
+    $nome = 'Inserisci il nome';
+    $cognome = 'inserisci il cognome';
+    $tipo_spedizione = 'Inserisci la spedizione';
 
-        $query = "INSERT INTO ordini (email, data_ordine, stato_ordine, totale_ordine, indirizzo_spedizione, paese, cap, citta, provincia, telefono, nome, cognome, tipo_spedizione) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("sssssssssssss", $email, $data_ordine, $stato_ordine, $totale_ordine, $indirizzo_spedizione, $paese, $cap, $citta, $provincia, $telefono, $nome, $cognome, $tipo_spedizione);
-            $result = $stmt->execute();
-            if ($result) {
-                $feedback = "&nbsp;&nbsp;Ordine aggiunto con successo.";
-                // Reindirizza alla pagina desiderata con un messaggio di successo
-                header('Location: ../ui/ordini_inevasi?success=' . urlencode($feedback));
-                exit;
-            } else {
-                $feedback = "Errore durante l'inserimento dell'ordine: " . $stmt->error;
-                // Reindirizza alla pagina desiderata con un messaggio di errore
-                header('Location: ../ui/ordini_inevasi?error=' . urlencode($feedback));
-                exit;
-            }
-            $stmt->close();
+    $query = "INSERT INTO ordini (email, data_ordine, stato_ordine, totale_ordine, indirizzo_spedizione, paese, cap, citta, provincia, telefono, nome, cognome, tipo_spedizione) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    if ($stmt) {
+        $stmt->bind_param("sssssssssssss", $email, $data_ordine, $stato_ordine, $totale_ordine, $indirizzo_spedizione, $paese, $cap, $citta, $provincia, $telefono, $nome, $cognome, $tipo_spedizione);
+        $result = $stmt->execute();
+        if ($result) {
+            $feedback = "&nbsp;&nbsp;Ordine aggiunto con successo.";
+            // Reindirizza alla pagina desiderata con un messaggio di successo
+            header('Location: ../ui/ordini_inevasi?success=' . urlencode($feedback));
+            exit;
         } else {
-            $feedback = "Errore durante la preparazione della query: " . $conn->error;
+            $feedback = "Errore durante l'inserimento dell'ordine: " . $stmt->error;
             // Reindirizza alla pagina desiderata con un messaggio di errore
             header('Location: ../ui/ordini_inevasi?error=' . urlencode($feedback));
             exit;
         }
-        $conn->close();
-
+        $stmt->close();
+    } else {
+        $feedback = "Errore durante la preparazione della query: " . $conn->error;
+        // Reindirizza alla pagina desiderata con un messaggio di errore
+        header('Location: ../ui/ordini_inevasi?error=' . urlencode($feedback));
+        exit;
+    }
+    $conn->close();
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI ORDINE ----------------------------------------------------------------------------------------
-function dettagliOrdine($id_order){
-    require ('conn.php');
+function dettagliOrdine($id_order)
+{
+    require('conn.php');
 
     $stmt = $conn->prepare("SELECT * FROM ordini WHERE id_ordine = ?");
     $stmt->bind_param("i", $id_order);
@@ -766,9 +779,9 @@ function dettagliOrdine($id_order){
 
     $ordine = array();
 
-    if($result->num_rows > 0) {
+    if ($result->num_rows > 0) {
         $ordine = $result->fetch_assoc();
-    } else{
+    } else {
         $ordine['error'] = "Nessun ordine trovato con l'ID specificato.";
     }
 
@@ -779,8 +792,9 @@ function dettagliOrdine($id_order){
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI ARTICOLI ORDINE -------------------------------------------------------------------------------
-function dettagliArticoliOrdine($id_order){
-    require ('conn.php');
+function dettagliArticoliOrdine($id_order)
+{
+    require('conn.php');
 
     $query = "SELECT do.id_dettaglio, do.id_ordine, do.id_prodotto, do.quantita, do.prezzo, 
                      p.titolo, p.descrizione, p.categoria, p.collezione, p.stato, p.prezzo_comparato, p.quantita AS quantita_disponibile, p.peso, p.varianti
@@ -795,7 +809,7 @@ function dettagliArticoliOrdine($id_order){
 
     $dettagli = [];
 
-    if($result->num_rows > 0){
+    if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $dettagli[] = $row;
         }
@@ -808,13 +822,14 @@ function dettagliArticoliOrdine($id_order){
 
     $stmt->close();
     $conn->close();
-    
+
     return $dettagli;
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER PREZZO TOTALE ----------------------------------------------------------------------------------------
-function stampaTotaleOrdine($id_order) {
-    require('conn.php'); 
+function stampaTotaleOrdine($id_order)
+{
+    require('conn.php');
 
     $query = "SELECT quantita, prezzo FROM dettagli_ordini WHERE id_ordine = ?";
     $stmt = $conn->prepare($query);
@@ -845,13 +860,14 @@ function stampaTotaleOrdine($id_order) {
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER Spedizioni ---------------------------------------------------------------------------------------------
-function mostraDettagliOrdineSpedizione($idOrdine) {
+function mostraDettagliOrdineSpedizione($idOrdine)
+{
     // Connessione al database
     require('../../conn.php');
-    
+
     // Inizializza l'HTML del contenuto
     $html = '<div class="container mt-5">';
-    
+
     // Query per ottenere i dettagli dell'ordine
     $query_ordine = "SELECT * FROM ordini WHERE id_ordine = $idOrdine";
     $result_ordine = mysqli_query($conn, $query_ordine);
@@ -871,7 +887,7 @@ function mostraDettagliOrdineSpedizione($idOrdine) {
         $telefono = $row_ordine['telefono'];
         $tipo_spedizione = $row_ordine['tipo_spedizione'];
         $totale_ordine = $row_ordine['totale_ordine'];
-    
+
         // Aggiungi le informazioni dell'ordine all'HTML
         $html .= "<h1>Ordine #00$id_ordine</h1>
                   <p><strong>Cliente:</strong> $nome $cognome</p>
@@ -941,18 +957,18 @@ function mostraDettagliOrdineSpedizione($idOrdine) {
                   </form>";
     }
 
-    
-        // Query per verificare l'esistenza di un tracking ID
-        $query_tracking = "SELECT tracking FROM tracking WHERE id_ordine = $id_ordine";
-        $result_tracking = mysqli_query($conn, $query_tracking);
-        $tracking = null;
-        if ($result_tracking && $row_tracking = mysqli_fetch_assoc($result_tracking)) {
-            $tracking = $row_tracking['tracking'];
-        }
 
-        if ($tracking === null) {
-            // Non esiste un tracking ID, mostra il form per l'inserimento
-            $html .= "<div class='tracking-form mt-4'>
+    // Query per verificare l'esistenza di un tracking ID
+    $query_tracking = "SELECT tracking FROM tracking WHERE id_ordine = $id_ordine";
+    $result_tracking = mysqli_query($conn, $query_tracking);
+    $tracking = null;
+    if ($result_tracking && $row_tracking = mysqli_fetch_assoc($result_tracking)) {
+        $tracking = $row_tracking['tracking'];
+    }
+
+    if ($tracking === null) {
+        // Non esiste un tracking ID, mostra il form per l'inserimento
+        $html .= "<div class='tracking-form mt-4'>
                         <h3>Inserisci il Tracking ID</h3>
                         <form action='inserisci_tracking' method='POST'>
                             <input type='hidden' name='id_ordine' value='$id_ordine'>
@@ -963,9 +979,9 @@ function mostraDettagliOrdineSpedizione($idOrdine) {
                             <button type='submit' class='btn btn-outline-secondary'>Inserisci Tracking</button> 
                         </form>
                     </div>";
-        } else {
-            // Esiste già un tracking ID, mostra il form per la modifica
-            $html .= "<div class='tracking-form mt-4'>
+    } else {
+        // Esiste già un tracking ID, mostra il form per la modifica
+        $html .= "<div class='tracking-form mt-4'>
                         <h3>Modifica il Tracking ID</h3>
                         <form action='modifica_tracking' method='POST'>
                             <input type='hidden' name='id_ordine' value='$id_ordine'>
@@ -976,23 +992,24 @@ function mostraDettagliOrdineSpedizione($idOrdine) {
                             <button type='submit' class='btn btn-outline-secondary'>Modifica Tracking</button>
                         </form>
                     </div>";
-        }
+    }
 
-    
+
     $html .= '</div></div></div>';
 
     return $html;
 }
 // -------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER INSERIRE IL TRACKING ---------------------------------------------------------------------------------------
-function modificaDettagliTracking() {
+function modificaDettagliTracking()
+{
     require('../../conn.php'); // Connessione al database
     $id_ordine = $_POST['id_ordine'];
     $tracking_id = mysqli_real_escape_string($conn, $_POST['tracking_id']);
-    
+
     // Inserisci o aggiorna il tracking ID
     $query = "INSERT INTO tracking (id_ordine, tracking) VALUES ('$id_ordine', '$tracking_id') ON DUPLICATE KEY UPDATE tracking='$tracking_id'";
-    
+
     if (mysqli_query($conn, $query)) {
         // Redireziona indietro o mostra un messaggio di successo
         header("Location: ordine_modifica?id=$id_ordine");
@@ -1003,7 +1020,8 @@ function modificaDettagliTracking() {
 }
 // ------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER MODIFICARE IL TRACKING ------------------------------------------------------------------------------------
-function aggiornaDettagliTracking() {
+function aggiornaDettagliTracking()
+{
     require('../../conn.php'); // Connessione al database
 
     // Assicurati che i dati siano stati inviati tramite POST
@@ -1039,7 +1057,8 @@ function aggiornaDettagliTracking() {
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER LISTA PRODOTTI -----------------------------------------------------------------------------------------
-function listaProdotti() {
+function listaProdotti()
+{
     require '../../conn.php';
     $html = '<div class="container mt-5">';
     $html .= '<div class="table-responsive">';
@@ -1093,19 +1112,19 @@ function listaProdotti() {
         } else {
             $check_qnt = '<b class="text-success">Scorte Sufficenti</b>'; // Nessun messaggio se la quantità è maggiore di 5
         }
-        if($row['selected'] == 'false' ){
+        if ($row['selected'] == 'false') {
             $selected = '<i class="fa-regular fa-square fs-5"></i>';
         } else {
             $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
         }
         $html .= '<tr>';
-        $html .= '<td class="clickable-row" data-id="'.$row['id_prodotto'].'" data-stato="'.$row['selected'].'">' . $selected . '</td>';
+        $html .= '<td class="clickable-row" data-id="' . $row['id_prodotto'] . '" data-stato="' . $row['selected'] . '">' . $selected . '</td>';
         $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' ><img src='" . htmlspecialchars($immagine, ENT_QUOTES) . "' width='30px'></td>";
         $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['titolo'], ENT_QUOTES) . "</td>";
         $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >$check&nbsp;" . htmlspecialchars($row['stato'], ENT_QUOTES) . "</td>"; // Aggiungi qui la logica per visualizzare $check
         $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['collezione'], ENT_QUOTES) . "</td>";
         $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['quantita'], ENT_QUOTES) . "</td>"; // Aggiungi qui la logica per visualizzare $check_qnt
-        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" .$check_qnt. "</td>"; // Aggiungi qui la logica per visualizzare $check_qnt
+        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . $check_qnt . "</td>"; // Aggiungi qui la logica per visualizzare $check_qnt
         $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['prezzo'], ENT_QUOTES) . "€</td>";
         $html .= "</tr>";
     }
@@ -1119,53 +1138,55 @@ function listaProdotti() {
 }
 // ----------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER AGGIUNTA PRODOTTO ---------------------------------------------------------------------------------------
-function aggiuntaProdotto(){
+function aggiuntaProdotto()
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
-    
+
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
-    
-        $titolo = 'Nuovo Prodotto';
-        $descrizione = 'Descrizione del tuo Prodotto';
-        $categoria = 'Categoria Predefinita';
-        $collezione = 'Collezione Predefinita';
-        $stato = 'offline';
-        $prezzo = '0';
-        $prezzo_comparato = '0';
-        $quantita = '0';
-        $peso = '0';
-        $varianti = '0';
-        
-        $query = "INSERT INTO prodotti (titolo, descrizione, categoria, collezione, stato, prezzo, prezzo_comparato, quantita, peso, varianti) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("ssssssssss", $titolo, $descrizione, $categoria, $collezione, $stato, $prezzo, $prezzo_comparato, $quantita, $peso, $varianti);
-            $result = $stmt->execute();
-            if ($result) {
-                $feedback = "Prodotto aggiunto con successo.";
-                header('Location: ../ui/prodotti?success=' . urlencode($feedback));
-                exit;
-            } else {
-                $feedback = "Errore durante l'inserimento del prodotto: " . $stmt->error;
-                header('Location: ../ui/prodotti?error=' . urlencode($feedback));
-                exit;
-            }
-            $stmt->close();
+
+    $titolo = 'Nuovo Prodotto';
+    $descrizione = 'Descrizione del tuo Prodotto';
+    $categoria = 'Categoria Predefinita';
+    $collezione = 'Collezione Predefinita';
+    $stato = 'offline';
+    $prezzo = '0';
+    $prezzo_comparato = '0';
+    $quantita = '0';
+    $peso = '0';
+    $varianti = '0';
+
+    $query = "INSERT INTO prodotti (titolo, descrizione, categoria, collezione, stato, prezzo, prezzo_comparato, quantita, peso, varianti) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    if ($stmt) {
+        $stmt->bind_param("ssssssssss", $titolo, $descrizione, $categoria, $collezione, $stato, $prezzo, $prezzo_comparato, $quantita, $peso, $varianti);
+        $result = $stmt->execute();
+        if ($result) {
+            $feedback = "Prodotto aggiunto con successo.";
+            header('Location: ../ui/prodotti?success=' . urlencode($feedback));
+            exit;
         } else {
-            $feedback = "Errore durante la preparazione della query: " . $conn->error;
+            $feedback = "Errore durante l'inserimento del prodotto: " . $stmt->error;
             header('Location: ../ui/prodotti?error=' . urlencode($feedback));
             exit;
         }
-        $conn->close();
-
-        header('Location: ../ui/prodotti');
+        $stmt->close();
+    } else {
+        $feedback = "Errore durante la preparazione della query: " . $conn->error;
+        header('Location: ../ui/prodotti?error=' . urlencode($feedback));
         exit;
     }
+    $conn->close();
+
+    header('Location: ../ui/prodotti');
+    exit;
+}
 
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER AGGIUNTA IMMAGINI PRODOTTO -----------------------------------------------------------------------------
-function aggiuntaImmagini($id_prodotto) {
-    
+function aggiuntaImmagini($id_prodotto)
+{
+
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Inizializzo una variabile per il messaggio di feedback
@@ -1174,7 +1195,7 @@ function aggiuntaImmagini($id_prodotto) {
     // Controlla se il metodo di richiesta è POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['immagini'])) {
         $numeroImmagini = count($_FILES['immagini']['name']);
-        
+
         for ($i = 0; $i < $numeroImmagini; $i++) {
             // Ottieni i dati dell'immagine corrente
             $nomeFile = $_FILES['immagini']['name'][$i];
@@ -1221,7 +1242,8 @@ function aggiuntaImmagini($id_prodotto) {
 }
 // ----------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER MODIFICA PRODOTTO ---------------------------------------------------------------------------------------
-function modificaProdotto($id_prodotto) {
+function modificaProdotto($id_prodotto)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID del prodotto è valido (puoi aggiungere ulteriori controlli)
@@ -1285,9 +1307,10 @@ function modificaProdotto($id_prodotto) {
 }
 // ----------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DUPLICAZIONE PRODOTTO ---------------------------------------------------------------------------------------
-function duplicaProdotto($idProdottoOriginale) {
+function duplicaProdotto($idProdottoOriginale)
+{
     require '../../conn.php'; // Assicurati che il percorso del file sia corretto
-    
+
     // Recupera i dettagli del prodotto originale
     $query = "SELECT * FROM prodotti WHERE id_prodotto = ?";
     $stmt = $conn->prepare($query);
@@ -1304,11 +1327,11 @@ function duplicaProdotto($idProdottoOriginale) {
             // Bind dei parametri escludendo l'ID (sarà auto-generato se impostato come autoincrement)
             $stmtDuplica->bind_param("ssssssssss", $nuovoTitolo, $row['descrizione'], $row['categoria'], $row['collezione'], $row['stato'], $row['prezzo'], $row['prezzo_comparato'], $row['quantita'], $row['peso'], $row['varianti']);
             $stmtDuplica->execute();
-            
+
             // Ottieni l'ID del nuovo prodotto duplicato
             $nuovoIdProdotto = $stmtDuplica->insert_id;
             $stmtDuplica->close();
-            
+
             // Restituisci l'ID del nuovo prodotto per il reindirizzamento
             return $nuovoIdProdotto;
         } else {
@@ -1327,7 +1350,8 @@ function duplicaProdotto($idProdottoOriginale) {
 
 // ----------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI PRODOTTO ---------------------------------------------------------------------------------------
-function ottieniDettagliProdotto($id_prodotto) {
+function ottieniDettagliProdotto($id_prodotto)
+{
     require 'conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID del prodotto è valido
@@ -1373,13 +1397,15 @@ function ottieniDettagliProdotto($id_prodotto) {
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER LISTA COLLEZIONI ---------------------------------------------------------------------------------------
-function listaCollezioni() {
+function listaCollezioni()
+{
     require '../../conn.php'; // Utilizza lo stesso file di connessione del DB
     $html = '<div class="container mt-5">';
     $html .= '<div class="table-responsive">';
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
+    $html .= '<th></th>'; // ID della collezione
     $html .= '<th>ID</th>'; // ID della collezione
     $html .= '<th>Nome</th>'; // Nome della collezione
     $html .= '<th>Descrizione</th>'; // Descrizione della collezione
@@ -1392,10 +1418,16 @@ function listaCollezioni() {
     $result = mysqli_query($conn, $query);
 
     while ($row = mysqli_fetch_assoc($result)) {
-        $html .= "<tr style='cursor: pointer;' onclick='apriModifica(" . $row['id_collezione'] . ")'>";
-        $html .= "<td>#00" . htmlspecialchars($row['id_collezione'], ENT_QUOTES) . "</td>";
-        $html .= "<td>" . htmlspecialchars($row['nome_c'], ENT_QUOTES) . "</td>";
-        $html .= "<td>" . htmlspecialchars($row['descrizione_c'], ENT_QUOTES) . "</td>";
+        if ($row['selected'] == 'false') {
+            $selected = '<i class="fa-regular fa-square fs-5"></i>';
+        } else {
+            $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
+        }
+        $html .= "<tr style='cursor: pointer;'>";
+        $html .= '<td class="clickable-row" data-id="' . $row['id_collezione'] . '" data-stato="' . $row['selected'] . '">' . $selected . '</td>';
+        $html .= "<td onclick='apriModifica(" . $row['id_collezione'] . ")'>#00" . htmlspecialchars($row['id_collezione'], ENT_QUOTES) . "</td>";
+        $html .= "<td onclick='apriModifica(" . $row['id_collezione'] . ")'>" . htmlspecialchars($row['nome_c'], ENT_QUOTES) . "</td>";
+        $html .= "<td onclick='apriModifica(" . $row['id_collezione'] . ")'>" . htmlspecialchars($row['descrizione_c'], ENT_QUOTES) . "</td>";
         $html .= "</tr>";
     }
 
@@ -1408,50 +1440,51 @@ function listaCollezioni() {
 }
 // ------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER AGGIUNTA COLLEZIONE ---------------------------------------------------------------------------------------
-function aggiuntaCollezione(){
+function aggiuntaCollezione()
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
-    
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addColl') {
-        // Valori predefiniti
-        $nome_c = 'Nuova Collezione';
-        $descrizione_c = 'Aggiungi descrizione';
-    
-        $query = "INSERT INTO collezioni (nome_c, descrizione_c) VALUES (?, ?)";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("ss", $nome_c, $descrizione_c);
-            $result = $stmt->execute();
-            if ($result) {
-                $feedback = "Collezione aggiunta con successo.";
-                // Reindirizza alla pagina desiderata con un messaggio di successo
-                header('Location: ../ui/collezioni?success=' . urlencode($feedback));
-                exit;
-            } else {
-                $feedback = "Errore durante l'inserimento della collezione: " . $stmt->error;
-                // Reindirizza alla pagina desiderata con un messaggio di errore
-                header('Location: ../ui/collezioni?error=' . urlencode($feedback));
-                exit;
-            }
-            $stmt->close();
+
+
+    // Valori predefiniti
+    $nome_c = 'Nuova Collezione';
+    $descrizione_c = 'Aggiungi descrizione';
+
+    $query = "INSERT INTO collezioni (nome_c, descrizione_c) VALUES (?, ?)";
+    $stmt = $conn->prepare($query);
+    if ($stmt) {
+        $stmt->bind_param("ss", $nome_c, $descrizione_c);
+        $result = $stmt->execute();
+        if ($result) {
+            $feedback = "Collezione aggiunta con successo.";
+            // Reindirizza alla pagina desiderata con un messaggio di successo
+            header('Location: ../ui/collezioni?success=' . urlencode($feedback));
+            exit;
         } else {
-            $feedback = "Errore durante la preparazione della query: " . $conn->error;
+            $feedback = "Errore durante l'inserimento della collezione: " . $stmt->error;
             // Reindirizza alla pagina desiderata con un messaggio di errore
             header('Location: ../ui/collezioni?error=' . urlencode($feedback));
             exit;
         }
-        $conn->close();
+        $stmt->close();
     } else {
-        // Se il metodo non è POST o l'azione non corrisponde, reindirizza l'utente
-        header('Location: ../ui/collezioni');
+        $feedback = "Errore durante la preparazione della query: " . $conn->error;
+        // Reindirizza alla pagina desiderata con un messaggio di errore
+        header('Location: ../ui/collezioni?error=' . urlencode($feedback));
         exit;
     }
+    $conn->close();
+
+    header('Location: ../ui/collezioni');
+    exit;
 }
+
 // ------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER MODIFICA COLLEZIONE ---------------------------------------------------------------------------------------
-function modificaCollezione($id_collezione) {
+function modificaCollezione($id_collezione)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID della collezione è valido (puoi aggiungere ulteriori controlli)
@@ -1503,60 +1536,60 @@ function modificaCollezione($id_collezione) {
         }
     }
 
-// Processa la modifica della collezione se il modulo è stato inviato
-if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST['action']) || $_POST['action'] !== 'delete')) {
-    // Ottieni i dati del modulo
-    $nome_c = $_POST["nome_c"];
-    $descrizione_c = $_POST["descrizione_c"];
+    // Processa la modifica della collezione se il modulo è stato inviato
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST['action']) || $_POST['action'] !== 'delete')) {
+        // Ottieni i dati del modulo
+        $nome_c = $_POST["nome_c"];
+        $descrizione_c = $_POST["descrizione_c"];
 
-    // Recupera il vecchio nome della collezione per aggiornare le categorie associate
-    $queryVecchioNome = "SELECT nome_c FROM collezioni WHERE id_collezione = ?";
-    $stmt = $conn->prepare($queryVecchioNome);
-    $stmt->bind_param('i', $id_collezione);
-    $stmt->execute();
-    $resultVecchioNome = $stmt->get_result();
-    $vecchioNome = $resultVecchioNome->fetch_assoc()['nome_c'];
-    $stmt->close();
+        // Recupera il vecchio nome della collezione per aggiornare le categorie associate
+        $queryVecchioNome = "SELECT nome_c FROM collezioni WHERE id_collezione = ?";
+        $stmt = $conn->prepare($queryVecchioNome);
+        $stmt->bind_param('i', $id_collezione);
+        $stmt->execute();
+        $resultVecchioNome = $stmt->get_result();
+        $vecchioNome = $resultVecchioNome->fetch_assoc()['nome_c'];
+        $stmt->close();
 
-    if ($vecchioNome) {
-        // Esegui la query di aggiornamento della collezione
-        $query = "UPDATE collezioni SET nome_c=?, descrizione_c=? WHERE id_collezione = ?";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("ssi", $nome_c, $descrizione_c, $id_collezione);
-            if ($stmt->execute()) {
-                $stmt->close();
-                
-                // Se il nome della collezione è cambiato, aggiorna anche tutte le associazioni nelle categorie
-                if ($nome_c != $vecchioNome) {
-                    $queryAggiornaCategorie = "UPDATE categorie SET associazione = ? WHERE associazione = ?";
-                    $stmt = $conn->prepare($queryAggiornaCategorie);
-                    $stmt->bind_param('ss', $nome_c, $vecchioNome);
-                    if (!$stmt->execute()) {
-                        $conn->close();
-                        return "Modifiche apportate con successo alla collezione, ma errore durante l'aggiornamento delle categorie associate: " . $stmt->error;
-                    }
+        if ($vecchioNome) {
+            // Esegui la query di aggiornamento della collezione
+            $query = "UPDATE collezioni SET nome_c=?, descrizione_c=? WHERE id_collezione = ?";
+            $stmt = $conn->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("ssi", $nome_c, $descrizione_c, $id_collezione);
+                if ($stmt->execute()) {
                     $stmt->close();
-                }
 
-                $conn->close();
-                return "Modifiche apportate con successo alla collezione e alle categorie associate.";
+                    // Se il nome della collezione è cambiato, aggiorna anche tutte le associazioni nelle categorie
+                    if ($nome_c != $vecchioNome) {
+                        $queryAggiornaCategorie = "UPDATE categorie SET associazione = ? WHERE associazione = ?";
+                        $stmt = $conn->prepare($queryAggiornaCategorie);
+                        $stmt->bind_param('ss', $nome_c, $vecchioNome);
+                        if (!$stmt->execute()) {
+                            $conn->close();
+                            return "Modifiche apportate con successo alla collezione, ma errore durante l'aggiornamento delle categorie associate: " . $stmt->error;
+                        }
+                        $stmt->close();
+                    }
+
+                    $conn->close();
+                    return "Modifiche apportate con successo alla collezione e alle categorie associate.";
+                } else {
+                    $result = "Errore durante la modifica della collezione: " . $stmt->error;
+                    $stmt->close();
+                    $conn->close();
+                    return $result;
+                }
             } else {
-                $result = "Errore durante la modifica della collezione: " . $stmt->error;
-                $stmt->close();
+                $result = "Errore nella preparazione della query: " . $conn->error;
                 $conn->close();
                 return $result;
             }
         } else {
-            $result = "Errore nella preparazione della query: " . $conn->error;
             $conn->close();
-            return $result;
+            return "Errore: non è stato possibile recuperare il vecchio nome della collezione.";
         }
-    } else {
-        $conn->close();
-        return "Errore: non è stato possibile recuperare il vecchio nome della collezione.";
     }
-}
 
 
     $conn->close();
@@ -1564,7 +1597,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST['action']) || $_POST[
 }
 // ------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI COLLEZIONE ---------------------------------------------------------------------------------------
-function ottieniDettagliCollezione($id_collezione) {
+function ottieniDettagliCollezione($id_collezione)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID della collezione è valido
@@ -1610,7 +1644,8 @@ function ottieniDettagliCollezione($id_collezione) {
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER LISTA CATEGORIE
-function visualizzaCategorie($nomeCollezione) {
+function visualizzaCategorie($nomeCollezione)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Escaping del nome della collezione per evitare problemi SQL
@@ -1654,18 +1689,19 @@ function visualizzaCategorie($nomeCollezione) {
 // codiciSconto.php ----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER AGGIUNTA CODICE SCONTO ---------------------------------------------------------------------------------
-function aggiunta_codicesconto(){
+function aggiunta_codicesconto()
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
-    
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addCodice') {
         // Valori predefiniti
         $codicesconto = 'NUOVOCODICESCONTO';
         $importo = '20';
         $stato = 'Non Valido';
-    
+
         $query = "INSERT INTO codici_sconto (codicesconto, importo, stato) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($query);
         if ($stmt) {
@@ -1698,17 +1734,18 @@ function aggiunta_codicesconto(){
 }
 // ------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER LISTA CODICI SCONTO ---------------------------------------------------------------------------------------
-function listaCodicisconto() {
+function listaCodicisconto()
+{
     require '../../conn.php'; // Utilizza lo stesso file di connessione del DB
     $html = '<div class="container mt-5">';
     $html .= '<div class="table-responsive">';
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
-    $html .= '<th>ID</th>'; 
+    $html .= '<th>ID</th>';
     $html .= '<th>Codice</th>';
-    $html .= '<th>Importo</th>'; 
-    $html .= '<th>Stato</th>'; 
+    $html .= '<th>Importo</th>';
+    $html .= '<th>Stato</th>';
     $html .= '</tr>';
     $html .= '</thead>';
     $html .= '<tbody class="table-light">';
@@ -1744,7 +1781,8 @@ function listaCodicisconto() {
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER MODIFICA CODICE SCONTO ---------------------------------------------------------------------------------
-function modificaCodicesconto($id_codicesconto) {
+function modificaCodicesconto($id_codicesconto)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID è valido
@@ -1798,7 +1836,8 @@ function modificaCodicesconto($id_codicesconto) {
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI CODICE SCONTO ---------------------------------------------------------------------------------
-function ottieniDettagliCodicesconto($id_codicesconto) {
+function ottieniDettagliCodicesconto($id_codicesconto)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID  è valido
@@ -1844,15 +1883,16 @@ function ottieniDettagliCodicesconto($id_codicesconto) {
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER LISTA CLIENTI ------------------------------------------------------------------------------------------
-function listaClienti() {
+function listaClienti()
+{
     require '../../conn.php'; // Utilizza lo stesso file di connessione del DB
     $html = '<div class="container mt-5">';
     $html .= '<div class="table-responsive">';
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
-    $html .= '<th>ID</th>'; 
-    $html .= '<th>Nome</th>'; 
+    $html .= '<th>ID</th>';
+    $html .= '<th>Nome</th>';
     $html .= '<th>Cognome</th>';
     $html .= '<th>Email</th>';
     $html .= '<th>Telefono</th>';
@@ -1883,12 +1923,13 @@ function listaClienti() {
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER AGGIUNTA Clienti ---------------------------------------------------------------------------------------
-function aggiuntaClienti(){
+function aggiuntaClienti()
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
-    
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addCliente') {
         // Valori predefiniti
         $nome = 'Nuovo';
@@ -1896,7 +1937,7 @@ function aggiuntaClienti(){
         $email = 'nuovo.cliente@mail.it';
         $telefono = '0000000000';
         $password = 'password';
-    
+
         $query = "INSERT INTO user_db (nome, cognome, email, telefono, password) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
         if ($stmt) {
@@ -1929,7 +1970,8 @@ function aggiuntaClienti(){
 }
 // ------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI COLLEZIONE ---------------------------------------------------------------------------------------
-function ottieniDettagliClienti($id_utente) {
+function ottieniDettagliClienti($id_utente)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID della collezione è valido
@@ -1975,7 +2017,8 @@ function ottieniDettagliClienti($id_utente) {
 // DettagliNegozio.php -------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER MODIFICA CLIENTI ---------------------------------------------------------------------------------------
-function modificaClienti($id_utente){ 
+function modificaClienti($id_utente)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID è valido
@@ -2028,10 +2071,11 @@ function modificaClienti($id_utente){
 
     $conn->close();
     return $result;
- }
+}
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI CLIENTI ---------------------------------------------------------------------------------------
- function dettagliNegozio() {
+function dettagliNegozio()
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     $resulting = '';
@@ -2095,7 +2139,8 @@ function modificaClienti($id_utente){
 // ruoli.php -----------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI AMMINISTRATORI --------------------------------------------------------------------------------
-function estraiDatiAmministratori() {
+function estraiDatiAmministratori()
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Prepara la query SQL
@@ -2105,7 +2150,7 @@ function estraiDatiAmministratori() {
 
     echo '<div class="container mt-5">';
     echo '<form>';
-    
+
     // Controlla se ci sono amministratori nel risultato
     if ($result->num_rows > 0) {
         // Cicla su tutti gli amministratori trovati
@@ -2114,33 +2159,34 @@ function estraiDatiAmministratori() {
             echo '<div class="card mb-4 shadow-sm">';
             echo '<div class="card-header bg-dark text-white">Dettagli Amministratore</div>';
             echo '<div class="card-body">';
-            
+
             // Nome e Cognome in una linea con titolo
             echo '<h5 class="card-title">' . htmlspecialchars($row['nome']) . ' ' . htmlspecialchars($row['cognome']) . '</h5>';
-            
+
             // Ruolo in un badge per dargli risalto
             echo '<h6 class="mb-2"><span class="badge bg-secondary">' . htmlspecialchars($row['ruolo']) . '</span></h6>';
-            
+
             // Email e Telefono come dettagli informativi
             echo '<p class="card-text"><strong>Email:</strong> ' . htmlspecialchars($row['email']) . '</p>';
             echo '<p class="card-text"><strong>Telefono:</strong> ' . htmlspecialchars($row['telefono']) . '</p>';
-            
+
             echo '</div>'; // Chiusura card-body
             echo '</div>'; // Chiusura card
         }
     } else {
         echo "Nessun amministratore trovato.";
     }
-    
+
     echo '</form>';
-    echo '</div>';        
+    echo '</div>';
 
     $stmt->close();
     $conn->close();
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI AMMINISTRATORI --------------------------------------------------------------------------------
-function estraiDatiSviluppatori() {
+function estraiDatiSviluppatori()
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Prepara la query SQL
@@ -2150,7 +2196,7 @@ function estraiDatiSviluppatori() {
 
     echo '<div class="container mt-5">';
     echo '<form>';
-    
+
     // Controlla se ci sono amministratori nel risultato
     if ($result->num_rows > 0) {
         // Cicla su tutti gli amministratori trovati
@@ -2159,33 +2205,34 @@ function estraiDatiSviluppatori() {
             echo '<div class="card mb-4 shadow-sm">';
             echo '<div class="card-header bg-danger text-white">Dettagli Sviluppatore</div>';
             echo '<div class="card-body">';
-            
+
             // Nome e Cognome in una linea con titolo
             echo '<h5 class="card-title">' . htmlspecialchars($row['nome']) . ' ' . htmlspecialchars($row['cognome']) . '</h5>';
-            
+
             // Ruolo in un badge per dargli risalto
             echo '<h6 class="mb-2"><span class="badge bg-secondary">' . htmlspecialchars($row['ruolo']) . '</span></h6>';
-            
+
             // Email e Telefono come dettagli informativi
             echo '<p class="card-text"><strong>Email:</strong> ' . htmlspecialchars($row['email']) . '</p>';
             echo '<p class="card-text"><strong>Telefono:</strong> ' . htmlspecialchars($row['telefono']) . '</p>';
-            
+
             echo '</div>'; // Chiusura card-body
             echo '</div>'; // Chiusura card
         }
     } else {
         echo "Nessun sviluppatore trovato.";
     }
-    
+
     echo '</form>';
-    echo '</div>';        
+    echo '</div>';
 
     $stmt->close();
     $conn->close();
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER AGGIUNTA ADMINISTRATOR ---------------------------------------------------------------------------------
-function inviaEmailAggiuntaAdmin(){
+function inviaEmailAggiuntaAdmin()
+{
 
     // Recuperiamo i dati negozio
     $dettagli_negozio = stampaDettagli_negozio();
@@ -2198,40 +2245,39 @@ function inviaEmailAggiuntaAdmin(){
     }
 
 
-require ('../../php_email.php'); // Includi lo script con la funzione send_mail
+    require('../../php_email.php'); // Includi lo script con la funzione send_mail
 
-// Controlla se i dati sono stati inviati tramite POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Assicurati che sia nome che email siano presenti
-    if(isset($_POST['nome']) && isset($_POST['email'])) {
-        $nome = $_POST['nome'];
-        $email = $_POST['email'];
+    // Controlla se i dati sono stati inviati tramite POST
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Assicurati che sia nome che email siano presenti
+        if (isset($_POST['nome']) && isset($_POST['email'])) {
+            $nome = $_POST['nome'];
+            $email = $_POST['email'];
 
-        // Impostazioni del template email
+            // Impostazioni del template email
 
-        $oggetto = 'LinkBay - Invito di Collaborazione';
-        $template = file_get_contents('../../templates/email_collabora.html'); // Assicurati che il percorso al file sia corretto
-        $messaggio = str_replace(['{{nome}}', '{{nome_negozio}}', '{{sitoweb}}'], [$nome, $nome_negozio, $sitoweb], $template); // Nel template usa {{ nome }} per passare i valori
+            $oggetto = 'LinkBay - Invito di Collaborazione';
+            $template = file_get_contents('../../templates/email_collabora.html'); // Assicurati che il percorso al file sia corretto
+            $messaggio = str_replace(['{{nome}}', '{{nome_negozio}}', '{{sitoweb}}'], [$nome, $nome_negozio, $sitoweb], $template); // Nel template usa {{ nome }} per passare i valori
 
-        // Invia l'email all'utente con le istruzioni per resettare la password
-        send_mail($email, $oggetto, $messaggio);
+            // Invia l'email all'utente con le istruzioni per resettare la password
+            send_mail($email, $oggetto, $messaggio);
 
-        header('Location: aggiunta_administrator');
-        
+            header('Location: aggiunta_administrator');
         } else {
             echo "Errore nella lettura del template dell'email";
         }
     } else {
         header('Location: aggiunta_administrator');
     }
-
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER MODIFICA RUOLI ADMINISTRATOR ---------------------------------------------------------------------------------
-function visualizzaRuoliAdmin() {
+function visualizzaRuoliAdmin()
+{
     // Connessione al database
     require('../../conn.php');
-    
+
     // Inizializza l'HTML del contenuto
     $html = '<div class="container mt-5">
     <table class="table">
@@ -2267,8 +2313,8 @@ function visualizzaRuoliAdmin() {
             $html .= '<form method="POST" action="administrator_modifica">';  // Sostituisci 'administrator_modifica.php' con il percorso effettivo dello script che gestisce il cambio del ruolo
             $html .= '<input type="hidden" name="id_admin" value="' . $id_admin . '">';
             $html .= '<select name="ruolo" onchange="this.form.submit()">';
-            $html .= '<option value="Seleziona">Seleziona</option>';  
-            $html .= '<option value="Amministratore">Amministratore</option>'; 
+            $html .= '<option value="Seleziona">Seleziona</option>';
+            $html .= '<option value="Amministratore">Amministratore</option>';
             $html .= '<option value="Co-Amministratore">Co-Amministratore</option>';
             $html .= '<option value="Collaboratore">Collaboratore</option>';
             $html .= '<option value="Developer">Developer</option>';
@@ -2282,25 +2328,26 @@ function visualizzaRuoliAdmin() {
 
     $html .= '</tbody></table></div>';
     mysqli_close($conn); // Chiudi la connessione al database
-    
+
     return $html;
 }
-function modificaRuoliAdmin(){
+function modificaRuoliAdmin()
+{
     // Connessione al database
     require('../../conn.php');
-    
+
     // Controlla se i dati sono stati inviati tramite POST
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if(isset($_POST['id_admin']) && isset($_POST['ruolo'])) {
+        if (isset($_POST['id_admin']) && isset($_POST['ruolo'])) {
             // Pulisci i dati di input per evitare attacchi di iniezione SQL
             $id_admin = mysqli_real_escape_string($conn, $_POST['id_admin']);
             $ruolo = mysqli_real_escape_string($conn, $_POST['ruolo']);
-    
+
             // Costruisci la query SQL per aggiornare il ruolo dell'amministratore
             $query = "UPDATE administrator SET ruolo='$ruolo' WHERE id_admin='$id_admin'";
-    
+
             // Esegui la query
-            if(mysqli_query($conn, $query)) {
+            if (mysqli_query($conn, $query)) {
                 // Reindirizzamento a una pagina di conferma o di successo, o dove preferisci
                 header('Location: aggiunta_administrator');
                 exit;
@@ -2312,21 +2359,21 @@ function modificaRuoliAdmin(){
             // Gestisci il caso in cui non tutti i dati necessari sono stati inviati
             echo "Dati del form incompleti";
         }
-    
+
         // Chiudi la connessione al database
         mysqli_close($conn);
     } else {
         // Gestisci il caso in cui il form non sia stato inviato con il metodo POST
         echo "Metodo della richiesta non valido";
     }
-    
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // Pagamenti.php ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER PAGAMENTI E MODIFICA ---------------------------------------------------------------------------------------
-function getPaymentProviderDetailsAndUpdate($conn, &$messaggio_risultato) {
+function getPaymentProviderDetailsAndUpdate($conn, &$messaggio_risultato)
+{
     $provider = isset($_GET['provider']) ? $_GET['provider'] : null;
 
     if ($provider === null) {
@@ -2334,7 +2381,7 @@ function getPaymentProviderDetailsAndUpdate($conn, &$messaggio_risultato) {
         exit;
     }
 
-    
+
     $query_pay = "SELECT * FROM payment_systems WHERE provider = ?";
     $stmt = $conn->prepare($query_pay);
     if ($stmt) {
@@ -2382,17 +2429,18 @@ function getPaymentProviderDetailsAndUpdate($conn, &$messaggio_risultato) {
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER LISTA SPEDIZIONI ---------------------------------------------------------------------------------------
-function listaSpedizioni() {
+function listaSpedizioni()
+{
     require '../../conn.php'; // Utilizza lo stesso file di connessione del DB
     $html = '<div class="container mt-5">';
     $html .= '<div class="table-responsive">';
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
-    $html .= '<th>ID</th>'; 
+    $html .= '<th>ID</th>';
     $html .= '<th>Tipo</th>';
-    $html .= '<th>Prezzo</th>'; 
-    $html .= '<th>Peso</th>'; 
+    $html .= '<th>Prezzo</th>';
+    $html .= '<th>Peso</th>';
     $html .= '</tr>';
     $html .= '</thead>';
     $html .= '<tbody class="table-light">';
@@ -2420,18 +2468,19 @@ function listaSpedizioni() {
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER AGGIUNTA SPEDIZIONE ---------------------------------------------------------------------------------------
-function aggiunta_spedizione(){
+function aggiunta_spedizione()
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
-    
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addSpedizione') {
         // Valori predefiniti
         $tipo_spedizione = 'Nuova Spedizione';
         $prezzo_spedizione = '0';
         $peso_spedizione = '0';
-    
+
         $query = "INSERT INTO spedizioni (tipo_spedizione, prezzo_spedizione, peso_spedizione) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($query);
         if ($stmt) {
@@ -2464,7 +2513,8 @@ function aggiunta_spedizione(){
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER MODIFICA SPEDIZIONE ---------------------------------------------------------------------------------------
-function modificaSpedizione($id_spedizione) {
+function modificaSpedizione($id_spedizione)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID è valido
@@ -2518,7 +2568,8 @@ function modificaSpedizione($id_spedizione) {
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI SPEDIZIONE ---------------------------------------------------------------------------------------
-function ottieniDettagliSpedizione($id_spedizione) {
+function ottieniDettagliSpedizione($id_spedizione)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID  è valido
@@ -2561,15 +2612,16 @@ function ottieniDettagliSpedizione($id_spedizione) {
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI LEADS ---------------------------------------------------------------------------------------
-function listaLeads() {
+function listaLeads()
+{
     require '../../conn.php'; // Utilizza lo stesso file di connessione del DB
     $html = '<div class="container mt-5">';
     $html .= '<div class="table-responsive">';
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
-    $html .= '<th>ID</th>'; 
-    $html .= '<th>Nome</th>'; 
+    $html .= '<th>ID</th>';
+    $html .= '<th>Nome</th>';
     $html .= '<th>Email</th>';
     $html .= '<th>Telefono</th>';
     $html .= '<th>Messaggio</th>';
@@ -2602,7 +2654,8 @@ function listaLeads() {
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER MODIFICA CLIENTI ---------------------------------------------------------------------------------------
-function modificaLead($lead){ 
+function modificaLead($lead)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID è valido
@@ -2655,10 +2708,11 @@ function modificaLead($lead){
 
     $conn->close();
     return $result;
- }
+}
 // ------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI COLLEZIONE ---------------------------------------------------------------------------------------
-function ottieniDettagliLead($lead) {
+function ottieniDettagliLead($lead)
+{
     require '../../conn.php'; // Assicurati che il percorso sia corretto
 
     // Verifica se l'ID della collezione è valido
@@ -2739,15 +2793,16 @@ function ottieniDettagliLead($lead) {
 
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER VISUALIZZARE LA HOMEPAGE -------------------------------------------------------------------------------
-function customPage($namePage) {
+function customPage($namePage)
+{
     require 'conn.php'; // Include la connessione al database
-    
+
     // Preparazione della query SQL utilizzando il parametro name_page per selezionare il contenuto specifico
     $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? ORDER BY id DESC LIMIT 1");
     $stmt->bind_param("s", $namePage); // Associa il parametro name_page alla tua query
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         echo $row['content']; // Stampa il contenuto specifico della pagina
@@ -2770,16 +2825,11 @@ function customPage($namePage) {
         <section class='construction-section text-light'>
             <img src='admin/materials/logo_sidebar.png' alt='Logo LinkBay' width='200'> 
             <h1 class='mt-3'>Sito Web in Costruzione</h1>
-            <p>Stiamo lavorando per portarti una nuova esperienza incredibile. Presto sarà disponibile la seguente pagina: ". htmlspecialchars($namePage)."!</p>
+            <p>Stiamo lavorando per portarti una nuova esperienza incredibile. Presto sarà disponibile la seguente pagina: " . htmlspecialchars($namePage) . "!</p>
         </section>
         "; // Sanitizza l'output per evitare XSS
     }
-    
+
     $stmt->close();
     $conn->close();
 }
-
-
-
-
-?>

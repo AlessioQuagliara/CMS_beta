@@ -1,6 +1,7 @@
 <?php 
 require ('../../app.php');
-loggato()
+loggato();
+$result = $conn->query("SELECT * FROM seo");
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -21,26 +22,29 @@ loggato()
 
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <!-- CANCELLA CONTENUTO DOPO AGGIORNAMENTO-->
-        <style>
-            /* Stile per centrare il div */
-            .centered-div {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100vh; /* Altezza del viewport */
-            }
-            /* Stile per l'icona */
-            .icon {
-                font-size: 5rem;
-                margin-bottom: 1rem;
-            }
-        </style>
-        <div class="container centered-div">
-            <i class="fas fa-cogs icon"></i>
-            <h1 class="display-4">Funzionalità in arrivo</h1>
-            <p class="lead">Attendere l'aggiornamento di aprile</p>
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Gestisci La SEO</h4>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title"><?php echo htmlspecialchars($row['page_name']); ?></h2>
+                                <h5 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($row['title']); ?></h5>
+                                <p class="card-text"><?php echo htmlspecialchars($row['description']); ?></p>
+                                <p class="card-text"><small class="text-muted">Keywords: <?php echo htmlspecialchars($row['keywords']); ?></small></p>
+                                <button class="btn btn-danger" onclick="modificaSEO()" ><i class="fa-solid fa-file-pen"></i> Modifica</button>
+                                <a href="../../<?php echo htmlspecialchars($row['page_name']); ?>?slug=<?php echo htmlspecialchars($row['slug']); ?>" target="__blank" class="btn btn-secondary"><i class="fa-solid fa-eye"></i> Visualizza Pagina</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            </div>
         </div>
     </main>
 

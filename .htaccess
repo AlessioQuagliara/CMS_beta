@@ -3,8 +3,12 @@ RewriteEngine On
 # Regola per prodotti con nome SEO-friendly
 RewriteRule ^prodotti/([a-zA-Z0-9-]+)$ product.php?titolo=$1 [L]
 
+# Regola per URL pulito con slug
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)$ index.php?slug=$1 [L,QSA]
+
 # Regole generali per riscrivere gli URL in modo che puntino a file PHP
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
-

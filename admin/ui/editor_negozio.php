@@ -11,6 +11,7 @@ $result = $conn->query("SELECT * FROM seo");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkBay - Editor Negozio</title>
     <?php include '../materials/head_content.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body style="background-color: #f1f1f1;">
     
@@ -39,9 +40,15 @@ $result = $conn->query("SELECT * FROM seo");
                                 <h5 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($row['title']); ?></h5>
                                 <p class="card-text"><?php echo htmlspecialchars($row['description']); ?></p>
                                 <p class="card-text"><small class="text-muted">Keywords: <?php echo htmlspecialchars($row['keywords']); ?></small></p>
-                                <button class="btn btn-danger" onclick="modificaSEO(<?php echo $row['id']; ?>)" ><i class="fa-solid fa-pen-to-square"></i> Modifica SEO</button>
-                                <a href="<?php echo htmlspecialchars($row['editor_page']); ?>" class="btn btn-primary"><i class="fa-solid fa-file-pen"></i> Modifica Pagina</a>
-                                <a href="../../<?php echo htmlspecialchars($row['page_name']); ?>?slug=<?php echo htmlspecialchars($row['slug']); ?>" target="__blank" class="btn btn-secondary"><i class="fa-solid fa-eye"></i> Visualizza Online</a>
+                                <?php if($_SESSION['ruolo'] == 'Amministratore'): ?>
+                                    <button class="btn btn-danger" onclick="modificaSEO(<?php echo $row['id']; ?>)" ><i class="fa-solid fa-pen-to-square"></i> Modifica SEO</button>
+                                    <button onclick="showAllert();" class="btn btn-primary"><i class="fa-solid fa-file-pen"></i> Modifica Pagina</button>
+                                    <a href="../../<?php echo htmlspecialchars($row['page_name']); ?>?slug=<?php echo htmlspecialchars($row['slug']); ?>" target="__blank" class="btn btn-secondary"><i class="fa-solid fa-eye"></i> Visualizza Online</a>
+                                    <?php else : ?>
+                                        <button class="btn btn-danger" onclick="modificaSEO(<?php echo $row['id']; ?>)" ><i class="fa-solid fa-pen-to-square"></i> Modifica SEO</button>
+                                        <a href="<?php echo htmlspecialchars($row['editor_page']); ?>" class="btn btn-primary"><i class="fa-solid fa-file-pen"></i> Modifica Pagina</a>
+                                        <a href="../../<?php echo htmlspecialchars($row['page_name']); ?>?slug=<?php echo htmlspecialchars($row['slug']); ?>" target="__blank" class="btn btn-secondary"><i class="fa-solid fa-eye"></i> Visualizza Online</a>
+                                    <?php endif; ?>
                             </div>
                         </div>
                         <br>
@@ -54,6 +61,20 @@ $result = $conn->query("SELECT * FROM seo");
     <script>
         function modificaSEO(id){
             window.open('../ui-gestisci/modifica_seo?id=' + id, 'ModificaSEO', 'width=640,height=480');
+        }
+        function showAllert() {
+            swal({
+                title: "Funzione non consentita",
+                text: "Acquistare pacchetto integrativo per poter editare il negozio.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.close(); // Chiude la finestra corrente
+                }
+            });
         }
     </script>
     

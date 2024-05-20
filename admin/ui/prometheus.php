@@ -165,7 +165,7 @@
             }
         </script>
     </div>
-<?php elseif ($sidebar_cate == 'prodotti') : ?>
+<?php elseif ($currentPage == 'prodotti.php') : ?>
     <!---------------------------------------------------------------------- PROMETHEUS PRODOTTI ------------------------------------------------------------------------------------------>
 
     <div id="itembar" class="toolbar bg-dark text-white">
@@ -325,7 +325,7 @@
         </script>
     </div>
 
-<?php elseif ($sidebar_cate == 'collezioni') : ?>
+<?php elseif ($currentPage == 'collezioni.php') : ?>
     <!---------------------------------------------------------------------- PROMETHEUS COLLEZIONI ------------------------------------------------------------------------------------------>
     <div id="itembar" class="toolbar bg-dark text-white">
         <style>
@@ -390,7 +390,7 @@
                     <button class="btn btn-sm btn-outline-danger" title="Aggiungi Collezione { CTRL + N }" onclick="addCollect()"><i class="fa-solid fa-plus"></i></button>
                     <button class="btn btn-sm btn-outline-success" title="Esporta in Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
                     <button class="btn btn-sm btn-outline-light" title="Seleziona Tutte le Righe { CTRL + A }" onclick="setSelectedTrueForAll()"><i class="fa-regular fa-square-check"></i></button>
-                    <button class="btn btn-sm btn-outline-danger" title="Cancella Selezionati { CTRL + D }" onclick="deleteProduct()"><i class="fa-solid fa-trash"></i></button>
+                    <button class="btn btn-sm btn-outline-danger" title="Cancella Selezionati { CTRL + D }" onclick="deleteCollect()"><i class="fa-solid fa-trash"></i></button>
                     <button class="btn btn-sm btn-outline-secondary" title="Aggiorna pagina { CTRL + R }" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate"></i></button>
                     <button class="btn btn-sm btn-outline-info" title="Tutorial & Istruzioni" onclick=""><i class="fa-solid fa-circle-info"></i></button>
                 </div>
@@ -426,17 +426,17 @@
                     setSelectedTrueForAll();
                 }
                 if (event.key === 'd' && event.ctrlKey) {
-                    deleteProduct('');
+                    deleteCollect('');
                 }
                 if (event.key === 'f' && event.ctrlKey) {
                     var toolbar = document.getElementById('itembar');
                     if (toolbar.classList.contains('expanded')) {
-                        document.getElementById('searchInputProdotti').focus();
+                        document.getElementById('searchInputCollezioni').focus();
                     } else {
                         toggleToolbar();
                         // Usare setTimeout per aspettare la fine dell'animazione di espansione
                         setTimeout(function() {
-                            document.getElementById('searchInputProdotti').focus();
+                            document.getElementById('searchInputCollezioni').focus();
                         }, 200); // 200ms corrisponde alla durata della transizione CSS
                     }
                 }
@@ -453,17 +453,17 @@
                 window.location.href = '../ui-gestisci/aggiunta_collezione.php';
             }
 
-            function deleteProduct() {
+            function deleteCollect() {
                 swal({
-                        title: "Cancellare i Prodotti Selezionati?",
-                        text: "Verranno cancellati tutti i prodotti che hai selezionato, l'azione è irreversibile.",
+                        title: "Cancellare le collezioni Selezionate?",
+                        text: "Verranno cancellate tutte le collezioni e le rispettive categorie, l'azione è irreversibile.",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            window.location.href = '../ui-gestisci/cancella_prodotti_selezionati';
+                            window.location.href = '../ui-gestisci/cancella_collezioni_selezionate';
                         }
                     });
             }

@@ -107,7 +107,6 @@ $conteggiOrdini = ordiniNav();
                  <!-- MODIFICA CON PHP IL  custom-link-active-->
                 <li><a href="analisi" class="link-dark rounded <?php if($currentPage == 'analisi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Analisi</a></li>
                 <li><a href="leads" class="link-dark rounded <?php if($currentPage == 'leads.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Leads</a></li>
-                <li><a href="seo" class="link-dark rounded <?php if($currentPage == 'seo.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">SEO</a></li>
                 <li><a href="campagne" class="link-dark rounded <?php if($currentPage == 'campagne.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Campagne</a></li>
               </ul>
             </div>
@@ -124,14 +123,14 @@ $conteggiOrdini = ordiniNav();
                  <!-- MODIFICA CON PHP LO show-->
             <div class="collapse <?php if($sidebar_cate == 'negozio'){echo 'show';} ?>" id="gestioneNegozioCollapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
-                 <!-- MODIFICA CON PHP IL  custom-link-active-->
-                <li><a href="edit_homepage" class="link-dark rounded <?php if($currentPage == 'edit_homepage.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">HomePage</a></li>
+                <li><a href="editor_negozio" class="link-dark rounded <?php if($currentPage == 'editor_negozio.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Modifica Negozio</a></li>
+                <!-- MODIFICA CON PHP IL <li><a href="edit_homepage" class="link-dark rounded <?php if($currentPage == 'edit_homepage.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">HomePage</a></li>
                 <li><a href="edit_aboutus" class="link-dark rounded <?php if($currentPage == 'edit_aboutus.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Chi Siamo</a></li>
                 <li><a href="edit_catalogo" class="link-dark rounded <?php if($currentPage == 'edit_catalogo.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Catalogo</a></li>
                 <li><a href="edit_prodotto" class="link-dark rounded <?php if($currentPage == 'edit_prodotto.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Prodotto</a></li>
                 <li><a href="edit_contatti" class="link-dark rounded <?php if($currentPage == 'edit_contatti.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Contatti</a></li>
                 <li><a href="edit_servizi" class="link-dark rounded <?php if($currentPage == 'edit_servizi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Servizi</a></li>
-                <li><a href="edit_landing" class="link-dark rounded <?php if($currentPage == 'edit_landing.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Landing</a></li>
+                <li><a href="edit_landing" class="link-dark rounded <?php if($currentPage == 'edit_landing.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Landing</a></li>custom-link-active-->
               </ul>
             </div>
           </li>

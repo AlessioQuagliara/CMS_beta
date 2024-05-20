@@ -1405,7 +1405,7 @@ function listaCollezioni()
     $html .= '<table class="table table-bordered table-hover" id="myTable">';
     $html .= '<thead class="table-dark">';
     $html .= '<tr>';
-    $html .= '<th></th>'; // ID della collezione
+    $html .= '<th></th>'; // Selected
     $html .= '<th>ID</th>'; // ID della collezione
     $html .= '<th>Nome</th>'; // Nome della collezione
     $html .= '<th>Descrizione</th>'; // Descrizione della collezione

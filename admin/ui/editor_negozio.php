@@ -9,13 +9,13 @@ $result = $conn->query("SELECT * FROM seo");
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - SEO</title>
+    <title>LinkBay - Editor Negozio</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
     
     <?php
-    $sidebar_cate = 'marketing'; 
+    $sidebar_cate = 'negozio'; 
     $currentPage = basename($_SERVER['PHP_SELF']);
     include '../materials/sidebar.php'; 
     ?>
@@ -25,29 +25,37 @@ $result = $conn->query("SELECT * FROM seo");
         <div class="container mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4>Gestisci La SEO</h4>
+                    <h4>Gestisci e Modifica Pagine Negozio</h4>
                 </div>
             </div>
             <br>
             <div class="row">
                 <?php while ($row = $result->fetch_assoc()): ?>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <h2 class="card-title"><?php echo htmlspecialchars($row['page_name']); ?></h2>
+                                <?php if($row['page_name']=='index'){ $pagename = 'Home Page'; }elseif($row['page_name']=='aboutus'){$pagename = 'Chi Siamo';}elseif($row['page_name']=='contacts'){$pagename = 'Contattaci';}elseif($row['page_name']=='services'){$pagename = 'Servizi';}elseif($row['page_name']=='landing'){$pagename = 'Landing Page';}elseif($row['page_name']=='prodotto'){$pagename = 'Pagina Prodotto';}  ?>
+                                <h2 class="card-title"><?php echo $pagename; ?></h2>
                                 <h5 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($row['title']); ?></h5>
                                 <p class="card-text"><?php echo htmlspecialchars($row['description']); ?></p>
                                 <p class="card-text"><small class="text-muted">Keywords: <?php echo htmlspecialchars($row['keywords']); ?></small></p>
-                                <button class="btn btn-danger" onclick="modificaSEO()" ><i class="fa-solid fa-file-pen"></i> Modifica</button>
-                                <a href="../../<?php echo htmlspecialchars($row['page_name']); ?>?slug=<?php echo htmlspecialchars($row['slug']); ?>" target="__blank" class="btn btn-secondary"><i class="fa-solid fa-eye"></i> Visualizza Pagina</a>
+                                <button class="btn btn-danger" onclick="modificaSEO(<?php echo $row['id']; ?>)" ><i class="fa-solid fa-pen-to-square"></i> Modifica SEO</button>
+                                <a href="<?php echo htmlspecialchars($row['editor_page']); ?>" class="btn btn-primary"><i class="fa-solid fa-file-pen"></i> Modifica Pagina</a>
+                                <a href="../../<?php echo htmlspecialchars($row['page_name']); ?>?slug=<?php echo htmlspecialchars($row['slug']); ?>" target="__blank" class="btn btn-secondary"><i class="fa-solid fa-eye"></i> Visualizza Online</a>
                             </div>
                         </div>
+                        <br>
                     </div>
                 <?php endwhile; ?>
             </div>
         </div>
     </main>
 
+    <script>
+        function modificaSEO(id){
+            window.open('../ui-gestisci/modifica_seo?id=' + id, 'ModificaSEO', 'width=640,height=480');
+        }
+    </script>
     
 <?php include '../materials/script.php'; ?>
 </body>

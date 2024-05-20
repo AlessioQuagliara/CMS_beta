@@ -17,7 +17,7 @@ loggato()
 <body style="background-color: #f1f1f1;">
 
     <?php
-    $sidebar_cate = 'collezioni';
+    $sidebar_cate = 'prodotti';
     $currentPage = basename($_SERVER['PHP_SELF']);
     include '../materials/sidebar.php';
     ?>

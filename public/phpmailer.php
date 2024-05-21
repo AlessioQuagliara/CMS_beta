@@ -5,9 +5,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'admin/phpmailer/src/Exception.php';
-require 'admin/phpmailer/src/PHPMailer.php';
-require 'admin/phpmailer/src/SMTP.php';
+require '../admin/phpmailer/src/Exception.php';
+require '../admin/phpmailer/src/PHPMailer.php';
+require '../admin/phpmailer/src/SMTP.php';
 
 function send_mail($email, $oggetto, $messaggio, $path_allegato = null){
     $mail = new PHPMailer();

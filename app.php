@@ -156,7 +156,7 @@ function logout()
 
 function subscribe()
 {
-    require('../php_email.php');
+    require('../public/phpmailer.php');
     // Includi il file di connessione al database
     require '../conn.php'; // Usa 'require' per assicurarti che il file esista.
 
@@ -230,7 +230,7 @@ function subscribe()
 // ---------------------------------------------------------------------------------------------------------------------
 function ripristina()
 {
-    require('../php_email.php'); // Assicurati che il percorso del file sia corretto
+    require('../public/phpmailer.php'); // Assicurati che il percorso del file sia corretto
 
     $errore = ''; // Inizializza la variabile per memorizzare messaggi di errore
 
@@ -2245,7 +2245,7 @@ function inviaEmailAggiuntaAdmin()
     }
 
 
-    require('../../php_email.php'); // Includi lo script con la funzione send_mail
+    require('../../public/phpmailer.php'); // Includi lo script con la funzione send_mail
 
     // Controlla se i dati sono stati inviati tramite POST
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

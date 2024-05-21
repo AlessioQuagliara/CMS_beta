@@ -1,63 +1,64 @@
 <div class="p-3 mb-2 bg-light rounded-3 d-flex justify-content-between align-items-center">
-<?php
-if ($namePage == 'home'){
-  $visualizzaPagina = 'index';
-} else if ($namePage == 'aboutus'){
-  $visualizzaPagina = 'about_us';
-} else if ($namePage == 'landing'){
-  $visualizzaPagina = 'landing';
-} else if ($namePage == 'prodotto'){
-  $visualizzaPagina = 'product';
-} else if ($namePage == 'catalogo'){
-  $visualizzaPagina = 'catalog';
-} else if ($namePage == 'services'){
-  $visualizzaPagina = 'services';
-} else if ($namePage == 'contacts'){
-  $visualizzaPagina = 'contacts';
-}
-?>
-        <h4>Modifica <?php echo $namePage;?></h4>
-        <a href="<?php echo htmlspecialchars("../../" . $visualizzaPagina); ?>" target="__blank" class="btn btn-outline-grey"><i class="fa-solid fa-eye"></i> Visualizza online</a>
-        <button id="save-btn" class="btn btn-outline-danger"><i class="fa-solid fa-floppy-disk"></i> Salva</button>
-    </div>
-
-
-        <div id="base" class="full" style="overflow: hidden">
-        </div>
-        
-        <script type="text/javascript">
-          var editor = grapesjs.init({
-              container: '#base',
-              fromElement: true,
-              height: '900px',
-              width: '100%',
-              storageManager: false,
-              // Qui sotto inizia la personalizzazione
-              plugins: ['gjs-preset-webpage'], // Se hai incluso plugin aggiuntivi
-              pluginsOpts: {
-                'gjs-preset-webpage': {/* opzioni del plugin */}
-              },
-              canvas: {
-                  styles: [
-                      'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'
-                    ],
-                  scripts: [
-                      'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'
-                    ]
-                },
-          });
-
-          // Imposta il contenuto recuperato dal database come contenuto iniziale dell'editor
-          var savedContent = <?php echo json_encode($savedContent); ?>;
-          if (savedContent) {
+    <?php
+    if ($namePage == 'home') {
+        $visualizzaPagina = '';
+    } else if ($namePage == 'aboutus') {
+        $visualizzaPagina = 'aboutus';
+    } else if ($namePage == 'landing') {
+        $visualizzaPagina = 'landing';
+    } else if ($namePage == 'prodotto') {
+        $visualizzaPagina = 'prodotto';
+    } else if ($namePage == 'catalogo') {
+        $visualizzaPagina = 'catalog';
+    } else if ($namePage == 'services') {
+        $visualizzaPagina = 'services';
+    } else if ($namePage == 'contacts') {
+        $visualizzaPagina = 'contacts';
     }
-        editor.setComponents(savedContent);
+    ?>
+    <h4>Modifica <?php echo $namePage; ?></h4>
+    <a href="<?php echo htmlspecialchars("../../" . $visualizzaPagina); ?>" target="__blank" class="btn btn-outline-grey"><i class="fa-solid fa-eye"></i> Visualizza online</a>
+    <button id="save-btn" class="btn btn-outline-danger"><i class="fa-solid fa-floppy-disk"></i> Salva</button>
+</div>
 
-          // Qui aggiungo tutti i blocchi
-          // Sezioni
-          editor.BlockManager.add('hero-section', {
-              label: 'Hero Section',
-              content: `
+
+<div id="base" class="full" style="overflow: hidden">
+</div>
+
+<script type="text/javascript">
+    var editor = grapesjs.init({
+        container: '#base',
+        fromElement: true,
+        height: '900px',
+        width: '100%',
+        storageManager: false,
+        // Qui sotto inizia la personalizzazione
+        plugins: ['gjs-preset-webpage'], // Se hai incluso plugin aggiuntivi
+        pluginsOpts: {
+            'gjs-preset-webpage': {
+                /* opzioni del plugin */
+            }
+        },
+        canvas: {
+            styles: [
+                'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'
+            ],
+            scripts: [
+                'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'
+            ]
+        },
+    });
+
+    // Imposta il contenuto recuperato dal database come contenuto iniziale dell'editor
+    var savedContent = <?php echo json_encode($savedContent); ?>;
+    if (savedContent) {}
+    editor.setComponents(savedContent);
+
+    // Qui aggiungo tutti i blocchi
+    // Sezioni
+    editor.BlockManager.add('hero-section', {
+        label: 'Hero Section',
+        content: `
                 <section class="p-5 text-center bg-dark text-light">
                   <div class="container">
                     <h1>Benvenuto su LinkBay!</h1>
@@ -66,11 +67,11 @@ if ($namePage == 'home'){
                   </div>
                 </section>
               `,
-              category: 'Layout',
-            });
-            editor.BlockManager.add('about-us-section', {
-                label: 'Chi Siamo',
-                content: `
+        category: 'Layout',
+    });
+    editor.BlockManager.add('about-us-section', {
+        label: 'Chi Siamo',
+        content: `
                   <section class="py-5">
                     <div class="container">
                       <div class="row align-items-center">
@@ -86,11 +87,11 @@ if ($namePage == 'home'){
                     </div>
                   </section>
                 `,
-                category: 'Layout',
-              });
-              editor.BlockManager.add('our-brands-section', {
-                  label: 'I Nostri Brand',
-                  content: `
+        category: 'Layout',
+    });
+    editor.BlockManager.add('our-brands-section', {
+        label: 'I Nostri Brand',
+        content: `
                     <section class="py-5 bg-light">
                       <div class="container text-center">
                         <h2 class="mb-4">I Nostri Brand</h2>
@@ -108,11 +109,11 @@ if ($namePage == 'home'){
                       </div>
                     </section>
                   `,
-                  category: 'Layout',
-                });
-                editor.BlockManager.add('testimonials-section', {
-                  label: 'Sezione Testimonianze',
-                  content: `
+        category: 'Layout',
+    });
+    editor.BlockManager.add('testimonials-section', {
+        label: 'Sezione Testimonianze',
+        content: `
                   <section class="bg-dark text-light p-5">
                       <div class="container">
                           <h2 class="text-center mb-4">Cosa Dicono di Noi</h2>
@@ -148,11 +149,11 @@ if ($namePage == 'home'){
                       </div>
                   </section>
                   `,
-                  category: 'Layout',
-              });
-              editor.BlockManager.add('services-section', {
-                label: 'Sezione Servizi',
-                content: `
+        category: 'Layout',
+    });
+    editor.BlockManager.add('services-section', {
+        label: 'Sezione Servizi',
+        content: `
                 <section class="bg-light py-5">
                     <div class="container">
                         <h2 class="text-center mb-4">I Nostri Servizi</h2>
@@ -185,11 +186,11 @@ if ($namePage == 'home'){
                     </div>
                 </section>
                 `,
-                category: 'Layout',
-            });
-            editor.BlockManager.add('contact-section', {
-              label: 'Sezione Contatti',
-              content: `
+        category: 'Layout',
+    });
+    editor.BlockManager.add('contact-section', {
+        label: 'Sezione Contatti',
+        content: `
               <section class="bg-dark text-light py-5">
                   <div class="container">
                       <div class="row">
@@ -220,11 +221,11 @@ if ($namePage == 'home'){
                   </div>
               </section>
               `,
-              category: 'Layout',
-          });
-          editor.BlockManager.add('faq-section', {
-            label: 'Sezione FAQ',
-            content: `
+        category: 'Layout',
+    });
+    editor.BlockManager.add('faq-section', {
+        label: 'Sezione FAQ',
+        content: `
             <section class="py-5">
                 <div class="container">
                     <h2 class="text-center mb-4">Domande Frequenti</h2>
@@ -257,13 +258,157 @@ if ($namePage == 'home'){
                 </div>
             </section>
             `,
-            category: 'Layout',
-        });
+        category: 'Layout',
+    });
+    // Contenitore ---------------------------------------------------------------------------------------------------
+    editor.BlockManager.add('first-container', {
+        label: 'first-container',
+        content: `
+        <section class="py-3 text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        Column
+                    </div>
+                </div>
+            </div>
+        </section>
+`,
+        category: 'Contenitore',
 
-              // Navbar --------------------------------------------------------------------------------------------------------
-                editor.BlockManager.add('bootstrap-navbar', {
-                  label: 'Navbar Stile 1',
-                  content: `
+    });
+    editor.BlockManager.add('second-container', {
+        label: 'second-container',
+        content: `
+        <section class="py-3 text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        Column
+                    </div>
+                    <div class="col-md-6">
+                        Column
+                    </div>
+                </div>
+            </div>
+        </section>
+        `,
+        category: 'Contenitore',
+
+    });
+    editor.BlockManager.add('third-container', {
+        label: 'third-container',
+        content: `
+        <section class="py-3 text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        Column
+                    </div>
+                    <div class="col-md-4">
+                        Column
+                    </div>
+                    <div class="col-md-4">
+                        Column
+                    </div>
+                </div>
+            </div>
+        </section>
+        `,
+        category: 'Contenitore',
+
+    });
+    editor.BlockManager.add('fourth-container', {
+        label: 'fourth-container',
+        content: `
+        <section class="py-3 text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        1 of 2
+                    </div>
+                    <div class="col-md-6">
+                        2 of 2
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        1 of 3
+                    </div>
+                    <div class="col-md-4">
+                        2 of 3
+                    </div>
+                    <div class="col-md-4">
+                        3 of 3
+                    </div>
+                </div>
+            </div>
+        </section>
+        `,
+        category: 'Contenitore',
+
+    });
+    editor.BlockManager.add('fifth-container', {
+        label: 'fifth-container',
+        content: `
+        <section class="py-3 text-center">
+            <div class="container">
+                <div class="row row-cols-2">
+                    <div class="col-md-6">Column</div>
+                    <div class="col-md-6">Column</div>
+                    <div class="col-md-6">Column</div>
+                    <div class="col-md-6">Column</div>
+                </div>
+            </div>
+        </section>
+        `,
+        category: 'Contenitore',
+
+    });
+    // Contenitore con link ---------------------------------------------------------------------------------------------------
+    editor.BlockManager.add('small-link-container', {
+        label: 'small-link-container',
+        content: `
+        <section class="py-3 text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a class="text-decoration-none fw-bold" href="#">Link 1</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a class="text-decoration-none fw-bold" href="#">Link 2</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        `,
+        category: 'Contenitore',
+
+    });
+
+    editor.BlockManager.add('link-container', {
+        label: 'link-container',
+        content: `
+        <section class="py-3 text-center">
+            <div class="container">
+                <div class="row row-cols-2">
+                    <div class="col-md-6"><a class="text-decoration-none fw-bold" href="#">Link 1</a></div>
+                    <div class="col-md-6"><a class="text-decoration-none fw-bold" href="#">Link 2</a></div>
+                    <div class="col-md-6"><a class="text-decoration-none fw-bold" href="#">Link 3</a></div>
+                    <div class="col-md-6"><a class="text-decoration-none fw-bold" href="#">Link 4</a></div>
+                </div>
+            </div>
+        </section>
+        `,
+        category: 'Contenitore',
+
+    });
+
+
+    // Navbar --------------------------------------------------------------------------------------------------------
+    editor.BlockManager.add('bootstrap-navbar', {
+        label: 'Navbar Stile 1',
+        content: `
                   <nav class="navbar navbar-expand-lg navbar-light bg-light">
                       <div class="container-fluid">
                           <a class="navbar-brand" href="#">Brand</a>
@@ -289,11 +434,11 @@ if ($namePage == 'home'){
                       </div>
                   </nav>
                   `,
-                  category: 'Navbar',
-              });
-              editor.BlockManager.add('bootstrap-navbar-logo', {
-                label: 'Navbar Stile 2',
-                content: `
+        category: 'Navbar',
+    });
+    editor.BlockManager.add('bootstrap-navbar-logo', {
+        label: 'Navbar Stile 2',
+        content: `
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="#">
@@ -313,11 +458,11 @@ if ($namePage == 'home'){
                     </div>
                 </nav>
                 `,
-                category: 'Navbar',
-            });
-            editor.BlockManager.add('navbar-with-logo', {
-              label: 'Navbar con Logo',
-              content: `
+        category: 'Navbar',
+    });
+    editor.BlockManager.add('navbar-with-logo', {
+        label: 'Navbar con Logo',
+        content: `
               <nav class="navbar navbar-expand-lg navbar-light bg-light">
                   <div class="container">
                       <a class="navbar-brand" href="#">
@@ -345,11 +490,11 @@ if ($namePage == 'home'){
                   </div>
               </nav>
               `,
-              category: 'Navbar',
-          });
-          editor.BlockManager.add('navbar-with-centered-logo', {
-            label: 'Navbar con Logo Centrale',
-            content: `
+        category: 'Navbar',
+    });
+    editor.BlockManager.add('navbar-with-centered-logo', {
+        label: 'Navbar con Logo Centrale',
+        content: `
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container">
                     <div class="d-flex justify-content-center">
@@ -376,11 +521,11 @@ if ($namePage == 'home'){
                 </div>
             </nav>
             `,
-            category: 'Navbar',
-        });
-        editor.BlockManager.add('navbar-with-large-logo', {
-          label: 'Navbar con Logo Grande',
-          content: `
+        category: 'Navbar',
+    });
+    editor.BlockManager.add('navbar-with-large-logo', {
+        label: 'Navbar con Logo Grande',
+        content: `
           <div class="block d-flex align-items-center justify-content-center">
               <img src="logo.png" alt="Logo" class="img-fluid">
           </div>
@@ -408,80 +553,262 @@ if ($namePage == 'home'){
               </div>
           </nav>
           `,
-          category: 'Navbar',
-      });
-          
-
-          // Blocchi di testo -------------------------------------------------------------------------------------------------
-          editor.BlockManager.add('h1', {
-              label: 'Titolo h1',
-              content: '<h1>Titolo</h1>',
-              category: 'Testi',
-          });
-          editor.BlockManager.add('h2', {
-              label: 'Titolo h2',
-              content: '<h2>Titolo</h2>',
-              category: 'Testi',
-          });
-          editor.BlockManager.add('h4', {
-              label: 'Titolo h4',
-              content: '<h4>Titolo</h4>',
-              category: 'Testi',
-          });
-          editor.BlockManager.add('p', {
-              label: 'Paragrafo',
-              content: '<p>Paragrafo</p>',
-              category: 'Testi',
-          });
-          // Blocchi Pulsanti ------------------------------------------------------------------------------------------------
-          editor.BlockManager.add('button', {
-              label: 'Pulsante',
-              content: '<button type="button" class="btn btn-dark">Pulsante</button>',
-              category: 'Pulsanti',
-          });
-          
+        category: 'Navbar',
+    });
 
 
-                </script>
-                <!-- SCRIPT PER IL SALVATAGGIO -->
-                <script type="text/javascript">
+    // Blocchi di testo -------------------------------------------------------------------------------------------------
+    editor.BlockManager.add('h1', {
+        label: 'Titolo h1',
+        content: '<h1>Titolo</h1>',
+        category: 'Testi',
+    });
+    editor.BlockManager.add('h2', {
+        label: 'Titolo h2',
+        content: '<h2>Titolo</h2>',
+        category: 'Testi',
+    });
+    editor.BlockManager.add('h4', {
+        label: 'Titolo h4',
+        content: '<h4>Titolo</h4>',
+        category: 'Testi',
+    });
+    editor.BlockManager.add('p', {
+        label: 'Paragrafo',
+        content: '<p>Paragrafo</p>',
+        category: 'Testi',
+    });
+    // Blocchi Pulsanti ------------------------------------------------------------------------------------------------
+    editor.BlockManager.add('button', {
+        label: 'Pulsante',
+        content: '<button type="button" class="btn btn-dark">Pulsante</button>',
+        category: 'Pulsanti',
+    });
+    // Eccezioni --------------------------------------------------------------------------------------------------------
+    editor.BlockManager.add('pretty-footer', {
+        label: 'Pretty Footer',
+        content: `
+        <footer class="bg-body-tertiary text-center">
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a
+      data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #3b5998;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
 
-                  function cleanContent(htmlContent) {
-                      // Rimuovi i tag <head> e il loro contenuto
-                      htmlContent = htmlContent.replace(/<head[^>]*>[\s\S]*<\/head>/gi, '');
-                      
-                      // Rimuovi i tag <body> mantenendo il contenuto interno
-                      htmlContent = htmlContent.replace(/<\/?body[^>]*>/gi, '');
-                  
-                      return htmlContent;
-                  }
-                  
+      <!-- Twitter -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #55acee;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <!-- Google -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #dd4b39;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <!-- Instagram -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #ac2bac;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-instagram"></i
+      ></a>
+
+      <!-- Linkedin -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #0082ca;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-linkedin-in"></i
+      ></a>
+      <!-- Github -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #333333;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+  &copy; 2024 Copyright:
+    <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+        `,
+        category: 'Footer',
+    });
+    editor.BlockManager.add('complex-footer', {
+            label: 'Complex Footer',
+            content: `
+        <!-- Footer -->
+<footer class="bg-body-tertiary text-center">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+
+      <!-- Twitter -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <!-- Google -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <!-- Instagram -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-instagram"></i
+      ></a>
+
+      <!-- Linkedin -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-linkedin-in"></i
+      ></a>
+
+      <!-- Github -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <section class="">
+      <form action="">
+        <div class="row d-flex justify-content-center">
+          <!--Grid column-->
+          <div class="col-auto">
+            <p class="pt-2">
+              <strong>Sign up for our newsletter</strong>
+            </p>
+          </div>
+          <div class="col-md-5 col-12">
+            <!-- Email input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="email" id="form5Example24" class="form-control" />
+              <label class="form-label" for="form5Example24">Email address</label>
+            </div>
+          </div>
+          <div class="col-auto">
+            <!-- Submit button -->
+            <button data-mdb-ripple-init type="submit" class="btn btn-outline mb-4">
+              Subscribe
+            </button>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </form>
+    </section>
+    <section class="mb-4">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
+        harum corrupti dicta, aliquam sequi voluptate quas.
+      </p>
+    </section>
+    <!-- Section: Text -->
+
+    <!-- Section: Links -->
+    <section class="d-flex justify-content-center">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a class="text-body" href="#!">Link 1</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Link 2</a>
+            </li>
+            <li>
+        `,
+            category: "Footer",
+        }),
+        editor.BlockManager.add('footer-3', {
+            label: 'Simple Footer',
+            content: `
+        <footer class="bg-light text-center text-lg-start">
+            <div class="text-center p-3">
+            &copy; 2024 LinkBay. Tutti i diritti riservati.
+            </div>
+        </footer>
+        `,
+            category: 'Footer',
+        })
+</script>
+<!-- SCRIPT PER IL SALVATAGGIO -->
+<script type="text/javascript">
+    function cleanContent(htmlContent) {
+        // Rimuovi i tag <head> e il loro contenuto
+        htmlContent = htmlContent.replace(/<head[^>]*>[\s\S]*<\/head>/gi, '');
+
+        // Rimuovi i tag <body> mantenendo il contenuto interno
+        htmlContent = htmlContent.replace(/<\/?body[^>]*>/gi, '');
+
+        return htmlContent;
+    }
 
 
 
-                  $(document).ready(function() {
-                    $('#save-btn').click(function() {
-                      var editorContent = editor.getHtml() + '<style>' + editor.getCss() + '</style>';
 
-                      editorContent = cleanContent(editorContent);
+    $(document).ready(function() {
+        $('#save-btn').click(function() {
+            var editorContent = editor.getHtml() + '<style>' + editor.getCss() + '</style>';
 
-                      var pageName = "<?php echo $namePage; ?>"; // Ottieni il nome della pagina
-                
-                      // Esegue la richiesta AJAX per salvare il contenuto
-                      $.ajax({
-                        type: "POST",
-                        url: "../ui-gestisci/save_script.php",
-                        data: {
-                          namePage: pageName, // Include il nome della pagina nel payload della richiesta
-                          content: editorContent // Include il contenuto dell'editor
-                        },
-                        success: function(data) {
-                          alert('Contenuto salvato con successo!');
-                        },
-                        error: function(xhr, status, error) {
-                          alert('Si è verificato un errore nel salvataggio: ' + error);
-                        }
-                      });
-                    });
-                  });
-                </script>
+            editorContent = cleanContent(editorContent);
+
+            var pageName = "<?php echo $namePage; ?>"; // Ottieni il nome della pagina
+
+            // Esegue la richiesta AJAX per salvare il contenuto
+            $.ajax({
+                type: "POST",
+                url: "../ui-gestisci/save_script.php",
+                data: {
+                    namePage: pageName, // Include il nome della pagina nel payload della richiesta
+                    content: editorContent // Include il contenuto dell'editor
+                },
+                success: function(data) {
+                    alert('Contenuto salvato con successo!');
+                },
+                error: function(xhr, status, error) {
+                    alert('Si è verificato un errore nel salvataggio: ' + error);
+                }
+            });
+        });
+    });
+</script>

@@ -20,30 +20,39 @@ loggato()
     ?>
 
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <!-- CANCELLA CONTENUTO DOPO AGGIORNAMENTO-->
-                <style>
-            /* Stile per centrare il div */
-            .centered-div {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100vh; /* Altezza del viewport */
-            }
-            /* Stile per l'icona */
-            .icon {
-                font-size: 5rem;
-                margin-bottom: 1rem;
-            }
-        </style>
-        <div class="container centered-div">
-            <i class="fas fa-cogs icon"></i>
-            <h1 class="display-4">Funzionalità in arrivo</h1>
-            <p class="lead">Attendere l'aggiornamento di aprile</p>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h4>Configura i Tuoi Strumenti Per il Marketing</h4>
+            </div>
         </div>
+        <br>
+        <div class="row">
 
+        </div>
+    </div>
     </main>
+
+    <script>
+        function modificaSEO(id){
+            window.open('../ui-gestisci/inserisci ?id=' + id, 'ModificaSEO', 'width=640,height=480');
+        }
+        function showAllert() {
+            swal({
+                title: "Funzione non consentita",
+                text: "Acquistare pacchetto integrativo per poter editare il negozio.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.close();
+                }
+            });
+        }
+    </script>
 
     
 <?php include '../materials/script.php'; ?>

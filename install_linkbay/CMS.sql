@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Creato il: Mag 18, 2024 alle 17:23
+-- Creato il: Mag 23, 2024 alle 15:59
 -- Versione del server: 5.7.39
 -- Versione PHP: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `CMS`
+-- Database: `CMS_2`
 --
 
 -- --------------------------------------------------------
@@ -42,7 +42,7 @@ CREATE TABLE `administrator` (
 --
 
 INSERT INTO `administrator` (`id_admin`, `nome`, `cognome`, `ruolo`, `telefono`, `email`, `password`) VALUES
-(1, 'Juan', 'Romero', 'Developer', '3899657115', 'juan.romero@spotexsrl.it', '$2y$10$iqtsvkECdJYkrWl/8wMvwuNcsl9QWeCmIi6HSN49eN8cp1mHSapSW'),
+(1, 'Juan', 'Romero', 'Designer', '3899657115', 'juan.romero@spotexsrl.it', '$2y$10$iqtsvkECdJYkrWl/8wMvwuNcsl9QWeCmIi6HSN49eN8cp1mHSapSW'),
 (2, 'Gaia', 'Masia', 'Designer', '3899657115', 'gaia.masia@spotexsrl.it', '$2y$10$icM9YX93YJeHVzkQmvKkcuFqvZNR0nuKfxPCfb7QkwevyGM1iwL0a'),
 (3, 'Alessio', 'Quagliara', 'Developer', '3899657115', 'alessio.quagliara@spotexsrl.it', '$2y$10$RLqxrn4t9QDCDCXfjyMabeZ1jtRORL0xEaYvHbaZwe6wMgJezrxGy'),
 (4, 'Bruno', 'Postai', 'Developer', '3899657115', 'bruno.postai@spotexsrl.it', '$2y$10$RLqxrn4t9QDCDCXfjyMabeZ1jtRORL0xEaYvHbaZwe6wMgJezrxGy');
@@ -81,7 +81,8 @@ CREATE TABLE `codici_sconto` (
 CREATE TABLE `collezioni` (
   `id_collezione` int(11) NOT NULL,
   `nome_c` varchar(255) NOT NULL,
-  `descrizione_c` varchar(255) NOT NULL
+  `descrizione_c` varchar(255) NOT NULL,
+  `selected` varchar(255) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -235,8 +236,38 @@ CREATE TABLE `prodotti` (
   `quantita` varchar(255) NOT NULL,
   `peso` varchar(255) NOT NULL,
   `varianti` varchar(255) NOT NULL,
+  `sku` varchar(255) DEFAULT NULL,
+  `marca` varchar(255) DEFAULT NULL,
   `selected` varchar(255) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `seo`
+--
+
+CREATE TABLE `seo` (
+  `id` int(11) NOT NULL,
+  `editor_page` varchar(255) NOT NULL,
+  `page_name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text,
+  `keywords` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dump dei dati per la tabella `seo`
+--
+
+INSERT INTO `seo` (`id`, `editor_page`, `page_name`, `slug`, `title`, `description`, `keywords`) VALUES
+(1, 'edit_homepage', 'index', 'home', 'Inserisci il titolo', 'Inserisci una descrizione', 'inserisci, così, le, keywords'),
+(2, 'edit_aboutus', 'aboutus', 'aboutus', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
+(3, 'edit_contatti', 'contacts', 'contacts', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
+(4, 'edit_servizi', 'services', 'services', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
+(5, 'edit_landing', 'landing', 'landing', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
+(6, 'edit_prodotto', 'prodotto', 'prodotto', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords');
 
 -- --------------------------------------------------------
 
@@ -291,6 +322,7 @@ CREATE TABLE `visitatori` (
   `id_visitatore` varchar(255) NOT NULL,
   `data_visita` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 --
 -- Indici per le tabelle scaricate
@@ -370,6 +402,13 @@ ALTER TABLE `prodotti`
   ADD PRIMARY KEY (`id_prodotto`);
 
 --
+-- Indici per le tabelle `seo`
+--
+ALTER TABLE `seo`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`);
+
+--
 -- Indici per le tabelle `spedizioni`
 --
 ALTER TABLE `spedizioni`
@@ -401,7 +440,7 @@ ALTER TABLE `visitatori`
 -- AUTO_INCREMENT per la tabella `administrator`
 --
 ALTER TABLE `administrator`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `categorie`
@@ -443,7 +482,7 @@ ALTER TABLE `editor_contents`
 -- AUTO_INCREMENT per la tabella `leads`
 --
 ALTER TABLE `leads`
-  MODIFY `lead` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `lead` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `media`
@@ -455,7 +494,7 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT per la tabella `ordini`
 --
 ALTER TABLE `ordini`
-  MODIFY `id_ordine` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ordine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `payment_systems`
@@ -467,7 +506,13 @@ ALTER TABLE `payment_systems`
 -- AUTO_INCREMENT per la tabella `prodotti`
 --
 ALTER TABLE `prodotti`
-  MODIFY `id_prodotto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id_prodotto` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `seo`
+--
+ALTER TABLE `seo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT per la tabella `spedizioni`
@@ -491,7 +536,7 @@ ALTER TABLE `user_db`
 -- AUTO_INCREMENT per la tabella `visitatori`
 --
 ALTER TABLE `visitatori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

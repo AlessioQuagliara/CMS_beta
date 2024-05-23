@@ -124,13 +124,8 @@ $conteggiOrdini = ordiniNav();
             <div class="collapse <?php if($sidebar_cate == 'negozio'){echo 'show';} ?>" id="gestioneNegozioCollapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
                 <li><a href="editor_negozio" class="link-dark rounded <?php if($currentPage == 'editor_negozio.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Modifica Negozio</a></li>
-                <!-- MODIFICA CON PHP IL <li><a href="edit_homepage" class="link-dark rounded <?php if($currentPage == 'edit_homepage.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">HomePage</a></li>
-                <li><a href="edit_aboutus" class="link-dark rounded <?php if($currentPage == 'edit_aboutus.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Chi Siamo</a></li>
-                <li><a href="edit_catalogo" class="link-dark rounded <?php if($currentPage == 'edit_catalogo.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Catalogo</a></li>
-                <li><a href="edit_prodotto" class="link-dark rounded <?php if($currentPage == 'edit_prodotto.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Prodotto</a></li>
-                <li><a href="edit_contatti" class="link-dark rounded <?php if($currentPage == 'edit_contatti.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Contatti</a></li>
-                <li><a href="edit_servizi" class="link-dark rounded <?php if($currentPage == 'edit_servizi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Servizi</a></li>
-                <li><a href="edit_landing" class="link-dark rounded <?php if($currentPage == 'edit_landing.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Landing</a></li>custom-link-active-->
+                <li><a href="edit_navbar" class="link-dark rounded <?php if($currentPage == 'edit_navbar.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Customizza Navbar</a></li>
+                <li><a href="edit_footer" class="link-dark rounded <?php if($currentPage == 'edit_footer.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Customizza Footer</a></li>
               </ul>
             </div>
           </li>

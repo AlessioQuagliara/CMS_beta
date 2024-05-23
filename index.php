@@ -52,10 +52,14 @@ if (!file_exists('conn.php')) {
     <?php include 'marketing/market_integration.php'; ?>
 </head>
 <body>
+
 <?php
+customNav();
 $namePage = isset($_GET['slug']) ? $_GET['slug'] : 'home';
 customPage($namePage);
-?>
+customFooter();
+?>  
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

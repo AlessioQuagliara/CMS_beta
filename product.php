@@ -84,8 +84,10 @@ if (!file_exists('conn.php')) {
 </head>
 <body>    
 <?php
+customNav();
 $namePage = 'prodotto';
 customPage($namePage); 
+customFooter();
 ?>
 <!-- SCRIPT BOOTSTRAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

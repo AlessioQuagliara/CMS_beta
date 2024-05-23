@@ -35,7 +35,7 @@ $result = $conn->query("SELECT * FROM seo");
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <?php if($row['page_name']=='index'){ $pagename = 'Home Page'; }elseif($row['page_name']=='aboutus'){$pagename = 'Chi Siamo';}elseif($row['page_name']=='contacts'){$pagename = 'Contattaci';}elseif($row['page_name']=='services'){$pagename = 'Servizi';}elseif($row['page_name']=='landing'){$pagename = 'Landing Page';}elseif($row['page_name']=='prodotto'){$pagename = 'Pagina Prodotto';}  ?>
+                                <?php if($row['page_name']=='index'){ $pagename = 'Home Page'; }elseif($row['page_name']=='aboutus'){$pagename = 'Chi Siamo';}elseif($row['page_name']=='contacts'){$pagename = 'Contattaci';}elseif($row['page_name']=='services'){$pagename = 'Servizi';}elseif($row['page_name']=='landing'){$pagename = 'Landing Page';}elseif($row['page_name']=='prodotto'){$pagename = 'Pagina Prodotto';}elseif($row['page_name']=='cart'){$pagename = 'Carrello';}   ?>
                                 <h2 class="card-title"><?php echo $pagename; ?></h2>
                                 <h5 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($row['title']); ?></h5>
                                 <p class="card-text"><?php echo htmlspecialchars($row['description']); ?></p>

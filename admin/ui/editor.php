@@ -14,6 +14,12 @@
         $visualizzaPagina = 'services';
     } else if ($namePage == 'contacts') {
         $visualizzaPagina = 'contacts';
+    } else if ($namePage == 'cart') {
+        $visualizzaPagina = 'carrello';
+    } else if ($namePage == 'footer') {
+        $visualizzaPagina = 'footer';
+    } else if ($namePage == 'navbar') {
+        $visualizzaPagina = 'navbar';
     }
     ?>
     <h4>Modifica <?php echo $namePage; ?></h4>
@@ -21,9 +27,12 @@
     <button id="save-btn" class="btn btn-outline-danger"><i class="fa-solid fa-floppy-disk"></i> Salva</button>
 </div>
 
-
 <div id="base" class="full" style="overflow: hidden">
 </div>
+
+<script type="text/javascript">
+    var visualizzaPagina = '<?php echo $visualizzaPagina; ?>';
+</script>
 
 <script type="text/javascript">
     var editor = grapesjs.init({
@@ -56,6 +65,434 @@
 
     // Qui aggiungo tutti i blocchi
     // Sezioni
+
+if( visualizzaPagina === 'footer'){
+    editor.BlockManager.add('pretty-footer', {
+        label: 'Pretty Footer',
+        content: `
+        <footer class="bg-body-tertiary text-center"><!-- Grid container --><div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+      <!-- Facebook -->
+      <a
+      data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #3b5998;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+
+      <!-- Twitter -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #55acee;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <!-- Google -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #dd4b39;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <!-- Instagram -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #ac2bac;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-instagram"></i
+      ></a>
+
+      <!-- Linkedin -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #0082ca;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-linkedin-in"></i
+      ></a>
+      <!-- Github -->
+      <a
+        data-mdb-ripple-init
+        class="btn text-white btn-floating m-1"
+        style="background-color: #333333;"
+        href="#!"
+        role="button"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+  &copy; 2024 Copyright:
+    <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+        `,
+        category: 'Footer',
+    });
+    editor.BlockManager.add('complex-footer', {
+            label: 'Complex Footer',
+            content: `
+        <!-- Footer -->
+<footer class="bg-body-tertiary text-center">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+
+      <!-- Twitter -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <!-- Google -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <!-- Instagram -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-instagram"></i
+      ></a>
+
+      <!-- Linkedin -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-linkedin-in"></i
+      ></a>
+
+      <!-- Github -->
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <section class="">
+      <form action="">
+        <div class="row d-flex justify-content-center">
+          <!--Grid column-->
+          <div class="col-auto">
+            <p class="pt-2">
+              <strong>Sign up for our newsletter</strong>
+            </p>
+          </div>
+          <div class="col-md-5 col-12">
+            <!-- Email input -->
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="email" id="form5Example24" class="form-control" />
+              <label class="form-label" for="form5Example24">Email address</label>
+            </div>
+          </div>
+          <div class="col-auto">
+            <!-- Submit button -->
+            <button data-mdb-ripple-init type="submit" class="btn btn-outline mb-4">
+              Subscribe
+            </button>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </form>
+    </section>
+    <section class="mb-4">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
+        harum corrupti dicta, aliquam sequi voluptate quas.
+      </p>
+    </section>
+    <!-- Section: Text -->
+
+    <!-- Section: Links -->
+    <section class="d-flex justify-content-center">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Links</h5>
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a class="text-body" href="#!">Link 1</a>
+            </li>
+            <li>
+              <a class="text-body" href="#!">Link 2</a>
+            </li>
+            <li>
+        `,
+            category: "Footer",
+        }),
+        editor.BlockManager.add('footer-3', {
+            label: 'Simple Footer',
+            content: `
+        <footer class="bg-light text-center text-lg-start">
+            <div class="text-center p-3">
+            &copy; 2024 LinkBay. Tutti i diritti riservati.
+            </div>
+        </footer>
+        `,
+            category: 'Footer',
+        });
+    } else if( visualizzaPagina === 'navbar'){
+    // Navbar --------------------------------------------------------------------------------------------------------
+
+    editor.BlockManager.add('bootstrap-navbar', {
+        label: 'Navbar Stile 1',
+        content: `
+                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                      <div class="container-fluid">
+                          <a class="navbar-brand" href="#">Brand</a>
+                          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                              <span class="navbar-toggler-icon"></span>
+                          </button>
+                          <div class="collapse navbar-collapse" id="navbarNav">
+                              <ul class="navbar-nav">
+                                  <li class="nav-item">
+                                      <a class="nav-link active" aria-current="page" href="index">Home</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="about_us">Chi Siamo</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="#">Catalogo</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link disabled">Carrello</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+                  `,
+        category: 'Navbar',
+    });
+    editor.BlockManager.add('bootstrap-navbar-logo', {
+        label: 'Navbar Stile 2',
+        content: `
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">
+                            <img src="path/to/your/logo.png" alt="Logo" width="30" height="24">
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <a class="nav-link active" aria-current="page" href="index">Home</a>
+                                <a class="nav-link" href="about_us">Chi siamo</a>
+                                <a class="nav-link" href="#">Catalogo</a>
+                                <a class="nav-link disabled">Carrello</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                `,
+        category: 'Navbar',
+    });
+    editor.BlockManager.add('navbar-with-logo', {
+        label: 'Navbar con Logo',
+        content: `
+              <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <div class="container">
+                      <a class="navbar-brand" href="#">
+                          <img src="logo.png" alt="Logo" width="auto" height="30" class="d-inline-block align-top">
+                      </a>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarNav">
+                          <ul class="navbar-nav ms-auto">
+                              <li class="nav-item">
+                                  <a class="nav-link" href="#">Home</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="#">About</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="#">Services</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="#">Contact</a>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              </nav>
+              `,
+        category: 'Navbar',
+    });
+    editor.BlockManager.add('navbar-with-centered-logo', {
+        label: 'Navbar con Logo Centrale',
+        content: `
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <div class="d-flex justify-content-center">
+                        <a class="navbar-brand" href="#">
+                            <img src="logo.png" alt="Logo" width="auto" height="50" class="d-inline-block align-top">
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            `,
+        category: 'Navbar',
+    });
+    editor.BlockManager.add('navbar-with-large-logo', {
+        label: 'Navbar con Logo Grande',
+        content: `
+          <div class="block d-flex align-items-center justify-content-center">
+              <img src="logo.png" alt="Logo" class="img-fluid">
+          </div>
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="container">
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                      <ul class="navbar-nav mx-auto">
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Home</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">About</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Services</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Contact</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+          `,
+        category: 'Navbar',
+    });
+    } else {
+// Funzioni di base negozio online -----------------------------------------------------------------------------------------------------------------------------------------------------------------------        
+editor.BlockManager.add('hero-section', {
+        label: 'Prodotto',
+        content: `
+        <div class="container mt-5">
+            <div class="row">
+                <!-- Product Images -->
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <img id="mainImage" src="https://via.placeholder.com/500" class="img-fluid" alt="Main Product Image">
+                    </div>
+                    <div class="d-flex flex-column">
+                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Product Image 1">
+                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Product Image 2">
+                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Product Image 3">
+                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Customer Photo">
+                    </div>
+                </div>
+                <!-- Product Details -->
+                <div class="col-md-6">
+                    <h2>Nome Prodotto</h2>
+                    <p>Collezione</p>
+                    <p class="text-muted">€ Prezzo</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="badge bg-warning text-dark">4.5 di 5 stelle</span>
+                        <span class="ms-2">(722 recensioni)</span>
+                    </div>
+                    <!-- Varianti -->
+                    <div class="mb-3">
+                        <label for="variant" class="form-label">Variante</label>
+                        <select class="form-select" id="variant">
+                            <option selected>Scegli una variante</option>
+                            <option value="1">Variante 1</option>
+                            <option value="2">Variante 2</option>
+                            <option value="3">Variante 3</option>
+                        </select>
+                    </div>
+                    <!-- Quantità -->
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantità</label>
+                        <input type="number" class="form-control" id="quantity" min="1" value="1">
+                    </div>
+                    <button class="btn btn-dark w-100 mb-2">Acquista Ora</button>
+                    <button class="btn btn-outline-dark w-100 mb-4">Aggiungi al carrello</button>
+                    
+                    <div class="accordion" id="productDetails">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Dettagli Prodotto
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productDetails">
+                                <div class="accordion-body">
+                                    <p>Descrizione<p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Altri Dettagli
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#productDetails">
+                                <div class="accordion-body">
+                                    <p>Inserisci altri dettagli...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Altri Dettagli
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#productDetails">
+                                <div class="accordion-body">
+                                    <p>Inserisci altri dettagli...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+              `,
+        category: 'Funzioni Base',
+    });
+// everything else -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     editor.BlockManager.add('hero-section', {
         label: 'Hero Section',
         content: `
@@ -260,7 +697,8 @@
             `,
         category: 'Layout',
     });
-    // Contenitore ---------------------------------------------------------------------------------------------------
+
+// Contenitore -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     editor.BlockManager.add('first-container', {
         label: 'first-container',
         content: `
@@ -365,7 +803,7 @@
         category: 'Contenitore',
 
     });
-    // Contenitore con link ---------------------------------------------------------------------------------------------------
+// Contenitori con link ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     editor.BlockManager.add('small-link-container', {
         label: 'small-link-container',
         content: `
@@ -404,160 +842,7 @@
 
     });
 
-
-    // Navbar --------------------------------------------------------------------------------------------------------
-    editor.BlockManager.add('bootstrap-navbar', {
-        label: 'Navbar Stile 1',
-        content: `
-                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                      <div class="container-fluid">
-                          <a class="navbar-brand" href="#">Brand</a>
-                          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                              <span class="navbar-toggler-icon"></span>
-                          </button>
-                          <div class="collapse navbar-collapse" id="navbarNav">
-                              <ul class="navbar-nav">
-                                  <li class="nav-item">
-                                      <a class="nav-link active" aria-current="page" href="index">Home</a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a class="nav-link" href="about_us">Chi Siamo</a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a class="nav-link" href="#">Catalogo</a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a class="nav-link disabled">Carrello</a>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
-                  </nav>
-                  `,
-        category: 'Navbar',
-    });
-    editor.BlockManager.add('bootstrap-navbar-logo', {
-        label: 'Navbar Stile 2',
-        content: `
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#">
-                            <img src="path/to/your/logo.png" alt="Logo" width="30" height="24">
-                        </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                            <div class="navbar-nav">
-                                <a class="nav-link active" aria-current="page" href="index">Home</a>
-                                <a class="nav-link" href="about_us">Chi siamo</a>
-                                <a class="nav-link" href="#">Catalogo</a>
-                                <a class="nav-link disabled">Carrello</a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-                `,
-        category: 'Navbar',
-    });
-    editor.BlockManager.add('navbar-with-logo', {
-        label: 'Navbar con Logo',
-        content: `
-              <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                  <div class="container">
-                      <a class="navbar-brand" href="#">
-                          <img src="logo.png" alt="Logo" width="auto" height="30" class="d-inline-block align-top">
-                      </a>
-                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                          <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarNav">
-                          <ul class="navbar-nav ms-auto">
-                              <li class="nav-item">
-                                  <a class="nav-link" href="#">Home</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="#">About</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="#">Services</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="#">Contact</a>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-              </nav>
-              `,
-        category: 'Navbar',
-    });
-    editor.BlockManager.add('navbar-with-centered-logo', {
-        label: 'Navbar con Logo Centrale',
-        content: `
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container">
-                    <div class="d-flex justify-content-center">
-                        <a class="navbar-brand" href="#">
-                            <img src="logo.png" alt="Logo" width="auto" height="50" class="d-inline-block align-top">
-                        </a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            `,
-        category: 'Navbar',
-    });
-    editor.BlockManager.add('navbar-with-large-logo', {
-        label: 'Navbar con Logo Grande',
-        content: `
-          <div class="block d-flex align-items-center justify-content-center">
-              <img src="logo.png" alt="Logo" class="img-fluid">
-          </div>
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <div class="container">
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNav">
-                      <ul class="navbar-nav mx-auto">
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Home</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">About</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Services</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Contact</a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-          </nav>
-          `,
-        category: 'Navbar',
-    });
-
-
-    // Blocchi di testo -------------------------------------------------------------------------------------------------
+// Blocchi di testo ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     editor.BlockManager.add('h1', {
         label: 'Titolo h1',
         content: '<h1>Titolo</h1>',
@@ -584,193 +869,9 @@
         content: '<button type="button" class="btn btn-dark">Pulsante</button>',
         category: 'Pulsanti',
     });
-    // Eccezioni --------------------------------------------------------------------------------------------------------
-    editor.BlockManager.add('pretty-footer', {
-        label: 'Pretty Footer',
-        content: `
-        <footer class="bg-body-tertiary text-center">
-  <!-- Grid container -->
-  <div class="container p-4 pb-0">
-    <!-- Section: Social media -->
-    <section class="mb-4">
-      <!-- Facebook -->
-      <a
-      data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #3b5998;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
-
-      <!-- Twitter -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #55acee;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-twitter"></i
-      ></a>
-
-      <!-- Google -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #dd4b39;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-google"></i
-      ></a>
-
-      <!-- Instagram -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #ac2bac;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-instagram"></i
-      ></a>
-
-      <!-- Linkedin -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #0082ca;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-linkedin-in"></i
-      ></a>
-      <!-- Github -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #333333;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-github"></i
-      ></a>
-    </section>
-    <!-- Section: Social media -->
-  </div>
-  <!-- Grid container -->
-
-  <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-  &copy; 2024 Copyright:
-    <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-  </div>
-  <!-- Copyright -->
-</footer>
-        `,
-        category: 'Footer',
-    });
-    editor.BlockManager.add('complex-footer', {
-            label: 'Complex Footer',
-            content: `
-        <!-- Footer -->
-<footer class="bg-body-tertiary text-center">
-  <!-- Grid container -->
-  <div class="container p-4">
-    <!-- Section: Social media -->
-    <section class="mb-4">
-      <!-- Facebook -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
-
-      <!-- Twitter -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-twitter"></i
-      ></a>
-
-      <!-- Google -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-google"></i
-      ></a>
-
-      <!-- Instagram -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-instagram"></i
-      ></a>
-
-      <!-- Linkedin -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-linkedin-in"></i
-      ></a>
-
-      <!-- Github -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-github"></i
-      ></a>
-    </section>
-    <section class="">
-      <form action="">
-        <div class="row d-flex justify-content-center">
-          <!--Grid column-->
-          <div class="col-auto">
-            <p class="pt-2">
-              <strong>Sign up for our newsletter</strong>
-            </p>
-          </div>
-          <div class="col-md-5 col-12">
-            <!-- Email input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="email" id="form5Example24" class="form-control" />
-              <label class="form-label" for="form5Example24">Email address</label>
-            </div>
-          </div>
-          <div class="col-auto">
-            <!-- Submit button -->
-            <button data-mdb-ripple-init type="submit" class="btn btn-outline mb-4">
-              Subscribe
-            </button>
-          </div>
-          <!--Grid column-->
-        </div>
-        <!--Grid row-->
-      </form>
-    </section>
-    <section class="mb-4">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
-        harum corrupti dicta, aliquam sequi voluptate quas.
-      </p>
-    </section>
-    <!-- Section: Text -->
-
-    <!-- Section: Links -->
-    <section class="d-flex justify-content-center">
-      <!--Grid row-->
-      <div class="row">
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase">Links</h5>
-          <ul class="list-unstyled mb-0">
-            <li>
-              <a class="text-body" href="#!">Link 1</a>
-            </li>
-            <li>
-              <a class="text-body" href="#!">Link 2</a>
-            </li>
-            <li>
-        `,
-            category: "Footer",
-        }),
-        editor.BlockManager.add('footer-3', {
-            label: 'Simple Footer',
-            content: `
-        <footer class="bg-light text-center text-lg-start">
-            <div class="text-center p-3">
-            &copy; 2024 LinkBay. Tutti i diritti riservati.
-            </div>
-        </footer>
-        `,
-            category: 'Footer',
-        })
+}
 </script>
+
 <!-- SCRIPT PER IL SALVATAGGIO -->
 <script type="text/javascript">
     function cleanContent(htmlContent) {

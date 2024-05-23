@@ -2792,7 +2792,7 @@ function ottieniDettagliLead($lead)
 
 
 // ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER VISUALIZZARE LA HOMEPAGE -------------------------------------------------------------------------------
+// FUNZIONE PER VISUALIZZARE LE PAGINE -------------------------------------------------------------------------------
 function customPage($namePage)
 {
     require 'conn.php'; // Include la connessione al database
@@ -2828,6 +2828,125 @@ function customPage($namePage)
             <p>Stiamo lavorando per portarti una nuova esperienza incredibile. Presto sarà disponibile la seguente pagina: " . htmlspecialchars($namePage) . "!</p>
         </section>
         "; // Sanitizza l'output per evitare XSS
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// FUNZIONE PER VISUALIZZARE LA NAVBAR -------------------------------------------------------------------------------
+function customNav()
+{
+    require 'conn.php'; 
+    $standard = 'navbar';
+
+    // Preparazione della query SQL utilizzando il parametro name_page per selezionare il contenuto specifico
+    $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? ORDER BY id DESC LIMIT 1");
+    $stmt->bind_param("s", $standard); // Associa il parametro name_page alla tua query
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        echo $row['content']; // Stampa il contenuto specifico della pagina
+    } else {
+        echo " Nessuna Navbar trovata ";
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// FUNZIONE PER VISUALIZZARE LA NAVBAR -------------------------------------------------------------------------------
+function customFooter()
+{
+    require 'conn.php'; 
+    $standard = 'footer';
+
+    // Preparazione della query SQL utilizzando il parametro name_page per selezionare il contenuto specifico
+    $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? ORDER BY id DESC LIMIT 1");
+    $stmt->bind_param("s", $standard); // Associa il parametro name_page alla tua query
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        echo $row['content']; // Stampa il contenuto specifico della pagina
+    } else {
+        echo " Nessuna Navbar trovata ";
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+// ---------------------------------------------------------------------------------------------------------------------
+// 1) FUNZIONE PER TENERE SESSIONE DEL CARRELLO ---------------------------------------------------------------------------
+
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// 2) FUNZIONE PER AGGIUNTA AL CARRELLO -------------------------------------------------------------------------------
+
+function addSessionCart(){
+    if(isset($_POST['id_prodotto']) && isset($_POST['quantita'])) {
+        $productId = $_POST['id_prodotto'];
+        $quantity = $_POST['quantita'];
+    
+        addToCart($productId, $quantity);
+    
+        // Reindirizza alla pagina del carrello
+        header('Location: carrello.php');
+        exit();
+    }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// 3) FUNZIONE PER AGGIUNGERE ALLA SESSIONE DEL CARRELLO ------------------------------------------------------------------
+
+function addToCart($productId, $quantity) {
+    if (!isset($_SESSION['cart'][$productId])) {
+        $_SESSION['cart'][$productId] = 0;
+    }
+    $_SESSION['cart'][$productId] += $quantity;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// FUNZIONE PER VISUALIZZARE DATI DEL PRODOTTO -------------------------------------------------------------------------
+
+function prendeProdutti(){
+    require 'conn.php';
+
+    $stmt = $conn->prepare("SELECT id_prodotto, titolo, titolo_seo, descrizione, categoria, collezione, stato, prezzo, prezzo_comparato, quantita, peso, varianti, sku, marca FROM prodotti WHERE id_prodotto = ?");
+    $stmt->execute();
+    $stmt->bind_param("isssssssssssss", $id_prodotto, $titolo, $titolo_seo, $descrizione, $categoria, $collezione, $stato, $prezzo, $prezzo_comparato, $quantita, $peso, $varianti, $sku, $marca);
+
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while($stmt->fetch()) {
+            $prodotti[] = array(
+                'id_prodotto' => $id_prodotto,
+                'titolo' => $titolo,
+                'titolo_seo' => $titolo_seo, 
+                'descrizione' => $descrizione, 
+                'categoria' => $categoria,
+                'collezione' => $collezione,
+                'stato' => $stato,
+                'prezzo' => $prezzo,
+                'prezzo_comparato' => $prezzo_comparato,
+                'quantita' => $quantita, 
+                'peso' => $peso,
+                'varianti' => $varianti,
+                'sku' => $sku,
+                'marca' => $marca,
+            );
+        }
+    } else {
+        echo " Nessun prodotto trovato ";
     }
 
     $stmt->close();

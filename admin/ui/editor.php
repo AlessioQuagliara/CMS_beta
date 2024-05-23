@@ -7,7 +7,7 @@
     } else if ($namePage == 'landing') {
         $visualizzaPagina = 'landing';
     } else if ($namePage == 'prodotto') {
-        $visualizzaPagina = 'prodotto';
+        $visualizzaPagina = 'prodotti/prodotto-esempio';
     } else if ($namePage == 'catalogo') {
         $visualizzaPagina = 'catalog';
     } else if ($namePage == 'services') {
@@ -32,25 +32,21 @@
 
 <script type="text/javascript">
     var visualizzaPagina = '<?php echo $visualizzaPagina; ?>';
-</script>
 
-<script type="text/javascript">
     var editor = grapesjs.init({
         container: '#base',
         fromElement: true,
         height: '900px',
         width: '100%',
         storageManager: false,
-        // Qui sotto inizia la personalizzazione
-        plugins: ['gjs-preset-webpage'], // Se hai incluso plugin aggiuntivi
+        plugins: ['gjs-preset-webpage'],
         pluginsOpts: {
-            'gjs-preset-webpage': {
-                /* opzioni del plugin */
-            }
+            'gjs-preset-webpage': {}
         },
         canvas: {
             styles: [
-                'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'
+                'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'
             ],
             scripts: [
                 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'
@@ -60,183 +56,187 @@
 
     // Imposta il contenuto recuperato dal database come contenuto iniziale dell'editor
     var savedContent = <?php echo json_encode($savedContent); ?>;
-    if (savedContent) {}
-    editor.setComponents(savedContent);
-
-    // Qui aggiungo tutti i blocchi
-    // Sezioni
-
-if( visualizzaPagina === 'footer'){
-    editor.BlockManager.add('pretty-footer', {
-        label: 'Pretty Footer',
-        content: `
-        <footer class="bg-body-tertiary text-center"><!-- Grid container --><div class="container p-4 pb-0">
-        <!-- Section: Social media -->
-        <section class="mb-4">
-      <!-- Facebook -->
-      <a
-      data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #3b5998;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
-
-      <!-- Twitter -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #55acee;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-twitter"></i
-      ></a>
-
-      <!-- Google -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #dd4b39;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-google"></i
-      ></a>
-
-      <!-- Instagram -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #ac2bac;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-instagram"></i
-      ></a>
-
-      <!-- Linkedin -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #0082ca;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-linkedin-in"></i
-      ></a>
-      <!-- Github -->
-      <a
-        data-mdb-ripple-init
-        class="btn text-white btn-floating m-1"
-        style="background-color: #333333;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-github"></i
-      ></a>
-    </section>
-    <!-- Section: Social media -->
-  </div>
-  <!-- Grid container -->
-
-  <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-  &copy; 2024 Copyright:
-    <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-  </div>
-  <!-- Copyright -->
-</footer>
-        `,
-        category: 'Footer',
-    });
-    editor.BlockManager.add('complex-footer', {
+    if (savedContent) {
+        editor.setComponents(savedContent);
+    } 
+    
+    if( visualizzaPagina === 'footer'){
+        editor.BlockManager.add('pretty-footer', {
+            label: 'Pretty Footer',
+            content: `
+            <footer class="bg-dark text-white text-center text-lg-start">
+            <div class="container p-4">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+            <i class="fab fa-facebook-f"></i>
+            </a>
+            
+            <!-- Twitter -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+            <i class="fab fa-twitter"></i>
+            </a>
+            
+            <!-- Google -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+            <i class="fab fa-google"></i>
+            </a>
+            
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+            <i class="fab fa-instagram"></i>
+            </a>
+            
+            <!-- Linkedin -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+            <i class="fab fa-linkedin-in"></i>
+            </a>
+            
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+            <i class="fab fa-github"></i>
+            </a>
+            </section>
+            <!-- Section: Social media -->
+            
+            <!-- Section: Links -->
+            <section class="mb-4">
+            <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Link Utili</h5>
+            
+            <ul class="list-unstyled mb-0">
+            <li>
+            <a href="#!" class="text-white">Link 1</a>
+            </li>
+            <li>
+            <a href="#!" class="text-white">Link 2</a>
+            </li>
+            <li>
+            <a href="#!" class="text-white">Link 3</a>
+            </li>
+            <li>
+            <a href="#!" class="text-white">Link 4</a>
+            </li>
+            </ul>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Link Utili</h5>
+            
+            <ul class="list-unstyled mb-0">
+            <li>
+            <a href="#!" class="text-white">Link 1</a>
+            </li>
+            <li>
+            <a href="#!" class="text-white">Link 2</a>
+            </li>
+            <li>
+            <a href="#!" class="text-white">Link 3</a>
+            </li>
+            <li>
+            <a href="#!" class="text-white">Link 4</a>
+            </li>
+            </ul>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Link Utili</h5>
+            
+            <ul class="list-unstyled mb-0">
+            <li>
+            <a href="#!" class="text-white">Link 1</a>
+            </li>
+            <li>
+            <a href="#!" class="text-white">Link 2</a>
+            </li>
+            <li>
+            <a href="#!" class="text-white">Link 3</a>
+            </li>
+            <li>
+            <a href="#!" class="text-white">Link 4</a>
+            </li>
+            </ul>
+            </div>
+            </div>
+            </section>
+            </div><div class="text-center p-3 bg-secondary">&copy; 2024 Copyright:<a class="text-white" href="https://linkbay.it/">LinkBay</a></div></footer>
+                        `,
+            category: 'Footer',
+        });
+        
+        editor.BlockManager.add('complex-footer', {
             label: 'Complex Footer',
             content: `
-        <!-- Footer -->
-<footer class="bg-body-tertiary text-center">
-  <!-- Grid container -->
-  <div class="container p-4">
-    <!-- Section: Social media -->
-    <section class="mb-4">
-      <!-- Facebook -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
-
-      <!-- Twitter -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-twitter"></i
-      ></a>
-
-      <!-- Google -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-google"></i
-      ></a>
-
-      <!-- Instagram -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-instagram"></i
-      ></a>
-
-      <!-- Linkedin -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-linkedin-in"></i
-      ></a>
-
-      <!-- Github -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-github"></i
-      ></a>
-    </section>
-    <section class="">
-      <form action="">
-        <div class="row d-flex justify-content-center">
-          <!--Grid column-->
-          <div class="col-auto">
-            <p class="pt-2">
-              <strong>Sign up for our newsletter</strong>
-            </p>
-          </div>
-          <div class="col-md-5 col-12">
-            <!-- Email input -->
-            <div data-mdb-input-init class="form-outline mb-4">
-              <input type="email" id="form5Example24" class="form-control" />
-              <label class="form-label" for="form5Example24">Email address</label>
-            </div>
-          </div>
-          <div class="col-auto">
-            <!-- Submit button -->
-            <button data-mdb-ripple-init type="submit" class="btn btn-outline mb-4">
-              Subscribe
-            </button>
-          </div>
-          <!--Grid column-->
-        </div>
-        <!--Grid row-->
-      </form>
-    </section>
-    <section class="mb-4">
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-        repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum
-        harum corrupti dicta, aliquam sequi voluptate quas.
-      </p>
-    </section>
-    <!-- Section: Text -->
-
-    <!-- Section: Links -->
-    <section class="d-flex justify-content-center">
-      <!--Grid row-->
-      <div class="row">
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase">Links</h5>
-          <ul class="list-unstyled mb-0">
-            <li>
-              <a class="text-body" href="#!">Link 1</a>
-            </li>
-            <li>
-              <a class="text-body" href="#!">Link 2</a>
-            </li>
-            <li>
-        `,
+            <footer class="bg-dark text-white text-center text-lg-start">
+                <div class="container p-4">
+                    <section class="mb-4">
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
+                    </section>
+                    <section class="mb-4">
+                        <form action="">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-auto">
+                                    <p class="pt-2"><strong>Sign up for our newsletter</strong></p>
+                                </div>
+                                <div class="col-md-5 col-12">
+                                    <div class="form-outline mb-4">
+                                        <input type="email" id="form5Example24" class="form-control" />
+                                        <label class="form-label" for="form5Example24">Email address</label>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-outline-light mb-4">Subscribe</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <section class="mb-4">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum harum corrupti dicta, aliquam sequi voluptate quas.</p>
+                    </section>
+                    <section class="d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                                <h5 class="text-uppercase">Links</h5>
+                                <ul class="list-unstyled mb-0">
+                                    <li><a class="text-white" href="#!">Link 1</a></li>
+                                    <li><a class="text-white" href="#!">Link 2</a></li>
+                                    <li><a class="text-white" href="#!">Link 3</a></li>
+                                    <li><a class="text-white" href="#!">Link 4</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                                <h5 class="text-uppercase">Links</h5>
+                                <ul class="list-unstyled mb-0">
+                                    <li><a class="text-white" href="#!">Link 1</a></li>
+                                    <li><a class="text-white" href="#!">Link 2</a></li>
+                                    <li><a class="text-white" href="#!">Link 3</a></li>
+                                    <li><a class="text-white" href="#!">Link 4</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                                <h5 class="text-uppercase">Links</h5>
+                                <ul class="list-unstyled mb-0">
+                                    <li><a class="text-white" href="#!">Link 1</a></li>
+                                    <li><a class="text-white" href="#!">Link 2</a></li>
+                                    <li><a class="text-white" href="#!">Link 3</a></li>
+                                    <li><a class="text-white" href="#!">Link 4</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="text-center p-3 bg-secondary">
+                    &copy; 2024 Copyright: <a class="text-white" href="">LinkBay</a>
+                </div>
+            </footer>
+            `,
             category: "Footer",
         }),
         editor.BlockManager.add('footer-3', {
@@ -251,248 +251,211 @@ if( visualizzaPagina === 'footer'){
             category: 'Footer',
         });
     } else if( visualizzaPagina === 'navbar'){
-    // Navbar --------------------------------------------------------------------------------------------------------
+    // Navbar --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     editor.BlockManager.add('bootstrap-navbar', {
         label: 'Navbar Stile 1',
         content: `
-                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                      <div class="container-fluid">
-                          <a class="navbar-brand" href="#">Brand</a>
-                          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                              <span class="navbar-toggler-icon"></span>
-                          </button>
-                          <div class="collapse navbar-collapse" id="navbarNav">
-                              <ul class="navbar-nav">
-                                  <li class="nav-item">
-                                      <a class="nav-link active" aria-current="page" href="index">Home</a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a class="nav-link" href="about_us">Chi Siamo</a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a class="nav-link" href="#">Catalogo</a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a class="nav-link disabled">Carrello</a>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
-                  </nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Brand</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about_us">Chi Siamo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Catalogo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled">Carrello</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
+        <style>
+            body {
+                padding-top: 56px; /* Altezza della navbar */
+            }
+        </style>
                   `,
         category: 'Navbar',
     });
     editor.BlockManager.add('bootstrap-navbar-logo', {
         label: 'Navbar Stile 2',
         content: `
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#">
-                            <img src="path/to/your/logo.png" alt="Logo" width="30" height="24">
-                        </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                            <div class="navbar-nav">
-                                <a class="nav-link active" aria-current="page" href="index">Home</a>
-                                <a class="nav-link" href="about_us">Chi siamo</a>
-                                <a class="nav-link" href="#">Catalogo</a>
-                                <a class="nav-link disabled">Carrello</a>
-                            </div>
-                        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="path/to/your/logo.png" alt="Logo" width="30" height="24">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="index">Home</a>
+                        <a class="nav-link" href="about_us">Chi siamo</a>
+                        <a class="nav-link" href="#">Catalogo</a>
+                        <a class="nav-link disabled">Carrello</a>
                     </div>
-                </nav>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
+        <style>
+            body {
+                padding-top: 56px; /* Altezza della navbar */
+            }
+        </style>
                 `,
         category: 'Navbar',
     });
     editor.BlockManager.add('navbar-with-logo', {
         label: 'Navbar con Logo',
         content: `
-              <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                  <div class="container">
-                      <a class="navbar-brand" href="#">
-                          <img src="logo.png" alt="Logo" width="auto" height="30" class="d-inline-block align-top">
-                      </a>
-                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                          <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarNav">
-                          <ul class="navbar-nav ms-auto">
-                              <li class="nav-item">
-                                  <a class="nav-link" href="#">Home</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="#">About</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="#">Services</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" href="#">Contact</a>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-              </nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="logo.png" alt="Logo" width="auto" height="30" class="d-inline-block align-top">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
+        <style>
+            body {
+                padding-top: 56px; /* Altezza della navbar */
+            }
+        </style>
               `,
         category: 'Navbar',
     });
     editor.BlockManager.add('navbar-with-centered-logo', {
         label: 'Navbar con Logo Centrale',
         content: `
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container">
-                    <div class="d-flex justify-content-center">
-                        <a class="navbar-brand" href="#">
-                            <img src="logo.png" alt="Logo" width="auto" height="50" class="d-inline-block align-top">
-                        </a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <a class="navbar-brand" href="#">
+                        <img src="logo.png" alt="Logo" width="auto" height="50" class="d-inline-block align-top">
+                    </a>
                 </div>
-            </nav>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
+        <style>
+            body {
+                padding-top: 70px; /* Altezza della navbar */
+            }
+        </style>
             `,
         category: 'Navbar',
     });
     editor.BlockManager.add('navbar-with-large-logo', {
         label: 'Navbar con Logo Grande',
         content: `
-          <div class="block d-flex align-items-center justify-content-center">
-              <img src="logo.png" alt="Logo" class="img-fluid">
-          </div>
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-              <div class="container">
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNav">
-                      <ul class="navbar-nav mx-auto">
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Home</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">About</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Services</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Contact</a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-          </nav>
+        <!-- Contenitore per logo e navbar -->
+            <div class="fixed-top bg-light">
+                <div class="container d-flex justify-content-center py-3">
+                    <a class="navbar-brand" href="#">
+                        <img src="path/to/your/logo.png" alt="Logo" width="auto" height="50" class="d-inline-block align-top">
+                    </a>
+                </div>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Catalogo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Chi Siamo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Aggiungi questo stile per compensare l'altezza della navbar e del logo -->
+            <style>
+                body {
+                    padding-top: 150px; /* Altezza del logo + navbar */
+                }
+            </style>
           `,
         category: 'Navbar',
     });
     } else {
 // Funzioni di base negozio online -----------------------------------------------------------------------------------------------------------------------------------------------------------------------        
-editor.BlockManager.add('hero-section', {
-        label: 'Prodotto',
-        content: `
-        <div class="container mt-5">
-            <div class="row">
-                <!-- Product Images -->
-                <div class="col-md-6">
-                    <div class="mb-4">
-                        <img id="mainImage" src="https://via.placeholder.com/500" class="img-fluid" alt="Main Product Image">
-                    </div>
-                    <div class="d-flex flex-column">
-                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Product Image 1">
-                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Product Image 2">
-                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Product Image 3">
-                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Customer Photo">
-                    </div>
-                </div>
-                <!-- Product Details -->
-                <div class="col-md-6">
-                    <h2>Nome Prodotto</h2>
-                    <p>Collezione</p>
-                    <p class="text-muted">€ Prezzo</p>
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="badge bg-warning text-dark">4.5 di 5 stelle</span>
-                        <span class="ms-2">(722 recensioni)</span>
-                    </div>
-                    <!-- Varianti -->
-                    <div class="mb-3">
-                        <label for="variant" class="form-label">Variante</label>
-                        <select class="form-select" id="variant">
-                            <option selected>Scegli una variante</option>
-                            <option value="1">Variante 1</option>
-                            <option value="2">Variante 2</option>
-                            <option value="3">Variante 3</option>
-                        </select>
-                    </div>
-                    <!-- Quantità -->
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantità</label>
-                        <input type="number" class="form-control" id="quantity" min="1" value="1">
-                    </div>
-                    <button class="btn btn-dark w-100 mb-2">Acquista Ora</button>
-                    <button class="btn btn-outline-dark w-100 mb-4">Aggiungi al carrello</button>
-                    
-                    <div class="accordion" id="productDetails">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Dettagli Prodotto
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productDetails">
-                                <div class="accordion-body">
-                                    <p>Descrizione<p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Altri Dettagli
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#productDetails">
-                                <div class="accordion-body">
-                                    <p>Inserisci altri dettagli...</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Altri Dettagli
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#productDetails">
-                                <div class="accordion-body">
-                                    <p>Inserisci altri dettagli...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-              `,
-        category: 'Funzioni Base',
-    });
+
 // everything else -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     editor.BlockManager.add('hero-section', {
         label: 'Hero Section',
         content: `
@@ -868,6 +831,85 @@ editor.BlockManager.add('hero-section', {
         label: 'Pulsante',
         content: '<button type="button" class="btn btn-dark">Pulsante</button>',
         category: 'Pulsanti',
+    });
+// Prodotto --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        editor.BlockManager.add('bootstrap-navbar', {
+        label: 'Prodotto stile 1',
+        content: `
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <img id="mainImage" src="https://via.placeholder.com/500" class="img-fluid" alt="{{ProductTitle}}">
+                    </div>
+                    <div class="d-flex flex-column">
+                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="{{ProductTitle}} 1">
+                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="{{ProductTitle}} 2">
+                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="{{ProductTitle}} 3">
+                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Customer Photo">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h2>{{ProductTitle}}</h2>
+                    <p>{{ProductCollection}}</p>
+                    <p class="text-muted">€ {{ProductPrice}}</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="badge bg-warning text-dark">4.5 di 5 stelle</span>
+                        <span class="ms-2">(722 recensioni)</span>
+                    </div>
+                    <div class="mb-3">
+                        <p><span class="badge text-bg-secondary">{{ProductVariant}}</span></p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantità</label>
+                        <input type="number" class="form-control" id="quantity" min="1" value="1">
+                    </div>
+                    <button class="btn btn-dark w-100 mb-2">Acquista Ora</button>
+                    <button class="btn btn-outline-dark w-100 mb-4">Aggiungi al carrello</button>
+                    
+                    <div class="accordion" id="productDetails">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Dettagli Prodotto
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productDetails">
+                                <div class="accordion-body">
+                                    <p>{{ProductDescription}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Stylist Notes
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#productDetails">
+                                <div class="accordion-body">
+                                    <p>Notes from the stylist...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Size & Fit
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#productDetails">
+                                <div class="accordion-body">
+                                    <p>Information about the size and fit...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                  `,
+        category: 'Negozio Online',
     });
 }
 </script>

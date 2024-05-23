@@ -1,45 +1,67 @@
 <?php
-if (!file_exists('conn.php')) {
+require('conn.php');
+require_once('app.php');
+
+
+$productTitle = isset($_GET['titolo']) ? $_GET['titolo'] : '';
+
+$product = mostraProdotto($productTitle);
+if (!$product) {
     header("Location: error");
     exit();
-  } else {
-  require_once ('app.php'); require 'visita.php';
-  $productTitle = isset($_GET['titolo']) ? $_GET['titolo'] : '';
-  
-  require ('conn.php');
-  $stmt = $conn->prepare("SELECT * FROM prodotti WHERE titolo_seo = ?");
-  $stmt->bind_param("s", $productTitle);
-  
-  $stmt->execute();
-  
-  $result = $stmt->get_result();
-  if ($result->num_rows > 0) {
-      $product = $result->fetch_assoc();
-  } else {
-      echo "Prodotto non trovato.";
-      exit;
-  }
-  
-  $stmt->close();
-  $conn->close();
 }
+
+$namePage = 'prodotto';
+$savedContent = '';
+
+// Funzione per sostituire i placeholder
+function replacePlaceholders($content, $product) {
+    $placeholders = [
+        '{{ProductTitle}}' => htmlspecialchars($product['titolo']),
+        '{{ProductCollection}}' => htmlspecialchars($product['collezione']),
+        '{{ProductPrice}}' => htmlspecialchars($product['prezzo']),
+        '{{ProductDescription}}' => htmlspecialchars($product['descrizione']),
+        '{{ProductVariant}}' => htmlspecialchars($product['varianti'])
+    ];
+    
+    return str_replace(array_keys($placeholders), array_values($placeholders), $content);
+}
+
+if ($conn->connect_errno) {
+    echo "Failed to connect to MySQL: " . $conn->connect_error;
+    exit();
+}
+
+// Query per ottenere il contenuto salvato
+$stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ?");
+$stmt->bind_param("s", $namePage);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $savedContent = $row['content'];
+}
+$stmt->close();
+$conn->close();
+
+$savedContent = replacePlaceholders($savedContent, $product);
 ?>
+
 <!DOCTYPE html>
 <html lang="it">
 <!-- TESTA -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO -->
     <title><?php echo htmlspecialchars($product['titolo']); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($product['descrizione']); ?>">
-    <meta name="keywords" content="<?php echo htmlspecialchars($product['keywords']); ?>">
+    <meta name="keywords" content="">
     <link rel="shortcut icon" href="src/media_system/favicon.ico" type="image/x-icon">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="<?php echo htmlspecialchars($product['titolo']); ?>">
     <meta property="og:description" content="<?php echo htmlspecialchars($product['descrizione']); ?>">
-    <meta property="og:image" content="<?php echo htmlspecialchars($product['immagine']); ?>">
+    <meta property="og:image" content="path/to/image.jpg">
     <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="Il Tuo Sito">
@@ -48,7 +70,7 @@ if (!file_exists('conn.php')) {
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?php echo htmlspecialchars($product['titolo']); ?>">
     <meta name="twitter:description" content="<?php echo htmlspecialchars($product['descrizione']); ?>">
-    <meta name="twitter:image" content="<?php echo htmlspecialchars($product['immagine']); ?>">
+    <meta name="twitter:image" content="path/to/image.jpg">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -57,7 +79,7 @@ if (!file_exists('conn.php')) {
         "@type": "Product",
         "name": "<?php echo htmlspecialchars($product['titolo']); ?>",
         "description": "<?php echo htmlspecialchars($product['descrizione']); ?>",
-        "image": "<?php echo htmlspecialchars($product['immagine']); ?>",
+        "image": "path/to/image.jpg",
         "sku": "<?php echo htmlspecialchars($product['sku']); ?>",
         "brand": {
             "@type": "Brand",
@@ -85,11 +107,11 @@ if (!file_exists('conn.php')) {
 <body>    
 <?php
 customNav();
-$namePage = 'prodotto';
-customPage($namePage); 
+echo $savedContent;
 customFooter();
 ?>
 <!-- SCRIPT BOOTSTRAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<?php require_once('visita.php'); ?>
 </body>
 </html>

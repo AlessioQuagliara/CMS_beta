@@ -157,38 +157,31 @@ function logout()
 function subscribe()
 {
     require('../public/phpmailer.php');
-    // Includi il file di connessione al database
-    require '../conn.php'; // Usa 'require' per assicurarti che il file esista.
+    require '../conn.php'; 
 
-    // Estrai i dettagli del negozio
     $query_dettagli_negozio = "SELECT * FROM dettagli_negozio";
     $result_dettagli_negozio = mysqli_query($conn, $query_dettagli_negozio);
     if ($dettagli = mysqli_fetch_assoc($result_dettagli_negozio)) {
         $nome_negozio = $dettagli['nome_negozio'];
     }
 
-    // Ottenere l'host corrente
     $host = $_SERVER['HTTP_HOST'];
     $sitoweb = (string) $host;
 
-    // Verifica se il form è stato inviato
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Prendi e tratta i dati del form
         $nome = trim($_POST['nome']);
         $cognome = trim($_POST['cognome']);
         $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
         $telefono = trim($_POST['telefono']);
         $ruolo = 'Amministratore';
-        $password = $_POST['password']; // La password verrà hashata quindi non è necessario sanificarla.
+        $password = $_POST['password'];
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             die("<p class='text-red-500'>Formato email non valido.</p>");
         }
 
-        // Genera l'hash della password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Prepara la query SQL per inserire i dati nel database
         $sql = "INSERT INTO administrator (nome, cognome, ruolo, email, telefono, password) VALUES (?, ?,?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
 
@@ -199,27 +192,22 @@ function subscribe()
         $stmt->bind_param("ssssss", $nome, $cognome, $ruolo, $email, $telefono, $hashed_password);
 
         if ($stmt->execute()) {
-            // Prepara il contenuto dell'email
             $email_user = $email;
             $oggetto = 'Registrazione a LinkBay';
             $template = file_get_contents('../templates/email_subscribed.html'); // Assicurati che il percorso al file sia corretto
             $messaggio = str_replace(['{{nome}}', '{{nome_negozio}}', '{{sitoweb}}', '{{id_admin}}'], [$nome, $nome_negozio, $sitoweb, $id_admin], $template); // Nel template usa {{ nome }} per passare i valori
 
-            // Invia l'email all'utente con le istruzioni per resettare la password
             send_mail($email_user, $oggetto, $messaggio);
 
             $messaggio = "Registrazione effettuata con successo";
             $url = "index?messaggio=" . urlencode($messaggio);
             header('location:' . $url);
         } else {
-            // MESSAGGIO PER CLIENTE di Errore
         }
 
-        // Chiudi lo statement e la connessione
         $stmt->close();
         $conn->close();
     } else {
-        // Se il form non è stato inviato, reindirizza l'utente alla pagina di registrazione
         header("Location: login");
         exit;
     }
@@ -230,44 +218,31 @@ function subscribe()
 // ---------------------------------------------------------------------------------------------------------------------
 function ripristina()
 {
-    require('../public/phpmailer.php'); // Assicurati che il percorso del file sia corretto
-
-    $errore = ''; // Inizializza la variabile per memorizzare messaggi di errore
-
-
+    require('../public/phpmailer.php');
+    $errore = ''; 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        require('../conn.php'); // Include il file di connessione al database
-
-        // Estrai i dettagli del negozio
+        require('../conn.php'); 
         $query_dettagli_negozio = "SELECT * FROM dettagli_negozio";
         $result_dettagli_negozio = mysqli_query($conn, $query_dettagli_negozio);
         if ($dettagli = mysqli_fetch_assoc($result_dettagli_negozio)) {
-            // Estrai i dettagli del negozio e assegnali a variabili
             $nome_negozio = $dettagli['nome_negozio'];
-            $sitoweb = $dettagli['sitoweb'];
-            // Qui puoi aggiungere altre variabili se necessario
         }
-
-        // Prendi l'email inviata dal form
+        $host = $_SERVER['HTTP_HOST'];
+        $sitoweb = (string) $host;
         $admin_email = $_POST['email'];
 
-        // Prepara la query SQL per evitare SQL Injection
         $stmt = $conn->prepare("SELECT * FROM administrator WHERE email = ?");
         $stmt->bind_param("s", $admin_email);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($row = $result->fetch_assoc()) {
-            // Estrai l'ID dell'admin
             $id_admin = $row['id_admin'];
             $nome = $row['nome'];
 
-            // Carica il contenuto del template HTML per l'email
-            $template = file_get_contents('../templates/email_pass.html'); // Assicurati che il percorso sia corretto
-            // Sostituisci un placeholder nel tuo template con l'ID admin
+            $template = file_get_contents('../templates/email_pass.html');
             $messaggio = str_replace(['{{nome}}', '{{nome_negozio}}', '{{sitoweb}}', '{{id_admin}}'], [$nome, $nome_negozio, $sitoweb, $id_admin], $template); // Nel template usa {{ nome }} per passare i valori
 
-            // Invia l'email
             $oggetto = "Ripristino Password";
             if (send_mail($admin_email, $oggetto, $messaggio)) {
                 $messaggio = "Istruzioni per il ripristino della password inviate a: " . $admin_email;
@@ -2233,34 +2208,28 @@ function estraiDatiSviluppatori()
 // FUNZIONE PER AGGIUNTA ADMINISTRATOR ---------------------------------------------------------------------------------
 function inviaEmailAggiuntaAdmin()
 {
-
-    // Recuperiamo i dati negozio
     $dettagli_negozio = stampaDettagli_negozio();
     $sitoweb = '';
     $nome_negozio = '';
     foreach ($dettagli_negozio as $dettaglio) {
-        $sitoweb = $dettaglio['sitoweb'];
         $nome_negozio = $dettaglio['nome_negozio'];
-        break; // Suppongo che ci sia un solo negozio, quindi interrompiamo il ciclo dopo il primo
+        break;
     }
+   
+    $host = $_SERVER['HTTP_HOST'];
+    $sitoweb = (string) $host;
 
+    include('public/phpmailer_admin.php');
 
-    require('../../public/phpmailer.php'); // Includi lo script con la funzione send_mail
-
-    // Controlla se i dati sono stati inviati tramite POST
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Assicurati che sia nome che email siano presenti
         if (isset($_POST['nome']) && isset($_POST['email'])) {
             $nome = $_POST['nome'];
             $email = $_POST['email'];
 
-            // Impostazioni del template email
-
             $oggetto = 'LinkBay - Invito di Collaborazione';
-            $template = file_get_contents('../../templates/email_collabora.html'); // Assicurati che il percorso al file sia corretto
-            $messaggio = str_replace(['{{nome}}', '{{nome_negozio}}', '{{sitoweb}}'], [$nome, $nome_negozio, $sitoweb], $template); // Nel template usa {{ nome }} per passare i valori
+            $template = file_get_contents('../../templates/email_collabora.html'); 
+            $messaggio = str_replace(['{{nome}}', '{{nome_negozio}}', '{{sitoweb}}'], [$nome, $nome_negozio, $sitoweb], $template); 
 
-            // Invia l'email all'utente con le istruzioni per resettare la password
             send_mail($email, $oggetto, $messaggio);
 
             header('Location: aggiunta_administrator');
@@ -2851,7 +2820,7 @@ function customNav()
         $row = $result->fetch_assoc();
         echo $row['content']; // Stampa il contenuto specifico della pagina
     } else {
-        echo " Nessuna Navbar trovata ";
+        echo "";
     }
 
     $stmt->close();
@@ -2875,7 +2844,7 @@ function customFooter()
         $row = $result->fetch_assoc();
         echo $row['content']; // Stampa il contenuto specifico della pagina
     } else {
-        echo " Nessuna Navbar trovata ";
+        echo "";
     }
 
     $stmt->close();
@@ -2920,7 +2889,7 @@ function addToCart($productId, $quantity) {
 function prendeProdutti(){
     require 'conn.php';
 
-    $stmt = $conn->prepare("SELECT id_prodotto, titolo, titolo_seo, descrizione, categoria, collezione, stato, prezzo, prezzo_comparato, quantita, peso, varianti, sku, marca FROM prodotti WHERE id_prodotto = ?");
+    $stmt = $conn->prepare("SELECT id_prodotto, titolo, titolo_seo, descrizione, categoria, collezione, stato, prezzo, prezzo_comparato, quantita, peso, varianti, sku, marca FROM prodotti WHERE id_prodotto = ");
     $stmt->execute();
     $stmt->bind_param("isssssssssssss", $id_prodotto, $titolo, $titolo_seo, $descrizione, $categoria, $collezione, $stato, $prezzo, $prezzo_comparato, $quantita, $peso, $varianti, $sku, $marca);
 
@@ -2949,6 +2918,61 @@ function prendeProdutti(){
         echo " Nessun prodotto trovato ";
     }
 
+    $stmt->close();
+    $conn->close();
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// FUNZIONE PER VISUALIZZARE DATI DEL PRODOTTO -------------------------------------------------------------------------
+
+function mostraProdotto($productTitle){
+    require ('conn.php');
+
+    $stmt = $conn->prepare("SELECT * FROM prodotti WHERE titolo_seo = ? AND stato = 'online'");
+    $stmt->bind_param("s", $productTitle);
+    
+    $stmt->execute();
+    
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+        $product = $result->fetch_assoc();
+        
+        $id_prodotto = $product['id_prodotto'];
+        $titolo = $product['titolo'];
+        $titolo_seo = $product['titolo_seo'];
+        $descrizione = $product['descrizione'];
+        $categoria = $product['categoria'];
+        $collezione = $product['collezione'];
+        $stato = $product['stato'];
+        $prezzo = $product['prezzo'];
+        $prezzo_comparato = $product['prezzo_comparato'];
+        $quantita = $product['quantita'];
+        $peso = $product['peso'];
+        $varianti = $product['varianti'];
+        $sku = $product['sku'];
+        $marca = $product['marca'];
+
+        return [
+            'id_prodotto' => $id_prodotto,
+            'titolo' => $titolo,
+            'titolo_seo' => $titolo_seo,
+            'descrizione' => $descrizione,
+            'categoria' => $categoria,
+            'collezione' => $collezione,
+            'stato' => $stato,
+            'prezzo' => $prezzo,
+            'prezzo_comparato' => $prezzo_comparato,
+            'quantita' => $quantita,
+            'peso' => $peso,
+            'varianti' => $varianti,
+            'sku' => $sku,
+            'marca' => $marca
+        ];
+    } else {
+        header("Location: ../home");
+        exit;
+    }
+    
     $stmt->close();
     $conn->close();
 }

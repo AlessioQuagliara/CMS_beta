@@ -3,6 +3,7 @@ require ('../../app.php');
 loggato();
 
 $namePage = 'prodotto'; // Nome della pagina da caricare
+$savedContent = '';
 
 // Prepara la query SQL per selezionare il contenuto della pagina specificata
 $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? LIMIT 1");

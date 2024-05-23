@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Creato il: Mag 23, 2024 alle 15:59
+-- Creato il: Mag 23, 2024 alle 21:07
 -- Versione del server: 5.7.39
 -- Versione PHP: 8.2.0
 
@@ -58,6 +58,13 @@ CREATE TABLE `categorie` (
   `nome_cat` varchar(255) NOT NULL,
   `associazione` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `categorie`
+--
+
+INSERT INTO `categorie` (`id_categoria`, `nome_cat`, `associazione`) VALUES
+(1, 'ciao', 'Nuova Collezione');
 
 -- --------------------------------------------------------
 
@@ -241,6 +248,13 @@ CREATE TABLE `prodotti` (
   `selected` varchar(255) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dump dei dati per la tabella `prodotti`
+--
+
+INSERT INTO `prodotti` (`id_prodotto`, `titolo`, `titolo_seo`, `descrizione`, `categoria`, `collezione`, `stato`, `prezzo`, `prezzo_comparato`, `quantita`, `peso`, `varianti`, `sku`, `marca`, `selected`) VALUES
+(1, 'Prodotto Esempio', 'prodotto-esempio', 'Questa è una descrizione di esempio', 'ciao', 'Nuova Collezione', 'online', '50', '90', '2', '5', 'Variante Esempio', NULL, NULL, 'false');
+
 -- --------------------------------------------------------
 
 --
@@ -262,12 +276,13 @@ CREATE TABLE `seo` (
 --
 
 INSERT INTO `seo` (`id`, `editor_page`, `page_name`, `slug`, `title`, `description`, `keywords`) VALUES
-(1, 'edit_homepage', 'index', 'home', 'Inserisci il titolo', 'Inserisci una descrizione', 'inserisci, così, le, keywords'),
+(1, 'edit_homepage', 'index', 'home', 'Spotex Srl - Homepage', 'Inserisci una descrizione', 'inserisci, così, le, keywords'),
 (2, 'edit_aboutus', 'aboutus', 'aboutus', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
 (3, 'edit_contatti', 'contacts', 'contacts', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
 (4, 'edit_servizi', 'services', 'services', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
 (5, 'edit_landing', 'landing', 'landing', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
-(6, 'edit_prodotto', 'prodotto', 'prodotto', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords');
+(6, 'edit_prodotto', 'prodotto', 'prodotto', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
+(7, 'edit_cart', 'cart', 'cart', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords');
 
 -- --------------------------------------------------------
 
@@ -322,7 +337,6 @@ CREATE TABLE `visitatori` (
   `id_visitatore` varchar(255) NOT NULL,
   `data_visita` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 --
 -- Indici per le tabelle scaricate
@@ -446,7 +460,7 @@ ALTER TABLE `administrator`
 -- AUTO_INCREMENT per la tabella `categorie`
 --
 ALTER TABLE `categorie`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `codici_sconto`
@@ -494,7 +508,7 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT per la tabella `ordini`
 --
 ALTER TABLE `ordini`
-  MODIFY `id_ordine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_ordine` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `payment_systems`
@@ -506,13 +520,13 @@ ALTER TABLE `payment_systems`
 -- AUTO_INCREMENT per la tabella `prodotti`
 --
 ALTER TABLE `prodotti`
-  MODIFY `id_prodotto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_prodotto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `seo`
 --
 ALTER TABLE `seo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la tabella `spedizioni`
@@ -536,7 +550,7 @@ ALTER TABLE `user_db`
 -- AUTO_INCREMENT per la tabella `visitatori`
 --
 ALTER TABLE `visitatori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

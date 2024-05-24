@@ -20,21 +20,6 @@ loggato();
 
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <?php 
-            if ($licenza == 'valida') {
-                // Nessun pulsante per la licenza valida
-            } else if ($licenza == 'in scadenza') {
-                echo '<br><div class="alert alert-warning d-flex align-items-center" role="alert">Licenza in Scadenza, rinnovare entro il ';
-                echo '<a href="piano_contratto.php" class="btn btn-outline-primary ms-auto">Vai ai piani</a>';
-                echo '</div>';
-            } else {
-                echo '<br><div class="alert alert-danger d-flex align-items-center" role="alert">Licenza Scaduta, rinnova ora. ';
-                echo '<a href="piano_contratto.php" class="btn btn-outline-danger ms-auto">Vai ai piani</a>';
-                echo '</div>';
-            }
-        ?> 
-
-
 
         <br><br>
     <!-- STATISTICHE RAPIDE -->

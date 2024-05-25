@@ -1,6 +1,14 @@
 <?php 
 require '../../app.php'; // Inclusione Principale
 
+function generateSlug($string) {
+    $string = strtolower($string);
+    $string = preg_replace('/[^a-z0-9-]/', '-', $string);
+    $string = preg_replace('/-+/', '-', $string);
+    $string = trim($string, '-');
+    return $string;
+}
+
 // Verifica se l'ID del prodotto è stato fornito
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id_prodotto = $_GET['id'];
@@ -16,15 +24,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'delete') {
         $messaggio = modificaProdotto($id_prodotto);
         echo "<script>
-        window.opener.location.href = '../ui/prodotti'; // Aggiorna la pagina genitore
+        window.opener.location.href = '../ui/prodotti?success=Prodotto+eliminato+con+successo'; // Aggiorna la pagina genitore
         window.close(); // Chiude la finestra corrente
         </script>";
     }
 
-    // Ora puoi recuperare i dettagli correnti del prodotto per mostrarli nella pagina
     $dettagliProdotto = ottieniDettagliProdotto($id_prodotto); // Funzione che recupera i dettagli del prodotto
+    $slug = generateSlug($dettagliProdotto['titolo']);
 } else {
-    header("Location: prodotto_modifica.php"); // Reindirizza se l'ID del prodotto non è valido o mancante
+    header("Location: ../ui/prodotti?warning=Prodotto+non+trovato"); // Reindirizza se l'ID del prodotto non è valido o mancante
     exit;
 }
 loggato();
@@ -49,7 +57,7 @@ loggato();
     <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
         <button type="submit" name="modifica" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-floppy-disk"></i>&nbsp; Salva Modifiche</button>
-        <a href="<?php echo 'https://www.spinaudiohifi.com/prodotto.php?id_prodotto=' . $id_prodotto;?>" target="__blank" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-eye"></i>&nbsp; Visualizza</a>
+        <a href="../../prodotti/<?php echo $slug; ?>" target="__blank" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-eye"></i>&nbsp; Visualizza</a>
         <a href="#" class="btn btn-sm btn-outline-light" onclick="creaVarianteProdotto(<?php echo $id_prodotto; ?>);"><i class="fa-solid fa-clone"></i> Crea Variante</a>
         <a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteProduct();"><i class="fa-solid fa-trash"></i>&nbsp; Elimina Prodotto</a>
         <a href="#" class="btn btn-sm btn-outline-light" onclick="exit();"><i class="fa-solid fa-rectangle-xmark"></i>&nbsp; Chiudi Scheda</a>

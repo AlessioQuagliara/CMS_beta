@@ -1,6 +1,11 @@
 <?php 
-include ('../app.php');
-$login_error = login(); // Assegna il valore restituito dalla funzione a $login_error
+if (!file_exists('../conn.php')) {
+  header("Location: ../install_linkbay/");
+  exit();
+} else {
+  include ('../app.php');
+  $login_error = login(); 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,20 +17,25 @@ $login_error = login(); // Assegna il valore restituito dalla funzione a $login_
     <meta name="generator" content="Gestionale 2.0">
     <title>LinkBay - Accedi</title>
     <link rel="shortcut icon" href="materials/favicon_link.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="materials/login.css">
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="materials/dashboard.css" rel="stylesheet">
+    <style>
+            body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('materials/background.png') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+        }
+    </style>
   </head>
   <body class="text-center"> 
-
-  <video autoplay muted loop id="myVideo" style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%;">
-    <source src="materials/video_background.mp4" type="video/mp4">
-    Il tuo browser non supporta il tag video.
-  </video>
 
     <div class="card">
         <main class="form-signin">
@@ -55,11 +65,11 @@ $login_error = login(); // Assegna il valore restituito dalla funzione a $login_
                     echo '<p class="text-danger">' . $login_error . '</p>';
                   }
               ?>
-
-              <button class="btn btn-outline-secondary" type="submit">Accedi</button>
+              <br>
+              <button class="btn btn-danger" type="submit">Accedi</button>
               <br><br>
               <p>Password dimenticata? <strong><a href="ripristina.php" class="text-decoration-none text-dark">Ripristina</a></strong></p>
-              <p class="mt-5 mb-3 text-muted">© <?php echo date('Y'); echo ' Sviluppato da ';?> Spotex Srl <img src="materials/favicon.ico" width="20px"> <br> <strong> Versione Beta 2.1 </strong></p>
+              <p class="mt-5 mb-3 text-muted">© <?php echo date('Y'); echo ' Sviluppato da ';?> Spotex Srl <img src="materials/favicon.ico" width="20px"> <br> <strong> Versione Beta 3.0 </strong></p>
             </form>
           </main>
         </div>

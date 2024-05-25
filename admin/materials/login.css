@@ -21,7 +21,7 @@ body {
   justify-content: center;
 }
 .card {
-  width: 20% !important;
+  width: 350px !important;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 15px;
@@ -37,7 +37,7 @@ background-image: url(https://media-s3-us-east-1.ceros.com/uk/images/2019/12/15/
 }
 @media only screen and (max-width: 1024px) {
 .card {
-  width: 90% !important;
+  width: 690px !important;
 }
 }
 

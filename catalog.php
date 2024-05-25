@@ -1,4 +1,11 @@
-<?php require_once ('app.php'); require 'visita.php';?>
+<?php     
+if (!file_exists('conn.php')) {
+    header("Location: error");
+    exit();
+  } else {
+    require_once ('app.php'); require 'visita.php';
+  }
+?>
 <!DOCTYPE html>
 <html lang="it">
 <!-- TESTA -->
@@ -14,6 +21,8 @@
     <link href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <!-- GOOGLE & FACEBOOK -->
+    <?php include ('marketing/market_integration.php');?>
     <!-- FINE TESTA -->
 </head>
 <body>    

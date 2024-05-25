@@ -1,24 +1,58 @@
-<?php require_once ('app.php'); require 'visita.php';?>
+<?php
+if (!file_exists('conn.php')) {
+    header("Location: error.php");
+    exit();
+} else {
+    require_once 'app.php';
+    require 'visita.php';
+    require 'conn.php';
+
+    if (isset($_GET['slug'])) {
+        $slug = htmlspecialchars($_GET['slug'], ENT_QUOTES, 'UTF-8');
+        $stmt = $conn->prepare("SELECT * FROM seo WHERE slug = ?");
+        $stmt->bind_param('s', $slug);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $page = $result->fetch_assoc();
+
+        if (!$page) {
+            header("Location: error.php");
+            exit();
+        }
+    } else {
+        $page = [
+            'title' => 'Services',
+            'description' => 'I nostri servizi.',
+            'keywords' => 'Scopri i nostri servizi'
+        ];
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="it">
-<!-- TESTA -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO -->
-    <title></title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
+    <title><?php echo htmlspecialchars($page['title']); ?></title>
+    <meta name="description" content="<?php echo htmlspecialchars($page['description']); ?>">
+    <meta name="keywords" content="<?php echo htmlspecialchars($page['keywords']); ?>">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="<?php echo htmlspecialchars($page['title']); ?>">
+    <meta property="og:description" content="<?php echo htmlspecialchars($page['description']); ?>">
+    <meta property="og:image" content="link_to_your_image.jpg">
+    <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
+    <meta property="og:type" content="website">
+
     <link rel="shortcut icon" href="src/media_system/favicon.ico" type="image/x-icon">
-    <!-- LINK STILE BOOTSTRAP -->
-    <link href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <!-- FINE TESTA -->
+    <?php include 'marketing/market_integration.php'; ?>
 </head>
-<body>    
+<body>   
 <?php
-$namePage = 'services';
+$namePage = isset($_GET['slug']) ? $_GET['slug'] : 'services';
 customPage($namePage); 
 ?>
 <!-- SCRIPT BOOTSTRAP -->

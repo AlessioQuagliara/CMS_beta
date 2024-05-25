@@ -1,6 +1,11 @@
 <?php 
-include_once ('../app.php');
-logout();
+if (!file_exists('../conn.php')) {
+  header("Location: error");
+  exit();
+} else {
+  include ('../app.php');
+  logout();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,13 +24,20 @@ logout();
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="materials/dashboard.css" rel="stylesheet">
+    <style>
+            body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('materials/background.png') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+        }
+    </style>
   </head>
   <body class="text-center">
-
-  <video autoplay muted loop id="myVideo" style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%;">
-    <source src="materials/video_background.mp4" type="video/mp4">
-    Il tuo browser non supporta il tag video.
-  </video>
 
     <div class="card">
         <main class="form-signin">
@@ -34,7 +46,7 @@ logout();
               <h1 class="h3 mb-3 fw-normal">Sei Uscito</h1>
               <p class="text-allert">La sessione è stata terminata</p>
               <br><br>
-              <p><strong><a href="index" class="text-decoration-none text-dark">Accedi</a></strong></p>
+              <p><strong><a href="index" class="btn btn-danger">Accedi</a></strong></p>
               <p class="mt-5 mb-3 text-muted">© <?php echo date('Y'); echo ' Sviluppato da ';?> Spotex Srl <img src="materials/favicon.ico" width="20px"></p>
             </form>
           </main>

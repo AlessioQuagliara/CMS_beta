@@ -6,7 +6,7 @@
 <?php
 $conteggiOrdini = ordiniNav();
 ?>
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><img src="../materials/logo_sidebar.png" width="130px" alt=""></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -54,10 +54,8 @@ $conteggiOrdini = ordiniNav();
             <div class="collapse <?php if($sidebar_cate == 'ordini'){echo 'show';} ?>" id="gestioneOrdiniCollapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
                 <!-- MODIFICA CON PHP IL  custom-link-active-->
-                <li><a href="ordini_inevasi" class="link-dark rounded <?php if($currentPage == 'ordini_inevasi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ordini Inevasi&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge bg-danger rounded-pill"><?php echo $conteggiOrdini['inevaso']; ?></span></a></li>
-                <li><a href="ordini_spedire" class="link-dark rounded <?php if($currentPage == 'ordini_spedire.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ordini da Spedire&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge bg-danger rounded-pill"><?php echo $conteggiOrdini['da spedire']; ?></span></a></li>
-                <li><a href="ordini_completi" class="link-dark rounded <?php if($currentPage == 'ordini_completi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ordini Completi</a></li>
-                <li><a href="ordini_abbandonati" class="link-dark rounded <?php if($currentPage == 'ordini_abbandonati.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ordini abbandonati</a></li>
+                <li><a href="ordini_inevasi" class="link-dark rounded <?php if($currentView == 'ordini'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ordini&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge bg-danger rounded-pill"><?php echo $conteggiOrdini['inevaso']; ?></span></a></li>
+                <li><a href="ordini_abbandonati" class="link-dark rounded <?php if($currentPage == 'ordini_abbandonati.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Carrelli abbandonati</a></li>
               </ul>
             </div>
           </li>
@@ -109,7 +107,6 @@ $conteggiOrdini = ordiniNav();
                  <!-- MODIFICA CON PHP IL  custom-link-active-->
                 <li><a href="analisi" class="link-dark rounded <?php if($currentPage == 'analisi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Analisi</a></li>
                 <li><a href="leads" class="link-dark rounded <?php if($currentPage == 'leads.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Leads</a></li>
-                <li><a href="seo" class="link-dark rounded <?php if($currentPage == 'seo.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">SEO</a></li>
                 <li><a href="campagne" class="link-dark rounded <?php if($currentPage == 'campagne.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Campagne</a></li>
               </ul>
             </div>
@@ -126,14 +123,9 @@ $conteggiOrdini = ordiniNav();
                  <!-- MODIFICA CON PHP LO show-->
             <div class="collapse <?php if($sidebar_cate == 'negozio'){echo 'show';} ?>" id="gestioneNegozioCollapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
-                 <!-- MODIFICA CON PHP IL  custom-link-active-->
-                <li><a href="edit_homepage" class="link-dark rounded <?php if($currentPage == 'edit_homepage.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">HomePage</a></li>
-                <li><a href="edit_aboutus" class="link-dark rounded <?php if($currentPage == 'edit_aboutus.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Chi Siamo</a></li>
-                <li><a href="edit_catalogo" class="link-dark rounded <?php if($currentPage == 'edit_catalogo.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Catalogo</a></li>
-                <li><a href="edit_prodotto" class="link-dark rounded <?php if($currentPage == 'edit_prodotto.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Prodotto</a></li>
-                <li><a href="edit_contatti" class="link-dark rounded <?php if($currentPage == 'edit_contatti.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Contatti</a></li>
-                <li><a href="edit_servizi" class="link-dark rounded <?php if($currentPage == 'edit_servizi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Servizi</a></li>
-                <li><a href="edit_landing" class="link-dark rounded <?php if($currentPage == 'edit_landing.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Landing</a></li>
+                <li><a href="editor_negozio" class="link-dark rounded <?php if($currentPage == 'editor_negozio.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Modifica Negozio</a></li>
+                <li><a href="edit_navbar" class="link-dark rounded <?php if($currentPage == 'edit_navbar.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Customizza Navbar</a></li>
+                <li><a href="edit_footer" class="link-dark rounded <?php if($currentPage == 'edit_footer.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Customizza Footer</a></li>
               </ul>
             </div>
           </li>
@@ -215,14 +207,15 @@ function resetTimer() {
 function showToast() {
     const toastContainer = document.getElementById('toastContainer');
     const toastHTML = `
-        <div class="toast show align-items-center text-white bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="z-index: 999;">
+        <div class="toast show align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="z-index: 999;">
             <div class="d-flex">
                 <div class="toast-body">
-                <i class="fa-solid fa-link-slash"></i> La tua sessione è scaduta. <a href="../logout" class="btn btn-outline-light btn-sm">Accedi</a>
+                  <i class="fa-solid fa-link-slash"></i>&nbsp; La tua sessione è scaduta. &nbsp;  <a href="../logout" class="btn btn-light btn-sm">Accedi</a>
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
+        <br><br>
     `;
     toastContainer.innerHTML = toastHTML;
     const toastElement = new bootstrap.Toast(toastContainer.querySelector('.toast'), {delay: 300000});

@@ -13,89 +13,36 @@ loggato()
 </head>
 <body style="background-color: #f1f1f1;">
     
+<?php
+$sidebar_cate = 'ordini'; 
+$currentView = 'ordini';
+$currentViews = 'Ordini Inevasi';
+include '../materials/sidebar.php'; 
+?>
+<script>
+    var whichPage = "inevaso"; // Definisci la variabile globalmente
+</script>
+
+<!---------------------------------------------------------------------- CONTENUTO PAGINA ------------------------------------------------------------------------------------------>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
     <?php
-    $sidebar_cate = 'ordini'; 
-    $currentPage = basename($_SERVER['PHP_SELF']);
-    include '../materials/sidebar.php'; 
+        $whichPage = "inevaso"; 
+        echo stampaTabellaOrdini($whichPage); 
     ?>
-
-
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-
-    <!-- BARRA STRUMENTI -->
     
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <div class="input-group">
-            <input class="form-control" id="searchInput" type="text" placeholder="Cerca..." aria-label="Cerca">
-            <button class="btn btn-sm btn-outline-secondary" type="button" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i>&nbsp; Esporta Tabella</button>
-            <form action="../ui-gestisci/aggiunta_ordine.php" method="POST" style="display: inline;">&nbsp;
-                <input type="hidden" name="action" value="addOrder"> <!-- Campo nascosto per controllare l'azione nel backend -->
-                <button type="submit" class="btn btn-sm btn-outline-dark">
-                    <i class="fa-solid fa-plus"></i>&nbsp; Aggiungi Ordine
-                </button>
-            </form>
-        </div>
-    </div>
-
-    
-    <!-- TABELLA CONTENUTI -->
-
-        <?php echo stampaTabellaOrdiniInevasi(); ?>
-    </main>
-
-    <script>
-        // SCRIPT DI APERTURA MODIFICA
-        function apriModifica(idOrdine) {
-            // Apri una nuova finestra con l'URL desiderato e specifica le dimensioni
-            window.open('../ui-gestisci/ordine_modifica.php?id=' + idOrdine, 'ModificaOrdine', <?php echo $resolution;?>);
-        }
-
-        
-        // Funzione per filtrare le righe della tabella
-        function filterTable(searchValue) {
-            var tableRows = document.getElementById('myTable').getElementsByTagName('tr');
-            for (var i = 1; i < tableRows.length; i++) {
-                var currentRow = tableRows[i];
-                var textContent = currentRow.textContent.toLowerCase();
-                if (textContent.includes(searchValue)) {
-                    currentRow.style.display = '';
-                } else {
-                    currentRow.style.display = 'none';
-                }
-            }
-        }
-        
-        // SCRIPT DI RICERCA
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            // Imposta il valore dell'input con il valore salvato nel localStorage
-            const savedSearchValue = localStorage.getItem('searchValue') || '';
-            searchInput.value = savedSearchValue;
-        
-            // Applica il filtro basato sul valore salvato non appena la pagina viene caricata
-            filterTable(savedSearchValue);
-        
-            searchInput.addEventListener('keyup', function() {
-                var searchValue = this.value.toLowerCase();
-                // Salva il valore corrente nel localStorage
-                localStorage.setItem('searchValue', searchValue);
-                // Filtra le righe della tabella basandosi sul valore di ricerca
-                filterTable(searchValue);
-            });
-        });
-        
-        // SCRIPT DI ESPORTAZIONE EXCEL
-        function exportToExcel() {
-            const table = document.getElementById("myTable");
-            const ws = XLSX.utils.table_to_sheet(table);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Tabella");
-            XLSX.writeFile(wb, "<?php echo substr($currentPage, 0, -4); ?>.xlsx");
-        }
-        </script>
+    <div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 999;"></div>
 
 
-    
+
+</main>
+
+<!---------------------------------------------------------------------- MAGIC ITEMS BAR ------------------------------------------------------------------------------------------>
+<?php include 'prometheus.php'; ?>
+<!---------------------------------------------------------------------- MAGIC ITEMS BAR ------------------------------------------------------------------------------------------>
+
 <?php include '../materials/script.php'; ?>
+<script src="../materials/main_ordini.js"></script>
+
 </body>
 </html>

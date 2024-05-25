@@ -24,7 +24,10 @@
     ?>
     <h4>Modifica <?php echo $namePage; ?></h4>
     <a href="<?php echo htmlspecialchars("../../" . $visualizzaPagina); ?>" target="__blank" class="btn btn-outline-grey"><i class="fa-solid fa-eye"></i> Visualizza online</a>
-    <button id="save-btn" class="btn btn-outline-danger"><i class="fa-solid fa-floppy-disk"></i> Salva</button>
+    <span>
+        <button id="save-btn" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Salva</button>
+        <button id="delete-btn" class="btn btn-danger"><i class="fa-solid fa-floppy-disk"></i> Cancella tutto</button>
+    </span>
 </div>
 
 <div id="base" class="full" style="overflow: hidden">

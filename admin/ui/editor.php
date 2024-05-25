@@ -1,4 +1,13 @@
-<div class="mb-2 bg-light rounded-3 d-flex justify-content-between align-items-center" style="padding: 5px 10px 5px 10px; position: fixed; z-index:1300; border: 1px soldi black;">
+<style>
+    .centered-fixed {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1300;
+        padding: 5px 10px;
+    }
+</style>
+<div class="mb-2 bg-light rounded-3 d-flex justify-content-center align-items-center centered-fixed border">
     <?php
     if ($namePage == 'home') {
         $visualizzaPagina = '';
@@ -23,7 +32,7 @@
     }
     ?>
     <span>
-        <h4>Modifica <?php echo $namePage; ?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </h4> 
+        <h4>Modifica <?php echo $namePage; ?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </h4> 
     </span>
     <a href="<?php echo htmlspecialchars("../../" . $visualizzaPagina); ?>" target="__blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-eye"></i> Visualizza online</a>&nbsp; 
     <span>
@@ -31,8 +40,6 @@
         <button id="delete-btn" class="btn btn-danger btn-sm"><i class="fa-solid fa-floppy-disk"></i> Cancella tutto</button>
     </span>
 </div>
-
-<br><br>
 
 <div id="base" class="full" style="overflow: hidden">
 </div>

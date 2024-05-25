@@ -45,6 +45,13 @@ loggato()
         </div>
     </div>
 
+    <div class="container mt-2">
+            <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+            <stripe-pricing-table pricing-table-id="prctbl_1PKKSsDLzaeBHrX0NHsDCSvM"
+            publishable-key="pk_live_51MijPqDLzaeBHrX0rui4jtJnGx1kTSKVNbVy6hbQQYUfoMhVTMVEFoN6U7jfYh2tyRgLhvSgOSM5wpSmi55nS3PH00XUmvoSY0">
+            </stripe-pricing-table>
+    </div>
+
     </main>
 
     

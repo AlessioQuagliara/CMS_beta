@@ -22,13 +22,14 @@ loggato()
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="container mt-5">
-        <div class="p-3 mb-2 bg-light rounded-3 d-flex justify-content-between align-items-center">
+        <div class="p-3 mb-2 bg-light rounded-3 d-flex justify-content-between align-items-center border">
             <h4>Modifica il tuo piano</h4>
             <a href="https://billing.stripe.com/p/login/28obLQcUtdo27Ys144" class="btn btn-outline-secondary">Modifica Piano</a>
         </div>
         <?php 
+        $licenza = 'in scadenza';
             if($licenza == 'valida'){echo  '<div class="alert alert-success" role="alert">Licenza Valida, rinnovare entro il </div>';}
-            else if ($licenza == 'in scadenza'){echo  '<div class="alert alert-warning" role="alert">Licenza in Scadenza, rinnovare entro il </div>';}
+            else if ($licenza == 'in scadenza'){echo  '<div class="alert alert-warning fw-bold text-center" role="alert">* Listino valido fino al 30/06/2024 * </div>';}
             else{echo  '<div class="alert alert-danger" role="alert">Licenza Scaduta, rinnova ora.</div>';}
         ?>        
         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>

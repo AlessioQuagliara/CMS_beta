@@ -23,7 +23,7 @@ loggato();
 
         <br><br>
     <!-- STATISTICHE RAPIDE -->
-    <div class="p-3 mb-2 bg-light rounded-3">
+    <div class="p-3 mb-2 bg-light rounded-3 border">
 
         <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -54,9 +54,25 @@ loggato();
 
     </div>
 
-    <div class="p-3 mb-2 bg-light rounded-3">
+    <div class="p-3 mb-2 bg-light rounded-3 border">
         <?php echo dettagli_negozio();?>
     </div>
+
+    
+    <div class="p-3 mb-2 bg-light rounded-3 border">
+        <div>
+            <h5>&nbsp; Ore Tecniche/Assistenza Disponibili</h5>
+        </div>
+        <div class="progress">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-number fw-bold">&nbsp; 53 ore disponibili</div>
+        </div>
+        <div>
+            <br>
+            <a href="ore_assistenza" class="btn btn-outline-secondary mx-2"><i class="fa-solid fa-eye"></i> Visualizza Dettagli</a>
+        </div>
+    </div>
+
 
     </main>
 

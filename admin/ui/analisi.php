@@ -155,6 +155,7 @@ $conn->close();
                         Utenti Registrati
                     </div>
                     <div class="card-body">
+                        <?php echo listaClienti();?>
                     </div>
                 </div>
             </div>

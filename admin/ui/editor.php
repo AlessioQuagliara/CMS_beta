@@ -1,4 +1,4 @@
-<div class="p-3 mb-2 bg-light rounded-3 d-flex justify-content-between align-items-center">
+<div class="mb-2 bg-light rounded-3 d-flex justify-content-between align-items-center" style="padding: 5px 10px 5px 10px; position: fixed; z-index:1300; border: 1px soldi black;">
     <?php
     if ($namePage == 'home') {
         $visualizzaPagina = '';
@@ -22,13 +22,17 @@
         $visualizzaPagina = 'navbar';
     }
     ?>
-    <h4>Modifica <?php echo $namePage; ?></h4>
-    <a href="<?php echo htmlspecialchars("../../" . $visualizzaPagina); ?>" target="__blank" class="btn btn-outline-grey"><i class="fa-solid fa-eye"></i> Visualizza online</a>
     <span>
-        <button id="save-btn" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Salva</button>
-        <button id="delete-btn" class="btn btn-danger"><i class="fa-solid fa-floppy-disk"></i> Cancella tutto</button>
+        <h4>Modifica <?php echo $namePage; ?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </h4> 
+    </span>
+    <a href="<?php echo htmlspecialchars("../../" . $visualizzaPagina); ?>" target="__blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-eye"></i> Visualizza online</a>&nbsp; 
+    <span>
+        <button id="save-btn" class="btn btn-success btn-sm"><i class="fa-solid fa-floppy-disk"></i> Salva</button>
+        <button id="delete-btn" class="btn btn-danger btn-sm"><i class="fa-solid fa-floppy-disk"></i> Cancella tutto</button>
     </span>
 </div>
+
+<br><br>
 
 <div id="base" class="full" style="overflow: hidden">
 </div>
@@ -57,7 +61,6 @@
         },
     });
 
-    // Imposta il contenuto recuperato dal database come contenuto iniziale dell'editor
     var savedContent = <?php echo json_encode($savedContent); ?>;
     if (savedContent) {
         editor.setComponents(savedContent);
@@ -922,32 +925,62 @@
         return htmlContent;
     }
 
+    function showAlert(title, text, icon, dangerMode = false, callback = null) {
+    swal({
+        title: title,
+        text: text,
+        icon: icon,
+        buttons: true,
+        dangerMode: dangerMode,
+    }).then((willClose) => {
+        if (willClose) {
+            if (callback) {
+                callback();
+            } else {
+                location.reload(); // Aggiorna la pagina
+            }
+        }
+    });
+}
 
+$(document).ready(function() {
+    $('#save-btn').click(function() {
+        var editorContent = editor.getHtml() + '<style>' + editor.getCss() + '</style>';
+        editorContent = cleanContent(editorContent);
+        var pageName = "<?php echo $namePage; ?>"; 
 
-
-    $(document).ready(function() {
-        $('#save-btn').click(function() {
-            var editorContent = editor.getHtml() + '<style>' + editor.getCss() + '</style>';
-
-            editorContent = cleanContent(editorContent);
-
-            var pageName = "<?php echo $namePage; ?>"; // Ottieni il nome della pagina
-
-            // Esegue la richiesta AJAX per salvare il contenuto
-            $.ajax({
-                type: "POST",
-                url: "../ui-gestisci/save_script.php",
-                data: {
-                    namePage: pageName, // Include il nome della pagina nel payload della richiesta
-                    content: editorContent // Include il contenuto dell'editor
-                },
-                success: function(data) {
-                    alert('Contenuto salvato con successo!');
-                },
-                error: function(xhr, status, error) {
-                    alert('Si è verificato un errore nel salvataggio: ' + error);
-                }
-            });
+        $.ajax({
+            type: "POST",
+            url: "../ui-gestisci/save_script.php",
+            data: {
+                namePage: pageName,
+                content: editorContent
+            },
+            success: function(data) {
+                showAlert("Pagina Salvata", "La tua pagina è stata salvata e le modifiche sono ora visibili.", "success");
+            },
+            error: function(xhr, status, error) {
+                showAlert("Errore", "C'è stato un errore imprevisto nella richiesta.", "error", true);
+            }
         });
     });
+
+    $('#delete-btn').click(function() {
+        var pageName = "<?php echo $namePage; ?>"; 
+
+        $.ajax({
+            type: "POST",
+            url: "../ui-gestisci/delete_script.php", 
+            data: {
+                namePage: pageName
+            },
+            success: function(data) {
+                showAlert("Pagina Cancellata", "La tua pagina è stata cancellata con successo.", "success");
+            },
+            error: function(xhr, status, error) {
+                showAlert("Errore", "C'è stato un errore imprevisto nella richiesta.", "error", true);
+            }
+        });
+    });
+});
 </script>

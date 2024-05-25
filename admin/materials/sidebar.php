@@ -146,6 +146,7 @@ $conteggiOrdini = ordiniNav();
                 <li><a href="pagamenti" class="link-dark rounded <?php if($currentPage == 'pagamenti.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Pagamenti</a></li>
                 <li><a href="spedizioni" class="link-dark rounded <?php if($currentPage == 'spedizioni.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Spedizioni</a></li>
                 <li><a href="brand_identity" class="link-dark rounded <?php if($currentPage == 'brand_identity.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Brand identity</a></li>
+                <li><a href="ore_assistenza" class="link-dark rounded <?php if($currentPage == 'ore_assistenza.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ore Assistenza</a></li>
                 <li><a href="piano_contratto" class="link-dark rounded <?php if($currentPage == 'piano_contratto.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Piano/Contratto</a></li>
               </ul>
             </div>

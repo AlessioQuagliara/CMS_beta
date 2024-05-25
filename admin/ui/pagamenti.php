@@ -29,7 +29,7 @@ if ($risultato) { // Controlla se c'è un risultato
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="container mt-5">
 
-            <div class="p-3 mb-2 bg-light rounded-3">
+            <div class="p-3 mb-2 bg-light rounded-3 border">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4>Imposta i Metodi di Pagamento</h4>
                 </div>
@@ -53,7 +53,7 @@ if ($risultato) { // Controlla se c'è un risultato
                     else if ($row['provider'] == 'Bonifico'){$icon = '<i class="fa-solid fa-building-columns fa-3x" style="color: #dcdde1;"></i>';}
                     else if ($row['provider'] == 'Pagolight'){$icon = '<img src="../materials/icon-pagolight.ico" style="width: 170px; height: 38px; color: #003087;" alt="PagoLight Icon">';}
                     // Genera il markup HTML per il metodo di pagamento
-                    echo "<div id='metodo{$row['provider']}' class='p-3 mb-2 bg-light rounded-3 d-flex justify-content-between align-items-center'>";
+                    echo "<div id='metodo{$row['provider']}' class='p-3 mb-2 bg-light rounded-3 d-flex justify-content-between align-items-center border'>";
                     echo "<p class='d-none'>{$row['provider']}</p>";
                     echo $icon; 
                     echo "<span class='badge {$statusBadge}'>{$statusText}</span>";

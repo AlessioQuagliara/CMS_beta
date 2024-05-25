@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Creato il: Mag 23, 2024 alle 21:07
+-- Creato il: Mag 25, 2024 alle 07:19
 -- Versione del server: 5.7.39
 -- Versione PHP: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `CMS_2`
+-- Database: `linkbay`
 --
 
 -- --------------------------------------------------------
@@ -42,7 +42,7 @@ CREATE TABLE `administrator` (
 --
 
 INSERT INTO `administrator` (`id_admin`, `nome`, `cognome`, `ruolo`, `telefono`, `email`, `password`) VALUES
-(1, 'Juan', 'Romero', 'Designer', '3899657115', 'juan.romero@spotexsrl.it', '$2y$10$iqtsvkECdJYkrWl/8wMvwuNcsl9QWeCmIi6HSN49eN8cp1mHSapSW'),
+(1, 'Juan', 'Romero', 'Developer', '3899657115', 'juan.romero@spotexsrl.it', '$2y$10$iqtsvkECdJYkrWl/8wMvwuNcsl9QWeCmIi6HSN49eN8cp1mHSapSW'),
 (2, 'Gaia', 'Masia', 'Designer', '3899657115', 'gaia.masia@spotexsrl.it', '$2y$10$icM9YX93YJeHVzkQmvKkcuFqvZNR0nuKfxPCfb7QkwevyGM1iwL0a'),
 (3, 'Alessio', 'Quagliara', 'Developer', '3899657115', 'alessio.quagliara@spotexsrl.it', '$2y$10$RLqxrn4t9QDCDCXfjyMabeZ1jtRORL0xEaYvHbaZwe6wMgJezrxGy'),
 (4, 'Bruno', 'Postai', 'Developer', '3899657115', 'bruno.postai@spotexsrl.it', '$2y$10$RLqxrn4t9QDCDCXfjyMabeZ1jtRORL0xEaYvHbaZwe6wMgJezrxGy');
@@ -64,7 +64,7 @@ CREATE TABLE `categorie` (
 --
 
 INSERT INTO `categorie` (`id_categoria`, `nome_cat`, `associazione`) VALUES
-(1, 'ciao', 'Nuova Collezione');
+(2, 'nuova categoria', 'Nuova Collezione');
 
 -- --------------------------------------------------------
 
@@ -91,6 +91,13 @@ CREATE TABLE `collezioni` (
   `descrizione_c` varchar(255) NOT NULL,
   `selected` varchar(255) NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `collezioni`
+--
+
+INSERT INTO `collezioni` (`id_collezione`, `nome_c`, `descrizione_c`, `selected`) VALUES
+(1, 'Nuova Collezione', 'Aggiungi descrizione', 'false');
 
 -- --------------------------------------------------------
 
@@ -253,7 +260,7 @@ CREATE TABLE `prodotti` (
 --
 
 INSERT INTO `prodotti` (`id_prodotto`, `titolo`, `titolo_seo`, `descrizione`, `categoria`, `collezione`, `stato`, `prezzo`, `prezzo_comparato`, `quantita`, `peso`, `varianti`, `sku`, `marca`, `selected`) VALUES
-(1, 'Prodotto Esempio', 'prodotto-esempio', 'Questa è una descrizione di esempio', 'ciao', 'Nuova Collezione', 'online', '50', '90', '2', '5', 'Variante Esempio', NULL, NULL, 'false');
+(1, 'Prodotto Esempio', 'prodotto-esempio', 'Questa è una descrizione di esempio', 'nuova categoria', 'Nuova Collezione', 'online', '50', '90', '2', '5', 'Variante Esempio', NULL, NULL, 'false');
 
 -- --------------------------------------------------------
 
@@ -276,7 +283,7 @@ CREATE TABLE `seo` (
 --
 
 INSERT INTO `seo` (`id`, `editor_page`, `page_name`, `slug`, `title`, `description`, `keywords`) VALUES
-(1, 'edit_homepage', 'index', 'home', 'Spotex Srl - Homepage', 'Inserisci una descrizione', 'inserisci, così, le, keywords'),
+(1, 'edit_homepage', 'index', 'home', 'inserisci il titolo', 'Inserisci una descrizione', 'inserisci, così, le, keywords'),
 (2, 'edit_aboutus', 'aboutus', 'aboutus', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
 (3, 'edit_contatti', 'contacts', 'contacts', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
 (4, 'edit_servizi', 'services', 'services', 'Inserisci il titolo', 'inserisci una descrizione', 'inserisci, così, le, keywords'),
@@ -454,13 +461,13 @@ ALTER TABLE `visitatori`
 -- AUTO_INCREMENT per la tabella `administrator`
 --
 ALTER TABLE `administrator`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT per la tabella `categorie`
 --
 ALTER TABLE `categorie`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `codici_sconto`
@@ -472,7 +479,7 @@ ALTER TABLE `codici_sconto`
 -- AUTO_INCREMENT per la tabella `collezioni`
 --
 ALTER TABLE `collezioni`
-  MODIFY `id_collezione` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_collezione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `dettagli_negozio`

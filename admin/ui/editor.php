@@ -242,11 +242,11 @@
         editor.BlockManager.add('footer-3', {
             label: 'Simple Footer',
             content: `
-        <footer class="bg-light text-center text-lg-start">
-            <div class="text-center p-3">
-            &copy; 2024 LinkBay. Tutti i diritti riservati.
-            </div>
-        </footer>
+                <footer class="bg-light text-center text-lg-start">
+                    <div class="text-center p-3">
+                    &copy; 2024 LinkBay. Tutti i diritti riservati.
+                    </div>
+                </footer>
         `,
             category: 'Footer',
         });
@@ -279,84 +279,80 @@
                     </ul>
                 </div>
             </div>
+            <style>
+                body {
+                    padding-top: 56px; /* Altezza della navbar */
+                }
+            </style>
         </nav>
-        
-        <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
-        <style>
-            body {
-                padding-top: 56px; /* Altezza della navbar */
-            }
-        </style>
                   `,
         category: 'Navbar',
     });
     editor.BlockManager.add('bootstrap-navbar-logo', {
         label: 'Navbar Stile 2',
         content: `
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="path/to/your/logo.png" alt="Logo" width="30" height="24">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="index">Home</a>
-                        <a class="nav-link" href="about_us">Chi siamo</a>
-                        <a class="nav-link" href="#">Catalogo</a>
-                        <a class="nav-link disabled">Carrello</a>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="path/to/your/logo.png" alt="Logo" width="30" height="24">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link active" aria-current="page" href="index">Home</a>
+                            <a class="nav-link" href="about_us">Chi siamo</a>
+                            <a class="nav-link" href="#">Catalogo</a>
+                            <a class="nav-link disabled">Carrello</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
-        
-        <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
-        <style>
-            body {
-                padding-top: 56px; /* Altezza della navbar */
-            }
-        </style>
+                <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
+                <style>
+                    body {
+                        padding-top: 56px; /* Altezza della navbar */
+                    }
+                </style>
+            </nav>
                 `,
         category: 'Navbar',
     });
     editor.BlockManager.add('navbar-with-logo', {
         label: 'Navbar con Logo',
         content: `
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="logo.png" alt="Logo" width="auto" height="30" class="d-inline-block align-top">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
-                    </ul>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <img src="logo.png" alt="Logo" width="auto" height="30" class="d-inline-block align-top">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-        
-        <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
-        <style>
-            body {
-                padding-top: 56px; /* Altezza della navbar */
-            }
-        </style>
+                <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
+                <style>
+                    body {
+                        padding-top: 56px; /* Altezza della navbar */
+                    }
+                </style>
+            </nav>
               `,
         category: 'Navbar',
     });
@@ -390,14 +386,13 @@
                     </ul>
                 </div>
             </div>
+            <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
+            <style>
+                body {
+                    padding-top: 70px; /* Altezza della navbar */
+                }
+            </style>
         </nav>
-
-        <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
-        <style>
-            body {
-                padding-top: 70px; /* Altezza della navbar */
-            }
-        </style>
             `,
         category: 'Navbar',
     });
@@ -440,22 +435,20 @@
                         </div>
                     </div>
                 </nav>
+                <!-- Aggiungi questo stile per compensare l'altezza della navbar e del logo -->
+                <style>
+                    body {
+                        padding-top: 150px; /* Altezza del logo + navbar */
+                    }
+                </style>
             </div>
-
-            <!-- Aggiungi questo stile per compensare l'altezza della navbar e del logo -->
-            <style>
-                body {
-                    padding-top: 150px; /* Altezza del logo + navbar */
-                }
-            </style>
           `,
         category: 'Navbar',
     });
     } else {
 // Funzioni di base negozio online -----------------------------------------------------------------------------------------------------------------------------------------------------------------------        
 
-// everything else -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+// everything else -----------------------------------------------------------------------------------------------------------------------------------------------------------------------  
     editor.BlockManager.add('hero-section', {
         label: 'Hero Section',
         content: `

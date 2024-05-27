@@ -41,8 +41,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $savedContent = $row['content'];
 }
-$stmt->close();
-$conn->close();
+
 
 $savedContent = replacePlaceholders($savedContent, $product);
 ?>
@@ -112,6 +111,9 @@ customFooter();
 ?>
 <!-- SCRIPT BOOTSTRAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<?php require_once('visita.php'); ?>
+<?php require_once('visita.php'); 
+$stmt->close();
+$conn->close();
+?>
 </body>
 </html>

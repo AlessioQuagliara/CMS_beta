@@ -32,7 +32,7 @@
     }
     ?>
     <span>
-        <h4>Modifica <?php echo $namePage; ?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </h4> 
+        <h4>Modifica <?php echo $namePage; ?>&nbsp; &nbsp; &nbsp; </h4> 
     </span>
     <a href="<?php echo htmlspecialchars("../../" . $visualizzaPagina); ?>" target="__blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-eye"></i> Visualizza online</a>&nbsp; 
     <span>

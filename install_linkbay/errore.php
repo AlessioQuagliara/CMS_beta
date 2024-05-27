@@ -15,7 +15,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: url('../admin/materials/background.png') no-repeat center center fixed;
+            background: url('../admin/materials/background.webp') no-repeat center center fixed;
             background-size: cover;
             overflow: hidden;
         }

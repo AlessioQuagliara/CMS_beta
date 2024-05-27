@@ -31,7 +31,7 @@ if (!file_exists('../conn.php')) {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: url('materials/background.png') no-repeat center center fixed;
+            background: url('materials/background.webp') no-repeat center center fixed;
             background-size: cover;
             overflow: hidden;
         }

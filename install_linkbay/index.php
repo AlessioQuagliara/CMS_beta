@@ -1,68 +1,73 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Abilita il buffer di output per prevenire l'output prima del header()
-    ob_start();
-
-    $host = $_POST['host'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $dbname = $_POST['dbname'];
-
-    try {
-        // Abilita le eccezioni per MySQLi
-        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-        // Creare una nuova connessione MySQLi
-        $conn = new mysqli($host, $username, $password);
-
-        // Creare il database
-        $sql = "CREATE DATABASE IF NOT EXISTS $dbname";
-        $conn->query($sql);
-
-        // Seleziona il database
-        $conn->select_db($dbname);
-
-        // Funzione per eseguire file SQL
-        function runSQLFile($conn, $file) {
-            $queries = file_get_contents($file);
-            $queries = explode(";", $queries);
-
-            foreach ($queries as $query) {
-                $query = trim($query);
-                if (!empty($query)) {
-                    $conn->query($query);
+if (file_exists('../conn.php')) {
+  header("Location: ../admin/");
+  exit();
+} else {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Abilita il buffer di output per prevenire l'output prima del header()
+        ob_start();
+    
+        $host = $_POST['host'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $dbname = $_POST['dbname'];
+    
+        try {
+            // Abilita le eccezioni per MySQLi
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    
+            // Creare una nuova connessione MySQLi
+            $conn = new mysqli($host, $username, $password);
+    
+            // Creare il database
+            $sql = "CREATE DATABASE IF NOT EXISTS $dbname";
+            $conn->query($sql);
+    
+            // Seleziona il database
+            $conn->select_db($dbname);
+    
+            // Funzione per eseguire file SQL
+            function runSQLFile($conn, $file) {
+                $queries = file_get_contents($file);
+                $queries = explode(";", $queries);
+    
+                foreach ($queries as $query) {
+                    $query = trim($query);
+                    if (!empty($query)) {
+                        $conn->query($query);
+                    }
                 }
             }
+    
+            // Esegui i file SQL
+            runSQLFile($conn, 'CMS.sql');
+    
+            // Scrivi il file conn.php con le nuove credenziali di connessione
+            $connFileContent = "<?php\n\n";
+            $connFileContent .= "\$servername = \"$host\";\n";
+            $connFileContent .= "\$username = \"$username\";\n";
+            $connFileContent .= "\$password = \"$password\";\n";
+            $connFileContent .= "\$dbname = \"$dbname\";\n\n";
+            $connFileContent .= "\$conn = new mysqli(\$servername, \$username, \$password, \$dbname);\n";
+            $connFileContent .= "if (\$conn->connect_error) {\n";
+            $connFileContent .= "    die(\"Connessione al database fallita: \" . \$conn->connect_error);\n";
+            $connFileContent .= "}\n\n?>";
+    
+            $filePath = '../conn.php';
+    
+            if (file_put_contents($filePath, $connFileContent) === FALSE) {
+                throw new Exception("Errore durante la scrittura del file conn.php");
+            }
+    
+            $conn->close();
+            ob_end_clean(); // Pulisce il buffer di output
+            echo "<script>window.location.href = 'installazione';</script>";
+            exit();
+        } catch (Exception $e) {
+            ob_end_clean(); // Pulisce il buffer di output
+            header("Location: errore.php?msg=" . urlencode($e->getMessage()));
+            exit();
         }
-
-        // Esegui i file SQL
-        runSQLFile($conn, 'CMS.sql');
-
-        // Scrivi il file conn.php con le nuove credenziali di connessione
-        $connFileContent = "<?php\n\n";
-        $connFileContent .= "\$servername = \"$host\";\n";
-        $connFileContent .= "\$username = \"$username\";\n";
-        $connFileContent .= "\$password = \"$password\";\n";
-        $connFileContent .= "\$dbname = \"$dbname\";\n\n";
-        $connFileContent .= "\$conn = new mysqli(\$servername, \$username, \$password, \$dbname);\n";
-        $connFileContent .= "if (\$conn->connect_error) {\n";
-        $connFileContent .= "    die(\"Connessione al database fallita: \" . \$conn->connect_error);\n";
-        $connFileContent .= "}\n\n?>";
-
-        $filePath = '../conn.php';
-
-        if (file_put_contents($filePath, $connFileContent) === FALSE) {
-            throw new Exception("Errore durante la scrittura del file conn.php");
-        }
-
-        $conn->close();
-        ob_end_clean(); // Pulisce il buffer di output
-        echo "<script>window.location.href = 'installazione';</script>";
-        exit();
-    } catch (Exception $e) {
-        ob_end_clean(); // Pulisce il buffer di output
-        header("Location: errore.php?msg=" . urlencode($e->getMessage()));
-        exit();
     }
 }
 ?>
@@ -83,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: url('../admin/materials/background.png') no-repeat center center fixed;
+            background: url('../admin/materials/background.webp') no-repeat center center fixed;
             background-size: cover;
             overflow: hidden;
         }

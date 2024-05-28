@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Creato il: Mag 25, 2024 alle 07:19
+-- Creato il: Mag 28, 2024 alle 20:19
 -- Versione del server: 5.7.39
 -- Versione PHP: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `linkbay`
+-- Database: `CMS`
 --
 
 -- --------------------------------------------------------
@@ -44,7 +44,7 @@ CREATE TABLE `administrator` (
 INSERT INTO `administrator` (`id_admin`, `nome`, `cognome`, `ruolo`, `telefono`, `email`, `password`) VALUES
 (1, 'Juan', 'Romero', 'Developer', '3899657115', 'juan.romero@spotexsrl.it', '$2y$10$iqtsvkECdJYkrWl/8wMvwuNcsl9QWeCmIi6HSN49eN8cp1mHSapSW'),
 (2, 'Gaia', 'Masia', 'Designer', '3899657115', 'gaia.masia@spotexsrl.it', '$2y$10$icM9YX93YJeHVzkQmvKkcuFqvZNR0nuKfxPCfb7QkwevyGM1iwL0a'),
-(3, 'Alessio', 'Quagliara', 'Developer', '3899657115', 'alessio.quagliara@spotexsrl.it', '$2y$10$RLqxrn4t9QDCDCXfjyMabeZ1jtRORL0xEaYvHbaZwe6wMgJezrxGy'),
+(3, 'Alessio', 'Quagliara', 'Amministratore', '3899657115', 'alessio.quagliara@spotexsrl.it', '$2y$10$RLqxrn4t9QDCDCXfjyMabeZ1jtRORL0xEaYvHbaZwe6wMgJezrxGy'),
 (4, 'Bruno', 'Postai', 'Developer', '3899657115', 'bruno.postai@spotexsrl.it', '$2y$10$RLqxrn4t9QDCDCXfjyMabeZ1jtRORL0xEaYvHbaZwe6wMgJezrxGy');
 
 -- --------------------------------------------------------
@@ -170,6 +170,29 @@ CREATE TABLE `leads` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `marketing_tools`
+--
+
+CREATE TABLE `marketing_tools` (
+  `id` int(11) NOT NULL,
+  `tool` varchar(255) NOT NULL,
+  `tool_id` varchar(255) NOT NULL,
+  `status` enum('active','inactive') NOT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dump dei dati per la tabella `marketing_tools`
+--
+
+INSERT INTO `marketing_tools` (`id`, `tool`, `tool_id`, `status`, `timestamp`) VALUES
+(1, 'Google Tag Manager', 'GTM-XXXXXX', 'inactive', '2024-05-27 20:45:06'),
+(2, 'Facebook Pixel', 'PIXEL-XXXXXX', 'inactive', '2024-05-27 20:45:06'),
+(3, 'Google Analytics', 'UA-XXXXXX-X', 'inactive', '2024-05-27 20:45:06');
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `media`
 --
 
@@ -227,7 +250,7 @@ CREATE TABLE `payment_systems` (
 
 INSERT INTO `payment_systems` (`id_pay`, `provider`, `client_id`, `secret_key`, `environment`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Stripe', 'inserisci il client ID', 'Secret key', 'production', 'inactive', '2024-03-19 20:51:10', '2024-03-22 21:42:29'),
-(2, 'PayPal', 'Inserisci il client ID', 'Inserisci la Secret Key', 'production', 'active', '2024-03-19 21:06:19', '2024-03-25 17:53:37'),
+(2, 'PayPal', 'AerkarODr9zJSQKf8FPrt8ee_zXbHvFp0OCEnXb0OF4ECsuBVTeb-qFtdHeCucMa5z_R0VOhsQgEsewe', 'EHQhEHcgNQvM-XZ3WuJl42svHBvRNkwX3WoAHq4FGz-QV7uWKjrBf8CQK0Tjh5FCEH4sKs5lVGU6imL3', 'sandbox', 'active', '2024-03-19 21:06:19', '2024-05-28 17:29:33'),
 (3, 'Bonifico', 'Inserisci Intestatario', 'Inserisci Iban', 'production', 'active', '2024-03-19 21:06:32', '2024-03-22 21:45:15'),
 (4, 'Pagolight', 'inserisci il client ID', 'Inserisci la secret key', 'production', 'inactive', '2024-03-19 21:06:32', '2024-03-19 22:40:47');
 
@@ -260,7 +283,7 @@ CREATE TABLE `prodotti` (
 --
 
 INSERT INTO `prodotti` (`id_prodotto`, `titolo`, `titolo_seo`, `descrizione`, `categoria`, `collezione`, `stato`, `prezzo`, `prezzo_comparato`, `quantita`, `peso`, `varianti`, `sku`, `marca`, `selected`) VALUES
-(1, 'Prodotto Esempio', 'prodotto-esempio', 'Questa è una descrizione di esempio', 'nuova categoria', 'Nuova Collezione', 'online', '50', '90', '2', '5', 'Variante Esempio', NULL, NULL, 'false');
+(1, 'Prodotto Esempio', 'prodotto-esempio', 'Questa è una descrizione di esempio', 'nuova categoria', 'Nuova Collezione', 'online', '50', '90', '2', '0', 'Variante Esempio', NULL, NULL, 'false');
 
 -- --------------------------------------------------------
 
@@ -304,6 +327,13 @@ CREATE TABLE `spedizioni` (
   `peso_spedizione` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dump dei dati per la tabella `spedizioni`
+--
+
+INSERT INTO `spedizioni` (`id_spedizione`, `tipo_spedizione`, `prezzo_spedizione`, `peso_spedizione`) VALUES
+(1, 'Nuova Spedizione', '0', '0');
+
 -- --------------------------------------------------------
 
 --
@@ -330,7 +360,9 @@ CREATE TABLE `user_db` (
   `cognome` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `telefono` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `data_registrazione` date DEFAULT NULL,
+  `ultimo_accesso` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -344,6 +376,13 @@ CREATE TABLE `visitatori` (
   `id_visitatore` varchar(255) NOT NULL,
   `data_visita` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `visitatori`
+--
+
+INSERT INTO `visitatori` (`id`, `id_visitatore`, `data_visita`) VALUES
+(1, 'visitatore_66563c0ae8e43', '2024-05-28 20:18:18');
 
 --
 -- Indici per le tabelle scaricate
@@ -397,6 +436,12 @@ ALTER TABLE `editor_contents`
 --
 ALTER TABLE `leads`
   ADD PRIMARY KEY (`lead`);
+
+--
+-- Indici per le tabelle `marketing_tools`
+--
+ALTER TABLE `marketing_tools`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indici per le tabelle `media`
@@ -461,7 +506,7 @@ ALTER TABLE `visitatori`
 -- AUTO_INCREMENT per la tabella `administrator`
 --
 ALTER TABLE `administrator`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `categorie`
@@ -497,13 +542,19 @@ ALTER TABLE `dettagli_ordini`
 -- AUTO_INCREMENT per la tabella `editor_contents`
 --
 ALTER TABLE `editor_contents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `leads`
 --
 ALTER TABLE `leads`
   MODIFY `lead` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `marketing_tools`
+--
+ALTER TABLE `marketing_tools`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `media`
@@ -539,7 +590,7 @@ ALTER TABLE `seo`
 -- AUTO_INCREMENT per la tabella `spedizioni`
 --
 ALTER TABLE `spedizioni`
-  MODIFY `id_spedizione` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_spedizione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `tracking`
@@ -557,7 +608,7 @@ ALTER TABLE `user_db`
 -- AUTO_INCREMENT per la tabella `visitatori`
 --
 ALTER TABLE `visitatori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

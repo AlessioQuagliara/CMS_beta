@@ -6,7 +6,7 @@ require ('../../conn.php');
 $selectedYear = isset($_GET['anno']) ? $_GET['anno'] : date('Y');
 
 // Recupera i dati per le vendite
-$query = "SELECT data_ordine, totale_ordine, paese FROM ordini WHERE YEAR(data_ordine) = ?";
+$query = "SELECT data_ordine, totale_ordine, paese FROM ordini WHERE YEAR(data_ordine) = ? AND stato_ordine <> 'abbandonato'";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $selectedYear);
 $stmt->execute();

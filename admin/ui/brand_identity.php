@@ -21,27 +21,25 @@ loggato()
 
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <!-- CANCELLA CONTENUTO DOPO AGGIORNAMENTO-->
-                <style>
-            /* Stile per centrare il div */
-            .centered-div {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100vh; /* Altezza del viewport */
-            }
-            /* Stile per l'icona */
-            .icon {
-                font-size: 5rem;
-                margin-bottom: 1rem;
-            }
-        </style>
-        <div class="container centered-div">
-            <i class="fas fa-cogs icon"></i>
-            <h1 class="display-4">Funzionalità in arrivo</h1>
-            <p class="lead">Attendere l'aggiornamento di aprile</p>
+    <div class="container mt-5">
+        <div class="p-3 mb-2 bg-light rounded-3 border d-flex justify-content-center align-items-center">
+            <h4>Informazioni Grafiche della tua Attività</h4>
         </div>
+    </div>
+    <div class="container mt-5">
+        <h5>Carica le immagini</h5>
+        <form action="../ui-gestisci/brand_caricamento.php" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="favicon" class="form-label">Carica Favicon (.ico)</label>
+                <input class="form-control" type="file" name="favicon" id="favicon" accept=".ico">
+            </div>
+            <div class="mb-3">
+                <label for="logo" class="form-label">Carica Logo (.png)</label>
+                <input class="form-control" type="file" name="logo" id="logo" accept=".png">
+            </div>
+            <button type="submit" class="btn btn-primary">Carica Immagini</button>
+        </form>
+    </div>
 
     </main>
 

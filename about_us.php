@@ -36,11 +36,12 @@ if (!file_exists('conn.php')) {
     <title><?php echo htmlspecialchars($page['title']); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($page['description']); ?>">
     <meta name="keywords" content="<?php echo htmlspecialchars($page['keywords']); ?>">
+    <link rel="shortcut icon" href="src/media_system/favicon_site.ico" type="image/x-icon">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="<?php echo htmlspecialchars($page['title']); ?>">
     <meta property="og:description" content="<?php echo htmlspecialchars($page['description']); ?>">
-    <meta property="og:image" content="link_to_your_image.jpg">
+    <meta property="og:image" content="src/media_system/logo_site.png">
     <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
     <meta property="og:type" content="website">
 

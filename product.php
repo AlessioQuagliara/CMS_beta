@@ -55,12 +55,12 @@ $savedContent = replacePlaceholders($savedContent, $product);
     <title><?php echo htmlspecialchars($product['titolo']); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($product['descrizione']); ?>">
     <meta name="keywords" content="">
-    <link rel="shortcut icon" href="src/media_system/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="src/media_system/favicon_site.ico" type="image/x-icon">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="<?php echo htmlspecialchars($product['titolo']); ?>">
     <meta property="og:description" content="<?php echo htmlspecialchars($product['descrizione']); ?>">
-    <meta property="og:image" content="path/to/image.jpg">
+    <meta property="og:image" content="src/media_system/logo_site.png">
     <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="Il Tuo Sito">

@@ -16,7 +16,7 @@ if (!file_exists('conn.php')) {
     <title></title>
     <meta name="description" content="">
     <meta name="keywords" content="">
-    <link rel="shortcut icon" href="src/media_system/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="src/media_system/favicon_site.ico" type="image/x-icon">
     <!-- LINK STILE BOOTSTRAP -->
     <link href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">

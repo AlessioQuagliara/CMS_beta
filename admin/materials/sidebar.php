@@ -124,6 +124,7 @@ $conteggiOrdini = ordiniNav();
             <div class="collapse <?php if($sidebar_cate == 'negozio'){echo 'show';} ?>" id="gestioneNegozioCollapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
                 <li><a href="editor_negozio" class="link-dark rounded <?php if($currentPage == 'editor_negozio.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Modifica Negozio</a></li>
+                <li><a href="brand_identity" class="link-dark rounded <?php if($currentPage == 'brand_identity.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Brand identity</a></li>
                 <li><a href="edit_navbar" class="link-dark rounded <?php if($currentPage == 'edit_navbar.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Customizza Navbar</a></li>
                 <li><a href="edit_footer" class="link-dark rounded <?php if($currentPage == 'edit_footer.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Customizza Footer</a></li>
               </ul>
@@ -145,7 +146,6 @@ $conteggiOrdini = ordiniNav();
                 <li><a href="utenti_ruoli" class="link-dark rounded <?php if($currentPage == 'utenti_ruoli.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Utenti e Ruoli</a></li>
                 <li><a href="pagamenti" class="link-dark rounded <?php if($currentPage == 'pagamenti.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Pagamenti</a></li>
                 <li><a href="spedizioni" class="link-dark rounded <?php if($currentPage == 'spedizioni.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Spedizioni</a></li>
-                <li><a href="brand_identity" class="link-dark rounded <?php if($currentPage == 'brand_identity.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Brand identity</a></li>
                 <li><a href="ore_assistenza" class="link-dark rounded <?php if($currentPage == 'ore_assistenza.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ore Assistenza</a></li>
                 <li><a href="piano_contratto" class="link-dark rounded <?php if($currentPage == 'piano_contratto.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Piano/Contratto</a></li>
               </ul>

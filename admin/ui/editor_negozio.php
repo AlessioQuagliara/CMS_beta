@@ -65,7 +65,7 @@ $result = $conn->query("SELECT * FROM seo");
         function showAllert() {
             swal({
                 title: "Funzione non consentita",
-                text: "Acquistare pacchetto integrativo per poter editare il negozio.",
+                text: "Solo i developer possono modificare il negozio.",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,

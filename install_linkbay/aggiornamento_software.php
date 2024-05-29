@@ -182,7 +182,7 @@ error_log($stato_aggiornamento);
                 updateProgressBar(99, 20, 'Installazione..', () => {
                     updateProgressBar(100, 5, '<?php echo $stato_aggiornamento; ?>', () => {
                         setTimeout(() => {
-                            window.location.href = '../admin/';
+                            window.location.href = '../admin/ui/aggiornamento';
                         }, 5000);
                     });
                   });

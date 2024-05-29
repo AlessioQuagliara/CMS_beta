@@ -63,10 +63,7 @@ loggato();
         <div>
             <h5>&nbsp; Ore Tecniche/Assistenza Disponibili</h5>
         </div>
-        <div class="progress">
-            <div class="progress-bar bg-danger" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-            <div class="progress-number fw-bold">&nbsp; 53 ore disponibili</div>
-        </div>
+        <?php stampaOreAssistenza();?>
         <div>
             <br>
             <a href="ore_assistenza" class="btn btn-outline-secondary mx-2"><i class="fa-solid fa-eye"></i> Visualizza Dettagli</a>

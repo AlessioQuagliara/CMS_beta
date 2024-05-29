@@ -305,6 +305,19 @@ function update_pass()
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
+// FUNZIONE PER ASSISTENZA ORE ---------------------------------------------------------------------------------------
+function stampaOreAssistenza(){
+    echo '        
+    <div class="progress">
+    <div class="progress-bar bg-danger" role="progressbar" style="width: 5%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress-number fw-bold">&nbsp; 1 ore disponibili</div>
+    </div>
+    ';
+}
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------
 // HomePage.php (dashboard) ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -650,7 +663,8 @@ function stampaTabellaOrdini($whichPage)
     $html .= '<th>Stato Ordine</th>';
     $html .= '<th>Data Ordine</th>';
     $html .= '<th>Tipo Spedizione</th>';
-    $html .= '<th>Totale Ordine</th>';
+    $html .= '<th>Tipo Pagamento</th>';
+    $html .= '<th>Totale ordine</th>';
     $html .= '</tr>';
     $html .= '</thead>';
     $html .= '<tbody class="table-light">';
@@ -670,7 +684,8 @@ function stampaTabellaOrdini($whichPage)
             $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['stato_ordine'] . '</td>';
             $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['data_ordine'] . '</td>';
             $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_spedizione'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . number_format($row['totale_ordine'], 2, '.', ',') . ' €</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_pagamento'] . '</td>';
+            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >€ ' . number_format($row['totale_ordine'], 2, '.', ',') . '</td>';
             $html .= '</tr>';
         }
     } else {

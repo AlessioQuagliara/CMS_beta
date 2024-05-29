@@ -30,10 +30,7 @@ loggato()
 
     <div class="container mt-2">
         <div class="p-3 mb-2 bg-light rounded-3 border">
-            <div class="progress">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                <div class="progress-number fw-bold">&nbsp; 53 ore disponibili</div>
-            </div>
+            <?php stampaOreAssistenza();?>
         </div>
     </div>
     

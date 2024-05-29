@@ -1,17 +1,21 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
+require '../conn.php';
+
+use CzProject\GitPhp\Git;
 
 $projectDir = realpath(__DIR__ . '/../');
 $repoUrl = 'https://github.com/AlessioSpotex/CMS_beta.git';
 $tempDir = sys_get_temp_dir() . '/backup';
 $token = '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'; 
 
-
 $authRepoUrl = "https://$token:x-oauth-basic@github.com/AlessioSpotex/CMS_beta.git";
 
-
-exec("git clone $authRepoUrl $tempDir 2>&1", $output, $return_var);
-if ($return_var !== 0) {
-    $stato_aggiornamento = "Errore durante il clonaggio del repository: " . implode("\n", $output);
+try {
+    $git = new Git();
+    $repo = $git->cloneRepository($authRepoUrl, $tempDir);
+} catch (Exception $e) {
+    echo "Errore durante il clonaggio del repository: " . $e->getMessage();
     exit;
 }
 
@@ -40,6 +44,7 @@ exec("rm -rf $tempDir");
 
 $stato_aggiornamento = "Aggiornamento completato con successo.";
 ?>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>

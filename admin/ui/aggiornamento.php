@@ -60,7 +60,7 @@ $remoteVersion = trim($remoteVersion);
             <div class="alert alert-info">
                 È disponibile una nuova versione: <?php echo htmlspecialchars($remoteVersion); ?>.
             </div>
-            <form action="aggiornamento_software.php" method="post">
+            <form action="../../install_linkbay/aggiornamento_software.php" method="post">
                 <button type="submit" class="btn btn-primary">Aggiorna alla versione <?php echo htmlspecialchars($remoteVersion); ?></button>
             </form>
         <?php else: ?>

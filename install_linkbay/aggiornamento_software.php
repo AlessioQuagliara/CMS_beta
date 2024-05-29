@@ -1,32 +1,56 @@
 <?php
-ini_set('log_errors', 1);
-ini_set('error_log', '/path/to/your/error.log'); // Specifica il percorso del file di log
-ini_set('display_errors', 0); // Disabilita la visualizzazione degli errori
-require __DIR__ . '/../vendor/autoload.php';
-require '../conn.php';
-
-use CzProject\GitPhp\Git;
-use CzProject\GitPhp\GitException;
 
 $projectDir = realpath(__DIR__ . '/../');
-$repoUrl = 'https://github.com/AlessioSpotex/CMS_beta.git';
 $tempDir = sys_get_temp_dir() . '/backup';
-$token = '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'; // Inserisci qui il tuo token di accesso personale
+$token = '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'; 
 
-// Configura l'URL del repository con il token di accesso personale
-$authRepoUrl = "https://$token:x-oauth-basic@github.com/AlessioSpotex/CMS_beta.git";
+// URL del file zip del repository
+$repoUrl = "https://$token:x-oauth-basic@api.github.com/repos/AlessioSpotex/CMS_beta/zipball/main";
 
-// Elimina la directory temporanea se esiste
-if (is_dir($tempDir)) {
-    exec("rm -rf $tempDir");
+// Assicurati che la directory temporanea esista
+if (!is_dir($tempDir)) {
+    mkdir($tempDir, 0777, true);
 }
 
-// Clona il repository utilizzando GitPhp
+// Funzione per scaricare il file
+function downloadZip($url, $dest) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+    $data = curl_exec($ch);
+    if ($data === false) {
+        throw new Exception(curl_error($ch));
+    }
+    curl_close($ch);
+    file_put_contents($dest, $data);
+}
+
+// Funzione per estrarre il file zip
+function extractZip($zipFile, $dest) {
+    $zip = new ZipArchive;
+    if ($zip->open($zipFile) === true) {
+        $zip->extractTo($dest);
+        $zip->close();
+    } else {
+        throw new Exception("Unable to open zip file");
+    }
+}
+
+// Scarica il file zip
 try {
-    $git = new Git();
-    $repo = $git->cloneRepository($authRepoUrl, $tempDir);
-} catch (GitException $e) {
-    echo "Errore durante il clonaggio del repository: " . $e->getMessage();
+    $zipFile = $tempDir . '/repo.zip';
+    downloadZip($repoUrl, $zipFile);
+    error_log("Download del repository completato");
+
+    // Estrai il file zip
+    extractZip($zipFile, $tempDir);
+    error_log("Estrazione del repository completata");
+
+} catch (Exception $e) {
+    error_log("Errore durante il download o l'estrazione del repository: " . $e->getMessage());
+    echo "Errore durante il download o l'estrazione del repository: " . $e->getMessage();
     exit;
 }
 
@@ -49,12 +73,24 @@ function copyFiles($src, $dst) {
     closedir($dir);
 }
 
-copyFiles($tempDir, $projectDir);
+// Trova la directory estratta (dovrebbe essere la prima directory nella cartella temporanea)
+$extractedDir = glob($tempDir . '/*' , GLOB_ONLYDIR)[0] ?? null;
+
+if ($extractedDir === null) {
+    error_log("Errore: Directory estratta non trovata");
+    echo "Errore: Directory estratta non trovata";
+    exit;
+}
+
+// Copia i file dalla directory estratta al progetto
+copyFiles($extractedDir, $projectDir);
 
 // Elimina la directory temporanea
 exec("rm -rf $tempDir");
 
 $stato_aggiornamento = "Aggiornamento completato con successo.";
+error_log($stato_aggiornamento);
+
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -146,7 +182,7 @@ $stato_aggiornamento = "Aggiornamento completato con successo.";
                 updateProgressBar(99, 20, 'Installazione..', () => {
                     updateProgressBar(100, 5, '<?php echo $stato_aggiornamento; ?>', () => {
                         setTimeout(() => {
-                            window.location.href = '../admin/';
+                            window.location.href = '../admin/ui/aggiornamento';
                         }, 5000);
                     });
                   });

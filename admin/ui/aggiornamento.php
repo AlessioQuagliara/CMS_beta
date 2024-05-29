@@ -4,13 +4,12 @@ loggato();
 require '../../conn.php';
 $localVersionFile = '../../version.txt';
 $remoteVersionUrl = 'https://raw.githubusercontent.com/AlessioSpotex/CMS_beta/main/version.txt';
+$remoteInfoUrl = 'https://raw.githubusercontent.com/AlessioSpotex/CMS_beta/main/version_information.txt';
 $token = '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';
 
-// Leggi la versione locale
 $localVersion = file_get_contents($localVersionFile);
 $localVersion = trim($localVersion);
 
-// Funzione per ottenere il contenuto del file remoto
 function getRemoteFileContent($url, $token) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -27,9 +26,11 @@ function getRemoteFileContent($url, $token) {
     return $result;
 }
 
-// Leggi la versione remota
 $remoteVersion = getRemoteFileContent($remoteVersionUrl, $token);
 $remoteVersion = trim($remoteVersion);
+
+$remoteInfo = getRemoteFileContent($remoteInfoUrl, $token);
+$remoteInfo = trim($remoteInfo);
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -49,27 +50,31 @@ $remoteVersion = trim($remoteVersion);
     ?>
 
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <br>
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <br>
     <div class="p-3 bg-light rounded-3 border">
         <h4>Aggiornamento Software CMS</h4>
     </div> 
     <br>
     <div class="p-3 bg-light rounded-3 border">
-    <?php if ($localVersion !== $remoteVersion): ?>
+        <?php if ($localVersion !== $remoteVersion): ?>
             <div class="alert alert-info">
                 È disponibile una nuova versione: <?php echo htmlspecialchars($remoteVersion); ?>.
             </div>
-            <form action="../../install_linkbay/aggiornamento_software" method="post">
+            <div class="alert alert-warning">
+                <strong>Informazioni sull'aggiornamento:</strong>
+                <p><?php echo nl2br(htmlspecialchars($remoteInfo)); ?></p>
+            </div>
+            <form action="../../install_linkbay/aggiornamento_software.php" method="post">
                 <button type="submit" class="btn btn-danger">Aggiorna alla versione <?php echo htmlspecialchars($remoteVersion); ?></button>
             </form>
-        <?php else: ?>
-            <div>
-                Non ci sono aggiornamenti. La tua versione è la più recente: <?php echo htmlspecialchars($localVersion); ?>.
-            </div>
-        <?php endif; ?>
-    </div> 
-    </main>
+            <?php else: ?>
+                <div>
+                    Non ci sono aggiornamenti. La tua versione è la più recente: <?php echo htmlspecialchars($localVersion); ?>.
+                </div>
+                <?php endif; ?>
+            </div> 
+        </main>
 
     
 <?php include '../materials/script.php'; ?>

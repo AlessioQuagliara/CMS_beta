@@ -4,13 +4,31 @@ loggato();
 require '../../conn.php';
 $localVersionFile = '../../version.txt';
 $remoteVersionUrl = 'https://raw.githubusercontent.com/AlessioSpotex/CMS_beta/main/version.txt';
+$token = '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';
 
 // Leggi la versione locale
 $localVersion = file_get_contents($localVersionFile);
 $localVersion = trim($localVersion);
 
+// Funzione per ottenere il contenuto del file remoto
+function getRemoteFileContent($url, $token) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        "Authorization: token $token",
+        "User-Agent: PHP-cURL"
+    ));
+    $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+        echo 'Errore cURL: ' . curl_error($ch);
+    }
+    curl_close($ch);
+    return $result;
+}
+
 // Leggi la versione remota
-$remoteVersion = file_get_contents($remoteVersionUrl);
+$remoteVersion = getRemoteFileContent($remoteVersionUrl, $token);
 $remoteVersion = trim($remoteVersion);
 ?>
 <!DOCTYPE html>
@@ -32,9 +50,13 @@ $remoteVersion = trim($remoteVersion);
 
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="container mt-5">
-        <h1>Aggiornamento CMS</h1>
-        <?php if ($localVersion !== $remoteVersion): ?>
+        <br>
+    <div class="p-3 bg-light rounded-3 border">
+        <h4>Aggiornamento Software CMS</h4>
+    </div> 
+    <br>
+    <div class="p-3 bg-light rounded-3 border">
+    <?php if ($localVersion !== $remoteVersion): ?>
             <div class="alert alert-info">
                 È disponibile una nuova versione: <?php echo htmlspecialchars($remoteVersion); ?>.
             </div>
@@ -42,11 +64,11 @@ $remoteVersion = trim($remoteVersion);
                 <button type="submit" class="btn btn-primary">Aggiorna alla versione <?php echo htmlspecialchars($remoteVersion); ?></button>
             </form>
         <?php else: ?>
-            <div class="alert alert-success">
+            <div>
                 Non ci sono aggiornamenti. La tua versione è la più recente: <?php echo htmlspecialchars($localVersion); ?>.
             </div>
         <?php endif; ?>
-    </div>
+    </div> 
     </main>
 
     

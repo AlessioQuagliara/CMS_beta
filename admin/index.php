@@ -6,6 +6,15 @@ if (!file_exists('../conn.php')) {
   include ('../app.php');
   $login_error = login(); 
 }
+$localVersionFile = '../version.txt';
+$versionContent = '';
+
+if (file_exists($localVersionFile)) {
+    $versionContent = file_get_contents($localVersionFile);
+    $versionContent = trim($versionContent);
+} else {
+    $versionContent = 'Version file not found';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +78,7 @@ if (!file_exists('../conn.php')) {
               <button class="btn btn-danger" type="submit">Accedi</button>
               <br><br>
               <p>Password dimenticata? <strong><a href="ripristina.php" class="text-decoration-none text-dark">Ripristina</a></strong></p>
-              <p class="mt-5 mb-3 text-muted">© <?php echo date('Y'); echo ' Sviluppato da ';?> Spotex Srl <img src="materials/favicon.ico" width="20px"> <br> <strong> Versione Beta 3.0 </strong></p>
+              <p class="mt-5 mb-3 text-muted">© <?php echo date('Y'); echo ' Sviluppato da ';?> Spotex Srl <img src="materials/favicon.ico" width="20px"> <br> <strong> Versione Beta <?php echo htmlspecialchars($versionContent); ?> </strong></p>
             </form>
           </main>
         </div>

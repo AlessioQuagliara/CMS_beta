@@ -1,6 +1,6 @@
 <?php
 
-$projectDir = realpath(__DIR__ . '/../../');
+$projectDir = realpath(__DIR__ . '/../');
 $repoUrl = 'https://github.com/AlessioSpotex/CMS_beta.git';
 $tempDir = sys_get_temp_dir() . '/backup';
 $token = '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'; 
@@ -21,11 +21,11 @@ function copyFiles($src, $dst) {
     while (false !== ($file = readdir($dir))) {
         if (($file != '.') && ($file != '..')) {
             if (is_dir($src . '/' . $file)) {
-                if ($file !== 'src') {
+                if ($file !== 'src' && $file !== 'install_linkbay') {
                     copyFiles($src . '/' . $file, $dst . '/' . $file);
                 }
             } else {
-                if ($file !== 'conn.php') {
+                if ($file !== 'conn.php' && $file !== 'aggiornamento.php') {
                     copy($src . '/' . $file, $dst . '/' . $file);
                 }
             }
@@ -34,9 +34,7 @@ function copyFiles($src, $dst) {
     closedir($dir);
 }
 
-
 copyFiles($tempDir, $projectDir);
-
 
 exec("rm -rf $tempDir");
 

@@ -1,8 +1,8 @@
 <?php
 
-$projectDir = '../../';
-$repoUrl = 'https://github.com/tuo_username/tuo_repository.git';
-$tempDir = '../../';
+$projectDir = realpath(__DIR__ . '/../../');
+$repoUrl = 'https://github.com/AlessioSpotex/CMS_beta.git';
+$tempDir = sys_get_temp_dir() . '/backup';
 
 exec("git clone $repoUrl $tempDir 2>&1", $output, $return_var);
 if ($return_var !== 0) {

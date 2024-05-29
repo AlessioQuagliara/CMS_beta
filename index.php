@@ -59,6 +59,7 @@ customNav();
 $namePage = isset($_GET['slug']) ? $_GET['slug'] : 'home';
 customPage($namePage);
 customFooter();
+include ('public/cookie_banner.php');
 ?>  
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

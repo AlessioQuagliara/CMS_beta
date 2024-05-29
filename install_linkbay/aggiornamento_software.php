@@ -1,20 +1,31 @@
 <?php
+ini_set('log_errors', 1);
+ini_set('error_log', '/path/to/your/error.log'); // Specifica il percorso del file di log
+ini_set('display_errors', 0); // Disabilita la visualizzazione degli errori
 require __DIR__ . '/../vendor/autoload.php';
 require '../conn.php';
 
 use CzProject\GitPhp\Git;
+use CzProject\GitPhp\GitException;
 
 $projectDir = realpath(__DIR__ . '/../');
 $repoUrl = 'https://github.com/AlessioSpotex/CMS_beta.git';
 $tempDir = sys_get_temp_dir() . '/backup';
-$token = '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'; 
+$token = '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'; // Inserisci qui il tuo token di accesso personale
 
+// Configura l'URL del repository con il token di accesso personale
 $authRepoUrl = "https://$token:x-oauth-basic@github.com/AlessioSpotex/CMS_beta.git";
 
+// Elimina la directory temporanea se esiste
+if (is_dir($tempDir)) {
+    exec("rm -rf $tempDir");
+}
+
+// Clona il repository utilizzando GitPhp
 try {
     $git = new Git();
     $repo = $git->cloneRepository($authRepoUrl, $tempDir);
-} catch (Exception $e) {
+} catch (GitException $e) {
     echo "Errore durante il clonaggio del repository: " . $e->getMessage();
     exit;
 }
@@ -40,11 +51,11 @@ function copyFiles($src, $dst) {
 
 copyFiles($tempDir, $projectDir);
 
+// Elimina la directory temporanea
 exec("rm -rf $tempDir");
 
 $stato_aggiornamento = "Aggiornamento completato con successo.";
 ?>
-
 <!DOCTYPE html>
 <html lang="it">
 <head>

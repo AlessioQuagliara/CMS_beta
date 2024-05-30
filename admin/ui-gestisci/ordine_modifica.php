@@ -1,18 +1,20 @@
 <?php 
 require '../../app.php';
 loggato();
+require '../../conn.php';
 
-if(isset($_GET['id']) && is_numeric($_GET['id']) ){
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id_order = $_GET['id'];
 } else {
-    $result = 'Id Ordine non trovato';
+    echo 'Id Ordine non trovato';
     exit;
 }
 
 $dettagli_ordine = dettagliOrdine($id_order);
 
-if(isset($dettagli_ordine['error'])){
+if (isset($dettagli_ordine['error'])) {
     echo $dettagli_ordine['error'];
+    exit;
 } else {
     $id_ordine = $dettagli_ordine['id_ordine'];
     $email = $dettagli_ordine['email'];
@@ -31,16 +33,25 @@ if(isset($dettagli_ordine['error'])){
 }
 
 $dettagli_articoli = dettagliArticoliOrdine($id_order);
-if(isset($dettagli_articoli['error'])){
-
-} else {
-    $id_prodotto = $dettagli_articoli['id_prodotto'];
+if (isset($dettagli_articoli['error'])) {
+    $dettagli_articoli['error'];
 }
 
-function dettagliTabella($dettagli_articoli) {
+// Ottiene le immagini principali dei prodotti
+$immaginiProdotti = [];
+$queryImmagini = "SELECT id_prodotto, immagine FROM media WHERE position = 1";
+$resultImmagini = mysqli_query($conn, $queryImmagini);
+while ($row = mysqli_fetch_assoc($resultImmagini)) {
+    $immaginiProdotti[$row['id_prodotto']] = $row['immagine'];
+}
+
+function dettagliTabella($dettagli_articoli, $immaginiProdotti) {
     foreach ($dettagli_articoli as $articolo) {
+        $id_prodotto = $articolo['id_prodotto'];
+        $immagine = isset($immaginiProdotti[$id_prodotto]) ? $immaginiProdotti[$id_prodotto] : 'default-image.png';
+        
         echo '<tr>';
-        echo "<td>" . htmlspecialchars($articolo['id_prodotto']) . "</td>";
+        echo "<td><img src='" . htmlspecialchars($immagine, ENT_QUOTES) . "' width='30px'></td>";
         echo "<td>" . htmlspecialchars($articolo['titolo']) . "</td>";
         echo "<td>" . htmlspecialchars($articolo['varianti']) . "</td>";
         echo "<td>" . htmlspecialchars($articolo['quantita']) . "</td>";
@@ -48,8 +59,6 @@ function dettagliTabella($dettagli_articoli) {
         echo '</tr>';
     }
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -238,7 +247,7 @@ function dettagliTabella($dettagli_articoli) {
                                         if (isset($dettagli_articoli['error'])) {
                                             echo $dettagli_articoli['error'];
                                         } else {
-                                            dettagliTabella($dettagli_articoli); 
+                                            dettagliTabella($dettagli_articoli, $immaginiProdotti); 
                                         }
                                         ?>
                                     </tbody>
@@ -250,6 +259,7 @@ function dettagliTabella($dettagli_articoli) {
 
                     <div class="mb-3">
                         <a href="aggiunta_articoli_ordine.php?id=<?php echo $id_order; ?>" class="btn btn-outline-secondary">Aggiungi Articoli</a>
+                        <a href="cancella_articoli_ordine.php?id=<?php echo $id_order; ?>" class="btn btn-outline-secondary">Cancella Articoli</a>
                     </div>
 
                 </div>

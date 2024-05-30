@@ -1,8 +1,4 @@
 <?php 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require '../../app.php';
 loggato();
 require '../../conn.php';
@@ -28,7 +24,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 </head>
 <body style="background-color: #f1f1f1;">
 <div class="container">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom bg-dark text-light rounded-2">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom bg-dark text-light rounded-2">
         <h1 class="h2">&nbsp;&nbsp;Aggiunta Articoli</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">

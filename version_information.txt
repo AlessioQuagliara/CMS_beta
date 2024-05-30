@@ -1,1 +1,4 @@
-Questo aggiornamento introduce la risoluzione di bug.
+Risoluzione di alcuni bug;
+-Aggiunta tacking su spedizione ordine;
+-Aggiunta di molte sezioni nell'editor di negozio;
+-Miglioramento prestazioni.

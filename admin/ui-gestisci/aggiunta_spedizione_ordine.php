@@ -10,15 +10,45 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     exit;
 }
 
+// Recupera i dati esistenti per l'ordine
+$sql_select = "SELECT corriere, stato_spedizione, tracking FROM tracking WHERE id_ordine = ?";
+$stmt_select = $conn->prepare($sql_select);
+$stmt_select->bind_param('i', $id_ordine);
+$stmt_select->execute();
+$stmt_select->store_result();
+$stmt_select->bind_result($corriere, $stato_spedizione, $tracking);
+$stmt_select->fetch();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $corriere = $_POST['corriere'];
+    $stato_spedizione = $_POST['stato_spedizione'];
+    $tracking = $_POST['tracking'];
+
+    // Query per inserire o aggiornare i dati nella tabella 'tracking'
+    $sql = "INSERT INTO tracking (id_ordine, corriere, stato_spedizione, tracking) 
+            VALUES (?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE
+            corriere = VALUES(corriere),
+            stato_spedizione = VALUES(stato_spedizione),
+            tracking = VALUES(tracking)";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('isss', $id_ordine, $corriere, $stato_spedizione, $tracking);
+    
+    if ($stmt->execute()) {
+        $result = 'Dati salvati con successo';
+    } else {
+        $result = 'Errore durante il salvataggio dei dati';
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Aggiungi Tracking </title>
+    <title>LinkBay - Aggiungi Tracking</title>
     <?php include '../materials/head_content.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -36,57 +66,25 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     <div class="row">
         <div class="col-md-12">
-
-            <div class="card mb-3" hidden>
-                <div class="card-body">
-                    <h5 class="card-title">Dati</h5>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">ID Pagina</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo $id; ?>">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Nome Pagina</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo htmlspecialchars($page_name); ?>">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Editor Pagina</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo htmlspecialchars($editor_page); ?>">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- DETTAGLI SEO -->
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Modifica SEO</h5>
+                    <h5 class="card-title">Modifica Tracking</h5>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Nome nella URL</label>
+                        <label class="col-sm-2 col-form-label">Corriere</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" value="<?php echo htmlspecialchars($slug); ?>">
+                            <input type="text" name="corriere" class="form-control" value="<?php echo htmlspecialchars($corriere); ?>" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Titolo Pagina</label>
+                        <label class="col-sm-2 col-form-label">Stato Spedizione</label>
                         <div class="col-sm-10">
-                            <input type="text" name="title" class="form-control" value="<?php echo htmlspecialchars($title); ?>">
+                            <input type="text" name="stato_spedizione" class="form-control" value="<?php echo htmlspecialchars($stato_spedizione); ?>" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Descrizione Pagina</label>
+                        <label class="col-sm-2 col-form-label">Tracking</label>
                         <div class="col-sm-10">
-                            <input type="text" name="description" class="form-control" value="<?php echo htmlspecialchars($description); ?>">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Keywords</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="keywords" class="form-control" value="<?php echo htmlspecialchars($keywords); ?>">
+                            <input type="text" name="tracking" class="form-control" value="<?php echo htmlspecialchars($tracking); ?>" required>
                         </div>
                     </div>
                 </div>
@@ -113,7 +111,7 @@ function exit() {
 
 function saveAndRefresh() {
     if (window.opener && !window.opener.closed) {
-        window.opener.location.href = '../ui/editor_negozio';
+        window.location.href = 'ordine_modifica?id=<?php echo $id_ordine; ?>';
     }
 }
 </script>

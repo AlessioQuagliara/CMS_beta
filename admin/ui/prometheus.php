@@ -100,24 +100,34 @@
                     toolbar.classList.add('expanded');
                 }
             });
-            // COMANDI SHORTCUT ------------------------------------------------------------------------------------------------------------------------------------------
-            document.addEventListener('keydown', function(event) {
+        // COMANDI SHORTCUT ------------------------------------------------------------------------------------------------------------------------------------------
+        document.addEventListener('keydown', function(event) {
+            var isWindows = navigator.platform.toUpperCase().indexOf('WIN') !== -1;
+            
+            // Scorciatoie per sistemi non Windows
+            if (!isWindows) {
                 if (event.key === 'q' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     toggleToolbar();
                 }
                 if (event.key === 'e' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     exportToExcel();
                 }
                 if (event.key === 'n' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     addOrder();
                 }
                 if (event.key === 'd' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     evadiSelezionati();
                 }
                 if (event.key === 'a' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     setSelectedTrueForAll();
                 }
                 if (event.key === 'f' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     var toolbar = document.getElementById('itembar');
                     if (toolbar.classList.contains('expanded')) {
                         document.getElementById('searchInput').focus();
@@ -130,9 +140,51 @@
                     }
                 }
                 if (event.key === 'r' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     refreshPage();
                 }
-            });
+            } 
+            // Scorciatoie per Windows
+            else {
+                if (event.key === 'y' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    toggleToolbar();
+                }
+                if (event.key === 'u' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    exportToExcel();
+                }
+                if (event.key === 'i' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    addOrder();
+                }
+                if (event.key === 'o' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    evadiSelezionati();
+                }
+                if (event.key === 'p' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    setSelectedTrueForAll();
+                }
+                if (event.key === 'l' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    var toolbar = document.getElementById('itembar');
+                    if (toolbar.classList.contains('expanded')) {
+                        document.getElementById('searchInput').focus();
+                    } else {
+                        toggleToolbar();
+                        // Usare setTimeout per aspettare la fine dell'animazione di espansione
+                        setTimeout(function() {
+                            document.getElementById('searchInput').focus();
+                        }, 200); // 200ms corrisponde alla durata della transizione CSS
+                    }
+                }
+                if (event.key === 'k' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    refreshPage();
+                }
+            }
+        });
 
             function refreshPage() {
                 location.reload(true);
@@ -260,23 +312,34 @@
                 }
             });
 
-            document.addEventListener('keydown', function(event) {
+        // COMANDI SHORTCUT ------------------------------------------------------------------------------------------------------------------------------------------
+        document.addEventListener('keydown', function(event) {
+            var isWindows = navigator.platform.toUpperCase().indexOf('WIN') !== -1;
+            
+            // Scorciatoie per sistemi non Windows
+            if (!isWindows) {
                 if (event.key === 'q' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     toggleToolbar();
                 }
                 if (event.key === 'e' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     exportToExcel();
                 }
                 if (event.key === 'n' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     addProduct();
                 }
                 if (event.key === 'a' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     setSelectedTrueForAll();
                 }
                 if (event.key === 'd' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     deleteProduct('');
                 }
                 if (event.key === 'f' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     var toolbar = document.getElementById('itembar');
                     if (toolbar.classList.contains('expanded')) {
                         document.getElementById('searchInputProdotti').focus();
@@ -289,9 +352,51 @@
                     }
                 }
                 if (event.key === 'r' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
                     refreshPage();
                 }
-            });
+            } 
+            // Scorciatoie per Windows
+            else {
+                if (event.key === 'y' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    toggleToolbar();
+                }
+                if (event.key === 'u' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    exportToExcel();
+                }
+                if (event.key === 'i' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    addProduct();
+                }
+                if (event.key === 'o' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    setSelectedTrueForAll();
+                }
+                if (event.key === 'p' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    deleteProduct('');
+                }
+                if (event.key === 'l' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    var toolbar = document.getElementById('itembar');
+                    if (toolbar.classList.contains('expanded')) {
+                        document.getElementById('searchInputProdotti').focus();
+                    } else {
+                        toggleToolbar();
+                        // Usare setTimeout per aspettare la fine dell'animazione di espansione
+                        setTimeout(function() {
+                            document.getElementById('searchInputProdotti').focus();
+                        }, 200); // 200ms corrisponde alla durata della transizione CSS
+                    }
+                }
+                if (event.key === 'k' && event.ctrlKey) {
+                    event.preventDefault(); // Previene il comportamento predefinito
+                    refreshPage();
+                }
+            }
+        });
 
             function refreshPage() {
                 location.reload(true);
@@ -412,36 +517,89 @@
                 }
             });
 
+            // COMANDI SHORTCUT ------------------------------------------------------------------------------------------------------------------------------------------
             document.addEventListener('keydown', function(event) {
-                if (event.key === 'q' && event.ctrlKey) {
-                    toggleToolbar();
-                }
-                if (event.key === 'e' && event.ctrlKey) {
-                    exportToExcel();
-                }
-                if (event.key === 'n' && event.ctrlKey) {
-                    addCollect();
-                }
-                if (event.key === 'a' && event.ctrlKey) {
-                    setSelectedTrueForAll();
-                }
-                if (event.key === 'd' && event.ctrlKey) {
-                    deleteCollect('');
-                }
-                if (event.key === 'f' && event.ctrlKey) {
-                    var toolbar = document.getElementById('itembar');
-                    if (toolbar.classList.contains('expanded')) {
-                        document.getElementById('searchInputCollezioni').focus();
-                    } else {
+                var isWindows = navigator.platform.toUpperCase().indexOf('WIN') !== -1;
+                
+                // Scorciatoie per sistemi non Windows
+                if (!isWindows) {
+                    if (event.key === 'q' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
                         toggleToolbar();
-                        // Usare setTimeout per aspettare la fine dell'animazione di espansione
-                        setTimeout(function() {
-                            document.getElementById('searchInputCollezioni').focus();
-                        }, 200); // 200ms corrisponde alla durata della transizione CSS
                     }
-                }
-                if (event.key === 'r' && event.ctrlKey) {
-                    refreshPage();
+                    if (event.key === 'e' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        exportToExcel();
+                    }
+                    if (event.key === 'n' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        addCollect();
+                    }
+                    if (event.key === 'a' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        setSelectedTrueForAll();
+                    }
+                    if (event.key === 'd' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        deleteCollect('');
+                    }
+                    if (event.key === 'f' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        var toolbar = document.getElementById('itembar');
+                        if (toolbar.classList.contains('expanded')) {
+                            document.getElementById('searchInputCollezioni').focus();
+                        } else {
+                            toggleToolbar();
+                            // Usare setTimeout per aspettare la fine dell'animazione di espansione
+                            setTimeout(function() {
+                                document.getElementById('searchInputCollezioni').focus();
+                            }, 200); // 200ms corrisponde alla durata della transizione CSS
+                        }
+                    }
+                    if (event.key === 'r' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        refreshPage();
+                    }
+                } 
+                // Scorciatoie per Windows
+                else {
+                    if (event.key === 'y' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        toggleToolbar();
+                    }
+                    if (event.key === 'u' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        exportToExcel();
+                    }
+                    if (event.key === 'i' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        addCollect();
+                    }
+                    if (event.key === 'o' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        setSelectedTrueForAll();
+                    }
+                    if (event.key === 'p' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        deleteCollect('');
+                    }
+                    if (event.key === 'l' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        var toolbar = document.getElementById('itembar');
+                        if (toolbar.classList.contains('expanded')) {
+                            document.getElementById('searchInputCollezioni').focus();
+                        } else {
+                            toggleToolbar();
+                            // Usare setTimeout per aspettare la fine dell'animazione di espansione
+                            setTimeout(function() {
+                                document.getElementById('searchInputCollezioni').focus();
+                            }, 200); // 200ms corrisponde alla durata della transizione CSS
+                        }
+                    }
+                    if (event.key === 'k' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        refreshPage();
+                    }
                 }
             });
 

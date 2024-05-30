@@ -59,6 +59,15 @@ function dettagliTabella($dettagli_articoli, $immaginiProdotti) {
         echo '</tr>';
     }
 }
+
+// Recupera i dati esistenti per l'ordine
+$sql_select = "SELECT corriere, stato_spedizione, tracking FROM tracking WHERE id_ordine = ?";
+$stmt_select = $conn->prepare($sql_select);
+$stmt_select->bind_param('i', $id_ordine);
+$stmt_select->execute();
+$stmt_select->store_result();
+$stmt_select->bind_result($corriere, $stato_spedizione, $tracking);
+$stmt_select->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="it">

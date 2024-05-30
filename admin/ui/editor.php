@@ -462,7 +462,8 @@
 // Funzioni di base negozio online -----------------------------------------------------------------------------------------------------------------------------------------------------------------------        
 
 // everything else -----------------------------------------------------------------------------------------------------------------------------------------------------------------------  
-    editor.BlockManager.add('hero-section', {
+
+editor.BlockManager.add('hero-section', {
         label: 'Hero Section',
         content: `
                 <section class="p-5 text-center bg-dark text-light">
@@ -990,4 +991,5 @@ $(document).ready(function() {
         });
     });
 });
+
 </script>

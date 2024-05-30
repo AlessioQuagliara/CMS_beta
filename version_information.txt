@@ -1,1 +1,1 @@
-Questo aggiornamento introduce la risoluzione di bug quando si tentava di accedere al sistema.
+Questo aggiornamento introduce la risoluzione di bug.

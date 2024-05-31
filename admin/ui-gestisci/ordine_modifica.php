@@ -277,9 +277,9 @@ $stmt_select->fetch();
             <!-- TRACK NUMBER, inserisci qui il tracking -->
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">Tracciabilità Pacco</h5>
+                    <h5 class="card-title">Tracciabilità Pacco <? echo $id_track;?></h5>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Corriere</label>
+                        <label class="col-sm-2 col-form-label">Corriere </label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control" value="<?php echo $corriere;?>">
                         </div>

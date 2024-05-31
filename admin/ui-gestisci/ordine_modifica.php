@@ -285,7 +285,7 @@ $stmt_select->fetch();
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Tacking</label>
+                        <label class="col-sm-2 col-form-label">Tracking</label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control" value="<?php echo $tracking;?>">
                         </div>

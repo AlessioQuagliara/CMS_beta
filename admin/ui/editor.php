@@ -287,9 +287,13 @@
                             <a class="nav-link" href="catalog">Catalogo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"><i class="fa-solid fa-cart-shopping"></i></a>
-                            <a class="nav-link"><i class="fa-solid fa-user"></i></a>
-                            <a class="nav-link"><i class="fa-solid fa-cart-shopping"></i></a>
+                        <a class="nav-link"><i class="fa-solid fa-cart-shopping"></i></a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link"><i class="fa-solid fa-user"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"><i class="fa-solid fa-magnifying-glass"></i></a>
                         </li>
                     </ul>
                 </div>

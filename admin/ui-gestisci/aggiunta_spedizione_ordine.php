@@ -3,6 +3,7 @@ require '../../app.php';
 loggato();
 require '../../conn.php';
 
+// Verifica se l'ID ordine è stato passato correttamente
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id_ordine = $_GET['id'];
 } else {
@@ -18,6 +19,7 @@ $stmt_select->execute();
 $stmt_select->store_result();
 $stmt_select->bind_result($corriere, $stato_spedizione, $tracking);
 $stmt_select->fetch();
+$stmt_select->close(); 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $corriere = $_POST['corriere'];
@@ -40,9 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $result = 'Errore durante il salvataggio dei dati';
     }
+    $stmt->close(); 
+    $conn->close(); 
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="it">
 <head>

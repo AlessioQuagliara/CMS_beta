@@ -81,7 +81,7 @@ $conn->close();
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Analisi</title>
+    <title>LinkBay - Analysis</title>
     <?php include '../materials/head_content.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -100,7 +100,7 @@ $conn->close();
                 <div class="card">
                     <form method="GET" action="">
                         <div class="card-header">
-                            <label for="anno">Seleziona Anno:</label>
+                            <label for="anno">Select Year:</label>
                         </div>
                         <div class="card-body">
                             <select name="anno" class="form-select" id="anno" onchange="this.form.submit()">
@@ -120,7 +120,7 @@ $conn->close();
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">
-                        Analisi Vendite
+                        Sales Analysis
                     </div>
                     <div class="card-body">
                         <canvas id="myChart" width="800" height="400"></canvas>
@@ -141,7 +141,7 @@ $conn->close();
                 <br>
                 <div class="card">
                     <div class="card-header">
-                        Visitatori
+                        Visitors
                     </div>
                     <div class="card-body">
                         <canvas id="visitorChart" width="800" height="200"></canvas>
@@ -152,7 +152,7 @@ $conn->close();
                 <br>
                 <div class="card">
                     <div class="card-header">
-                        Utenti Registrati
+                        Registered Users
                     </div>
                     <div class="card-body">
                         <?php echo listaClienti();?>
@@ -170,7 +170,7 @@ $conn->close();
             data: {
                 labels: <?php echo json_encode($months); ?>,
                 datasets: [{
-                    label: '€ di Vendite',
+                    label: '€ of Sales',
                     data: <?php echo json_encode($sales); ?>,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -219,7 +219,7 @@ $conn->close();
             data: {
                 labels: <?php echo json_encode($visitorMonths); ?>,
                 datasets: [{
-                    label: 'Numero di Visitatori',
+                    label: 'Number of Visitors',
                     data: <?php echo json_encode($visitorData); ?>,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -264,7 +264,7 @@ $conn->close();
             data: {
                 labels: <?php echo json_encode($leadMonths); ?>,
                 datasets: [{
-                    label: 'Numero di Lead',
+                    label: 'Number of Leads',
                     data: <?php echo json_encode($leadData); ?>,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',

@@ -38,7 +38,7 @@ $remoteInfo = trim($remoteInfo);
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Dettagli Negozio</title>
+    <title>LinkBay - Store Details</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
@@ -53,24 +53,24 @@ $remoteInfo = trim($remoteInfo);
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <br>
     <div class="p-3 bg-light rounded-3 border">
-        <h4>Aggiornamento Software CMS</h4>
+        <h4>CMS Software Update</h4>
     </div> 
     <br>
     <div class="p-3 bg-light rounded-3 border">
         <?php if ($localVersion !== $remoteVersion): ?>
             <div class="alert alert-info">
-                È disponibile una nuova versione: <?php echo htmlspecialchars($remoteVersion); ?>.
+                A new version is available: <?php echo htmlspecialchars($remoteVersion); ?>.
             </div>
             <div class="alert alert-warning">
-                <strong>Informazioni sull'aggiornamento:</strong>
+                <strong>Update Information:</strong>
                 <p><?php echo nl2br(htmlspecialchars($remoteInfo)); ?></p>
             </div>
             <form action="../../install_linkbay/aggiornamento_software" method="post" id="updateForm">
-                <button id="loadButton" type="submit" class="btn btn-danger" onclick="startLoading(event)">Aggiorna alla versione <?php echo htmlspecialchars($remoteVersion); ?></button>
+                <button id="loadButton" type="submit" class="btn btn-danger" onclick="startLoading(event)">Update to version <?php echo htmlspecialchars($remoteVersion); ?></button>
             </form>
             <?php else: ?>
                 <div>
-                    Non ci sono aggiornamenti. La tua versione è la più recente: <?php echo htmlspecialchars($localVersion); ?>.
+                    There are no updates. Your version is the latest: <?php echo htmlspecialchars($localVersion); ?>.
                 </div>
                 <?php endif; ?>
     </div> 

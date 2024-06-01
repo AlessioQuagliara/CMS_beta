@@ -9,7 +9,7 @@ $result = $conn->query("SELECT * FROM seo");
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Editor Negozio</title>
+    <title>LinkBay - Store Editor</title>
     <?php include '../materials/head_content.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -26,7 +26,7 @@ $result = $conn->query("SELECT * FROM seo");
         <div class="container mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4>Gestisci e Modifica Pagine Negozio</h4>
+                    <h4>Manage and Edit Store Pages</h4>
                 </div>
             </div>
             <br>

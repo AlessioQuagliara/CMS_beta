@@ -22,7 +22,7 @@ loggato()
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="container mt-5">
             <div class="p-3 mb-2 bg-light rounded-3 border d-flex justify-content-center align-items-center">
-                <h4>Informazioni Grafiche della tua Attività</h4>
+                <h4>Graphical Information about Your Business</h4>
             </div>
         </div>
         <div class="container mt-5">
@@ -34,23 +34,23 @@ loggato()
                     </div>
                     <div class="mb-3">
                         <img src="../../src/media_system/logo_site.png" alt="Logo" width="150px" class="img-thumbnail">
-                        <span>Immagine Link</span>
+                        <span>image Link</span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <form action="../ui-gestisci/brand_caricamento.php" method="post" enctype="multipart/form-data">
                         <div class="p-3 bg-light rounded-3 border">
                             <div class="mb-3">
-                                <label for="favicon" class="form-label">Carica Favicon (.ico)</label>
+                                <label for="favicon" class="form-label">Update Favicon (.ico)</label>
                                 <input class="form-control" type="file" name="favicon" id="favicon" accept=".ico">
                             </div>
                             <br>
                             <div class="mb-3">
-                                <label for="logo" class="form-label">Carica Logo (.png)</label>
+                                <label for="logo" class="form-label">Update Logo (.png)</label>
                                 <input class="form-control" type="file" name="logo" id="logo" accept=".png">
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-danger">Carica Immagini</button>
+                            <button type="submit" class="btn btn-danger">Update Images</button>
                         </div>
                     </form>
                 </div>

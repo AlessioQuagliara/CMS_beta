@@ -14,7 +14,7 @@ if ($risultato) { // Controlla se c'è un risultato
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Dettagli Negozio</title>
+    <title>LinkBay - Store Details</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
@@ -33,12 +33,12 @@ if ($risultato) { // Controlla se c'è un risultato
     <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
         <div class="p-3 mb-2 bg-light rounded-3">
             <div class="d-flex justify-content-between align-items-center">
-                <h4>Dettagli Negozio</h4>
+                <h4>Store Details</h4>
                 <div class="btn-toolbar mb-2 mb-md-0">
                 &nbsp;&nbsp;
                     <div class="btn-group me-2">
                         <button onclick="apriModifica()" class="btn btn-sm btn-outline-secondary">
-                            <i class="fa-solid fa-floppy-disk"></i>&nbsp; Salva Modifiche
+                            <i class="fa-solid fa-floppy-disk"></i>&nbsp; Save Changes
                         </button>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ if ($risultato) { // Controlla se c'è un risultato
                 <!-- SINISTRA ------------------------------------------------------------------------------>
 
                 <div class="mb-3">
-                    <label for="imprenditore" class="form-label">Nome e Cognome dell'Imprenditore</label>
+                    <label for="imprenditore" class="form-label">First and Last Name of the Entrepreneur</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['imprenditore']); ?>" id="imprenditore" name="imprenditore" placeholder="Nome e Cognome">
                 </div>
                 
@@ -76,7 +76,7 @@ if ($risultato) { // Controlla se c'è un risultato
             <h6>Dati Fiscali</h6>
 
                 <div class="mb-3">
-                    <label for="impresa" class="form-label">Nome dell'Impresa</label>
+                    <label for="impresa" class="form-label">Name of the Business</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['impresa']); ?>" id="impresa" name="impresa" placeholder="La mia Società">
                 </div>
 
@@ -86,17 +86,17 @@ if ($risultato) { // Controlla se c'è un risultato
                 </div>
 
                 <div class="mb-3">
-                    <label for="capitale_sociale" class="form-label">Capitale sociale</label>
+                    <label for="capitale_sociale" class="form-label">Corporate Capital</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['capitale_sociale']); ?>" id="capitale_sociale" name="capitale_sociale" placeholder="SOLO nel caso di una società, scrivi il capitale sociale">
                 </div>
 
                 <div class="mb-3">
-                    <label for="IVA" class="form-label">Codice Partita Iva</label>
+                    <label for="IVA" class="form-label">VAT Number</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['IVA']); ?>" id="IVA" name="IVA" placeholder="Numero Partita Iva">
                 </div>
 
                 <div class="mb-3">
-                    <label for="REA" class="form-label">REA Impresa</label>
+                    <label for="REA" class="form-label">REA Number</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['REA']); ?>" id="REA" name="REA" placeholder="Numero Registro Delle Imprese">
                 </div>
 
@@ -108,32 +108,32 @@ if ($risultato) { // Controlla se c'è un risultato
                 <h6>Dati di Fatturazione</h6>
                 <!-- DESTRA ------------------------------------------------------------------------------>
                 <div class="mb-3">
-                    <label for="CF_fiscale" class="form-label">Codice Fiscale Amministratore</label>
+                    <label for="CF_fiscale" class="form-label">Administrator’s Tax Code</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['CF_fiscale']); ?>" id="CF_fiscale" name="CF_fiscale" placeholder="Codice Fiscale">
                 </div>
     
                 <div class="mb-3">
-                    <label for="via" class="form-label">Indirizzo Fiscale (via)</label>
+                    <label for="via" class="form-label">Tax Address (street)</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['via']); ?>" id="via" name="via" placeholder="Indirizzo di residenza fiscale o di dove si svolge l'attività">
                 </div>
 
                 <div class="mb-3">
-                    <label for="email_impresa" class="form-label">Email Impresa</label>
+                    <label for="email_impresa" class="form-label">Business Email</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['email_impresa']); ?>" id="email_impresa" name="email_impresa" placeholder="Su quale mail i clienti devono contattare il negozio?">
                 </div>
     
                 <div class="mb-3">
-                    <label for="telefono_impresa" class="form-label">Telefono Impresa</label>
+                    <label for="telefono_impresa" class="form-label">Business Phone</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['telefono_impresa']); ?>" id="telefono_impresa" name="telefono_impresa" placeholder="Su quale numero di telefono i clienti devono contattare il negozio?">
                 </div>
 
                 <div class="mb-3">
-                    <label for="paese" class="form-label">Città</label>
+                    <label for="paese" class="form-label">City</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['paese']); ?>" id="paese" name="paese" placeholder="Dove vivi? Milano? Como? Inserisci la città">
                 </div>
     
                 <div class="mb-3">
-                    <label for="cap" class="form-label">Cap</label>
+                    <label for="cap" class="form-label">Postal Code</label>
                     <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['cap']); ?>" id="cap" name="cap" placeholder="Inserisci il codice CAP">
                 </div>
                 <!-- FINE DESTRA ----------------------------------------------------------------------->
@@ -146,23 +146,23 @@ if ($risultato) { // Controlla se c'è un risultato
         <h6>Dati Informativi</h6>
 
         <div class="mb-3">
-            <label for="nome_negozio" class="form-label">Nome Negozio</label>
+            <label for="nome_negozio" class="form-label">Store Name</label>
             <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['nome_negozio']); ?>" id="nome_negozio" name="nome_negozio" placeholder="Che nome vuoi dare al tuo negozio?">
         </div>
 
         <div class="mb-3">
-            <label for="sitoweb" class="form-label">Dominio</label>
+            <label for="sitoweb" class="form-label">Domain</label>
             <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['sitoweb']); ?>" id="sitoweb" name="sitoweb" placeholder="Inserisci la url del tuo dominio">
         </div>
 
         <div class="mb-3">
-            <label for="cosa_vuoi_vendere" class="form-label">Cosa Vuoi Vendere</label>
+            <label for="cosa_vuoi_vendere" class="form-label">What Do You Want to Sell</label>
             <textarea class="form-control" id="cosa_vuoi_vendere" name="cosa_vuoi_vendere" rows="3" placeholder="Descrivi cosa vuoi vendere"><?php echo htmlspecialchars($row['cosa_vuoi_vendere']); ?></textarea>
         </div>
         </div>
         <div class="p-3 mb-2 bg-light rounded-3">
             <div class="mb-3">
-                <label for="identificatore" class="form-label">ID Personale ID0124<?php echo htmlspecialchars($row['identificatore']); ?></label>
+                <label for="identificatore" class="form-label">Personal ID = ID0124<?php echo htmlspecialchars($row['identificatore']); ?></label>
                 <input type="hidden" class="form-control" value="<?php echo htmlspecialchars($row['identificatore']); ?>" id="identificatore" name="identificatore">
             </div>
         </div>

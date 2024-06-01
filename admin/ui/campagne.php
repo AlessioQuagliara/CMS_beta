@@ -8,7 +8,7 @@ loggato()
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Campagne</title>
+    <title>LinkBay - Campaigns</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
@@ -23,7 +23,7 @@ loggato()
     <div class="container mt-5">
         <div class="p-3 mb-2 bg-light rounded-3 border">
             <div class="d-flex justify-content-between align-items-center">
-                <h4>Configura i tuoi strumenti di Marketing</h4>
+                <h4>Set Up Your Marketing Tools</h4>
             </div>
         </div>
 
@@ -52,7 +52,7 @@ loggato()
                 echo "</div>";
             }
         } else {
-            echo "Nessuno strumento di marketing trovato.";
+            echo "No marketing tools found.";
         }
         $conn->close();
         ?>

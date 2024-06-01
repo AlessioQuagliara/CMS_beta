@@ -10,3 +10,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
+<!-- Personal Script -->
+<script>
+    function startLoading() {
+        var button = document.getElementById('loadButton');
+        button.disabled = true; // Disabilita il pulsante
+        button.innerHTML = 'In Corso<span class="dots">...</span>';
+        button.classList.add('loading-button');
+    }
+</script>

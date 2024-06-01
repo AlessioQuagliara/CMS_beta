@@ -3,6 +3,15 @@ if (file_exists('../conn.php')) {
   header("Location: ../admin/");
   exit();
 } else {
+    $localVersionFile = '../version.txt';
+    $versionContent = '';
+    
+    if (file_exists($localVersionFile)) {
+        $versionContent = file_get_contents($localVersionFile);
+        $versionContent = trim($versionContent);
+    } else {
+        $versionContent = 'Version file not found';
+    }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Abilita il buffer di output per prevenire l'output prima del header()
         ob_start();
@@ -102,7 +111,7 @@ if (file_exists('../conn.php')) {
             <h2 class="h3 mb-3 fw-normal" >Installazione LinkBay</h2>
         </div>
         <div class="card-body">
-            <form method="post">
+            <form method="post" id="updateForm">
                 <div class="mb-3">
                     <label for="host" class="form-label">Host:</label>
                     <input type="text" id="host" name="host" class="form-control" required>
@@ -119,11 +128,22 @@ if (file_exists('../conn.php')) {
                     <label for="dbname" class="form-label">Nome Database:</label>
                     <input type="text" id="dbname" name="dbname" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-danger w-100">Installa</button>
+                <button id="loadButton" type="submit" class="btn btn-danger" onclick="startLoading(event)">Installa Versione <?php echo htmlspecialchars($versionContent); ?></button>
             </form>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function startLoading(event) {
+            var button = document.getElementById('loadButton');
+            button.disabled = true; // Disabilita il pulsante
+            button.innerHTML = 'In Corso<span class="dots">...</span>';
+            button.classList.add('loading-button');
+            
+            // Avvia il submit del form
+            document.getElementById('updateForm').submit();
+        }
+</script>
 </body>
 </html>

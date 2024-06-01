@@ -1,5 +1,2 @@
 Risoluzione di alcuni bug;
--Aggiunta tacking su spedizione ordine;
--Aggiunta di molte sezioni nell'editor di negozio;
--Risoluzioni problemi shortcut su windows;
--Miglioramento prestazioni.
+-Risoluzione Bug pulsanti;

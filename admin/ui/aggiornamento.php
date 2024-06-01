@@ -65,17 +65,17 @@ $remoteInfo = trim($remoteInfo);
                 <strong>Informazioni sull'aggiornamento:</strong>
                 <p><?php echo nl2br(htmlspecialchars($remoteInfo)); ?></p>
             </div>
-            <form action="../../install_linkbay/aggiornamento_software.php" method="post">
-                <button id="loadButton" type="submit" class="btn btn-danger" onclick="startLoading()">Aggiorna alla versione <?php echo htmlspecialchars($remoteVersion); ?></button>
+            <form action="../../install_linkbay/aggiornamento_software.php" method="post" id="updateForm">
+                <button id="loadButton" type="submit" class="btn btn-danger" onclick="startLoading(event)">Aggiorna alla versione <?php echo htmlspecialchars($remoteVersion); ?></button>
             </form>
             <?php else: ?>
                 <div>
                     Non ci sono aggiornamenti. La tua versione è la più recente: <?php echo htmlspecialchars($localVersion); ?>.
                 </div>
                 <?php endif; ?>
-            </div> 
-        </main>
-
+    </div> 
+</main>
+            
     
 <?php include '../materials/script.php'; ?>
 </body>

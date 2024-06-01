@@ -12,10 +12,13 @@
 
 <!-- Personal Script -->
 <script>
-    function startLoading() {
-        var button = document.getElementById('loadButton');
-        button.disabled = true; // Disabilita il pulsante
-        button.innerHTML = 'In Corso<span class="dots">...</span>';
-        button.classList.add('loading-button');
-    }
+    function startLoading(event) {
+            var button = document.getElementById('loadButton');
+            button.disabled = true; // Disabilita il pulsante
+            button.innerHTML = 'In Corso<span class="dots">...</span>';
+            button.classList.add('loading-button');
+            
+            // Avvia il submit del form
+            document.getElementById('updateForm').submit();
+        }
 </script>

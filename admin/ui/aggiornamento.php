@@ -66,7 +66,7 @@ $remoteInfo = trim($remoteInfo);
                 <p><?php echo nl2br(htmlspecialchars($remoteInfo)); ?></p>
             </div>
             <form action="../../install_linkbay/aggiornamento_software.php" method="post">
-                <button type="submit" class="btn btn-danger">Aggiorna alla versione <?php echo htmlspecialchars($remoteVersion); ?></button>
+                <button id="loadButton" type="submit" class="btn btn-danger" onclick="startLoading()">Aggiorna alla versione <?php echo htmlspecialchars($remoteVersion); ?></button>
             </form>
             <?php else: ?>
                 <div>

@@ -8,7 +8,7 @@ loggato()
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - 404 Error</title>
+    <title>LinkBay - 404 Errore</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
@@ -32,7 +32,7 @@ loggato()
         </style>
         <div class="container centered-div">
             <h1 class="display-4">404 <i class="fa-solid fa-ban"></i></h1>
-            <p class="lead">Pagina not found.</p>
+            <p class="lead">Pagina non trovata.</p>
         </div>
 
     </main>

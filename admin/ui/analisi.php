@@ -81,7 +81,7 @@ $conn->close();
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Analysis</title>
+    <title>LinkBay - Analisi</title>
     <?php include '../materials/head_content.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -100,7 +100,7 @@ $conn->close();
                 <div class="card">
                     <form method="GET" action="">
                         <div class="card-header">
-                            <label for="anno">Select Year:</label>
+                            <label for="anno">Seleziona Anno:</label>
                         </div>
                         <div class="card-body">
                             <select name="anno" class="form-select" id="anno" onchange="this.form.submit()">
@@ -120,7 +120,7 @@ $conn->close();
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">
-                        Sales Analysis
+                        Analisi Vendite
                     </div>
                     <div class="card-body">
                         <canvas id="myChart" width="800" height="400"></canvas>
@@ -141,7 +141,7 @@ $conn->close();
                 <br>
                 <div class="card">
                     <div class="card-header">
-                        Visitors
+                        Visitatori
                     </div>
                     <div class="card-body">
                         <canvas id="visitorChart" width="800" height="200"></canvas>
@@ -152,7 +152,7 @@ $conn->close();
                 <br>
                 <div class="card">
                     <div class="card-header">
-                        Registered Users
+                        Utenti Registrati
                     </div>
                     <div class="card-body">
                         <?php echo listaClienti();?>

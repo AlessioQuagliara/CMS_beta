@@ -624,19 +624,19 @@ editor.BlockManager.add('contact-form', {
         <form method="post" action="public/form">
         <div class="mb-3">
         <label for="name" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="name" placeholder="Il tuo nome">
+        <input name="name" type="text" class="form-control" id="name" placeholder="Il tuo nome">
         </div>
         <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="La tua email">
+        <input name="email" type="email" class="form-control" id="email" placeholder="La tua email">
         </div>
         <div class="mb-3">
         <label for="phone" class="form-label">Telefono</label>
-        <input type="phone" class="form-control" id="phone" placeholder="Il Tuo Telefono">
+        <input name="phone" type="phone" class="form-control" id="phone" placeholder="Il Tuo Telefono">
         </div>
         <div class="mb-3">
         <label for="message" class="form-label">Messaggio</label>
-        <textarea class="form-control" id="message" rows="3" placeholder="Il tuo messaggio"></textarea>
+        <textarea name="message" class="form-control" id="message" rows="3" placeholder="Il tuo messaggio"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Invia</button>
         </form>

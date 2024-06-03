@@ -1,7 +1,4 @@
-<?php if ($sidebar_cate == 'ordini') : ?>
-    <!---------------------------------------------------------------------- PROMETHEUS ORDINI ------------------------------------------------------------------------------------------>
-    <div id="itembar" class="toolbar bg-dark text-white">
-        <style>
+<style>
             .toolbar {
                 position: fixed;
                 bottom: 0;
@@ -60,19 +57,22 @@
                 }
             }
         </style>
-        <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + Q }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
+<?php if ($sidebar_cate == 'ordini') : ?>
+    <!---------------------------------------------------------------------- PROMETHEUS ORDINI ------------------------------------------------------------------------------------------>
+    <div id="itembar" class="toolbar bg-dark text-white">
+        <div class="toggle-button btn-outline-danger" title="Shortcut { WIN = CTRL + Y | MAC = CTRL + Q }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
         <div class="toolbar-content">
             <div class="row">
                 <div class="col-md-2">
                     <input class="form-control" id="searchInput" type="text" placeholder="Cerca..." aria-label="Cerca">
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-sm btn-outline-danger" title="Add Manual Order { CTRL + N }" onclick="addOrder()"><i class="fa-solid fa-plus"></i></button>
-                    <button class="btn btn-sm btn-outline-success" title="Export to Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-                    <button class="btn btn-sm btn-outline-light" title="Select All Rows { CTRL + A }" onclick="setSelectedTrueForAll()"><i class="fa-regular fa-square-check"></i></button>
-                    <button class="btn btn-sm btn-outline-primary" title="Fulfill Selected { CTRL + M }" onclick="evadiSelezionati()"><i class="fa-solid fa-boxes-packing"></i></button>
-                    <button class="btn btn-sm btn-outline-secondary" title="Refresh page { CTRL + R }" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate"></i></button>
-                    <button class="btn btn-sm btn-outline-info" title="Tutorials & Instructions" onclick=""><i class="fa-solid fa-circle-info"></i></button>
+                    <button class="btn btn-sm btn-outline-danger" title="Aggiungi Ordine { WIN = CTRL + I | MAC = CTRL + N }" onclick="addOrder()"><i class="fa-solid fa-plus"></i></button>
+                    <button class="btn btn-sm btn-outline-success" title="Esporta come Tabella { WIN = CTRL + U | MAC = CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+                    <button class="btn btn-sm btn-outline-light" title="Seleziona Tutto { WIN = CTRL + U | MAC = CTRL + A }" onclick="setSelectedTrueForAll()"><i class="fa-regular fa-square-check"></i></button>
+                    <button class="btn btn-sm btn-outline-primary" title="Evadi Selezionati { WIN = CTRL + O | MAC = CTRL + D }" onclick="evadiSelezionati()"><i class="fa-solid fa-boxes-packing"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary" title="Aggiorna la pagina { WIN = CTRL + K | MAC = CTRL + R }" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate"></i></button>
+                    <button class="btn btn-sm btn-outline-info" title="Tutorial & Istruzioni" onclick=""><i class="fa-solid fa-circle-info"></i></button>
                 </div>
                 <div class="col-md-2">
                     <select class="form-select" aria-label="Selezione">
@@ -221,58 +221,6 @@
     <!---------------------------------------------------------------------- PROMETHEUS PRODOTTI ------------------------------------------------------------------------------------------>
 
     <div id="itembar" class="toolbar bg-dark text-white">
-        <style>
-            .toolbar {
-                position: fixed;
-                bottom: 0;
-                right: 0;
-                width: 70%;
-                transform: translateX(100%);
-                transition: transform 0.2s ease;
-            }
-
-            .toolbar.expanded {
-                border-radius: 20px 0 0 0;
-                transform: translateX(0);
-            }
-
-            .toggle-button {
-                position: absolute;
-                left: -140px;
-                top: 10px;
-                cursor: pointer;
-                padding: 8px 15px;
-                background: #ff5758;
-                color: black;
-                border-radius: 4px;
-            }
-
-            .toolbar-content {
-                padding: 10px;
-            }
-
-            .clickable-row {
-                cursor: pointer;
-            }
-
-            .table-responsive {
-                height: 795px;
-                overflow-y: auto;
-            }
-
-            .table thead th {
-                position: sticky;
-                top: 0;
-                z-index: 2;
-            }
-
-            @media only screen and (max-width: 1440px) {
-                .table-responsive {
-                    height: 615px;
-                    overflow-y: auto;
-                }
-            }
-        </style>
         <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + Q }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
         <div class="toolbar-content">
             <div class="row">
@@ -433,58 +381,6 @@
 <?php elseif ($currentPage == 'collezioni.php') : ?>
     <!---------------------------------------------------------------------- PROMETHEUS COLLEZIONI ------------------------------------------------------------------------------------------>
     <div id="itembar" class="toolbar bg-dark text-white">
-        <style>
-            .toolbar {
-                position: fixed;
-                bottom: 0;
-                right: 0;
-                width: 70%;
-                transform: translateX(100%);
-                transition: transform 0.2s ease;
-            }
-
-            .toolbar.expanded {
-                border-radius: 20px 0 0 0;
-                transform: translateX(0);
-            }
-
-            .toggle-button {
-                position: absolute;
-                left: -140px;
-                top: 10px;
-                cursor: pointer;
-                padding: 8px 15px;
-                background: #ff5758;
-                color: black;
-                border-radius: 4px;
-            }
-
-            .toolbar-content {
-                padding: 10px;
-            }
-
-            .clickable-row {
-                cursor: pointer;
-            }
-
-            .table-responsive {
-                height: 795px;
-                overflow-y: auto;
-            }
-
-            .table thead th {
-                position: sticky;
-                top: 0;
-                z-index: 2;
-            }
-
-            @media only screen and (max-width: 1440px) {
-                .table-responsive {
-                    height: 615px;
-                    overflow-y: auto;
-                }
-            }
-        </style>
         <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + Q }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
         <div class="toolbar-content">
             <div class="row">

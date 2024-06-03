@@ -8,7 +8,7 @@ loggato()
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Support Hours</title>
+    <title>LinkBay - Assistenza & Supporto</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
@@ -24,7 +24,7 @@ loggato()
 
     <div class="container mt-5">
         <div class="p-3 mb-2 bg-light rounded-3 border d-flex justify-content-center align-items-center">
-            <h4>Your Hours Package</h4>
+            <h4>Il tuo Pacchetto Ore</h4>
         </div>
     </div>
 

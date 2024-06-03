@@ -8,7 +8,7 @@ loggato()
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Plan & Pricing</title>
+    <title>LinkBay - Piani & Prezzi</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
@@ -29,7 +29,7 @@ loggato()
         <?php 
         $licenza = 'in scadenza';
             if($licenza == 'valida'){echo  '<div class="alert alert-success" role="alert">Licenza Valida, rinnovare entro il </div>';}
-            else if ($licenza == 'in scadenza'){echo  '<div class="alert alert-warning fw-bold text-center" role="alert">* Price list valid until 30/06/2024 * </div>';}
+            else if ($licenza == 'in scadenza'){echo  '<div class="alert alert-warning fw-bold text-center" role="alert">* Listino valido fino al 30/06/2024 * </div>';}
             else{echo  '<div class="alert alert-danger" role="alert">Licenza Scaduta, rinnova ora.</div>';}
         ?>        
         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>

@@ -27,13 +27,13 @@ loggato();
 
         <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link" id="nav-visite-tab" data-bs-toggle="tab" data-bs-target="#nav-visite" type="button" role="tab" aria-controls="nav-visite" aria-selected="true">Visits</button>
+          <button class="nav-link" id="nav-visite-tab" data-bs-toggle="tab" data-bs-target="#nav-visite" type="button" role="tab" aria-controls="nav-visite" aria-selected="true">Visite</button>
 
-          <button class="nav-link active" id="nav-vendite-tab" data-bs-toggle="tab" data-bs-target="#nav-vendite" type="button" role="tab" aria-controls="nav-vendite" aria-selected="false">Sales</button>
+          <button class="nav-link active" id="nav-vendite-tab" data-bs-toggle="tab" data-bs-target="#nav-vendite" type="button" role="tab" aria-controls="nav-vendite" aria-selected="false">Vendite</button>
 
-          <button class="nav-link" id="nav-ordini-tab" data-bs-toggle="tab" data-bs-target="#nav-ordini" type="button" role="tab" aria-controls="nav-ordini" aria-selected="false">Orders</button>
+          <button class="nav-link" id="nav-ordini-tab" data-bs-toggle="tab" data-bs-target="#nav-ordini" type="button" role="tab" aria-controls="nav-ordini" aria-selected="false">Ordini</button>
           
-          <button class="nav-link" id="nav-clienti-tab" data-bs-toggle="tab" data-bs-target="#nav-clienti" type="button" role="tab" aria-controls="nav-clienti" aria-selected="false">Customers</button>
+          <button class="nav-link" id="nav-clienti-tab" data-bs-toggle="tab" data-bs-target="#nav-clienti" type="button" role="tab" aria-controls="nav-clienti" aria-selected="false">Clienti</button>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
@@ -61,7 +61,7 @@ loggato();
     
     <div class="p-3 mb-2 bg-light rounded-3 border">
         <div>
-            <h5>&nbsp; Available Technical/Support Hours</h5>
+            <h5>&nbsp; Ore assistenza tecnica disponibili</h5>
         </div>
         <?php stampaOreAssistenza();?>
         <div>

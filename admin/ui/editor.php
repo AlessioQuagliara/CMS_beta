@@ -621,7 +621,7 @@ editor.BlockManager.add('contact-form', {
         <h2 class="text-center">Contattaci</h2>
         <div class="row">
         <div class="col-md-6">
-        <form>
+        <form method="post" action="public/form">
         <div class="mb-3">
         <label for="name" class="form-label">Nome</label>
         <input type="text" class="form-control" id="name" placeholder="Il tuo nome">
@@ -629,6 +629,10 @@ editor.BlockManager.add('contact-form', {
         <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" id="email" placeholder="La tua email">
+        </div>
+        <div class="mb-3">
+        <label for="phone" class="form-label">Telefono</label>
+        <input type="phone" class="form-control" id="phone" placeholder="Il Tuo Telefono">
         </div>
         <div class="mb-3">
         <label for="message" class="form-label">Messaggio</label>

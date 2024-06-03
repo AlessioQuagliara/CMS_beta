@@ -67,12 +67,12 @@
                     <input class="form-control" id="searchInput" type="text" placeholder="Cerca..." aria-label="Cerca">
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-sm btn-outline-danger" title="Aggiungi Ordine Manuale { CTRL + N }" onclick="addOrder()"><i class="fa-solid fa-plus"></i></button>
-                    <button class="btn btn-sm btn-outline-success" title="Esporta in Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
-                    <button class="btn btn-sm btn-outline-light" title="Seleziona Tutte le Righe { CTRL + A }" onclick="setSelectedTrueForAll()"><i class="fa-regular fa-square-check"></i></button>
-                    <button class="btn btn-sm btn-outline-primary" title="Evadi Selezionati { CTRL + M }" onclick="evadiSelezionati()"><i class="fa-solid fa-boxes-packing"></i></button>
-                    <button class="btn btn-sm btn-outline-secondary" title="Aggiorna pagina { CTRL + R }" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate"></i></button>
-                    <button class="btn btn-sm btn-outline-info" title="Tutorial & Istruzioni" onclick=""><i class="fa-solid fa-circle-info"></i></button>
+                    <button class="btn btn-sm btn-outline-danger" title="Add Manual Order { CTRL + N }" onclick="addOrder()"><i class="fa-solid fa-plus"></i></button>
+                    <button class="btn btn-sm btn-outline-success" title="Export to Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+                    <button class="btn btn-sm btn-outline-light" title="Select All Rows { CTRL + A }" onclick="setSelectedTrueForAll()"><i class="fa-regular fa-square-check"></i></button>
+                    <button class="btn btn-sm btn-outline-primary" title="Fulfill Selected { CTRL + M }" onclick="evadiSelezionati()"><i class="fa-solid fa-boxes-packing"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary" title="Refresh page { CTRL + R }" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate"></i></button>
+                    <button class="btn btn-sm btn-outline-info" title="Tutorials & Instructions" onclick=""><i class="fa-solid fa-circle-info"></i></button>
                 </div>
                 <div class="col-md-2">
                     <select class="form-select" aria-label="Selezione">

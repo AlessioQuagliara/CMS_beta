@@ -14,7 +14,7 @@ if ($risultato) { // Controlla se c'è un risultato
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Pagamenti</title>
+    <title>LinkBay - Payments</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
@@ -31,7 +31,7 @@ if ($risultato) { // Controlla se c'è un risultato
 
             <div class="p-3 mb-2 bg-light rounded-3 border">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h4>Imposta i Metodi di Pagamento</h4>
+                    <h4>Set Up Payment Methods</h4>
                 </div>
             </div>
             <?php
@@ -46,8 +46,8 @@ if ($risultato) { // Controlla se c'è un risultato
                 // Itera attraverso ogni riga risultato
                 while($row = $result->fetch_assoc()) {
                     $statusBadge = $row['status'] == 'active' ? 'bg-success' : 'bg-danger';
-                    $statusText = $row['status'] == 'active' ? 'Attivo' : 'Disattivo';
-                    $buttonText = $row['status'] == 'active' ? 'Gestisci' : 'Imposta';
+                    $statusText = $row['status'] == 'active' ? 'Active' : 'Deactive';
+                    $buttonText = $row['status'] == 'active' ? 'Manage' : 'Set Up';
                     if ($row['provider'] == 'Stripe'){$icon = '<i class="fa-brands fa-cc-stripe fa-3x" style="color: #635bff;"></i>';}
                     else if ($row['provider'] == 'PayPal'){$icon = '<i class="fa-brands fa-cc-paypal fa-3x" style="color: #003087;"></i>';}
                     else if ($row['provider'] == 'Bonifico'){$icon = '<i class="fa-solid fa-building-columns fa-3x" style="color: #dcdde1;"></i>';}
@@ -57,7 +57,7 @@ if ($risultato) { // Controlla se c'è un risultato
                     echo "<p class='d-none'>{$row['provider']}</p>";
                     echo $icon; 
                     echo "<span class='badge {$statusBadge}'>{$statusText}</span>";
-                    echo "<button class='btn btn-outline-secondary' type='button' data-value='{$row['provider']}' onclick='apriModifica(this)'>{$buttonText} pagamenti con {$row['provider']}</button>";
+                    echo "<button class='btn btn-outline-secondary' type='button' data-value='{$row['provider']}' onclick='apriModifica(this)'>{$buttonText} payments with {$row['provider']}</button>";
                     echo "</div>";
                 }
             } else {

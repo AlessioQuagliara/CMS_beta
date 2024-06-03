@@ -26,8 +26,8 @@ loggato()
            
                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                    <div class="input-group">
-                       <input class="form-control" id="searchInput" type="text" placeholder="Cerca..." aria-label="Cerca">
-                       <button class="btn btn-sm btn-outline-secondary" type="button" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i>&nbsp; Esporta Tabella</button>&nbsp;
+                       <input class="form-control" id="searchInput" type="text" placeholder="Find..." aria-label="Cerca">
+                       <button class="btn btn-sm btn-outline-secondary" type="button" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i>&nbsp; Export to Excel</button>&nbsp;
                    </div>
                </div>
        

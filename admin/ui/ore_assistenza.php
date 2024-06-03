@@ -8,7 +8,7 @@ loggato()
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - Ore Assistenza</title>
+    <title>LinkBay - Support Hours</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
@@ -24,7 +24,7 @@ loggato()
 
     <div class="container mt-5">
         <div class="p-3 mb-2 bg-light rounded-3 border d-flex justify-content-center align-items-center">
-            <h4>Il Tuo Pacchetto Ore</h4>
+            <h4>Your Hours Package</h4>
         </div>
     </div>
 
@@ -36,9 +36,9 @@ loggato()
     
     <div class="container mt-2">
         <div class="p-3 mb-2 bg-light rounded-3 border d-flex justify-content-center">
-            <a href="https://billing.stripe.com/p/login/28obLQcUtdo27Ys144" class="btn btn-warning mx-2"><i class="fa-solid fa-dice"></i> Cambia piano H/assistenza</a>
-            <a href="phone:393899657115" class="btn btn-primary mx-2"><i class="fa-solid fa-headphones"></i> Parla con un consulente</a>
-            <a href="https://api.whatsapp.com/send/?phone=3899657115&text=Ciao%21+Ho+bisogno+di+aiuto+su+questo..&type=phone_number&app_absent=0" class="btn btn-success mx-2"><i class="fa-brands fa-whatsapp"></i> Scrivici su Whatsapp</a>
+            <a href="https://billing.stripe.com/p/login/28obLQcUtdo27Ys144" class="btn btn-warning mx-2"><i class="fa-solid fa-dice"></i> Change H/support plan</a>
+            <a href="phone:393899657115" class="btn btn-primary mx-2"><i class="fa-solid fa-headphones"></i> Speak with a consultant</a>
+            <a href="https://api.whatsapp.com/send/?phone=3899657115&text=Ciao%21+Ho+bisogno+di+aiuto+su+questo..&type=phone_number&app_absent=0" class="btn btn-success mx-2"><i class="fa-brands fa-whatsapp"></i> Message us on WhatsApp</a>
         </div>
     </div>
 

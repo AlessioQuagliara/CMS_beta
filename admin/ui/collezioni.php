@@ -26,20 +26,6 @@ loggato()
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
-        <!-- BARRA STRUMENTI -->
-
-        <!--         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <div class="input-group">
-                <input class="form-control" id="searchInput" type="text" placeholder="Cerca..." aria-label="Cerca">
-                <button class="btn btn-sm btn-outline-secondary" type="button" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i>&nbsp; Esporta Tabella</button>&nbsp;
-                <form action="../ui-gestisci/aggiunta_collezione.php" method="POST" style="display: inline;">&nbsp;
-                    <input type="hidden" name="action" value="addColl"> Campo nascosto per controllare l'azione nel backend
-                    <button type="submit" class="btn btn-sm btn-outline-dark">
-                        <i class="fa-solid fa-plus"></i>&nbsp; Aggiungi Collezione
-                    </button>
-                </form>
-            </div>
-        </div> -->
         <!-- TABELLA CONTENUTI -->
 
         <?php echo listaCollezioni(); ?>

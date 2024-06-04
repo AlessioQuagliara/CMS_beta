@@ -9,9 +9,9 @@
 </style>
 <div class="mb-2 bg-light rounded-3 d-flex justify-content-center align-items-center centered-fixed border">
     <span>
-        <h4>Modifica <?php echo $namePage; ?>&nbsp; &nbsp; &nbsp; </h4> 
+        <h4>Modifica <?php echo $namePage; ?>&nbsp; &nbsp; &nbsp; </h4>
     </span>
-    <a href="<?php echo htmlspecialchars("../../" . $visualizzaPagina); ?>" target="__blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-eye"></i> Visualizza online</a>&nbsp; 
+    <a href="<?php echo htmlspecialchars("../../" . $visualizzaPagina); ?>" target="__blank" class="btn btn-secondary btn-sm"><i class="fa-solid fa-eye"></i> Visualizza online</a>&nbsp;
     <span>
         <button id="save-btn" class="btn btn-success btn-sm"><i class="fa-solid fa-floppy-disk"></i> Salva</button>
         <button id="delete-btn" class="btn btn-danger btn-sm"><i class="fa-solid fa-floppy-disk"></i> Cancella tutto</button>
@@ -48,9 +48,9 @@
     var savedContent = <?php echo json_encode($savedContent); ?>;
     if (savedContent) {
         editor.setComponents(savedContent);
-    } 
-    
-    if( visualizzaPagina === 'footer'){
+    }
+
+    if (visualizzaPagina === 'footer') {
         editor.BlockManager.add('pretty-footer', {
             label: 'Pretty Footer',
             content: `
@@ -155,10 +155,10 @@
                         `,
             category: 'Footer',
         });
-        
+
         editor.BlockManager.add('complex-footer', {
-            label: 'Complex Footer',
-            content: `
+                label: 'Complex Footer',
+                content: `
             <footer class="bg-dark text-white text-center text-lg-start">
                 <div class="container p-4">
                     <section class="mb-4">
@@ -227,25 +227,25 @@
                 </div>
             </footer>
             `,
-            category: "Footer",
-        }),
-        editor.BlockManager.add('footer-3', {
-            label: 'Simple Footer',
-            content: `
+                category: "Footer",
+            }),
+            editor.BlockManager.add('footer-3', {
+                label: 'Simple Footer',
+                content: `
                 <footer class="bg-light text-center text-lg-start">
                     <div class="text-center p-3">
                     &copy; 2024 LinkBay. Tutti i diritti riservati.
                     </div>
                 </footer>
         `,
-            category: 'Footer',
-        });
-    } else if( visualizzaPagina === 'navbar'){
-    // Navbar --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                category: 'Footer',
+            });
+    } else if (visualizzaPagina === 'navbar') {
+        // Navbar --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    editor.BlockManager.add('bootstrap-navbar', {
-        label: 'Navbar Stile 1',
-        content: `
+        editor.BlockManager.add('bootstrap-navbar', {
+            label: 'Navbar Stile 1',
+            content: `
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Brand</a>
@@ -282,11 +282,11 @@
             </style>
         </nav>
                   `,
-        category: 'Navbar',
-    });
-    editor.BlockManager.add('bootstrap-navbar-logo', {
-        label: 'Navbar Stile 2',
-        content: `
+            category: 'Navbar',
+        });
+        editor.BlockManager.add('bootstrap-navbar-logo', {
+            label: 'Navbar Stile 2',
+            content: `
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
@@ -312,11 +312,11 @@
                 </style>
             </nav>
                 `,
-        category: 'Navbar',
-    });
-    editor.BlockManager.add('navbar-with-logo', {
-        label: 'Navbar con Logo',
-        content: `
+            category: 'Navbar',
+        });
+        editor.BlockManager.add('navbar-with-logo', {
+            label: 'Navbar con Logo',
+            content: `
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                 <div class="container">
                     <a class="navbar-brand" href="#">
@@ -350,11 +350,11 @@
                 </style>
             </nav>
               `,
-        category: 'Navbar',
-    });
-    editor.BlockManager.add('navbar-with-centered-logo', {
-        label: 'Navbar con Logo Centrale',
-        content: `
+            category: 'Navbar',
+        });
+        editor.BlockManager.add('navbar-with-centered-logo', {
+            label: 'Navbar con Logo Centrale',
+            content: `
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div class="container">
                 <div class="d-flex justify-content-center">
@@ -390,11 +390,11 @@
             </style>
         </nav>
             `,
-        category: 'Navbar',
-    });
-    editor.BlockManager.add('navbar-with-large-logo', {
-        label: 'Navbar con Logo Grande',
-        content: `
+            category: 'Navbar',
+        });
+        editor.BlockManager.add('navbar-with-large-logo', {
+            label: 'Navbar con Logo Grande',
+            content: `
         <!-- Contenitore per logo e navbar -->
             <div class="fixed-top bg-light">
                 <div class="container d-flex justify-content-center py-3">
@@ -439,13 +439,13 @@
                 </style>
             </div>
           `,
-        category: 'Navbar',
-    });
+            category: 'Navbar',
+        });
     } else {
-// Sezioni Personalizzate ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-editor.BlockManager.add('hero-section', {
-        label: 'Hero',
-        content: `
+        // Sezioni Personalizzate ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        editor.BlockManager.add('hero-section', {
+            label: 'Hero',
+            content: `
         <section class="hero-section py-5 bg-light text-center">
         <div class="container">
         <h1 class="display-4">Benvenuto su LinkBay!</h1>
@@ -454,11 +454,11 @@ editor.BlockManager.add('hero-section', {
         </div>
         </section>
         `,
-        category: 'Sezioni',
-    });
-editor.BlockManager.add('testimonials', {
-        label: 'Testimonianze',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('testimonials', {
+            label: 'Testimonianze',
+            content: `
         <section class="testimonials-section py-5 bg-dark text-white">
         <div class="container">
         <h2 class="text-center">Cosa dicono di noi</h2>
@@ -481,11 +481,11 @@ editor.BlockManager.add('testimonials', {
         </div>
         </section>
         `,
-        category: 'Sezioni',
-    });
-editor.BlockManager.add('grid-section', {
-        label: 'Contenitore Gliglia',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('grid-section', {
+            label: 'Contenitore Gliglia',
+            content: `
         <section class="grid-section py-5">
         <div class="container">
           <div class="row">
@@ -520,11 +520,11 @@ editor.BlockManager.add('grid-section', {
         </div>
       </section>
         `,
-        category: 'Sezioni',
-    });
-editor.BlockManager.add('services-section', {
-        label: 'Servizi',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('services-section', {
+            label: 'Servizi',
+            content: `
         <section class="services-section py-5">
         <div class="container">
         <h2 class="text-center">I nostri servizi</h2>
@@ -554,11 +554,11 @@ editor.BlockManager.add('services-section', {
         </div>
         </section>
         `,
-        category: 'Sezioni',
-    });
-editor.BlockManager.add('portfolio', {
-        label: 'Portfolio',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('portfolio', {
+            label: 'Portfolio',
+            content: `
         <section class="portfolio-section py-5 bg-light">
         <div class="container">
         <h2 class="text-center">Il nostro portfolio</h2>
@@ -588,11 +588,11 @@ editor.BlockManager.add('portfolio', {
         </div>
         </section>
         `,
-        category: 'Sezioni',
-    });
-editor.BlockManager.add('contact-form', {
-        label: 'Contattaci',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('contact-form', {
+            label: 'Contattaci',
+            content: `
         <section class="contact-section py-5 bg-dark text-white">
         <div class="container">
         <h2 class="text-center">Contattaci</h2>
@@ -628,11 +628,11 @@ editor.BlockManager.add('contact-form', {
         </div>
         </section>
         `,
-        category: 'Sezioni',
-    });
-    editor.BlockManager.add('faq-section', {
-        label: 'Sezione FAQ',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('faq-section', {
+            label: 'Sezione FAQ',
+            content: `
         <section class="faq-section py-5">
         <div class="container">
         <h2 class="text-center">Domande Frequenti</h2>
@@ -677,11 +677,11 @@ editor.BlockManager.add('contact-form', {
             </div>
             </section>
         `,
-        category: 'Sezioni',
-    });
-    editor.BlockManager.add('team-section', {
-        label: 'Team',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('team-section', {
+            label: 'Team',
+            content: `
         <section class="team-section py-5 bg-light">
         <div class="container">
         <h2 class="text-center">Il nostro Team</h2>
@@ -705,10 +705,11 @@ editor.BlockManager.add('contact-form', {
         </div>
         </section>
         `,
-        category: 'Sezioni',
-    });    editor.BlockManager.add('blog-section', {
-        label: 'Blog',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('blog-section', {
+            label: 'Blog',
+            content: `
         <section class="blog-section py-5">
         <div class="container">
         <h2 class="text-center">Ultimi Articoli</h2>
@@ -747,11 +748,11 @@ editor.BlockManager.add('contact-form', {
         </div>
         </section>
         `,
-        category: 'Sezioni',
-    });    
-    editor.BlockManager.add('cta-section', {
-        label: 'Call To Action',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('cta-section', {
+            label: 'Call To Action',
+            content: `
         <section class="cta-section py-5 bg-primary text-white text-center">
         <div class="container">
         <h2>Non perdere l'occasione!</h2>
@@ -760,11 +761,11 @@ editor.BlockManager.add('contact-form', {
         </div>
         </section>
         `,
-        category: 'Sezioni',
-    });
-    editor.BlockManager.add('customer-section', {
-        label: 'Clienti',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('customer-section', {
+            label: 'Clienti',
+            content: `
         <section class="clients-section py-5">
         <div class="container">
         <h2 class="text-center">I nostri clienti</h2>
@@ -791,11 +792,11 @@ editor.BlockManager.add('contact-form', {
         </div>
         </section>
         `,
-        category: 'Sezioni',
-    });
-    editor.BlockManager.add('maps-section', {
-        label: 'Maps',
-        content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('maps-section', {
+            label: 'Maps',
+            content: `
         <section class="map-section py-5">
         <div class="container">
         <h2 class="text-center">La nostra sede</h2>
@@ -809,11 +810,11 @@ editor.BlockManager.add('contact-form', {
             </div>
             </section>
         `,
-        category: 'Sezioni',
-    });
-    editor.BlockManager.add('popular-products-section', {
-    label: 'Prodotti Popolari',
-    content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('popular-products-section', {
+            label: 'Prodotti Popolari',
+            content: `
     <section class="popular-products-section py-5">
         <div class="container">
             <h2 class="text-center">Prodotti Popolari</h2>
@@ -849,11 +850,11 @@ editor.BlockManager.add('contact-form', {
         </div>
     </section>
     `,
-    category: 'Sezioni',
-});
-editor.BlockManager.add('special-offers-section', {
-    label: 'Offerte Speciali',
-    content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('special-offers-section', {
+            label: 'Offerte Speciali',
+            content: `
     <section class="special-offers-section py-5">
         <div class="container">
             <h2 class="text-center">Offerte Speciali</h2>
@@ -889,11 +890,11 @@ editor.BlockManager.add('special-offers-section', {
         </div>
     </section>
     `,
-    category: 'Sezioni',
-}); 
-editor.BlockManager.add('services2-section', {
-    label: 'Servizi 2',
-    content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('services2-section', {
+            label: 'Servizi 2',
+            content: `
     <section class="services-section py-5 bg-light">
         <div class="container">
             <h2 class="text-center">I Nostri Servizi</h2>
@@ -926,11 +927,11 @@ editor.BlockManager.add('services2-section', {
         </div>
     </section>
     `,
-    category: 'Sezioni',
-});
-editor.BlockManager.add('carousel-section', {
-    label: 'Carosello',
-    content: `
+            category: 'Sezioni',
+        });
+        editor.BlockManager.add('carousel-section', {
+            label: 'Carosello',
+            content: `
     <section class="carousel-section">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -972,43 +973,43 @@ editor.BlockManager.add('carousel-section', {
         </div>
     </section>
     `,
-    category: 'Sezioni',
-});
-// Blocchi Generici ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    editor.BlockManager.add('h1', {
-        label: 'Titolo h1',
-        content: '<h1>Titolo</h1>',
-        category: 'Elementi',
-    });
-    editor.BlockManager.add('h2', {
-        label: 'Titolo h2',
-        content: '<h2>Titolo</h2>',
-        category: 'Elementi',
-    });
-    editor.BlockManager.add('h4', {
-        label: 'Titolo h4',
-        content: '<h4>Titolo</h4>',
-        category: 'Elementi',
-    });
-    editor.BlockManager.add('p', {
-        label: 'Paragrafo',
-        content: '<p>Paragrafo</p>',
-        category: 'Elementi',
-    });
-    editor.BlockManager.add('button', {
-        label: 'Pulsante',
-        content: '<button type="button" class="btn btn-dark">Pulsante</button>',
-        category: 'Elementi',
-    });
-    editor.BlockManager.add('image', {
-        label: 'Immagine',
-        content: '<img src="" alt="">',
-        category: 'Elementi',
-    });
-// Blocchi Sezioni Vuote --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
-editor.BlockManager.add('one-column-section', {
-    label: 'Una Colonna',
-    content: `
+            category: 'Sezioni',
+        });
+        // Blocchi Generici ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        editor.BlockManager.add('h1', {
+            label: 'Titolo h1',
+            content: '<h1>Titolo</h1>',
+            category: 'Elementi',
+        });
+        editor.BlockManager.add('h2', {
+            label: 'Titolo h2',
+            content: '<h2>Titolo</h2>',
+            category: 'Elementi',
+        });
+        editor.BlockManager.add('h4', {
+            label: 'Titolo h4',
+            content: '<h4>Titolo</h4>',
+            category: 'Elementi',
+        });
+        editor.BlockManager.add('p', {
+            label: 'Paragrafo',
+            content: '<p>Paragrafo</p>',
+            category: 'Elementi',
+        });
+        editor.BlockManager.add('button', {
+            label: 'Pulsante',
+            content: '<button type="button" class="btn btn-dark">Pulsante</button>',
+            category: 'Elementi',
+        });
+        editor.BlockManager.add('image', {
+            label: 'Immagine',
+            content: '<img src="" alt="">',
+            category: 'Elementi',
+        });
+        // Blocchi Sezioni Vuote --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
+        editor.BlockManager.add('one-column-section', {
+            label: 'Una Colonna',
+            content: `
     <section class="one-column-section py-5">
         <div class="container">
             <div class="row">
@@ -1022,11 +1023,11 @@ editor.BlockManager.add('one-column-section', {
         </div>
     </section>
     `,
-    category: 'sezioni vuote',
-});
-editor.BlockManager.add('two-column-section', {
-    label: 'Due Colonne',
-    content: `
+            category: 'sezioni vuote',
+        });
+        editor.BlockManager.add('two-column-section', {
+            label: 'Due Colonne',
+            content: `
     <section class="two-column-section py-5">
         <div class="container">
             <div class="row">
@@ -1046,11 +1047,11 @@ editor.BlockManager.add('two-column-section', {
         </div>
     </section>
     `,
-    category: 'sezioni vuote',
-});
-editor.BlockManager.add('three-column-section', {
-    label: 'Tre Colonne',
-    content: `
+            category: 'sezioni vuote',
+        });
+        editor.BlockManager.add('three-column-section', {
+            label: 'Tre Colonne',
+            content: `
     <section class="three-column-section py-5">
         <div class="container">
             <div class="row">
@@ -1076,11 +1077,11 @@ editor.BlockManager.add('three-column-section', {
         </div>
     </section>
     `,
-    category: 'sezioni vuote',
-});
-editor.BlockManager.add('four-column-section', {
-    label: 'Quattro Colonne',
-    content: `
+            category: 'sezioni vuote',
+        });
+        editor.BlockManager.add('four-column-section', {
+            label: 'Quattro Colonne',
+            content: `
     <section class="four-column-section py-5">
         <div class="container">
             <div class="row">
@@ -1112,11 +1113,11 @@ editor.BlockManager.add('four-column-section', {
         </div>
     </section>
     `,
-    category: 'sezioni vuote',
-});
-editor.BlockManager.add('mixed-column-section', {
-    label: 'Colonne Miste',
-    content: `
+            category: 'sezioni vuote',
+        });
+        editor.BlockManager.add('mixed-column-section', {
+            label: 'Colonne Miste',
+            content: `
     <section class="mixed-column-section py-5">
         <div class="container">
             <div class="row">
@@ -1142,12 +1143,12 @@ editor.BlockManager.add('mixed-column-section', {
         </div>
     </section>
     `,
-    category: 'sezioni vuote',
-});
-// Blocchi Negozio Online --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            category: 'sezioni vuote',
+        });
+        // Blocchi Negozio Online --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         editor.BlockManager.add('bootstrap-navbar', {
-        label: 'Prodotto stile 1',
-        content: `
+            label: 'Prodotto stile 1',
+            content: `
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-6">
@@ -1162,70 +1163,71 @@ editor.BlockManager.add('mixed-column-section', {
                     </div>
                 </div>
                 <div class="col-md-6"> <!-- TRASFORMA IN UN FORM -->
-                    <h2>{{ProductTitle}}</h2>
-                    <p>{{ProductCollection}}</p>
-                    <p class="text-muted">€ {{ProductPrice}}</p>
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="badge bg-warning text-dark">4.5 di 5 stelle</span>
-                        <span class="ms-2">(722 recensioni)</span>
-                    </div>
-                    <div class="mb-3">
-                        <p><span class="badge text-bg-secondary">{{ProductVariant}}</span></p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantità</label>
-                        <input type="number" class="form-control" id="quantity" min="1" value="1">
-                    </div>
-                    <button class="btn btn-dark w-100 mb-2">Acquista Ora</button>
-                    <button class="btn btn-outline-dark w-100 mb-4">Aggiungi al carrello</button>
-                    
-                    <div class="accordion" id="productDetails">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Dettagli Prodotto
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productDetails">
-                                <div class="accordion-body">
-                                    <p>{{ProductDescription}}</p>
+                    <form method="POST" action="public/aggiunta_carrello.php">
+                        <h2>{{ProductTitle}}</h2>
+                        <p>{{ProductCollection}}</p>
+                        <p class="text-muted">€ {{ProductPrice}}</p>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-warning text-dark">4.5 di 5 stelle</span>
+                            <span class="ms-2">(722 recensioni)</span>
+                        </div>
+                        <div class="mb-3">
+                            <p><span class="badge text-bg-secondary">{{ProductVariant}}</span></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantità</label>
+                            <input type="number" name="quantity" class="form-control" id="quantity" min="1" value="1">
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100 mb-2">Acquista Ora</button>
+                        <button type="submit" class="btn btn-outline-dark w-100 mb-4">Aggiungi al carrello</button>
+                    </form>
+                        <div class="accordion" id="productDetails">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Dettagli Prodotto
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productDetails">
+                                    <div class="accordion-body">
+                                        <p>{{ProductDescription}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Stylist Notes
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#productDetails">
+                                    <div class="accordion-body">
+                                        <p>Notes from the stylist...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Size & Fit
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#productDetails">
+                                    <div class="accordion-body">
+                                        <p>Information about the size and fit...</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Stylist Notes
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#productDetails">
-                                <div class="accordion-body">
-                                    <p>Notes from the stylist...</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Size & Fit
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#productDetails">
-                                <div class="accordion-body">
-                                    <p>Information about the size and fit...</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
             </div>
         </div>
                   `,
-        category: 'Negozio Online',
-    });
-    editor.BlockManager.add('featured-products-section', {
-    label: 'Prodotti in Primo Piano',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('featured-products-section', {
+            label: 'Prodotti in Primo Piano',
+            content: `
     <section class="featured-products-section py-5">
     <div class="container">
     <h2 class="text-center">Prodotti in Primo Piano</h2>
@@ -1258,11 +1260,11 @@ editor.BlockManager.add('mixed-column-section', {
     </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('new-arrivals-section', {
-    label: 'Nuovi Arrivi',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('new-arrivals-section', {
+            label: 'Nuovi Arrivi',
+            content: `
     <section class="new-arrivals-section py-5">
     <div class="container">
     <h2 class="text-center">Nuovi Arrivi</h2>
@@ -1295,11 +1297,11 @@ editor.BlockManager.add('new-arrivals-section', {
     </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('special-offers-section', {
-    label: 'Offerte Speciali',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('special-offers-section', {
+            label: 'Offerte Speciali',
+            content: `
     <section class="special-offers-section py-5">
     <div class="container">
     <h2 class="text-center">Offerte Speciali</h2>
@@ -1332,11 +1334,11 @@ editor.BlockManager.add('special-offers-section', {
     </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('customer-reviews-section', {
-    label: 'Recensioni dei Clienti',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('customer-reviews-section', {
+            label: 'Recensioni dei Clienti',
+            content: `
     <section class="customer-reviews-section py-5">
     <div class="container">
     <h2 class="text-center">Recensioni dei Clienti</h2>
@@ -1363,11 +1365,11 @@ editor.BlockManager.add('customer-reviews-section', {
     </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('product-categories-section', {
-    label: 'Categorie di Prodotti',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('product-categories-section', {
+            label: 'Categorie di Prodotti',
+            content: `
     <section class="product-categories-section py-5">
     <div class="container">
     <h2 class="text-center">Categorie di Prodotti</h2>
@@ -1404,11 +1406,11 @@ editor.BlockManager.add('product-categories-section', {
     </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('newsletter-signup-section', {
-    label: 'Registrazione alla Newsletter',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('newsletter-signup-section', {
+            label: 'Registrazione alla Newsletter',
+            content: `
     <section class="newsletter-signup-section py-5 bg-secondary text-white text-center">
     <div class="container">
     <h2>Iscriviti alla nostra Newsletter</h2>
@@ -1422,11 +1424,11 @@ editor.BlockManager.add('newsletter-signup-section', {
     </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('shipping-returns-section', {
-    label: 'Spedizioni e Resi',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('shipping-returns-section', {
+            label: 'Spedizioni e Resi',
+            content: `
     <section class="shipping-returns-section py-5">
     <div class="container">
     <h2 class="text-center">Spedizioni e Resi</h2>
@@ -1443,11 +1445,11 @@ editor.BlockManager.add('shipping-returns-section', {
     </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('product-header-section', {
-    label: 'Intestazione del Prodotto',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('product-header-section', {
+            label: 'Intestazione del Prodotto',
+            content: `
     <section class="product-header-section py-5">
         <div class="container">
             <div class="row">
@@ -1459,11 +1461,11 @@ editor.BlockManager.add('product-header-section', {
         </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('product-images-section', {
-    label: 'Immagini del Prodotto',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('product-images-section', {
+            label: 'Immagini del Prodotto',
+            content: `
     <section class="product-images-section py-5">
         <div class="container">
             <div class="row">
@@ -1477,11 +1479,11 @@ editor.BlockManager.add('product-images-section', {
         </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('product-description-section', {
-    label: 'Descrizione del Prodotto',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('product-description-section', {
+            label: 'Descrizione del Prodotto',
+            content: `
     <section class="product-description-section py-5">
         <div class="container">
             <div class="row">
@@ -1493,11 +1495,11 @@ editor.BlockManager.add('product-description-section', {
         </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('technical-features-section', {
-    label: 'Caratteristiche Tecniche',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('technical-features-section', {
+            label: 'Caratteristiche Tecniche',
+            content: `
     <section class="technical-features-section py-5">
         <div class="container">
             <div class="row">
@@ -1513,11 +1515,11 @@ editor.BlockManager.add('technical-features-section', {
         </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('cart-section', {
-    label: 'Carrello',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('cart-section', {
+            label: 'Carrello',
+            content: `
     <section class="cart-section py-5">
         <div class="container mt-5">
             <h2 class="mb-4">Your Shopping Cart</h2>
@@ -1588,11 +1590,11 @@ editor.BlockManager.add('cart-section', {
         </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('customer-reviews-section', {
-    label: 'Recensioni dei Clienti',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('customer-reviews-section', {
+            label: 'Recensioni dei Clienti',
+            content: `
     <section class="customer-reviews-section py-5">
         <div class="container">
             <h2 class="text-center">Recensioni dei Clienti</h2>
@@ -1619,11 +1621,11 @@ editor.BlockManager.add('customer-reviews-section', {
         </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('faq-section', {
-    label: 'Domande Frequenti',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('faq-section', {
+            label: 'Domande Frequenti',
+            content: `
     <section class="faq-section py-5">
         <div class="container">
             <h2 class="text-center">Domande Frequenti</h2>
@@ -1672,11 +1674,11 @@ editor.BlockManager.add('faq-section', {
         </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-editor.BlockManager.add('three-images-description-section', {
-    label: '3 Immagini con Descrizioni',
-    content: `
+            category: 'Negozio Online',
+        });
+        editor.BlockManager.add('three-images-description-section', {
+            label: '3 Immagini con Descrizioni',
+            content: `
     <section class="three-images-description-section py-5">
         <div class="container">
             <div class="row text-center">
@@ -1696,9 +1698,9 @@ editor.BlockManager.add('three-images-description-section', {
         </div>
     </section>
     `,
-    category: 'Negozio Online',
-});
-}
+            category: 'Negozio Online',
+        });
+    }
 </script>
 
 <!-- SCRIPT PER IL SALVATAGGIO -->
@@ -1714,62 +1716,61 @@ editor.BlockManager.add('three-images-description-section', {
     }
 
     function showAlert(title, text, icon, dangerMode = false, callback = null) {
-    swal({
-        title: title,
-        text: text,
-        icon: icon,
-        buttons: true,
-        dangerMode: dangerMode,
-    }).then((willClose) => {
-        if (willClose) {
-            if (callback) {
-                callback();
-            } else {
-                location.reload(); // Aggiorna la pagina
-            }
-        }
-    });
-}
-
-$(document).ready(function() {
-    $('#save-btn').click(function() {
-        var editorContent = editor.getHtml() + '<style>' + editor.getCss() + '</style>';
-        editorContent = cleanContent(editorContent);
-        var pageName = "<?php echo $namePage; ?>"; 
-
-        $.ajax({
-            type: "POST",
-            url: "../ui-gestisci/save_script.php",
-            data: {
-                namePage: pageName,
-                content: editorContent
-            },
-            success: function(data) {
-                showAlert("Pagina Salvata", "La tua pagina è stata salvata e le modifiche sono ora visibili.", "success");
-            },
-            error: function(xhr, status, error) {
-                showAlert("Errore", "C'è stato un errore imprevisto nella richiesta.", "error", true);
+        swal({
+            title: title,
+            text: text,
+            icon: icon,
+            buttons: true,
+            dangerMode: dangerMode,
+        }).then((willClose) => {
+            if (willClose) {
+                if (callback) {
+                    callback();
+                } else {
+                    location.reload(); // Aggiorna la pagina
+                }
             }
         });
-    });
+    }
 
-    $('#delete-btn').click(function() {
-        var pageName = "<?php echo $namePage; ?>"; 
+    $(document).ready(function() {
+        $('#save-btn').click(function() {
+            var editorContent = editor.getHtml() + '<style>' + editor.getCss() + '</style>';
+            editorContent = cleanContent(editorContent);
+            var pageName = "<?php echo $namePage; ?>";
 
-        $.ajax({
-            type: "POST",
-            url: "../ui-gestisci/delete_script.php", 
-            data: {
-                namePage: pageName
-            },
-            success: function(data) {
-                showAlert("Pagina Cancellata", "La tua pagina è stata cancellata con successo.", "success");
-            },
-            error: function(xhr, status, error) {
-                showAlert("Errore", "C'è stato un errore imprevisto nella richiesta.", "error", true);
-            }
+            $.ajax({
+                type: "POST",
+                url: "../ui-gestisci/save_script.php",
+                data: {
+                    namePage: pageName,
+                    content: editorContent
+                },
+                success: function(data) {
+                    showAlert("Pagina Salvata", "La tua pagina è stata salvata e le modifiche sono ora visibili.", "success");
+                },
+                error: function(xhr, status, error) {
+                    showAlert("Errore", "C'è stato un errore imprevisto nella richiesta.", "error", true);
+                }
+            });
+        });
+
+        $('#delete-btn').click(function() {
+            var pageName = "<?php echo $namePage; ?>";
+
+            $.ajax({
+                type: "POST",
+                url: "../ui-gestisci/delete_script.php",
+                data: {
+                    namePage: pageName
+                },
+                success: function(data) {
+                    showAlert("Pagina Cancellata", "La tua pagina è stata cancellata con successo.", "success");
+                },
+                error: function(xhr, status, error) {
+                    showAlert("Errore", "C'è stato un errore imprevisto nella richiesta.", "error", true);
+                }
+            });
         });
     });
-});
-
 </script>

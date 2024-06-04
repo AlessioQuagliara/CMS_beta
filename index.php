@@ -20,12 +20,12 @@ if (!file_exists('conn.php')) {
             exit();
         }
     } else {
-        // Contenuto della home page
-        $page = [
-            'title' => 'Home',
-            'description' => 'Benvenuto nella homepage.',
-            'keywords' => 'home, benvenuto'
-        ];
+        $slug = 'home';
+        $stmt = $conn->prepare("SELECT * FROM seo WHERE slug = ?");
+        $stmt->bind_param('s', $slug);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $page = $result->fetch_assoc();
     }
 }
 ?>

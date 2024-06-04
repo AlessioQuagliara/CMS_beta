@@ -27,7 +27,7 @@
     var editor = grapesjs.init({
         container: '#base',
         fromElement: true,
-        height: '900px',
+        height: '1080px',
         width: '100%',
         storageManager: false,
         plugins: ['gjs-preset-webpage'],

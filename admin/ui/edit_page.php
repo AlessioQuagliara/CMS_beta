@@ -46,18 +46,10 @@ $conn->close();
 </head>
 <body style="background-color: #f1f1f1;">
     
-    <?php
-    $sidebar_cate = 'negozio'; 
-    $currentPage = basename($_SERVER['PHP_SELF']);
-    include '../materials/sidebar.php'; 
-    ?>
 
-
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
     <?php include_once ('editor.php'); ?>
       
-    </main>
 
     
 <?php include '../materials/script.php'; ?>

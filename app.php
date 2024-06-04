@@ -2894,10 +2894,12 @@ function addSessionCart(){
 // 3) FUNZIONE PER AGGIUNGERE ALLA SESSIONE DEL CARRELLO ------------------------------------------------------------------
 
 function addToCart($productId, $quantity) {
-    if (!isset($_SESSION['cart'][$productId])) {
-        $_SESSION['cart'][$productId] = 0;
+    if ($quantity > 0){
+        if(!isset($_SESSION['cart'][$productId])){
+            $_SESSION['cart'][$productId] = 0;
+        }
+        $_SESSION['cart'][$productId] += $quantity;
     }
-    $_SESSION['cart'][$productId] += $quantity;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

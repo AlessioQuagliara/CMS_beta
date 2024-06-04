@@ -1184,7 +1184,7 @@ editor.BlockManager.add('mixed-column-section', {
                         <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Customer Photo">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6"> <!-- TRASFORMA IN UN FORM -->
                     <h2>{{ProductTitle}}</h2>
                     <p>{{ProductCollection}}</p>
                     <p class="text-muted">€ {{ProductPrice}}</p>

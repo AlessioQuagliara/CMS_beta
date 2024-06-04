@@ -36,9 +36,9 @@ loggato()
     
     <div class="container mt-2">
         <div class="p-3 mb-2 bg-light rounded-3 border d-flex justify-content-center">
-            <a href="https://billing.stripe.com/p/login/28obLQcUtdo27Ys144" class="btn btn-warning mx-2"><i class="fa-solid fa-dice"></i> Change H/support plan</a>
-            <a href="phone:393899657115" class="btn btn-primary mx-2"><i class="fa-solid fa-headphones"></i> Speak with a consultant</a>
-            <a href="https://api.whatsapp.com/send/?phone=3899657115&text=Ciao%21+Ho+bisogno+di+aiuto+su+questo..&type=phone_number&app_absent=0" class="btn btn-success mx-2"><i class="fa-brands fa-whatsapp"></i> Message us on WhatsApp</a>
+            <a href="https://billing.stripe.com/p/login/28obLQcUtdo27Ys144" class="btn btn-warning mx-2"><i class="fa-solid fa-dice"></i> Cambia supporto Ore</a>
+            <a href="phone:393899657115" class="btn btn-primary mx-2"><i class="fa-solid fa-headphones"></i> Parla con un Consulente</a>
+            <a href="https://api.whatsapp.com/send/?phone=3899657115&text=Ciao%21+Ho+bisogno+di+aiuto+su+questo..&type=phone_number&app_absent=0" class="btn btn-success mx-2"><i class="fa-brands fa-whatsapp"></i> Scrivici su Whats'app</a>
         </div>
     </div>
 

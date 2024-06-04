@@ -23,8 +23,8 @@ loggato()
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="container mt-5">
         <div class="p-3 mb-2 bg-light rounded-3 d-flex justify-content-between align-items-center border">
-            <h4>Change your plan</h4>
-            <a href="https://billing.stripe.com/p/login/28obLQcUtdo27Ys144" class="btn btn-outline-secondary">Edit Plan</a>
+            <h4>Cambia il Tuo Piano</h4>
+            <a href="https://billing.stripe.com/p/login/28obLQcUtdo27Ys144" class="btn btn-outline-secondary">Modifica Piano</a>
         </div>
         <?php 
         $licenza = 'in scadenza';

@@ -33,7 +33,7 @@ if ($risultato) { // Controlla se c'è un risultato
     <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
         <div class="p-3 mb-2 bg-light rounded-3">
             <div class="d-flex justify-content-between align-items-center">
-                <h4>Store Details</h4>
+                <h4>Dettagli</h4>
                 <div class="btn-toolbar mb-2 mb-md-0">
                 &nbsp;&nbsp;
                     <div class="btn-group me-2">

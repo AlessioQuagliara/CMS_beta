@@ -53,13 +53,13 @@ $remoteInfo = trim($remoteInfo);
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <br>
     <div class="p-3 bg-light rounded-3 border">
-        <h4>CMS Software Update</h4>
+        <h4>Aggiornamento Software</h4>
     </div> 
     <br>
     <div class="p-3 bg-light rounded-3 border">
         <?php if ($localVersion !== $remoteVersion): ?>
             <div class="alert alert-info">
-                A new version is available: <?php echo htmlspecialchars($remoteVersion); ?>.
+                Una nuova versione è disponibile: <?php echo htmlspecialchars($remoteVersion); ?>.
             </div>
             <div class="alert alert-warning">
                 <strong>Update Information:</strong>

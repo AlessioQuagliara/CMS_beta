@@ -8,29 +8,6 @@
     }
 </style>
 <div class="mb-2 bg-light rounded-3 d-flex justify-content-center align-items-center centered-fixed border">
-    <?php
-    if ($namePage == 'home') {
-        $visualizzaPagina = '';
-    } else if ($namePage == 'aboutus') {
-        $visualizzaPagina = 'aboutus';
-    } else if ($namePage == 'landing') {
-        $visualizzaPagina = 'landing';
-    } else if ($namePage == 'prodotto') {
-        $visualizzaPagina = 'prodotti/prodotto-esempio';
-    } else if ($namePage == 'catalogo') {
-        $visualizzaPagina = 'catalog';
-    } else if ($namePage == 'services') {
-        $visualizzaPagina = 'services';
-    } else if ($namePage == 'contacts') {
-        $visualizzaPagina = 'contacts';
-    } else if ($namePage == 'cart') {
-        $visualizzaPagina = 'carrello';
-    } else if ($namePage == 'footer') {
-        $visualizzaPagina = 'footer';
-    } else if ($namePage == 'navbar') {
-        $visualizzaPagina = 'navbar';
-    }
-    ?>
     <span>
         <h4>Modifica <?php echo $namePage; ?>&nbsp; &nbsp; &nbsp; </h4> 
     </span>

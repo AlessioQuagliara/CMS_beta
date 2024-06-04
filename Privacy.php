@@ -21,9 +21,9 @@ if (!file_exists('conn.php')) {
         }
     } else {
         $page = [
-            'title' => 'Nuova Pagina',
-            'description' => 'Questa è una nuova pagina',
-            'keywords' => 'nuova, pagina'
+            'title' => 'Privacy',
+            'description' => 'Descrizione di Privacy',
+            'keywords' => 'keyword di Privacy'
         ];
     }
 }
@@ -53,7 +53,7 @@ if (!file_exists('conn.php')) {
 </head>
 <body>  
 <?php
-$namePage = isset($_GET['slug']) ? $_GET['slug'] : 'nuova_pagina';
+$namePage = isset($_GET['slug']) ? $_GET['slug'] : 'privacy-policy';
 customPage($namePage); 
 ?>
 <!-- SCRIPT BOOTSTRAP -->

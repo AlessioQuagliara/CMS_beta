@@ -2,11 +2,17 @@
 require ('../../app.php');
 loggato();
 
-$namePage = 'prodotto'; // Nome della pagina da caricare
-$savedContent = '';
+if (isset($_GET['pagename']) && isset($_GET['slug'])) {
+    // Recupera i valori dei parametri e li assegna a variabili
+    $namePage = htmlspecialchars($_GET['pagename'], ENT_QUOTES, 'UTF-8');
+    $visualizzaPagina = htmlspecialchars($_GET['slug'], ENT_QUOTES, 'UTF-8');
+} else {
+    echo "I parametri non sono stati forniti nella URL.";
+    exit();
+}
 
 // Prepara la query SQL per selezionare il contenuto della pagina specificata
-$stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? LIMIT 1");
+$stmt = $conn->prepare("SELECT * FROM editor_contents WHERE name_page = ? LIMIT 1");
 $stmt->bind_param("s", $namePage);
 $stmt->execute();
 $result = $stmt->get_result();

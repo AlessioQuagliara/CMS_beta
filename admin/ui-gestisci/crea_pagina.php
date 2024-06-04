@@ -55,13 +55,13 @@ function exit() {
         dangerMode: true
     }).then((willExit) => {
         if (willExit) {
-            window.close(); // Chiude la finestra corrente
+            closeAndRefresh();
         }
     });
 }
 function closeAndRefresh() {
         if (window.opener && !window.opener.closed) {
-            window.opener.location.href = '../ui/editor.php'; // Aggiorna la pagina genitore
+            window.opener.location.href = '../ui/editor_negozio'; // Aggiorna la pagina genitore
         }
         window.close(); // Chiude la finestra corrente
     }

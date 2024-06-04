@@ -72,7 +72,7 @@ $result = $conn->query("SELECT * FROM seo");
                                 <p class="card-text"><small class="text-muted">Keywords: <?php echo htmlspecialchars($row['keywords']); ?></small></p>
                                 <?php if($row['page_name'] != 'home' && $row['page_name'] != 'aboutus' && $row['page_name'] != 'contacts' && $row['page_name'] != 'services' && $row['page_name'] != 'landing' && $row['page_name'] != 'prodotto' && $row['page_name'] != 'cart'): ?>
                                     <button class="btn btn-danger" onclick="modificaSEO(<?php echo $row['id']; ?>)" ><i class="fa-solid fa-pen-to-square"></i> Modifica SEO</button>
-                                    <button onclick="showAllert();" class="btn btn-primary"><i class="fa-solid fa-file-pen"></i> Modifica Pagina</button>
+                                    <a href="edit_page?pagename=<?php echo htmlspecialchars($row['page_name']); ?>&slug=<?php echo htmlspecialchars($row['slug']); ?>" target="__blank" class="btn btn-primary"><i class="fa-solid fa-file-pen"></i> Modifica Pagina</a>
                                     <a href="../../<?php echo htmlspecialchars($row['page_name']); ?>?slug=<?php echo htmlspecialchars($row['slug']); ?>" target="__blank" class="btn btn-secondary"><i class="fa-solid fa-eye"></i> Visualizza Online</a>
                                     <button class="btn btn-danger" onclick="cancellaPagina(<?php echo $row['id']; ?>)"><i class="fa-solid fa-trash"></i></button>
                                 <?php else : ?>

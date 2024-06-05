@@ -1,6 +1,6 @@
 <?php
 if (!file_exists('conn.php')) {
-    header("Location: error.php");
+    header("Location: error");
     exit();
 } else {
     require_once 'app.php';

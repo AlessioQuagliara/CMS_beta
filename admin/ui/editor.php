@@ -1149,7 +1149,7 @@
         editor.BlockManager.add('bootstrap-navbar', {
             label: 'Prodotto stile 1',
             content: `
-        <div class="container mt-5">
+            <div class="container mt-5">
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-4">
@@ -1162,8 +1162,8 @@
                         <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Customer Photo">
                     </div>
                 </div>
-                <div class="col-md-6"> <!-- TRASFORMA IN UN FORM -->
-                    <form method="POST" action="public/aggiunta_carrello.php">
+                <div class="col-md-6">
+                    <form method="GET" action="../public/aggiunta_carrello.php"> <!-- Cambiato a GET -->
                         <h2>{{ProductTitle}}</h2>
                         <p>{{ProductCollection}}</p>
                         <p class="text-muted">€ {{ProductPrice}}</p>
@@ -1176,50 +1176,51 @@
                         </div>
                         <div class="mb-3">
                             <label for="quantity" class="form-label">Quantità</label>
-                            <input type="number" name="quantity" class="form-control" id="quantity" min="1" value="1">
+                            <input type="number" name="quantita" class="form-control" id="quantity" min="1" value="1">
                         </div>
+                        <input type="hidden" name="titolo" value="{{ProductTitle}}">
                         <button type="submit" class="btn btn-dark w-100 mb-2">Acquista Ora</button>
                         <button type="submit" class="btn btn-outline-dark w-100 mb-4">Aggiungi al carrello</button>
                     </form>
-                        <div class="accordion" id="productDetails">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Dettagli Prodotto
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productDetails">
-                                    <div class="accordion-body">
-                                        <p>{{ProductDescription}}</p>
-                                    </div>
+                    <div class="accordion" id="productDetails">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Dettagli Prodotto
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productDetails">
+                                <div class="accordion-body">
+                                    <p>{{ProductDescription}}</p>
                                 </div>
                             </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Stylist Notes
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#productDetails">
-                                    <div class="accordion-body">
-                                        <p>Notes from the stylist...</p>
-                                    </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Stylist Notes
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#productDetails">
+                                <div class="accordion-body">
+                                    <p>Notes from the stylist...</p>
                                 </div>
                             </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Size & Fit
-                                    </button>
-                                </h2>
-                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#productDetails">
-                                    <div class="accordion-body">
-                                        <p>Information about the size and fit...</p>
-                                    </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Size & Fit
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#productDetails">
+                                <div class="accordion-body">
+                                    <p>Information about the size and fit...</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
                   `,

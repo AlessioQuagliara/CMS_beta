@@ -62,6 +62,8 @@ $result = $conn->query("SELECT * FROM seo");
                                     $pagename = 'Pagina Prodotto';
                                 } elseif($row['page_name']=='cart') {
                                     $pagename = 'Carrello';
+                                } elseif($row['page_name']=='catalogs') {
+                                    $pagename = 'Catalogo';
                                 } else {
                                     $pagename = $row['page_name'];
                                 } 
@@ -70,7 +72,7 @@ $result = $conn->query("SELECT * FROM seo");
                                 <h5 class="card-subtitle mb-2 text-muted"><?php echo htmlspecialchars($row['title']); ?></h5>
                                 <p class="card-text"><?php echo htmlspecialchars($row['description']); ?></p>
                                 <p class="card-text"><small class="text-muted">Keywords: <?php echo htmlspecialchars($row['keywords']); ?></small></p>
-                                <?php if($row['page_name'] != 'home' && $row['page_name'] != 'aboutus' && $row['page_name'] != 'contacts' && $row['page_name'] != 'services' && $row['page_name'] != 'landing' && $row['page_name'] != 'prodotto' && $row['page_name'] != 'cart'): ?>
+                                <?php if($row['page_name'] != 'home' && $row['page_name'] != 'aboutus' && $row['page_name'] != 'contacts' && $row['page_name'] != 'services' && $row['page_name'] != 'landing' && $row['page_name'] != 'prodotto' && $row['page_name'] != 'cart' && $row['page_name'] != 'catalogs'): ?>
                                     <button class="btn btn-danger" onclick="modificaSEO(<?php echo $row['id']; ?>)" ><i class="fa-solid fa-pen-to-square"></i> Modifica SEO</button>
                                     <a href="edit_page?pagename=<?php echo htmlspecialchars($row['page_name']); ?>&slug=<?php echo htmlspecialchars($row['slug']); ?>" target="__blank" class="btn btn-primary"><i class="fa-solid fa-file-pen"></i> Modifica Pagina</a>
                                     <a href="../../<?php echo htmlspecialchars($row['page_name']); ?>?slug=<?php echo htmlspecialchars($row['slug']); ?>" target="__blank" class="btn btn-secondary"><i class="fa-solid fa-eye"></i> Visualizza Online</a>

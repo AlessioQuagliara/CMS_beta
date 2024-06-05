@@ -21,9 +21,9 @@ if (!file_exists('conn.php')) {
         }
     } else {
         $page = [
-            'title' => 'About Us',
-            'description' => 'Chi siamo.',
-            'keywords' => 'Chi siamo, benvenuto'
+            'title' => 'catalogo',
+            'description' => 'Descrizione di catalogo',
+            'keywords' => 'keyword di catalogo'
         ];
     }
 }
@@ -51,9 +51,9 @@ if (!file_exists('conn.php')) {
     <link rel="stylesheet" href="style.css">
     <?php include 'marketing/market_integration.php'; ?>
 </head>
-<body>
+<body>  
 <?php
-$namePage = isset($_GET['slug']) ? $_GET['slug'] : 'aboutus';
+$namePage = isset($_GET['slug']) ? $_GET['slug'] : 'catalogo';
 customPage($namePage); 
 ?>
 <!-- SCRIPT BOOTSTRAP -->

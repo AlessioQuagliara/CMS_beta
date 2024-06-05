@@ -2875,23 +2875,7 @@ if (!isset($_SESSION['cart'])) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
-// 2) FUNZIONE PER AGGIUNTA AL CARRELLO -------------------------------------------------------------------------------
-
-function addSessionCart(){
-    if(isset($_POST['id_prodotto']) && isset($_POST['quantita'])) {
-        $productId = $_POST['id_prodotto'];
-        $quantity = $_POST['quantita'];
-    
-        addToCart($productId, $quantity);
-    
-        // Reindirizza alla pagina del carrello
-        header('Location: carrello.php');
-        exit();
-    }
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-// 3) FUNZIONE PER AGGIUNGERE ALLA SESSIONE DEL CARRELLO ------------------------------------------------------------------
+// 2) FUNZIONE PER AGGIUNGERE ALLA SESSIONE DEL CARRELLO ------------------------------------------------------------------
 
 function addToCart($productId, $quantity) {
     if ($quantity > 0){

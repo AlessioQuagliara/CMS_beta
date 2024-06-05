@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 // Avvia la sezione
 session_start();
-include '../app.php';
+require '../app.php';
 
 // Gestice l'aggiunta di prodotti al carrello
 
@@ -15,6 +15,7 @@ if (isset($_POST['id_prodotto']) && isset($_POST['quantita'])) {
 
     addToCart($productId, $quantity);
 
-    header('Location: ../cart.php');
+    header("Location:../cart.php");
     exit();
 }
+?>

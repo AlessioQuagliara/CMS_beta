@@ -1,2 +1,7 @@
-Risoluzione di alcuni bug;
--Risoluzione Bug pulsanti;
+Risoluzione di alcuni bug e aggiunta feature:
+-Aggiunta Creazione Pagine e cancellazione;
+-Aggiunta Temi;
+-Risoluzione Bug di reinderizzamento;
+-Aggiunta Cookie;
+-Miglioramento dello Slug per la SEO.
+-Ottimizzazione dell'editor di negozio.

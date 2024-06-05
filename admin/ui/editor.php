@@ -261,16 +261,16 @@
                             <a class="nav-link" href="aboutus">Chi Siamo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="catalog">Catalogo</a>
+                            <a class="nav-link" href="catalog/">Catalogo</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link"><i class="fa-solid fa-cart-shopping"></i></a>
+                        <a class="nav-link" href="cart"><i class="fa-solid fa-cart-shopping"></i></a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link"><i class="fa-solid fa-user"></i></a>
+                        <a class="nav-link" href="user"><i class="fa-solid fa-user"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link"><i class="fa-solid fa-magnifying-glass"></i></a>
+                            <a class="nav-link" href="search"><i class="fa-solid fa-magnifying-glass"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -1521,75 +1521,48 @@
         editor.BlockManager.add('cart-section', {
             label: 'Carrello',
             content: `
-    <section class="cart-section py-5">
-        <div class="container mt-5">
-            <h2 class="mb-4">Your Shopping Cart</h2>
-            <div class="row">
-                <!-- Cart Items -->
-                <div class="col-lg-8">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h4>Cart Items</h4>
-                        </div>
-                        <div class="card-body">
-                            <!-- Item 1 -->
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <img src="product1.jpg" class="img-fluid" alt="Product 1">
+            <section class="cart-section py-5">
+                <div class="container mt-5">
+                    <h2 class="mb-4">Il Tuo Carrello</h2>
+                    <div class="row">
+                        <!-- Cart Items -->
+                        <div class="col-lg-8">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h4>Articoli aggiunti:</h4>
                                 </div>
-                                <div class="col-md-6">
-                                    <h5>Product Name 1</h5>
-                                    <p>Short description of the product.</p>
-                                </div>
-                                <div class="col-md-3 text-end">
-                                    <p class="mb-0">$20.00</p>
-                                    <button class="btn btn-outline-danger btn-sm mt-2">Remove</button>
-                                </div>
-                            </div>
-                            <!-- Item 2 -->
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <img src="product2.jpg" class="img-fluid" alt="Product 2">
-                                </div>
-                                <div class="col-md-6">
-                                    <h5>Product Name 2</h5>
-                                    <p>Short description of the product.</p>
-                                </div>
-                                <div class="col-md-3 text-end">
-                                    <p class="mb-0">$35.00</p>
-                                    <button class="btn btn-outline-danger btn-sm mt-2">Remove</button>
+                                <div class="card-body">
+                                    {{elementiCarrello}}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Order Summary -->
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Order Summary</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <p>Subtotal</p>
-                                <p>$55.00</p>
+                        <!-- Order Summary -->
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Totale Ordine</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <p>Sub-totale</p>
+                                        <p>$55.00</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p>Tasse (22%)</p>
+                                        <p>$5.50</p>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between">
+                                        <h5>Totale</h5>
+                                        <h5>$60.50</h5>
+                                    </div>
+                                    <a href="payments/processa_ordine" class="btn btn-primary btn-block mt-3">Procedi Con il Pagamento</a>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <p>Tax (10%)</p>
-                                <p>$5.50</p>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <h5>Total</h5>
-                                <h5>$60.50</h5>
-                            </div>
-                            <button class="btn btn-primary btn-block mt-3">Proceed to Checkout</button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
     `,
             category: 'Negozio Online',
         });

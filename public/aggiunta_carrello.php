@@ -7,7 +7,7 @@ session_start();
 require('../conn.php');
 require_once('../app.php');
 
-$productTitle = isset($_GET['titolo']) ? $_GET['titolo'] : '';
+$productTitle = isset($_GET['titolo']) ? htmlspecialchars($_GET['titolo'], ENT_QUOTES, 'UTF-8') : '';
 $productQuantity = isset($_GET['quantita']) ? intval($_GET['quantita']) : 1;
 
 if ($productTitle && $productQuantity > 0) {
@@ -42,7 +42,11 @@ function aggiungiAlCarrello($titolo, $quantita) {
     }
 }
 
-// Chiudi connessioni
-$stmt->close();
-$conn->close();
+// Chiusura connessioni (se esistono connessioni attive)
+if (isset($stmt) && $stmt instanceof mysqli_stmt) {
+    $stmt->close();
+}
+if (isset($conn) && $conn instanceof mysqli) {
+    $conn->close();
+}
 ?>

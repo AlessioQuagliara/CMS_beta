@@ -9,18 +9,20 @@ require_once('../app.php');
 
 $productTitle = isset($_GET['titolo']) ? htmlspecialchars($_GET['titolo'], ENT_QUOTES, 'UTF-8') : '';
 $productQuantity = isset($_GET['quantita']) ? intval($_GET['quantita']) : 1;
+$productPrice = isset($_GET['prezzo']) ? intval($_GET['prezzo']) : 0;
+$productDescription = isset($_GET['descrizione']) ? htmlspecialchars($_GET['descrizione'], ENT_QUOTES, 'UTF-8') : '';
+
 
 if ($productTitle && $productQuantity > 0) {
-    aggiungiAlCarrello($productTitle, $productQuantity);
+    aggiungiAlCarrello($productTitle, $productQuantity, $productPrice, $productDescription);
     header("Location: ../cart"); // Redireziona a una pagina di successo o carrello
     exit();
 } else {
-    header("Location: error"); // Redireziona a una pagina di errore
     exit();
 }
 
 // Funzione aggiungiAlCarrello
-function aggiungiAlCarrello($titolo, $quantita) {
+function aggiungiAlCarrello($titolo, $quantita, $prezzo, $descrizione) {
     if (!isset($_SESSION['carrello'])) {
         $_SESSION['carrello'] = [];
     }
@@ -37,7 +39,9 @@ function aggiungiAlCarrello($titolo, $quantita) {
     if (!$trovato) {
         $_SESSION['carrello'][] = [
             'titolo' => $titolo,
-            'quantita' => $quantita
+            'quantita' => $quantita,
+            'prezzo' => $prezzo, 
+            'descrizione' => $descrizione
         ];
     }
 }

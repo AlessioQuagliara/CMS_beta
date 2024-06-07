@@ -1,7 +1,3 @@
-Risoluzione di alcuni bug e aggiunta feature:
--Aggiunta Creazione Pagine e cancellazione;
--Aggiunta Temi;
--Risoluzione Bug di reinderizzamento;
--Aggiunta Cookie;
--Miglioramento dello Slug per la SEO.
--Ottimizzazione dell'editor di negozio.
+-Creazione Pagina Carrello;
+-Generatore Pagine web;
+-Sitemap in XML per sito web;

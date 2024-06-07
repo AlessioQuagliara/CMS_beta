@@ -1,9 +1,10 @@
-<?php 
-require ('../../app.php');
+<?php
+require('../../app.php');
 loggato()
 ?>
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
@@ -11,55 +12,39 @@ loggato()
     <title>LinkBay - Discount Codes</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
+
 <body style="background-color: #f1f1f1;">
-    
+
     <?php
-    $sidebar_cate = 'prodotti'; 
+    $sidebar_cate = 'prodotti';
     $currentPage = basename($_SERVER['PHP_SELF']);
-    include '../materials/sidebar.php'; 
+    include '../materials/sidebar.php';
     ?>
 
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-       
-        <!-- BARRA STRUMENTI -->
-    
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <div class="input-group">
-            <input class="form-control" id="searchInput" type="text" placeholder="Cerca..." aria-label="Cerca">
-            <button class="btn btn-sm btn-outline-secondary" type="button" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i>&nbsp; Export to Excel</button>&nbsp;
-            <form action="../ui-gestisci/aggiunta_codicesconto.php" method="POST" style="display: inline;">&nbsp;
-                <input type="hidden" name="action" value="addCodice"> <!-- Campo nascosto per controllare l'azione nel backend -->
-                <button type="submit" class="btn btn-sm btn-outline-dark">
-                    <i class="fa-solid fa-plus"></i>&nbsp; Add New
-                </button>
-            </form>
-        </div>
-    </div>
-    <!-- TABELLA CONTENUTI -->
- 
-    <?php echo listaCodicisconto();?>
-    
-    <!-- MESSAGGIO -->
 
-    <?php 
-    $feedback = isset($_GET['success']) ? $_GET['success'] : '';
-    if(!empty($feedback)): ?>
-        <div id="successAlert" class="alert alert-success fade show" role="alert">
-            <?php echo htmlspecialchars($feedback); ?>
-        </div>
-    <?php endif; ?>
+        <!-- TABELLA CONTENUTI -->
+
+        <?php echo listaCodicisconto(); ?>
+
+        <!-- MESSAGGIO -->
+
+        <div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 999;"></div>
 
     </main>
 
+    <!-- PROMETEUS -->
+
+    <?php include "prometheus.php" ?>
 
     <script>
         // SCRIPT DI APERTURA MODIFICA 
         function apriModifica(idCodicesconto) {
             // Apri una nuova finestra con l'URL desiderato e specifica le dimensioni
-            window.open('../ui-gestisci/codicesconto_modifica.php?id=' + idCodicesconto, 'ModificaCodicesconto', <?php echo $resolution;?>);
+            window.open('../ui-gestisci/codicesconto_modifica.php?id=' + idCodicesconto, 'ModificaCodicesconto', <?php echo $resolution; ?>);
         }
-        
+
         // Funzione per filtrare le righe della tabella
         function filterTable(searchValue) {
             var tableRows = document.getElementById('myTable').getElementsByTagName('tr');
@@ -73,17 +58,16 @@ loggato()
                 }
             }
         }
-        
+
         // SCRIPT DI RICERCA
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
+            const searchInput = document.getElementById('searchInputCodicesconto');
             // Imposta il valore dell'input con il valore salvato nel localStorage
             const savedSearchValue = localStorage.getItem('searchValue') || '';
             searchInput.value = savedSearchValue;
-        
+
             // Applica il filtro basato sul valore salvato non appena la pagina viene caricata
             filterTable(savedSearchValue);
-        
             searchInput.addEventListener('keyup', function() {
                 var searchValue = this.value.toLowerCase();
                 // Salva il valore corrente nel localStorage
@@ -92,7 +76,7 @@ loggato()
                 filterTable(searchValue);
             });
         });
-        
+
         // SCRIPT DI ESPORTAZIONE EXCEL
         function exportToExcel() {
             const table = document.getElementById("myTable");
@@ -102,9 +86,50 @@ loggato()
             XLSX.writeFile(wb, "<?php echo substr($currentPage, 0, -4); ?>.xlsx");
         }
 
-        </script>
+        // FAI APPARIRE UN TOAST PER L'AGGIUNTA DEL PRODOTTO o ERRORE DI RICERCA-----------------------------------------------------------------------------------------------------------------------------------------------
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const successMessage = urlParams.get('success');
+            const warningMessage = urlParams.get('warning');
 
-    
-<?php include '../materials/script.php'; ?>
+            if (successMessage) {
+                displayToast('success', successMessage);
+            }
+            if (warningMessage) {
+                displayToast('warning', warningMessage);
+            }
+
+            function displayToast(type, message) {
+                const toastContainer = document.getElementById('toastContainer');
+                const backgroundColor = type === 'success' ? 'bg-success' : 'bg-warning';
+                const icon = type === 'success' ? 'fa-circle-check' : 'fa-triangle-exclamation'; // Aggiungi qui l'icona per warning se diversa
+
+                const toastHTML = `
+            <div class="toast show align-items-center text-white ${backgroundColor} border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="fa-solid ${icon}"></i> ${decodeURIComponent(message.replace(/\+/g, ' '))}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+            <br><br>
+        `;
+                toastContainer.innerHTML = toastHTML;
+                const toastElement = toastContainer.querySelector('.toast');
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+
+                toastElement.querySelector('.btn-close').addEventListener('click', function() {
+                    urlParams.delete(type === 'success' ? 'success' : 'warning');
+                    window.history.pushState({}, document.title, '?' + urlParams.toString());
+                });
+            }
+        });
+    </script>
+
+
+    <?php include '../materials/script.php'; ?>
 </body>
+
 </html>

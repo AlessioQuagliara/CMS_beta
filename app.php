@@ -159,7 +159,7 @@ function logout()
 function subscribe()
 {
     require('../public/phpmailer.php');
-    require '../conn.php'; 
+    require '../conn.php';
 
     $query_dettagli_negozio = "SELECT * FROM dettagli_negozio";
     $result_dettagli_negozio = mysqli_query($conn, $query_dettagli_negozio);
@@ -221,9 +221,9 @@ function subscribe()
 function ripristina()
 {
     require('../public/phpmailer.php');
-    $errore = ''; 
+    $errore = '';
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        require('../conn.php'); 
+        require('../conn.php');
         $query_dettagli_negozio = "SELECT * FROM dettagli_negozio";
         $result_dettagli_negozio = mysqli_query($conn, $query_dettagli_negozio);
         if ($dettagli = mysqli_fetch_assoc($result_dettagli_negozio)) {
@@ -308,7 +308,8 @@ function update_pass()
 
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER ASSISTENZA ORE ---------------------------------------------------------------------------------------
-function stampaOreAssistenza(){
+function stampaOreAssistenza()
+{
     echo '        
     <div class="progress">
     <div class="progress-bar bg-danger" role="progressbar" style="width: 5%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
@@ -1687,42 +1688,34 @@ function aggiunta_codicesconto()
 
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
+    $codicesconto = 'NUOVOCODICESCONTO';
+    $importo = '20';
+    $stato = 'Non Valido';
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addCodice') {
-        // Valori predefiniti
-        $codicesconto = 'NUOVOCODICESCONTO';
-        $importo = '20';
-        $stato = 'Non Valido';
-
-        $query = "INSERT INTO codici_sconto (codicesconto, importo, stato) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("sss", $codicesconto, $importo, $stato);
-            $result = $stmt->execute();
-            if ($result) {
-                $feedback = "Codice sconto creato con successo.";
-                // Reindirizza alla pagina desiderata con un messaggio di successo
-                header('Location: ../ui/codicisconto?success=' . urlencode($feedback));
-                exit;
-            } else {
-                $feedback = "Errore durante l'inserimento della collezione: " . $stmt->error;
-                // Reindirizza alla pagina desiderata con un messaggio di errore
-                header('Location: ../ui/codicisconto?error=' . urlencode($feedback));
-                exit;
-            }
-            $stmt->close();
+    $query = "INSERT INTO codici_sconto (codicesconto, importo, stato) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    if ($stmt) {
+        $stmt->bind_param("sss", $codicesconto, $importo, $stato);
+        $result = $stmt->execute();
+        if ($result) {
+            $feedback = "Codice sconto creato con successo.";
+            // Reindirizza alla pagina desiderata con un messaggio di successo
+            header('Location: ../ui/codicisconto?success=' . urlencode($feedback));
+            exit;
         } else {
-            $feedback = "Errore durante la preparazione della query: " . $conn->error;
+            $feedback = "Errore durante l'inserimento della collezione: " . $stmt->error;
             // Reindirizza alla pagina desiderata con un messaggio di errore
             header('Location: ../ui/codicisconto?error=' . urlencode($feedback));
             exit;
         }
-        $conn->close();
+        $stmt->close();
     } else {
-        // Se il metodo non è POST o l'azione non corrisponde, reindirizza l'utente
-        header('Location: ../ui/codicisconto');
+        $feedback = "Errore durante la preparazione della query: " . $conn->error;
+        // Reindirizza alla pagina desiderata con un messaggio di errore
+        header('Location: ../ui/codicisconto?error=' . urlencode($feedback));
         exit;
     }
+    $conn->close();
 }
 // ------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER LISTA CODICI SCONTO ---------------------------------------------------------------------------------------
@@ -2232,7 +2225,7 @@ function inviaEmailAggiuntaAdmin()
         $nome_negozio = $dettaglio['nome_negozio'];
         break;
     }
-   
+
     $host = $_SERVER['HTTP_HOST'];
     $sitoweb = (string) $host;
 
@@ -2244,8 +2237,8 @@ function inviaEmailAggiuntaAdmin()
             $email = $_POST['email'];
 
             $oggetto = 'LinkBay - Invito di Collaborazione';
-            $template = file_get_contents('../../templates/email_collabora.html'); 
-            $messaggio = str_replace(['{{nome}}', '{{nome_negozio}}', '{{sitoweb}}'], [$nome, $nome_negozio, $sitoweb], $template); 
+            $template = file_get_contents('../../templates/email_collabora.html');
+            $messaggio = str_replace(['{{nome}}', '{{nome_negozio}}', '{{sitoweb}}'], [$nome, $nome_negozio, $sitoweb], $template);
 
             send_mail($email, $oggetto, $messaggio);
 
@@ -2824,7 +2817,7 @@ function customPage($namePage)
 // FUNZIONE PER VISUALIZZARE LA NAVBAR -------------------------------------------------------------------------------
 function customNav()
 {
-    require 'conn.php'; 
+    require 'conn.php';
     $standard = 'navbar';
 
     // Preparazione della query SQL utilizzando il parametro name_page per selezionare il contenuto specifico
@@ -2848,7 +2841,7 @@ function customNav()
 // FUNZIONE PER VISUALIZZARE LA NAVBAR -------------------------------------------------------------------------------
 function customFooter()
 {
-    require 'conn.php'; 
+    require 'conn.php';
     $standard = 'footer';
 
     // Preparazione della query SQL utilizzando il parametro name_page per selezionare il contenuto specifico
@@ -2875,27 +2868,12 @@ if (!isset($_SESSION['cart'])) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
-// 2) FUNZIONE PER AGGIUNTA AL CARRELLO -------------------------------------------------------------------------------
+// 2) FUNZIONE PER AGGIUNGERE ALLA SESSIONE DEL CARRELLO ------------------------------------------------------------------
 
-function addSessionCart(){
-    if(isset($_POST['id_prodotto']) && isset($_POST['quantita'])) {
-        $productId = $_POST['id_prodotto'];
-        $quantity = $_POST['quantita'];
-    
-        addToCart($productId, $quantity);
-    
-        // Reindirizza alla pagina del carrello
-        header('Location: carrello.php');
-        exit();
-    }
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-// 3) FUNZIONE PER AGGIUNGERE ALLA SESSIONE DEL CARRELLO ------------------------------------------------------------------
-
-function addToCart($productId, $quantity) {
-    if ($quantity > 0){
-        if(!isset($_SESSION['cart'][$productId])){
+function addToCart($productId, $quantity)
+{
+    if ($quantity > 0) {
+        if (!isset($_SESSION['cart'][$productId])) {
             $_SESSION['cart'][$productId] = 0;
         }
         $_SESSION['cart'][$productId] += $quantity;
@@ -2905,7 +2883,8 @@ function addToCart($productId, $quantity) {
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER VISUALIZZARE DATI DEL PRODOTTO -------------------------------------------------------------------------
 
-function prendeProdutti(){
+function prendeProdutti()
+{
     require 'conn.php';
 
     $stmt = $conn->prepare("SELECT id_prodotto, titolo, titolo_seo, descrizione, categoria, collezione, stato, prezzo, prezzo_comparato, quantita, peso, varianti, sku, marca FROM prodotti WHERE id_prodotto = ");
@@ -2915,18 +2894,18 @@ function prendeProdutti(){
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        while($stmt->fetch()) {
+        while ($stmt->fetch()) {
             $prodotti[] = array(
                 'id_prodotto' => $id_prodotto,
                 'titolo' => $titolo,
-                'titolo_seo' => $titolo_seo, 
-                'descrizione' => $descrizione, 
+                'titolo_seo' => $titolo_seo,
+                'descrizione' => $descrizione,
                 'categoria' => $categoria,
                 'collezione' => $collezione,
                 'stato' => $stato,
                 'prezzo' => $prezzo,
                 'prezzo_comparato' => $prezzo_comparato,
-                'quantita' => $quantita, 
+                'quantita' => $quantita,
                 'peso' => $peso,
                 'varianti' => $varianti,
                 'sku' => $sku,
@@ -2944,18 +2923,19 @@ function prendeProdutti(){
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER VISUALIZZARE DATI DEL PRODOTTO -------------------------------------------------------------------------
 
-function mostraProdotto($productTitle){
-    require ('conn.php');
+function mostraProdotto($productTitle)
+{
+    require('conn.php');
 
     $stmt = $conn->prepare("SELECT * FROM prodotti WHERE titolo_seo = ? AND stato = 'online'");
     $stmt->bind_param("s", $productTitle);
-    
+
     $stmt->execute();
-    
+
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         $product = $result->fetch_assoc();
-        
+
         $id_prodotto = $product['id_prodotto'];
         $titolo = $product['titolo'];
         $titolo_seo = $product['titolo_seo'];
@@ -2991,7 +2971,7 @@ function mostraProdotto($productTitle){
         header("Location: ../home");
         exit;
     }
-    
+
     $stmt->close();
     $conn->close();
 }

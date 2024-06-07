@@ -1,6 +1,6 @@
 <?php
 if (!file_exists('conn.php')) {
-    header("Location: error.php");
+    header("Location: error");
     exit();
 } else {
     require_once 'app.php';
@@ -20,11 +20,12 @@ if (!file_exists('conn.php')) {
             exit();
         }
     } else {
-        $page = [
-            'title' => 'About Us',
-            'description' => 'Chi siamo.',
-            'keywords' => 'Chi siamo, benvenuto'
-        ];
+        $slug = 'home';
+        $stmt = $conn->prepare("SELECT * FROM seo WHERE slug = ?");
+        $stmt->bind_param('s', $slug);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $page = $result->fetch_assoc();
     }
 }
 ?>
@@ -52,11 +53,15 @@ if (!file_exists('conn.php')) {
     <?php include 'marketing/market_integration.php'; ?>
 </head>
 <body>
+
 <?php
-$namePage = isset($_GET['slug']) ? $_GET['slug'] : 'aboutus';
-customPage($namePage); 
-?>
-<!-- SCRIPT BOOTSTRAP -->
+customNav();
+$namePage = isset($_GET['slug']) ? $_GET['slug'] : 'home';
+customPage($namePage);
+customFooter();
+include ('public/cookie_banner.php');
+?>  
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

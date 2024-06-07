@@ -1,7 +1,9 @@
 RewriteEngine On
 
 # Regola per prodotti con nome SEO-friendly
-RewriteRule ^prodotti/([a-zA-Z0-9-]+)$ product.php?titolo=$1 [L]
+RewriteRule ^products/([a-zA-Z0-9-]+)$ product.php?titolo=$1 [L]
+RewriteRule ^catalog/([a-zA-Z0-9-]+)$ catalog.php?categoria=$1 [L]
+RewriteRule ^sitemap\.xml$ /public/generate_sitemap.php [L]
 
 # Regola per URL pulito con slug
 RewriteCond %{REQUEST_FILENAME} !-f

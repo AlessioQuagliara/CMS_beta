@@ -57,7 +57,7 @@ loggato();
     <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
         <button type="submit" name="modifica" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-floppy-disk"></i>&nbsp; Salva Modifiche</button>
-        <a href="../../prodotti/<?php echo $slug; ?>" target="__blank" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-eye"></i>&nbsp; Visualizza</a>
+        <a href="../../products/<?php echo $slug; ?>" target="__blank" class="btn btn-sm btn-outline-light"><i class="fa-solid fa-eye"></i>&nbsp; Visualizza</a>
         <a href="#" class="btn btn-sm btn-outline-light" onclick="creaVarianteProdotto(<?php echo $id_prodotto; ?>);"><i class="fa-solid fa-clone"></i> Crea Variante</a>
         <a href="#" class="btn btn-sm btn-outline-light" onclick="confirmDeleteProduct();"><i class="fa-solid fa-trash"></i>&nbsp; Elimina Prodotto</a>
         <a href="#" class="btn btn-sm btn-outline-light" onclick="exit();"><i class="fa-solid fa-rectangle-xmark"></i>&nbsp; Chiudi Scheda</a>

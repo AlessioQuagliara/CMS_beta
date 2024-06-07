@@ -26,10 +26,6 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
-        // Cancella il file PHP associato se esiste
-        if (file_exists($file_path)) {
-            unlink($file_path);
-        }
         header('Location: ../ui/editor_negozio?success=Pagina+cancellata+con+successo');
     } else {
         header('Location: ../ui/editor_negozio?warning=Errore+nella+cancellazione+della+pagina');

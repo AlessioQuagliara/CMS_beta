@@ -62,11 +62,11 @@ $remoteInfo = trim($remoteInfo);
                 Una nuova versione è disponibile: <?php echo htmlspecialchars($remoteVersion); ?>.
             </div>
             <div class="alert alert-warning">
-                <strong>Update Information:</strong>
+                <strong>Informazioni Aggiornamento:</strong>
                 <p><?php echo nl2br(htmlspecialchars($remoteInfo)); ?></p>
             </div>
             <form action="../../install_linkbay/aggiornamento_software.php" method="post" id="updateForm">
-                <button id="loadButton" type="submit" class="btn btn-danger" onclick="startLoading(event)">Update to version <?php echo htmlspecialchars($remoteVersion); ?></button>
+                <button id="loadButton" type="submit" class="btn btn-danger" onclick="startLoading(event)">Aggiorna alla versione <?php echo htmlspecialchars($remoteVersion); ?></button>
             </form>
             <?php else: ?>
                 <div>

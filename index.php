@@ -20,10 +20,10 @@ if (!file_exists('conn.php')) {
                 </div>
                 <div class="col-md-6">
                     <h5>' . htmlspecialchars($item['titolo']) . '</h5>
-                    <p>'. htmlspecialchars($item['descriozione']) .'</p>
+                    <p>'. htmlspecialchars($item['descrizione']) .'</p>
                 </div>
                 <div class="col-md-3 text-end">
-                    <p class="mb-0">' . htmlspecialchars($item['quantita']) . '  x $' . htmlspecialchars($item['prezzo']) .' </p>
+                    <p class="mb-0">' . htmlspecialchars($item['quantita']) . '  x € ' . htmlspecialchars($item['prezzo']) .' </p>
                     <form method="post" action="public/rimuovi_carrello.php">
                         <input type="hidden" name="titolo" value="' . htmlspecialchars($item['titolo']) . '">
                         <button type="submit" class="btn btn-outline-danger btn-sm mt-2">Rimuovi</button>

@@ -1167,7 +1167,7 @@
                         <h2>{{ProductTitle}}</h2>
                         <p>{{ProductCollection}}</p>
                         <p class="text-muted">€ {{ProductPrice}}</p>
-                        <input type="text" value="{{ProductPrice}}" name="prezzo"{{ProductPrice}}">
+                        <input type="hidden" value="{{ProductPrice}}" name="prezzo"{{ProductPrice}}">
                         <div class="d-flex align-items-center mb-3">
                             <span class="badge bg-warning text-dark">4.5 di 5 stelle</span>
                             <span class="ms-2">(722 recensioni)</span>
@@ -1192,7 +1192,7 @@
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productDetails">
                                     <div class="accordion-body">
                                         <p class="text-muted">{{ProductDescription}}</p>
-                                        <input type="text" value="{{ProductDescription}}" name="descrizione">
+                                        <input type="hidden" value="{{ProductDescription}}" name="descrizione">
                                     </div>
                                 </div>
                             </div>

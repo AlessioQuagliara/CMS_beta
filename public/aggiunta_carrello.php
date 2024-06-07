@@ -13,7 +13,7 @@ $productPrice = isset($_GET['prezzo']) ? intval($_GET['prezzo']) : 0;
 $productDescription = isset($_GET['descrizione']) ? htmlspecialchars($_GET['descrizione'], ENT_QUOTES, 'UTF-8') : '';
 
 
-if ($productTitle && $productQuantity > 0) {
+if ($productTitle && $productQuantity && $productPrice && $productDescription > 0) {
     aggiungiAlCarrello($productTitle, $productQuantity, $productPrice, $productDescription);
     header("Location: ../cart"); // Redireziona a una pagina di successo o carrello
     exit();

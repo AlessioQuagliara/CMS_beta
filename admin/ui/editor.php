@@ -255,10 +255,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="home">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="aboutus">Chi Siamo</a>
+                            <a class="nav-link" href="/aboutus">Chi Siamo</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -267,7 +267,7 @@
                             {{listaCatalogo}}
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                        <a class="nav-link" href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="user"><i class="fa-solid fa-user"></i></a>
@@ -300,10 +300,15 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <a class="nav-link active" aria-current="page" href="index">Home</a>
-                            <a class="nav-link" href="about_us">Chi siamo</a>
-                            <a class="nav-link" href="#">Catalogo</a>
-                            <a class="nav-link disabled">Carrello</a>
+                            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                            <a class="nav-link" href="/aboutus">Chi siamo</a>
+                            <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Catalogo
+                            </a>
+                            {{listaCatalogo}}
+                            </li>
+                            <a class="nav-link" href="/cart">Carrello</a>
                         </div>
                     </div>
                 </div>
@@ -331,16 +336,16 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Home</a>
+                                <a class="nav-link" href="/home">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">About</a>
+                                <a class="nav-link" href="/aboutus">Chi Siamo</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Services</a>
+                                <a class="nav-link" href="/services">Services</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
+                                <a class="nav-link" href="/contacts">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -371,16 +376,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="/home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="/aboutus">Chi siamo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
+                            <a class="nav-link" href="/services">Servizi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="/contacts">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -413,13 +418,16 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Home</a>
+                                    <a class="nav-link" href="/home">Home</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Catalogo
+                                    </a>
+                                    {{listaCatalogo}}
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Catalogo</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Chi Siamo</a>
+                                    <a class="nav-link" href="/aboutus">Chi Siamo</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
@@ -428,7 +436,7 @@
                                     <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
+                                    <a class="nav-link" href="/cart"><i class="fas fa-shopping-cart"></i></a>
                                 </li>
                             </ul>
                         </div>

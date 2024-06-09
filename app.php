@@ -2918,7 +2918,7 @@ function replaceCatalogPlaceholder($content)
     $result = $conn->query($query);
 
     while ($row = $result->fetch_assoc()) {
-        $categoriesHTML .= '<li><a class="dropdown-item" href="catalogs/' . htmlspecialchars($row['nome_c']) . '">' . htmlspecialchars($row['nome_c']) . '</a></li>';
+        $categoriesHTML .= '<li><a class="dropdown-item" href="/catalogs/' . htmlspecialchars($row['nome_c']) . '">' . htmlspecialchars($row['nome_c']) . '</a></li>';
     }
     $categoriesHTML .= '</ul>';
 

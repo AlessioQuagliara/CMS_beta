@@ -177,9 +177,9 @@ error_log($stato_aggiornamento);
         }
 
         function startLoading() {
-            updateProgressBar(25, 5, 'Backup dei dati esistenti', () => {
-                updateProgressBar(50, 10, 'Download dei pacchetti', () => {
-                updateProgressBar(99, 20, 'Installazione..', () => {
+            updateProgressBar(25, 10, 'Backup dei dati esistenti', () => {
+                updateProgressBar(50, 5, 'Download dei pacchetti', () => {
+                updateProgressBar(99, 10, 'Installazione..', () => {
                     updateProgressBar(100, 5, '<?php echo $stato_aggiornamento; ?>', () => {
                         setTimeout(() => {
                             window.location.href = '../admin/ui/aggiornamento';

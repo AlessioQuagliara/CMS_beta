@@ -260,8 +260,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="aboutus">Chi Siamo</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="catalog/">Catalogo</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Catalogo
+                            </a>
+                            {{listaCatalogo}}
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="cart"><i class="fa-solid fa-cart-shopping"></i></a>
@@ -1146,7 +1149,21 @@
             category: 'sezioni vuote',
         });
         // Blocchi Negozio Online --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        editor.BlockManager.add('bootstrap-navbar', {
+        editor.BlockManager.add('catalog-block', {
+            label: 'Catalog Block',
+            content: `
+                <div class="container mt-5">
+                    <h1>{{titoloCollezione}}</h1>
+                    <p>{{descrizioneCollezione}}</p>
+                    <div class="row" id="catalog-container">
+                        {{listaProdotti}}
+                    </div>
+                </div>
+            `,
+            category: 'Negozio Online',
+            });
+            
+        editor.BlockManager.add('product-block', {
             label: 'Prodotto stile 1',
             content: `
         <div class="container mt-5">

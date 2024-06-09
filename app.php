@@ -2776,41 +2776,109 @@ function customPage($namePage)
 {
     require 'conn.php'; // Include la connessione al database
 
-    // Preparazione della query SQL utilizzando il parametro name_page per selezionare il contenuto specifico
-    $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? ORDER BY id DESC LIMIT 1");
-    $stmt->bind_param("s", $namePage); // Associa il parametro name_page alla tua query
-    $stmt->execute();
-    $result = $stmt->get_result();
+    if ($namePage === 'catalogs' && isset($_GET['collezione'])) {
+        // Logica per la pagina del catalogo
+        $collezione = htmlspecialchars($_GET['collezione'], ENT_QUOTES, 'UTF-8');
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        echo $row['content']; // Stampa il contenuto specifico della pagina
-    } else {
-        echo "
-        <style>
-            /* Stili per rendere la sezione full screen e centrare il contenuto */
-            .construction-section {
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                background-color: black; /* Sfondo chiaro, cambia a seconda delle tue preferenze */
-                text-align: center;
+        // Recupera la collezione
+        $stmt = $conn->prepare("SELECT * FROM collezioni WHERE nome_c = ?");
+        $stmt->bind_param('s', $collezione);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $collection = $result->fetch_assoc();
+
+        if (!$collection) {
+            header("Location: error.php");
+            exit();
+        }
+
+        // Recupera i prodotti della collezione
+        $stmt = $conn->prepare("SELECT * FROM prodotti WHERE collezione = ?");
+        $stmt->bind_param('s', $collezione);
+        $stmt->execute();
+        $productsResult = $stmt->get_result();
+        $products = [];
+        while ($row = $productsResult->fetch_assoc()) {
+            $products[] = $row;
+        }
+
+        $stmt->close();
+
+        // Recupera il contenuto della pagina dal database
+        $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? ORDER BY id DESC LIMIT 1");
+        $stmt->bind_param("s", $namePage);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $content = $row['content'];
+
+            // Sostituzione dei placeholder
+            $productHTML = '';
+            foreach ($products as $product) {
+                $productHTML .= '
+                <div class="col-md-4 product-item">
+                    <div class="card mb-4">
+                        <img src="path/to/image/" class="card-img-top" alt="' . htmlspecialchars($product['nome']) . '">
+                        <div class="card-body">
+                            <h5 class="card-title">' . htmlspecialchars($product['titolo']) . '</h5>
+                            <p class="card-text">' . htmlspecialchars($product['descrizione']) . '</p>
+                            <p class="card-text">€ ' . htmlspecialchars($product['prezzo']) . '</p>
+                            <a href="/products/' . htmlspecialchars($product['titolo_seo']) . '" class="btn btn-primary">Dettagli</a>
+                        </div>
+                    </div>
+                </div>';
             }
 
-            /* Aggiungi qui ulteriori stili personalizzati se necessario */
-        </style>
-        <section class='construction-section text-light'>
-            <img src='admin/materials/logo_sidebar.png' alt='Logo LinkBay' width='200'> 
-            <h1 class='mt-3'>Sito Web in Costruzione</h1>
-            <p>Stiamo lavorando per portarti una nuova esperienza incredibile. Presto sarà disponibile la seguente pagina: " . htmlspecialchars($namePage) . "!</p>
-        </section>
-        "; // Sanitizza l'output per evitare XSS
-    }
+            $content = str_replace('{{titoloCollezione}}', htmlspecialchars($collection['nome_c']), $content);
+            $content = str_replace('{{descrizioneCollezione}}', htmlspecialchars($collection['descrizione_c']), $content);
+            $content = str_replace('{{listaProdotti}}', $productHTML, $content);
 
-    $stmt->close();
-    $conn->close();
+            echo $content;
+        } else {
+            echo "<p>Contenuto non disponibile.</p>";
+        }
+
+        $stmt->close();
+        $conn->close();
+    } else {
+        // Preparazione della query SQL utilizzando il parametro name_page per selezionare il contenuto specifico
+        $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? ORDER BY id DESC LIMIT 1");
+        $stmt->bind_param("s", $namePage); // Associa il parametro name_page alla tua query
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            echo $row['content']; // Stampa il contenuto specifico della pagina
+        } else {
+            echo "
+            <style>
+                /* Stili per rendere la sezione full screen e centrare il contenuto */
+                .construction-section {
+                    height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: black; /* Sfondo chiaro, cambia a seconda delle tue preferenze */
+                    text-align: center;
+                }
+
+                /* Aggiungi qui ulteriori stili personalizzati se necessario */
+            </style>
+            <section class='construction-section text-light'>
+                <img src='admin/materials/logo_sidebar.png' alt='Logo LinkBay' width='200'> 
+                <h1 class='mt-3'>Sito Web in Costruzione</h1>
+                <p>Stiamo lavorando per portarti una nuova esperienza incredibile. Presto sarà disponibile la seguente pagina: " . htmlspecialchars($namePage) . "!</p>
+            </section>
+            "; // Sanitizza l'output per evitare XSS
+        }
+
+        $stmt->close();
+        $conn->close();
+    }
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -2828,13 +2896,33 @@ function customNav()
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        echo $row['content']; // Stampa il contenuto specifico della pagina
+        $content = $row['content']; // Recupera il contenuto specifico della pagina
+        
+        // Sostituzione del placeholder {{listaCatalogo}} con le categorie dinamiche
+        echo replaceCatalogPlaceholder($content);
     } else {
         echo "";
     }
 
     $stmt->close();
     $conn->close();
+}
+
+// Funzione per sostituire il placeholder con le categorie dinamiche
+function replaceCatalogPlaceholder($content)
+{
+    require 'conn.php'; // Assicurati che la connessione al DB sia disponibile
+
+    $categoriesHTML = '<ul class="dropdown-menu">';
+    $query = "SELECT nome_c FROM collezioni";
+    $result = $conn->query($query);
+
+    while ($row = $result->fetch_assoc()) {
+        $categoriesHTML .= '<li><a class="dropdown-item" href="catalogs/' . htmlspecialchars($row['nome_c']) . '">' . htmlspecialchars($row['nome_c']) . '</a></li>';
+    }
+    $categoriesHTML .= '</ul>';
+
+    return str_replace('{{listaCatalogo}}', $categoriesHTML, $content);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 <?php
-session_start(); // Assicurati che la sessione sia avviata
+session_start();
 if (!file_exists('conn.php')) {
     header("Location: error");
     exit();
@@ -40,7 +40,6 @@ if (!file_exists('conn.php')) {
         
         if ($slug === 'cart') {
             if (isset($_SESSION['carrello']) && !empty($_SESSION['carrello'])) {
-                // Recupera il contenuto salvato di GrapesJS per la pagina del carrello
                 $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = 'cart'");
                 $stmt->execute();
                 $result = $stmt->get_result();

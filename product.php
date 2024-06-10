@@ -14,7 +14,7 @@ if (!$product) {
 $namePage = 'prodotto';
 $savedContent = '';
 
-// Funzione per sostituire i placeholder
+// Funzione per sostituire i placeholder del prodotto ------------------------------------------------------------------------------------------
 function replacePlaceholders($content, $product) {
     $placeholders = [
         '{{ProductTitle}}' => htmlspecialchars($product['titolo']),

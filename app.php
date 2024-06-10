@@ -1915,7 +1915,6 @@ function aggiuntaClienti()
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addCliente') {
         // Valori predefiniti
         $nome = 'Nuovo';
         $cognome = 'Cliente';
@@ -1946,12 +1945,6 @@ function aggiuntaClienti()
             header('Location: ../ui/clienti?error=' . urlencode($feedback));
             exit;
         }
-        $conn->close();
-    } else {
-        // Se il metodo non è POST o l'azione non corrisponde, reindirizza l'utente
-        header('Location: ../ui/clienti');
-        exit;
-    }
 }
 // ------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI COLLEZIONE ---------------------------------------------------------------------------------------

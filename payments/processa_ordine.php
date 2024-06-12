@@ -33,37 +33,37 @@ session_start();
                     </h4>
                     <ul class="list-group mb-3">
                         <?php
-                        $total = 0;
-                        if (isset($_SESSION['carrello']) && !empty($_SESSION['carrello'])) {
-                            foreach ($_SESSION['carrello'] as $item) {
-                                $itemTotal = $item['quantita'] * 20; // Supponendo che il prezzo sia $20 per articolo
-                                $total += $itemTotal;
+                            $total = 0;
+                            if (isset($_SESSION['carrello']) && !empty($_SESSION['carrello'])) {
+                                foreach ($_SESSION['carrello'] as $item) {
+                                    $itemTotal = $item['quantita'] * $item['prezzo'];
+                                    $total += $itemTotal;
+                                    echo '<li class="list-group-item d-flex justify-content-between lh-sm">';
+                                    echo '    <div>';
+                                    echo '        <h6 class="my-0">' . htmlspecialchars($item['titolo']) . '</h6>';
+                                    echo '        <small class="text-muted">Quantità: ' . htmlspecialchars($item['quantita']) . '</small>';
+                                    echo '    </div>';
+                                    echo '    <span class="text-muted">€' . $itemTotal . '</span>';
+                                    echo '</li>';
+                                }
+                            } else {
                                 echo '<li class="list-group-item d-flex justify-content-between lh-sm">';
                                 echo '    <div>';
-                                echo '        <h6 class="my-0">' . htmlspecialchars($item['titolo']) . '</h6>';
-                                echo '        <small class="text-muted">Quantità: ' . htmlspecialchars($item['quantita']) . '</small>';
+                                echo '        <h6 class="my-0">Il carrello è vuoto</h6>';
                                 echo '    </div>';
-                                echo '    <span class="text-muted">$' . $itemTotal . '</span>';
                                 echo '</li>';
                             }
-                        } else {
-                            echo '<li class="list-group-item d-flex justify-content-between lh-sm">';
-                            echo '    <div>';
-                            echo '        <h6 class="my-0">Il carrello è vuoto</h6>';
-                            echo '    </div>';
-                            echo '</li>';
-                        }
                         ?>
                         <li class="list-group-item d-flex justify-content-between bg-light">
                             <div class="text-success">
-                                <h6 class="my-0">Promo code</h6>
+                                <h6 class="my-0">Codice Promozione</h6>
                                 <small>EXAMPLECODE</small>
                             </div>
-                            <span class="text-success">−$5</span>
+                            <span class="text-success">−€5</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <span>Total (USD)</span>
-                            <strong>$<?php echo $total - 5; // Supponendo che il codice promo tolga $5 ?></strong>
+                            <span>Totale (EUR)</span>
+                            <strong>€<?php echo $total - 5; ?></strong>
                         </li>
                     </ul>
 
@@ -79,19 +79,19 @@ session_start();
 
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Indirizzo di Fatturazione</h4>
-                    <form class="needs-validation" novalidate>
+                    <form class="needs-validation" method="POST" action="spedizione.php" novalidate>
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label for="firstName" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                <label for="nome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="nome" name="nome" placeholder="" value="" required>
                                 <div class="invalid-feedback">
                                     Inserire un Nome valido.
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
-                                <label for="lastName" class="form-label">Cognome</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                                <label for="cognome" class="form-label">Cognome</label>
+                                <input type="text" class="form-control" id="cognome" name="cognome" placeholder="" value="" required>
                                 <div class="invalid-feedback">
                                     Inserire un Cognome valido.
                                 </div>
@@ -99,15 +99,15 @@ session_start();
 
                             <div class="col-12">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="latuaemail@esempio.it">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="latuaemail@esempio.it" required>
                                 <div class="invalid-feedback">
                                     Usa un indirizzo di email valido.
                                 </div>
                             </div>
 
                             <div class="col-9">
-                                <label for="address" class="form-label">Indirizzo</label>
-                                <input type="text" class="form-control" id="address" placeholder="Via Cristoforo Colombo, 3" required>
+                                <label for="indirizzo" class="form-label">Indirizzo</label>
+                                <input type="text" class="form-control" id="indirizzo" name="indirizzo" placeholder="Via Cristoforo Colombo, 3" required>
                                 <div class="invalid-feedback">
                                     Inserisci un indirizzo valido.
                                 </div>
@@ -115,15 +115,15 @@ session_start();
 
                             <div class="col-md-3">
                                 <label for="provincia" class="form-label">Provincia</label>
-                                <input type="text" class="form-control" id="provincia" placeholder="" required>
+                                <input type="text" class="form-control" id="provincia" name="provincia" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Inserisci la tua Provincia.
                                 </div>
                             </div>
 
                             <div class="col-md-5">
-                                <label for="country" class="form-label">Paese</label>
-                                <select class="form-select" id="country" required>
+                                <label for="paese" class="form-label">Paese</label>
+                                <select class="form-select" id="paese" name="paese" required>
                                     <option value="">Scegli...</option>
                                     <option>Italia</option>
                                 </select>
@@ -133,16 +133,16 @@ session_start();
                             </div>
 
                             <div class="col-md-3">
-                                <label for="zip" class="form-label">CAP</label>
-                                <input type="text" class="form-control" id="zip" placeholder="" required>
+                                <label for="cap" class="form-label">CAP</label>
+                                <input type="text" class="form-control" id="cap" name="cap" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Inserisci il tuo CAP.
                                 </div>
                             </div>
 
                             <div class="col-md-4">
-                                <label for="city" class="form-label">Città</label>
-                                <input type="text" class="form-control" id="city" placeholder="" required>
+                                <label for="citta" class="form-label">Città</label>
+                                <input type="text" class="form-control" id="citta" name="citta" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Inserisci una città valida.
                                 </div>
@@ -152,7 +152,7 @@ session_start();
 
                         <hr class="my-4">
 
-                        <button class="w-50 btn btn-primary btn-lg" type="submit">Vai a Spedizione </button>
+                        <button class="w-50 btn btn-primary btn-lg" type="submit">Vai a Spedizione</button>
                     </form>
                 </div>
             </div>
@@ -160,11 +160,11 @@ session_start();
     </div>
     <!--FINE FORM E FOOTER-->
     <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; LinkBay</p>
+        <p class="mb-1">&copy; LinkBay CMS</p>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="#">Privacy</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Support</a></li>
+            <li class="list-inline-item"><a href="#">Termini</a></li>
+            <li class="list-inline-item"><a href="#">Supporto</a></li>
         </ul>
     </footer>
 </div>

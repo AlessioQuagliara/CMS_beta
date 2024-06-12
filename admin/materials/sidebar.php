@@ -210,7 +210,7 @@ function showToast() {
         <div class="toast show align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="z-index: 999;">
             <div class="d-flex">
                 <div class="toast-body">
-                  <i class="fa-solid fa-link-slash"></i>&nbsp; La tua sessione è scaduta. &nbsp;  <a href="../logout" class="btn btn-light btn-sm">Accedi</a>
+                  <i class="fa-solid fa-link-slash"></i>&nbsp; La tua sessione è scaduta. &nbsp;  <a href="../logout" class="btn btn-outline-light btn-sm">Accedi</a>
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>

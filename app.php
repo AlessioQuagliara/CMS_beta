@@ -1915,36 +1915,36 @@ function aggiuntaClienti()
     // Inizializzo una variabile per il messaggio di feedback
     $feedback = '';
 
-        // Valori predefiniti
-        $nome = 'Nuovo';
-        $cognome = 'Cliente';
-        $email = 'nuovo.cliente@mail.it';
-        $telefono = '0000000000';
-        $password = 'password';
+    // Valori predefiniti
+    $nome = 'Nuovo';
+    $cognome = 'Cliente';
+    $email = 'nuovo.cliente@mail.it';
+    $telefono = '0000000000';
+    $password = 'password';
 
-        $query = "INSERT INTO user_db (nome, cognome, email, telefono, password) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("sssss", $nome, $cognome, $email, $telefono, $password);
-            $result = $stmt->execute();
-            if ($result) {
-                $feedback = "Cliente aggiunto con successo.";
-                // Reindirizza alla pagina desiderata con un messaggio di successo
-                header('Location: ../ui/clienti?success=' . urlencode($feedback));
-                exit;
-            } else {
-                $feedback = "Errore durante l'inserimento del nuovo Cliente: " . $stmt->error;
-                // Reindirizza alla pagina desiderata con un messaggio di errore
-                header('Location: ../ui/clienti?error=' . urlencode($feedback));
-                exit;
-            }
-            $stmt->close();
+    $query = "INSERT INTO user_db (nome, cognome, email, telefono, password) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    if ($stmt) {
+        $stmt->bind_param("sssss", $nome, $cognome, $email, $telefono, $password);
+        $result = $stmt->execute();
+        if ($result) {
+            $feedback = "Cliente aggiunto con successo.";
+            // Reindirizza alla pagina desiderata con un messaggio di successo
+            header('Location: ../ui/clienti?success=' . urlencode($feedback));
+            exit;
         } else {
-            $feedback = "Errore durante la preparazione della query: " . $conn->error;
+            $feedback = "Errore durante l'inserimento del nuovo Cliente: " . $stmt->error;
             // Reindirizza alla pagina desiderata con un messaggio di errore
             header('Location: ../ui/clienti?error=' . urlencode($feedback));
             exit;
         }
+        $stmt->close();
+    } else {
+        $feedback = "Errore durante la preparazione della query: " . $conn->error;
+        // Reindirizza alla pagina desiderata con un messaggio di errore
+        header('Location: ../ui/clienti?error=' . urlencode($feedback));
+        exit;
+    }
 }
 // ------------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI COLLEZIONE ---------------------------------------------------------------------------------------
@@ -2890,7 +2890,7 @@ function customNav()
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $content = $row['content']; // Recupera il contenuto specifico della pagina
-        
+
         // Sostituzione del placeholder {{listaCatalogo}} con le categorie dinamiche
         echo replaceCatalogPlaceholder($content);
     } else {
@@ -3018,40 +3018,41 @@ function mostraProdotto($productTitle)
         $product = $result->fetch_assoc();
 
         $id_prodotto = $product['id_prodotto'];
-        $titolo = $product['titolo'];
-        $titolo_seo = $product['titolo_seo'];
-        $descrizione = $product['descrizione'];
-        $categoria = $product['categoria'];
-        $collezione = $product['collezione'];
-        $stato = $product['stato'];
-        $prezzo = $product['prezzo'];
-        $prezzo_comparato = $product['prezzo_comparato'];
-        $quantita = $product['quantita'];
-        $peso = $product['peso'];
-        $varianti = $product['varianti'];
-        $sku = $product['sku'];
-        $marca = $product['marca'];
 
+        $stmt_media = $conn->prepare("SELECT immagine FROM media WHERE id_prodotto = ?");
+        $stmt_media->bind_param("i", $id_prodotto);
+
+        $stmt_media->execute();
+        $result_media = $stmt_media->get_result();
+
+        $image_url = '';
+        if ($result_media->num_rows > 0) {
+            $media = $result_media->fetch_assoc();
+            $image_url = $media['immagine'];
+        }
+        
         return [
             'id_prodotto' => $id_prodotto,
-            'titolo' => $titolo,
-            'titolo_seo' => $titolo_seo,
-            'descrizione' => $descrizione,
-            'categoria' => $categoria,
-            'collezione' => $collezione,
-            'stato' => $stato,
-            'prezzo' => $prezzo,
-            'prezzo_comparato' => $prezzo_comparato,
-            'quantita' => $quantita,
-            'peso' => $peso,
-            'varianti' => $varianti,
-            'sku' => $sku,
-            'marca' => $marca
+            'titolo' => $product['titolo'],
+            'titolo_seo' => $product['titolo_seo'],
+            'descrizione' => $product['descrizione'],
+            'categoria' => $product['categoria'],
+            'collezione' => $product['collezione'],
+            'stato' => $product['stato'],
+            'prezzo' => $product['prezzo'],
+            'prezzo_comparato' => $product['prezzo_comparato'],
+            'quantita' => $product['quantita'],
+            'peso' => $product['peso'],
+            'varianti' => $product['varianti'],
+            'sku' => $product['sku'],
+            'marca' => $product['marca'],
+            'image_url' => $image_url
         ];
     } else {
         header("Location: ../home");
         exit;
     }
+    $stmt_media->close();
 
     $stmt->close();
     $conn->close();

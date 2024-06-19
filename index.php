@@ -17,7 +17,7 @@ if (!file_exists('conn.php')) {
             $cartItemsHTML .= '
             <div class="row mb-3">
                 <div class="col-md-3">
-                    <img src="path/to/image/' . htmlspecialchars($item['titolo']) . '.jpg" class="img-fluid" alt="' . htmlspecialchars($item['titolo']) . '">
+                    <img src="' . htmlspecialchars($item['image_url']) . '.jpg" class="img-fluid" alt="' . htmlspecialchars($item['titolo']) . '">
                 </div>
                 <div class="col-md-6">
                     <h5>' . htmlspecialchars($item['titolo']) . '</h5>

@@ -21,7 +21,8 @@ function replacePlaceholders($content, $product) {
         '{{ProductCollection}}' => htmlspecialchars($product['collezione']),
         '{{ProductPrice}}' => htmlspecialchars($product['prezzo']),
         '{{ProductDescription}}' => htmlspecialchars($product['descrizione']),
-        '{{ProductVariant}}' => htmlspecialchars($product['varianti'])
+        '{{ProductVariant}}' => htmlspecialchars($product['varianti']),
+        '{{ProductImage}}' => htmlspecialchars($product['image_url']),
     ];
     
     return str_replace(array_keys($placeholders), array_values($placeholders), $content);

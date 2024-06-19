@@ -1571,17 +1571,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
-                                        <p>Sub-totale</p>
-                                        <p>$55.00</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <p>Tasse (22%)</p>
-                                        <p>$5.50</p>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex justify-content-between">
-                                        <h5>Totale</h5>
-                                        <h5>$60.50</h5>
+                                        <div>{{elementiTotaleOrdine}}</div>
                                     </div>
                                     <a href="payments/processa_ordine" class="btn btn-primary btn-block mt-3">Procedi Con il Pagamento</a>
                                 </div>

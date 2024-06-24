@@ -467,7 +467,7 @@ function vendite()
     // Includi la connessione al database
     require '../../conn.php';
     // Prepara e esegui la query per il totale venduto
-    $totalSoldQuery = "SELECT SUM(totale_ordine) as totalSold FROM ordini WHERE stato_ordine = 'Completo'";
+    $totalSoldQuery = "SELECT SUM(totale_ordine) as totalSold FROM ordini WHERE stato_ordine = 'Evaso'";
     $totalSoldResult = $conn->query($totalSoldQuery);
     $totalSoldRow = $totalSoldResult->fetch_assoc();
     $totalSold = $totalSoldRow['totalSold'];

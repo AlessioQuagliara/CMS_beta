@@ -467,7 +467,7 @@ function vendite()
     // Includi la connessione al database
     require '../../conn.php';
     // Prepara e esegui la query per il totale venduto
-    $totalSoldQuery = "SELECT SUM(totale_ordine) as totalSold FROM ordini WHERE stato_ordine = 'Evaso'";
+    $totalSoldQuery = "SELECT SUM(totale_ordine) as totalSold FROM ordini WHERE stato_ordine = 'Completo'";
     $totalSoldResult = $conn->query($totalSoldQuery);
     $totalSoldRow = $totalSoldResult->fetch_assoc();
     $totalSold = $totalSoldRow['totalSold'];
@@ -3001,7 +3001,29 @@ function prendeProdutti()
     $conn->close();
 }
 
-// ---------------------------------------------------------------------------------------------------------------------
+// FUNZIONE PER PRENDERE L'IMMAGINE DEL PRODOTTO -------------------------------------------------------------------------
+
+function getMedia($id_prodotto)
+{
+    require('conn.php');
+
+    $stmt = $conn->prepare("SELECT * FROM media WHERE id_prodotto = ?");
+    $stmt->bind_param("i", $id_prodotto);
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $media = $result->fetch_assoc();
+        $image_url = $media['immagine'];
+    } else {
+        $image_url = 'default.jpg';
+    }
+
+    $stmt->close();
+    return $image_url;
+}
+
 // FUNZIONE PER VISUALIZZARE DATI DEL PRODOTTO -------------------------------------------------------------------------
 
 function mostraProdotto($productTitle)
@@ -3018,19 +3040,8 @@ function mostraProdotto($productTitle)
         $product = $result->fetch_assoc();
 
         $id_prodotto = $product['id_prodotto'];
+        $image_url = getMedia($id_prodotto);
 
-        $stmt_media = $conn->prepare("SELECT immagine FROM media WHERE id_prodotto = ?");
-        $stmt_media->bind_param("i", $id_prodotto);
-
-        $stmt_media->execute();
-        $result_media = $stmt_media->get_result();
-
-        $image_url = '';
-        if ($result_media->num_rows > 0) {
-            $media = $result_media->fetch_assoc();
-            $image_url = $media['immagine'];
-        }
-        
         return [
             'id_prodotto' => $id_prodotto,
             'titolo' => $product['titolo'],
@@ -3052,8 +3063,6 @@ function mostraProdotto($productTitle)
         header("Location: ../home");
         exit;
     }
-    $stmt_media->close();
-
     $stmt->close();
     $conn->close();
 }

@@ -15,22 +15,23 @@ if (!file_exists('conn.php')) {
 
         foreach ($cart as $item) {
             $cartItemsHTML .= '
-            <div class="row mb-3">
-                <div class="col-md-3">
-                    <img src="' . htmlspecialchars($item['image_url']) . '.jpg" class="img-fluid" alt="' . htmlspecialchars($item['titolo']) . '">
-                </div>
-                <div class="col-md-6">
-                    <h5>' . htmlspecialchars($item['titolo']) . '</h5>
-                    <p>' . htmlspecialchars($item['descrizione']) . '</p>
-                </div>
-                <div class="col-md-3 text-end">
-                    <p class="mb-0">' . htmlspecialchars($item['quantita']) . '  x € ' . htmlspecialchars($item['prezzo']) . ' </p>
-                    <form method="post" action="public/rimuovi_carrello.php">
-                        <input type="hidden" name="titolo" value="' . htmlspecialchars($item['titolo']) . '">
-                        <button type="submit" class="btn btn-outline-danger btn-sm mt-2">Rimuovi</button>
-                    </form>
-                </div>
-            </div>';
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <img src="' . htmlspecialchars($item['image_url']) . '.jpg" class="img-fluid" alt="' . htmlspecialchars($item['titolo']) . '">
+            </div>
+            <div class="col-md-6">
+                <h5>' . htmlspecialchars($item['titolo']) . '</h5>
+                <p>' . htmlspecialchars($item['descrizione']) . '</p>
+                <p> PROVA ' . htmlspecialchars($item['id_prodotto']) . '</p>
+            </div>
+            <div class="col-md-3 text-end">
+                <p class="mb-0">' . htmlspecialchars($item['quantita']) . '  x € ' . htmlspecialchars($item['prezzo']) . ' </p>
+                <form method="post" action="public/rimuovi_carrello.php">
+                    <input type="hidden" name="titolo" value="' . htmlspecialchars($item['titolo']) . '">
+                    <button type="submit" class="btn btn-outline-danger btn-sm mt-2">Rimuovi</button>
+                </form>
+            </div>
+        </div>';
         }
 
         return str_replace('{{elementiCarrello}}', $cartItemsHTML, $content);

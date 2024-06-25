@@ -47,7 +47,7 @@ if (!file_exists('conn.php')) {
 
         $taxRate = 0.22;
         $taxes = $subtotal * $taxRate;
-        $total = $subtotal + $taxes;
+        $total = $subtotal;
 
         $totalOrderHtml = '
         <div class="row mb-3">

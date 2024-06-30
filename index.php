@@ -22,7 +22,6 @@ if (!file_exists('conn.php')) {
             <div class="col-md-6">
                 <h5>' . htmlspecialchars($item['titolo']) . '</h5>
                 <p>' . htmlspecialchars($item['descrizione']) . '</p>
-                <p> PROVA ' . htmlspecialchars($item['id_prodotto']) . '</p>
             </div>
             <div class="col-md-3 text-end">
                 <p class="mb-0">' . htmlspecialchars($item['quantita']) . '  x € ' . htmlspecialchars($item['prezzo']) . ' </p>

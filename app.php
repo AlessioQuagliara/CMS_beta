@@ -1329,12 +1329,13 @@ function aggiuntaCollezione()
     $feedback = '';
 
     $nome_c = 'Nuova Collezione';
+    $slug_c = 'nuova-collezione';
     $descrizione_c = 'Aggiungi descrizione';
 
-    $query = "INSERT INTO collezioni (nome_c, descrizione_c) VALUES (?, ?)";
+    $query = "INSERT INTO collezioni (nome_c, slug_c, descrizione_c) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($query);
     if ($stmt) {
-        $stmt->bind_param("ss", $nome_c, $descrizione_c);
+        $stmt->bind_param("sss", $nome_c, $slug_c, $descrizione_c);
         $result = $stmt->execute();
         if ($result) {
             $feedback = "Collezione aggiunta con successo.";

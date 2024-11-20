@@ -5,29 +5,6 @@ require ('../../conn.php');
 
 $selectedYear = isset($_GET['anno']) ? $_GET['anno'] : date('Y');
 
-// Recupera i dati per le vendite
-$query = "SELECT data_ordine, totale_ordine, paese FROM ordini WHERE YEAR(data_ordine) = ? AND stato_ordine <> 'abbandonato'";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $selectedYear);
-$stmt->execute();
-$result = $stmt->get_result();
-
-$data = [];
-$totals = [];
-$countries = [];
-
-while ($row = $result->fetch_assoc()) {
-    $month = date('F', strtotime($row['data_ordine']));
-    if (!isset($totals[$month])) {
-        $totals[$month] = 0;
-    }
-    $totals[$month] += $row['totale_ordine'];
-}
-
-$months = array_keys($totals);
-$sales = array_values($totals);
-
-$stmt->close();
 
 // Recupera i dati per i visitatori
 $query = "SELECT data_visita FROM visitatori WHERE YEAR(data_visita) = ?";
@@ -120,7 +97,7 @@ $conn->close();
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">
-                        Analisi Vendite
+                        CTR
                     </div>
                     <div class="card-body">
                         <canvas id="myChart" width="800" height="400"></canvas>
@@ -170,7 +147,7 @@ $conn->close();
             data: {
                 labels: <?php echo json_encode($months); ?>,
                 datasets: [{
-                    label: '€ of Sales',
+                    label: '% of CTR',
                     data: <?php echo json_encode($sales); ?>,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',

@@ -146,8 +146,8 @@ if ($risultato) { // Controlla se c'è un risultato
         <h6>Dati Informativi</h6>
 
         <div class="mb-3">
-            <label for="nome_negozio" class="form-label">Nome Negozio</label>
-            <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['nome_negozio']); ?>" id="nome_negozio" name="nome_negozio" placeholder="Che nome vuoi dare al tuo negozio?">
+            <label for="nome_negozio" class="form-label">Nome Sito Web</label>
+            <input type="text" class="form-control" value="<?php echo htmlspecialchars($row['nome_negozio']); ?>" id="Nome Progetto" name="nome_negozio" placeholder="Che nome vuoi dare al tuo negozio?">
         </div>
 
         <div class="mb-3">
@@ -156,8 +156,8 @@ if ($risultato) { // Controlla se c'è un risultato
         </div>
 
         <div class="mb-3">
-            <label for="cosa_vuoi_vendere" class="form-label">Cosa venderai</label>
-            <textarea class="form-control" id="cosa_vuoi_vendere" name="cosa_vuoi_vendere" rows="3" placeholder="Descrivi cosa vuoi vendere"><?php echo htmlspecialchars($row['cosa_vuoi_vendere']); ?></textarea>
+            <label for="cosa_vuoi_vendere" class="form-label">Attività Svolta</label>
+            <textarea class="form-control" id="cosa_vuoi_vendere" name="cosa_vuoi_vendere" rows="3" placeholder="Che attività svolgi"><?php echo htmlspecialchars($row['cosa_vuoi_vendere']); ?></textarea>
         </div>
         </div>
         <div class="p-3 mb-2 bg-light rounded-3">

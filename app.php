@@ -2536,103 +2536,44 @@ function customPage($namePage)
 {
     require 'conn.php'; 
 
-    if ($namePage === 'catalogs' && isset($_GET['collezione'])) {
-        $collezione = htmlspecialchars($_GET['collezione'], ENT_QUOTES, 'UTF-8');
+    // Recupera il contenuto della pagina specificata dal database
+    $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? ORDER BY id DESC LIMIT 1");
+    $stmt->bind_param("s", $namePage); 
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-        $stmt = $conn->prepare("SELECT * FROM collezioni WHERE slug_c = ?");
-        $stmt->bind_param('s', $collezione);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $collection = $result->fetch_assoc();
-
-        if (!$collection) {
-            header("Location: error.php");
-            exit();
-        }
-
-        $stmt = $conn->prepare("SELECT * FROM prodotti WHERE collezione = ?");
-        $stmt->bind_param('s', $collezione);
-        $stmt->execute();
-        $productsResult = $stmt->get_result();
-        $products = [];
-        while ($row = $productsResult->fetch_assoc()) {
-            $products[] = $row;
-        }
-
-        $stmt->close();
-
-        $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? ORDER BY id DESC LIMIT 1");
-        $stmt->bind_param("s", $namePage);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $content = $row['content'];
-
-            $productHTML = '';
-            foreach ($products as $product) {
-                $productHTML .= '
-                <div class="col-md-4 product-item">
-                    <div class="card mb-4">
-                        <img src="path/to/image/" class="card-img-top" alt="' . htmlspecialchars($product['nome']) . '">
-                        <div class="card-body">
-                            <h5 class="card-title">' . htmlspecialchars($product['titolo']) . '</h5>
-                            <p class="card-text">' . htmlspecialchars($product['descrizione']) . '</p>
-                            <p class="card-text">€ ' . htmlspecialchars($product['prezzo']) . '</p>
-                            <a href="/products/' . htmlspecialchars($product['titolo_seo']) . '" class="btn btn-primary">Dettagli</a>
-                        </div>
-                    </div>
-                </div>';
+    if ($result->num_rows > 0) {
+        // Se la pagina esiste, stampa il contenuto
+        $row = $result->fetch_assoc();
+        echo $row['content']; 
+    } else {
+        // Se la pagina non esiste, mostra una schermata "In costruzione"
+        echo "
+        <style>
+            /* Stili per rendere la sezione full screen e centrare il contenuto */
+            .construction-section {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: black; /* Sfondo scuro */
+                text-align: center;
             }
 
-            $content = str_replace('{{titoloCollezione}}', htmlspecialchars($collection['nome_c']), $content);
-            $content = str_replace('{{descrizioneCollezione}}', htmlspecialchars($collection['descrizione_c']), $content);
-            $content = str_replace('{{listaProdotti}}', $productHTML, $content);
-
-            echo $content;
-        } else {
-            echo "<p>Contenuto non disponibile.</p>";
-        }
-
-        $stmt->close();
-        $conn->close();
-    } else {
-        $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? ORDER BY id DESC LIMIT 1");
-        $stmt->bind_param("s", $namePage); 
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            echo $row['content']; 
-        } else {
-            echo "
-            <style>
-                /* Stili per rendere la sezione full screen e centrare il contenuto */
-                .construction-section {
-                    height: 100vh;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: black; /* Sfondo chiaro, cambia a seconda delle tue preferenze */
-                    text-align: center;
-                }
-
-                /* Aggiungi qui ulteriori stili personalizzati se necessario */
-            </style>
-            <section class='construction-section text-light'>
-                <img src='admin/materials/logo_sidebar.png' alt='Logo LinkBay' width='200'> 
-                <h1 class='mt-3'>Sito Web in Costruzione</h1>
-                <p>Stiamo lavorando per portarti una nuova esperienza incredibile. Presto sarà disponibile la seguente pagina: " . htmlspecialchars($namePage) . "!</p>
-            </section>
-            "; 
-        }
-
-        $stmt->close();
-        $conn->close();
+            /* Aggiungi qui ulteriori stili personalizzati se necessario */
+        </style>
+        <section class='construction-section text-light'>
+            <img src='admin/materials/logo_sidebar.png' alt='Logo LinkBay' width='200'> 
+            <h1 class='mt-3'>Sito Web in Costruzione</h1>
+            <p>Stiamo lavorando per portarti una nuova esperienza incredibile. Presto sarà disponibile la seguente pagina: " . htmlspecialchars($namePage) . "!</p>
+        </section>
+        "; 
     }
+
+    // Chiudi la connessione al database
+    $stmt->close();
+    $conn->close();
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -2652,11 +2593,14 @@ function customNav()
         $row = $result->fetch_assoc();
         $content = $row['content']; 
 
-        echo replaceCatalogPlaceholder($content);
+        // Stampa direttamente il contenuto senza elaborazioni aggiuntive
+        echo $content;
     } else {
+        // Nessun contenuto trovato, non stampa nulla
         echo "";
     }
 
+    // Chiude lo statement e la connessione al database
     $stmt->close();
     $conn->close();
 }

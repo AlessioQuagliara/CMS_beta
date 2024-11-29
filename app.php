@@ -137,8 +137,19 @@ function logout()
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
+// Funzione di Registrazione Utente ---------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+
+function sign_in()
+{
+    require ('../conn.php');
+    
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
 // Funzione di Registrazione ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
+
 
 function subscribe()
 {
@@ -355,126 +366,6 @@ function visite()
     return $html;
 }
 // ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER GLI ORDINI DELLA NAVBAR --------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function ordiniNav()
-{
-    require '../../conn.php';
-
-    $ordersByState = [];
-
-    $totalOrdersQuery = "SELECT COUNT(*) as total FROM ordini WHERE stato_ordine != 'Completo' AND stato_ordine != 'Abbandonato'";
-    $totalOrdersResult = $conn->query($totalOrdersQuery);
-    if ($totalOrdersRow = $totalOrdersResult->fetch_assoc()) {
-        $ordersByState['totali'] = $totalOrdersRow['total'];
-    }
-
-    $states = ['Inevaso', 'Da Spedire', 'Abbandonato'];
-
-    foreach ($states as $state) {
-        $query = "SELECT COUNT(*) as total FROM ordini WHERE stato_ordine = '$state'";
-        $result = $conn->query($query);
-        if ($row = $result->fetch_assoc()) {
-            $ordersByState[strtolower($state)] = $row['total'];
-        }
-    }
-
-    $conn->close();
-
-    return $ordersByState;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER GLI ORDINI DEL SITO ------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function ordini()
-{
-    require '../../conn.php';
-
-    $totalOrdersQuery = "SELECT COUNT(*) as total FROM ordini";
-    $totalOrdersResult = $conn->query($totalOrdersQuery);
-    $totalOrdersRow = $totalOrdersResult->fetch_assoc();
-    $totalOrders = $totalOrdersRow['total'];
-
-    $states = ['inevaso', 'completo', 'abbandonato'];
-    $ordersByState = [];
-
-    foreach ($states as $state) {
-        $query = "SELECT COUNT(*) as total FROM ordini WHERE stato_ordine = '$state'";
-        $result = $conn->query($query);
-        $row = $result->fetch_assoc();
-        $ordersByState[$state] = $row['total'];
-    }
-
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="row">';
-    $html .= '<div class="col-md-6">';
-    $html .= '<div class="p-3 mb-3 bg-light rounded-3">';
-    $html .= '<h4>Ordini Totali</h4>';
-    $html .= '<p class="fs-1">' . $totalOrders . '</p>';
-    $html .= '</div>';
-    $html .= '</div>';
-    $html .= '<div class="col-md-6">';
-    $html .= '<div class="p-3 mb-3 bg-light rounded-3">';
-    $html .= '<h4>Ordini per stato</h4>';
-
-    foreach ($ordersByState as $state => $total) {
-        $html .= '<div>' . ucfirst($state) . ': ' . $total . '</div>';
-    }
-
-    $html .= '</div>';
-    $html .= '</div>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    $conn->close();
-
-    return $html;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER LE VENDITE DEL SITO ---------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function vendite()
-{
-    require '../../conn.php';
-    $totalSoldQuery = "SELECT SUM(totale_ordine) as totalSold FROM ordini WHERE stato_ordine = 'Evaso'";
-    $totalSoldResult = $conn->query($totalSoldQuery);
-    $totalSoldRow = $totalSoldResult->fetch_assoc();
-    $totalSold = $totalSoldRow['totalSold'];
-
-    $ordersByMonthQuery = "SELECT YEAR(data_ordine) as year, MONTH(data_ordine) as month, COUNT(*) as totalOrders FROM ordini GROUP BY YEAR(data_ordine), MONTH(data_ordine) ORDER BY YEAR(data_ordine) DESC, MONTH(data_ordine) DESC";
-    $ordersByMonthResult = $conn->query($ordersByMonthQuery);
-
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="row">';
-    $html .= '<div class="col-md-6">';
-    $html .= '<div class="p-3 mb-3 bg-light rounded-3">';
-    $html .= '<h4>Incassi Totali</h4>';
-    $html .= '<p class="fs-1">' . number_format($totalSold, 2, '.', ',') . ' €</p>';
-    $html .= '</div>';
-    $html .= '</div>';
-    $html .= '<div class="col-md-6">';
-    $html .= '<div class="p-3 mb-3 bg-light rounded-3">';
-    $html .= '<h4>Vendite per data</h4>';
-    $html .= '<ul class="list-group">';
-
-    while ($row = $ordersByMonthResult->fetch_assoc()) {
-        $html .= '<li class="list-group-item d-flex justify-content-between align-items-center">';
-        $html .= $row['month'] . '/' . $row['year'];
-        $html .= '<span class="badge bg-primary rounded-pill">' . $row['totalOrders'] . '</span>';
-        $html .= '</li>';
-    }
-
-    $html .= '</ul>';
-    $html .= '</div>';
-    $html .= '</div>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    $conn->close();
-
-    return $html;
-}
-// ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER POP DETTAGLI DEL NEGOZIO ---------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 function dettagli_negozio()
@@ -583,1139 +474,6 @@ function visualizzaClientiELeads()
     return $html;
 }
 // ---------------------------------------------------------------------------------------------------------------------
-// OrdiniInevasi.php ---------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER Tabella Inevasi ----------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function stampaTabellaOrdini($whichPage)
-{
-    require '../../conn.php';
-
-    $ordersQuery = "SELECT * FROM ordini WHERE stato_ordine = '$whichPage'";
-    $ordersResult = $conn->query($ordersQuery);
-
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="table-responsive">';
-    $html .= '<table class="table table-bordered table-hover" id="myTable">';
-    $html .= '<thead class="table-dark">';
-    $html .= '<tr id="columns">';
-    $html .= '<th></th>';
-    $html .= '<th>ID Ordine</th>';
-    $html .= '<th>Email</th>';
-    $html .= '<th>Stato Ordine</th>';
-    $html .= '<th>Data Ordine</th>';
-    $html .= '<th>Tipo Spedizione</th>';
-    $html .= '<th>Tipo Pagamento</th>';
-    $html .= '<th>Totale ordine</th>';
-    $html .= '</tr>';
-    $html .= '</thead>';
-    $html .= '<tbody class="table-light">';
-
-    if ($ordersResult->num_rows > 0) {
-        while ($row = $ordersResult->fetch_assoc()) {
-            if ($row['selected'] == 'false') {
-                $selected = '<i class="fa-regular fa-square fs-5"></i>';
-            } else {
-                $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
-            }
-            $html .= '<tr>';
-            $html .= '<td class="clickable-row" data-id="' . $row['id_ordine'] . '" data-stato="' . $row['selected'] . '">' . $selected . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >#00' . $row['id_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['email'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['stato_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['data_ordine'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_spedizione'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >' . $row['tipo_pagamento'] . '</td>';
-            $html .= '<td style="cursor: pointer;" onclick="apriModifica(' . $row['id_ordine'] . ')" >€ ' . number_format($row['totale_ordine'], 2, '.', ',') . '</td>';
-            $html .= '</tr>';
-        }
-    } else {
-        $html .= '<tr>';
-        $html .= '<td colspan="6">Nessun ordine trovato</td>';
-        $html .= '</tr>';
-    }
-
-    $html .= '</tbody>';
-    $html .= '</table>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    $conn->close();
-
-    return $html;
-}
-// ----------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER AGGIUNTA ORDINE MANUALE ---------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------
-function aggiuntaOrdine()
-{
-    require '../../conn.php'; 
-
-    $feedback = '';
-
-    $email = 'scrivi@laemail.it';
-    $data_ordine = 'inserisci la data';
-    $stato_ordine = 'Inevaso';
-    $totale_ordine = '0';
-    $indirizzo_spedizione = 'Inserisci la via';
-    $paese = 'Inserisci il paese';
-    $cap = 'inserisci il cap';
-    $citta = 'Inserisci la città';
-    $provincia = 'Inserisci la provincia';
-    $telefono = 'Inserisci il telefono';
-    $nome = 'Inserisci il nome';
-    $cognome = 'inserisci il cognome';
-    $tipo_spedizione = 'Inserisci la spedizione';
-
-    $query = "INSERT INTO ordini (email, data_ordine, stato_ordine, totale_ordine, indirizzo_spedizione, paese, cap, citta, provincia, telefono, nome, cognome, tipo_spedizione) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($query);
-    if ($stmt) {
-        $stmt->bind_param("sssssssssssss", $email, $data_ordine, $stato_ordine, $totale_ordine, $indirizzo_spedizione, $paese, $cap, $citta, $provincia, $telefono, $nome, $cognome, $tipo_spedizione);
-        $result = $stmt->execute();
-        if ($result) {
-            $feedback = "&nbsp;&nbsp;Ordine aggiunto con successo.";
-            header('Location: ../ui/ordini_inevasi?success=' . urlencode($feedback));
-            exit;
-        } else {
-            $feedback = "Errore durante l'inserimento dell'ordine: " . $stmt->error;
-            header('Location: ../ui/ordini_inevasi?error=' . urlencode($feedback));
-            exit;
-        }
-        $stmt->close();
-    } else {
-        $feedback = "Errore durante la preparazione della query: " . $conn->error;
-        header('Location: ../ui/ordini_inevasi?error=' . urlencode($feedback));
-        exit;
-    }
-    $conn->close();
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI ORDINE ----------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function dettagliOrdine($id_order)
-{
-    require('conn.php');
-
-    $stmt = $conn->prepare("SELECT * FROM ordini WHERE id_ordine = ?");
-    $stmt->bind_param("i", $id_order);
-
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $ordine = array();
-
-    if ($result->num_rows > 0) {
-        $ordine = $result->fetch_assoc();
-    } else {
-        $ordine['error'] = "Nessun ordine trovato con l'ID specificato.";
-    }
-
-    $stmt->close();
-    $conn->close();
-
-    return $ordine;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI ARTICOLI ORDINE -------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function dettagliArticoliOrdine($id_order)
-{
-    require('conn.php');
-
-    $query = "SELECT do.id_dettaglio, do.id_ordine, do.id_prodotto, do.quantita, do.prezzo, 
-                     p.titolo, p.descrizione, p.categoria, p.collezione, p.stato, p.prezzo_comparato, p.quantita AS quantita_disponibile, p.peso, p.varianti
-              FROM dettagli_ordini do
-              JOIN prodotti p ON do.id_prodotto = p.id_prodotto
-              WHERE do.id_ordine = ?";
-
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $id_order);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $dettagli = [];
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $dettagli[] = $row;
-        }
-    } else {
-        $dettagli['error'] = '
-        <div class="alert alert-warning" role="alert">
-            Nessun Prodotto è stato associato a questo ordine
-        </div>';
-    }
-
-    $stmt->close();
-    $conn->close();
-
-    return $dettagli;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER PREZZO TOTALE ----------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function stampaTotaleOrdine($id_order)
-{
-    require('conn.php');
-
-    $query = "SELECT quantita, prezzo FROM dettagli_ordini WHERE id_ordine = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $id_order);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $totale = 0; 
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $totale += $row['quantita'] * $row['prezzo'];
-        }
-        echo "Il tuo ordine da: €" . number_format($totale, 2);
-    } else {
-        echo "Nessun totale, aggiungi articoli all'ordine.";
-    }
-
-    $stmt->close();
-    $conn->close();
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER MODIFICA ORDINE ----------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------------------------------------------------
-// OrdiniSpedire.php ---------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER Spedizioni ---------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function mostraDettagliOrdineSpedizione($idOrdine)
-{
-    require('../../conn.php');
-
-    $html = '<div class="container mt-5">';
-
-    $query_ordine = "SELECT * FROM ordini WHERE id_ordine = $idOrdine";
-    $result_ordine = mysqli_query($conn, $query_ordine);
-    if ($result_ordine && $row_ordine = mysqli_fetch_assoc($result_ordine)) {
-        $id_ordine = $row_ordine['id_ordine'];
-        $nome = $row_ordine['nome'];
-        $cognome = $row_ordine['cognome'];
-        $indirizzo_spedizione = $row_ordine['indirizzo_spedizione'];
-        $paese = $row_ordine['paese'];
-        $cap = $row_ordine['cap'];
-        $citta = $row_ordine['citta'];
-        $provincia = $row_ordine['provincia'];
-        $stato_ordine = $row_ordine['stato_ordine'];
-        $data_ordine = $row_ordine['data_ordine'];
-        $email = $row_ordine['email'];
-        $telefono = $row_ordine['telefono'];
-        $tipo_spedizione = $row_ordine['tipo_spedizione'];
-        $totale_ordine = $row_ordine['totale_ordine'];
-
-        $html .= "<h1>Ordine #00$id_ordine</h1>
-                  <p><strong>Cliente:</strong> $nome $cognome</p>
-                  <p><strong>Indirizzo di Spedizione:</strong> $indirizzo_spedizione, $paese, $cap, $citta, $provincia</p>
-                  <p><strong>Tipo Di Spedizione Selezionata:</strong> $tipo_spedizione</p>
-                  <p><strong>Numero di Telefono:</strong> $telefono</p>
-                  <table class='table'>
-                      <thead>
-                          <tr>
-                              <th>Prodotto</th>
-                              <th>Quantità</th>
-                              <th>Prezzo</th>
-                          </tr>
-                      </thead>
-                      <tbody>";
-
-        $queryDettagliOrdine = "SELECT dettagli_ordini.quantita, dettagli_ordini.prezzo, prodotti.titolo 
-                                FROM dettagli_ordini 
-                                JOIN prodotti ON dettagli_ordini.id_prodotto = prodotti.id_prodotto 
-                                WHERE dettagli_ordini.id_ordine = $idOrdine";
-        $resultDettagliOrdine = mysqli_query($conn, $queryDettagliOrdine);
-        $totale = 0;
-        while ($resultDettagliOrdine && $dettagli = mysqli_fetch_assoc($resultDettagliOrdine)) {
-            $html .= "<tr>
-                        <td>" . $dettagli['titolo'] . "</td>
-                        <td>" . $dettagli['quantita'] . "</td>
-                        <td>€" . number_format($dettagli['prezzo'], 2) . "</td>
-                      </tr>";
-            $totale += $dettagli['quantita'] * $dettagli['prezzo'];
-        }
-
-        $tipo_spedizione = mysqli_real_escape_string($conn, $tipo_spedizione);
-        $querySpedizione = "SELECT * FROM spedizioni WHERE tipo_spedizione = '$tipo_spedizione'";
-        $resultSpedizione = mysqli_query($conn, $querySpedizione);
-        $prezzo_spedizione = 0;
-        if ($rowSpedizione = mysqli_fetch_assoc($resultSpedizione)) {
-            $prezzo_spedizione = $rowSpedizione['prezzo_spedizione']; 
-        }
-
-        $html .= "<tr>
-                    <td>Spedizione</td>
-                    <td>1</td>
-                    <td>€" . number_format($prezzo_spedizione, 2) . "</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Totale</strong></td>
-                    <td></td>
-                    <td><strong>€" . number_format($totale + $prezzo_spedizione, 2) . "</strong></td>
-                  </tr>
-                  </tbody>
-                  </table>";
-
-        $html .= "<form action='cambia_stato_ordine' method='POST'>
-                    <input type='hidden' name='id_ordine' value='$id_ordine'>
-                    <p><strong>Stato Ordine:</strong>
-                    <select name='stato_ordine' onchange='this.form.submit()'>
-                        <option value='Inevaso' " . ($stato_ordine == 'Inevaso' ? 'selected' : '') . ">Inevaso</option>
-                        <option value='Da Spedire' " . ($stato_ordine == 'Da Spedire' ? 'selected' : '') . ">Da Spedire</option>
-                        <option value='Completo' " . ($stato_ordine == 'Completo' ? 'selected' : '') . ">Completo</option>
-                        <option value='Abbandonato' " . ($stato_ordine == 'Abbandonato' ? 'selected' : '') . ">Abbandonato</option>
-                    </select>
-                    </p>
-                  </form>";
-    }
-
-    $query_tracking = "SELECT tracking FROM tracking WHERE id_ordine = $id_ordine";
-    $result_tracking = mysqli_query($conn, $query_tracking);
-    $tracking = null;
-    if ($result_tracking && $row_tracking = mysqli_fetch_assoc($result_tracking)) {
-        $tracking = $row_tracking['tracking'];
-    }
-
-    if ($tracking === null) {
-        $html .= "<div class='tracking-form mt-4'>
-                        <h3>Inserisci il Tracking ID</h3>
-                        <form action='inserisci_tracking' method='POST'>
-                            <input type='hidden' name='id_ordine' value='$id_ordine'>
-                            <div class='mb-3'>
-                                <label for='tracking_id' class='form-label'>Tracking ID:</label>
-                                <input type='text' class='form-control' id='tracking_id' name='tracking_id' required>
-                            </div>
-                            <button type='submit' class='btn btn-outline-secondary'>Inserisci Tracking</button> 
-                        </form>
-                    </div>";
-    } else {
-        $html .= "<div class='tracking-form mt-4'>
-                        <h3>Modifica il Tracking ID</h3>
-                        <form action='modifica_tracking' method='POST'>
-                            <input type='hidden' name='id_ordine' value='$id_ordine'>
-                            <div class='mb-3'>
-                                <label for='tracking_id' class='form-label'>Tracking ID:</label>
-                                <input type='text' class='form-control' id='tracking_id' name='tracking_id' value='$tracking' required>
-                            </div>
-                            <button type='submit' class='btn btn-outline-secondary'>Modifica Tracking</button>
-                        </form>
-                    </div>";
-    }
-
-
-    $html .= '</div></div></div>';
-
-    return $html;
-}
-// -------------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER INSERIRE IL TRACKING ---------------------------------------------------------------------------------------
-// -------------------------------------------------------------------------------------------------------------------------
-function modificaDettagliTracking()
-{
-    require('../../conn.php'); 
-    $id_ordine = $_POST['id_ordine'];
-    $tracking_id = mysqli_real_escape_string($conn, $_POST['tracking_id']);
-
-    $query = "INSERT INTO tracking (id_ordine, tracking) VALUES ('$id_ordine', '$tracking_id') ON DUPLICATE KEY UPDATE tracking='$tracking_id'";
-
-    if (mysqli_query($conn, $query)) {
-        header("Location: ordine_modifica?id=$id_ordine");
-    } else {
-        echo "Errore: " . mysqli_error($conn);
-    }
-}
-// ------------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER MODIFICARE IL TRACKING ------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------------------
-function aggiornaDettagliTracking()
-{
-    require('../../conn.php'); 
-
-    if (isset($_POST['id_ordine']) && isset($_POST['tracking_id'])) {
-        $id_ordine = mysqli_real_escape_string($conn, $_POST['id_ordine']);
-        $tracking_id = mysqli_real_escape_string($conn, $_POST['tracking_id']);
-
-        $query = "UPDATE tracking SET tracking = '$tracking_id' WHERE id_ordine = '$id_ordine'";
-
-        if (mysqli_query($conn, $query)) {
-            if (mysqli_affected_rows($conn) > 0) {
-                header("Location: ordine_modifica?id=$id_ordine&update=success");
-            } else {
-                echo "Nessun tracking ID esistente per l'ordine specificato o nessuna modifica effettuata.";
-            }
-        } else {
-            echo "Errore durante l'aggiornamento del tracking: " . mysqli_error($conn);
-        }
-    } else {
-        echo "Errore: Dati form non completi.";
-    }
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-// ListaProdotti.php ---------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER LISTA PRODOTTI -----------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function listaProdotti()
-{
-    require '../../conn.php';
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="table-responsive">';
-    $html .= '<table class="table table-bordered table-hover" id="myTable">';
-    $html .= '<thead class="table-dark">';
-    $html .= '<tr>';
-    $html .= '<th></th>';
-    $html .= '<th>Pic</th>';
-    $html .= '<th>Prodotto</th>';
-    $html .= '<th>Stato</th>';
-    $html .= '<th>Collezione</th>';
-    $html .= '<th>N°</th>';
-    $html .= '<th>Rimanenze</th>';
-    $html .= '<th>Prezzo</th>';
-    $html .= '</tr>';
-    $html .= '</thead>';
-    $html .= '<tbody class="table-light">';
-
-    $queryProdotti = "SELECT * FROM prodotti ORDER BY id_prodotto DESC";
-    $resultProdotti = mysqli_query($conn, $queryProdotti);
-
-    $immaginiProdotti = [];
-
-    $queryImmagini = "SELECT id_prodotto, immagine FROM media WHERE position = 1";
-    $resultImmagini = mysqli_query($conn, $queryImmagini);
-
-    while ($row = mysqli_fetch_assoc($resultImmagini)) {
-        $immaginiProdotti[$row['id_prodotto']] = $row['immagine'];
-    }
-
-    while ($row = mysqli_fetch_assoc($resultProdotti)) {
-        $idProdotto = $row['id_prodotto'];
-        $immagine = array_key_exists($idProdotto, $immaginiProdotti) ? $immaginiProdotti[$idProdotto] : 'default.jpg'; // Imposta un'immagine predefinita se non disponibile
-        if ($row['stato'] == 'online') {
-            $check = '<i class="fa-solid fa-circle text-success"></i>';
-        } else if ($row['stato'] == 'offline') {
-            $check = '<i class="fa-solid fa-circle text-danger"></i>';
-        } else {
-            $check = 'NAN';
-        }
-
-        if ($row['quantita'] >= 1 && $row['quantita'] <= 5) {
-            $check_qnt = '<b class="text-warning">Scorte basse</b>';
-        } else if ($row['quantita'] == 0) {
-            $check_qnt = '<b class="text-danger">Scorte esaurite</b>';
-        } else {
-            $check_qnt = '<b class="text-success">Scorte Sufficenti</b>'; 
-        }
-        if ($row['selected'] == 'false') {
-            $selected = '<i class="fa-regular fa-square fs-5"></i>';
-        } else {
-            $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
-        }
-        $html .= '<tr>';
-        $html .= '<td class="clickable-row" data-id="' . $row['id_prodotto'] . '" data-stato="' . $row['selected'] . '">' . $selected . '</td>';
-        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' ><img src='" . htmlspecialchars($immagine, ENT_QUOTES) . "' width='30px'></td>";
-        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['titolo'], ENT_QUOTES) . "</td>";
-        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >$check&nbsp;" . htmlspecialchars($row['stato'], ENT_QUOTES) . "</td>"; 
-        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['collezione'], ENT_QUOTES) . "</td>";
-        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['quantita'], ENT_QUOTES) . "</td>"; 
-        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . $check_qnt . "</td>"; 
-        $html .= "<td style='cursor: pointer;' onclick='apriModifica($idProdotto)' >" . htmlspecialchars($row['prezzo'], ENT_QUOTES) . "€</td>";
-        $html .= "</tr>";
-    }
-
-    $html .= '</tbody>';
-    $html .= '</table>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    return $html;
-}
-// ----------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER AGGIUNTA PRODOTTO ---------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------
-function aggiuntaProdotto()
-{
-    require '../../conn.php'; 
-
-    $feedback = '';
-
-    $titolo = 'Nuovo Prodotto';
-    $descrizione = 'Descrizione del tuo Prodotto';
-    $categoria = 'Categoria Predefinita';
-    $collezione = 'Collezione Predefinita';
-    $stato = 'offline';
-    $prezzo = '0';
-    $prezzo_comparato = '0';
-    $quantita = '0';
-    $peso = '0';
-    $varianti = '0';
-
-    $query = "INSERT INTO prodotti (titolo, descrizione, categoria, collezione, stato, prezzo, prezzo_comparato, quantita, peso, varianti) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($query);
-    if ($stmt) {
-        $stmt->bind_param("ssssssssss", $titolo, $descrizione, $categoria, $collezione, $stato, $prezzo, $prezzo_comparato, $quantita, $peso, $varianti);
-        $result = $stmt->execute();
-        if ($result) {
-            $feedback = "Prodotto aggiunto con successo.";
-            header('Location: ../ui/prodotti?success=' . urlencode($feedback));
-            exit;
-        } else {
-            $feedback = "Errore durante l'inserimento del prodotto: " . $stmt->error;
-            header('Location: ../ui/prodotti?error=' . urlencode($feedback));
-            exit;
-        }
-        $stmt->close();
-    } else {
-        $feedback = "Errore durante la preparazione della query: " . $conn->error;
-        header('Location: ../ui/prodotti?error=' . urlencode($feedback));
-        exit;
-    }
-    $conn->close();
-
-    header('Location: ../ui/prodotti');
-    exit;
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER AGGIUNTA IMMAGINI PRODOTTO -----------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function aggiuntaImmagini($id_prodotto)
-{
-
-    require '../../conn.php'; 
-
-    $feedback = '';
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['immagini'])) {
-        $numeroImmagini = count($_FILES['immagini']['name']);
-
-        for ($i = 0; $i < $numeroImmagini; $i++) {
-            $nomeFile = $_FILES['immagini']['name'][$i];
-            $fileTemp = $_FILES['immagini']['tmp_name'][$i];
-            $posizione = $i + 1; 
-
-            $percorsoSalvataggio = "../../src/media/" . basename($nomeFile);
-
-            if (move_uploaded_file($fileTemp, $percorsoSalvataggio)) {
-                $query = "INSERT INTO media (id_prodotto, immagine, position) VALUES (?, ?, ?)";
-                $stmt = $conn->prepare($query);
-
-                if ($stmt) {
-                    $stmt->bind_param("isi", $id_prodotto, $percorsoSalvataggio, $posizione);
-                    $result = $stmt->execute();
-
-                    if ($result) {
-                        $feedback .= "Immagine $nomeFile caricata con successo. ";
-                    } else {
-                        $feedback .= "Errore durante il caricamento dell'immagine $nomeFile: " . $stmt->error . ". ";
-                    }
-
-                    $stmt->close();
-                } else {
-                    $feedback .= "Errore durante la preparazione della query per l'immagine $nomeFile: " . $conn->error . ". ";
-                }
-            } else {
-                $feedback .= "Errore durante il caricamento dell'immagine $nomeFile. ";
-            }
-        }
-
-        $conn->close();
-
-        return $feedback;
-    } else {
-        return "Nessuna immagine inviata o metodo di richiesta non valido.";
-    }
-}
-// ----------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER MODIFICA PRODOTTO ---------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------
-function modificaProdotto($id_prodotto)
-{
-    require '../../conn.php'; 
-
-    if (!is_numeric($id_prodotto)) {
-        return "ID del prodotto non valido.";
-    }
-
-    $result = ""; 
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'delete') {
-        $query = "DELETE FROM prodotti WHERE id_prodotto = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $id_prodotto);
-        if ($stmt->execute()) {
-            $stmt->close();
-            $conn->close();
-            return "Prodotto eliminato con successo."; 
-        } else {
-            $stmt->close();
-            $conn->close();
-            return "Errore durante l'eliminazione del prodotto: " . $stmt->error;
-        }
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST['action']) || $_POST['action'] !== 'delete')) {
-        $titolo = $_POST["titolo"];
-        $descrizione = $_POST["descrizione"];
-        $prezzo = $_POST["prezzo"];
-        $prezzo_comparato = $_POST["prezzo_comparato"];
-        $stato = $_POST["stato"];
-        $peso = $_POST["peso"];
-        $quantita = $_POST["quantita"];
-        $categoria = $_POST["categoria"];
-        $collezione = $_POST["collezione"];
-        $varianti = $_POST["varianti"];
-
-        $titolo_seo = generateSlug($titolo);
-
-        $query = "UPDATE prodotti SET titolo=?, titolo_seo=?, descrizione=?, categoria=?, collezione=?, stato=?, prezzo=?, prezzo_comparato=?, quantita=?, peso=?, varianti=? WHERE id_prodotto = ?";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("sssssssdiisi", $titolo, $titolo_seo, $descrizione, $categoria, $collezione, $stato, $prezzo, $prezzo_comparato, $quantita, $peso, $varianti, $id_prodotto);
-            if ($stmt->execute()) {
-                $result = "Modifiche apportate con successo.";
-            } else {
-                $result = "Errore durante la modifica del prodotto: " . $stmt->error;
-            }
-            $stmt->close();
-        } else {
-            $result = "Errore nella preparazione della query: " . $conn->error;
-        }
-    }
-
-    $conn->close();
-    return $result;
-}
-// ----------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DUPLICAZIONE PRODOTTO -----------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------
-function duplicaProdotto($idProdottoOriginale)
-{
-    require '../../conn.php'; 
-
-    $query = "SELECT * FROM prodotti WHERE id_prodotto = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $idProdottoOriginale);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($row = $result->fetch_assoc()) {
-        $queryDuplica = "INSERT INTO prodotti (titolo, descrizione, categoria, collezione, stato, prezzo, prezzo_comparato, quantita, peso, varianti) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmtDuplica = $conn->prepare($queryDuplica);
-        if ($stmtDuplica) {
-            $nuovoTitolo = 'Variante di ' . $row['titolo'];
-            $stmtDuplica->bind_param("ssssssssss", $nuovoTitolo, $row['descrizione'], $row['categoria'], $row['collezione'], $row['stato'], $row['prezzo'], $row['prezzo_comparato'], $row['quantita'], $row['peso'], $row['varianti']);
-            $stmtDuplica->execute();
-
-            $nuovoIdProdotto = $stmtDuplica->insert_id;
-            $stmtDuplica->close();
-
-            return $nuovoIdProdotto;
-        } else {
-            echo "Errore nella preparazione della query di duplicazione: " . $conn->error;
-            return false;
-        }
-    } else {
-        echo "Prodotto originale non trovato.";
-        return false;
-    }
-    $stmt->close();
-    $conn->close();
-}
-
-// ----------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI PRODOTTO ---------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------------------------
-function ottieniDettagliProdotto($id_prodotto)
-{
-    require 'conn.php'; 
-
-    if (!is_numeric($id_prodotto)) {
-        return "ID del prodotto non valido.";
-    }
-
-    $query = "SELECT * FROM prodotti WHERE id_prodotto = ?";
-    $stmt = $conn->prepare($query);
-
-    if ($stmt === false) {
-        return "Errore nella preparazione della query: " . $conn->error;
-    }
-
-    $stmt->bind_param('i', $id_prodotto);
-
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-
-    if ($result->num_rows == 0) {
-        return "Nessun prodotto trovato con l'ID specificato.";
-    }
-
-    $dettagliProdotto = $result->fetch_assoc();
-
-    $stmt->close();
-    $conn->close();
-
-    return $dettagliProdotto;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// ListaCollezioni.php -------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER LISTA COLLEZIONI ---------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function listaCollezioni()
-{
-    require '../../conn.php'; 
-
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="table-responsive">';
-    $html .= '<table class="table table-bordered table-hover" id="myTable">';
-    $html .= '<thead class="table-dark">';
-    $html .= '<tr>';
-    $html .= '<th></th>'; 
-    $html .= '<th>ID</th>'; 
-    $html .= '<th>Nome</th>'; 
-    $html .= '<th>Descrizione</th>'; 
-    $html .= '</tr>';
-    $html .= '</thead>';
-    $html .= '<tbody class="table-light">';
-
-    $query = "SELECT * FROM collezioni ORDER BY id_collezione DESC";
-
-    $result = mysqli_query($conn, $query);
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        if ($row['selected'] == 'false') {
-            $selected = '<i class="fa-regular fa-square fs-5"></i>';
-        } else {
-            $selected = '<i class="fa-solid fa-square-check fs-5"></i>';
-        }
-        $html .= "<tr style='cursor: pointer;'>";
-        $html .= '<td class="clickable-row" data-id="' . $row['id_collezione'] . '" data-stato="' . $row['selected'] . '">' . $selected . '</td>';
-        $html .= "<td onclick='apriModifica(" . $row['id_collezione'] . ")'>#00" . htmlspecialchars($row['id_collezione'], ENT_QUOTES) . "</td>";
-        $html .= "<td onclick='apriModifica(" . $row['id_collezione'] . ")'>" . htmlspecialchars($row['nome_c'], ENT_QUOTES) . "</td>";
-        $html .= "<td onclick='apriModifica(" . $row['id_collezione'] . ")'>" . htmlspecialchars($row['descrizione_c'], ENT_QUOTES) . "</td>";
-        $html .= "</tr>";
-    }
-
-    $html .= '</tbody>';
-    $html .= '</table>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    return $html;
-}
-// ------------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER AGGIUNTA COLLEZIONE ---------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------------------
-function aggiuntaCollezione()
-{
-    require '../../conn.php'; 
-
-    $feedback = '';
-
-    $nome_c = 'Nuova Collezione';
-    $slug_c = 'nuova-collezione';
-    $descrizione_c = 'Aggiungi descrizione';
-
-    $query = "INSERT INTO collezioni (nome_c, slug_c, descrizione_c) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($query);
-    if ($stmt) {
-        $stmt->bind_param("sss", $nome_c, $slug_c, $descrizione_c);
-        $result = $stmt->execute();
-        if ($result) {
-            $feedback = "Collezione aggiunta con successo.";
-            header('Location: ../ui/collezioni?success=' . urlencode($feedback));
-            exit;
-        } else {
-            $feedback = "Errore durante l'inserimento della collezione: " . $stmt->error;
-            header('Location: ../ui/collezioni?error=' . urlencode($feedback));
-            exit;
-        }
-        $stmt->close();
-    } else {
-        $feedback = "Errore durante la preparazione della query: " . $conn->error;
-        header('Location: ../ui/collezioni?error=' . urlencode($feedback));
-        exit;
-    }
-    $conn->close();
-
-    header('Location: ../ui/collezioni');
-    exit;
-}
-
-// ------------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER MODIFICA COLLEZIONE ---------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------------------
-function modificaCollezione($id_collezione)
-{
-    require '../../conn.php'; 
-
-    if (!is_numeric($id_collezione)) {
-        return "ID della collezione non valido.";
-    }
-
-    $result = ""; 
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'delete') {
-        $queryNome = "SELECT nome_c FROM collezioni WHERE id_collezione = ?";
-        $stmt = $conn->prepare($queryNome);
-        $stmt->bind_param('i', $id_collezione);
-        $stmt->execute();
-        $resultNome = $stmt->get_result();
-        $nomeCollezione = $resultNome->fetch_assoc()['nome_c'];
-        $stmt->close();
-
-        if ($nomeCollezione) {
-            $queryCategorie = "DELETE FROM categorie WHERE associazione = ?";
-            $stmt = $conn->prepare($queryCategorie);
-            $stmt->bind_param('s', $nomeCollezione);
-            if (!$stmt->execute()) {
-                $stmt->close();
-                $conn->close();
-                return "Errore durante l'eliminazione delle categorie associate: " . $stmt->error;
-            }
-            $stmt->close(); 
-
-            $queryCollezione = "DELETE FROM collezioni WHERE id_collezione = ?";
-            $stmt = $conn->prepare($queryCollezione);
-            $stmt->bind_param('i', $id_collezione);
-            if ($stmt->execute()) {
-                $stmt->close();
-                $conn->close();
-                return "Collezione e categorie associate eliminate con successo.";
-            } else {
-                $stmt->close();
-                $conn->close();
-                return "Errore durante l'eliminazione della collezione: " . $stmt->error;
-            }
-        } else {
-            $conn->close();
-            return "Errore: non è stato possibile recuperare il nome della collezione.";
-        }
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST['action']) || $_POST['action'] !== 'delete')) {
-        $nome_c = $_POST["nome_c"];
-        $descrizione_c = $_POST["descrizione_c"];
-        $slug_c = $_POST["slug_c"];
-
-        $queryVecchioNome = "SELECT nome_c FROM collezioni WHERE id_collezione = ?";
-        $stmt = $conn->prepare($queryVecchioNome);
-        $stmt->bind_param('i', $id_collezione);
-        $stmt->execute();
-        $resultVecchioNome = $stmt->get_result();
-        $vecchioNome = $resultVecchioNome->fetch_assoc()['nome_c'];
-        $stmt->close();
-
-        if ($vecchioNome) {
-            $query = "UPDATE collezioni SET nome_c=?, slug_c=?, descrizione_c=? WHERE id_collezione = ?";
-            $stmt = $conn->prepare($query);
-            if ($stmt) {
-                $stmt->bind_param("sssi", $nome_c, $slug_c, $descrizione_c, $id_collezione);
-                if ($stmt->execute()) {
-                    $stmt->close();
-
-                    if ($nome_c != $vecchioNome) {
-                        $queryAggiornaCategorie = "UPDATE categorie SET associazione = ? WHERE associazione = ?";
-                        $stmt = $conn->prepare($queryAggiornaCategorie);
-                        $stmt->bind_param('ss', $nome_c, $vecchioNome);
-                        if (!$stmt->execute()) {
-                            $conn->close();
-                            return "Modifiche apportate con successo alla collezione, ma errore durante l'aggiornamento delle categorie associate: " . $stmt->error;
-                        }
-                        $stmt->close();
-                    }
-
-                    $conn->close();
-                    return "Modifiche apportate con successo alla collezione e alle categorie associate.";
-                } else {
-                    $result = "Errore durante la modifica della collezione: " . $stmt->error;
-                    $stmt->close();
-                    $conn->close();
-                    return $result;
-                }
-            } else {
-                $result = "Errore nella preparazione della query: " . $conn->error;
-                $conn->close();
-                return $result;
-            }
-        } else {
-            $conn->close();
-            return "Errore: non è stato possibile recuperare il vecchio nome della collezione.";
-        }
-    }
-
-
-    $conn->close();
-    return $result;
-}
-// ------------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI COLLEZIONE ---------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------------------
-function ottieniDettagliCollezione($id_collezione)
-{
-    require '../../conn.php'; 
-
-    if (!is_numeric($id_collezione)) {
-        return "ID della collezione non valido.";
-    }
-
-    $query = "SELECT * FROM collezioni WHERE id_collezione = ?";
-    $stmt = $conn->prepare($query);
-
-    if ($stmt === false) {
-        return "Errore nella preparazione della query: " . $conn->error;
-    }
-
-    $stmt->bind_param('i', $id_collezione);
-
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-
-    if ($result->num_rows == 0) {
-        return "Nessuna collezione trovato con l'ID specificato.";
-    }
-
-    $dettagliCollezione = $result->fetch_assoc();
-
-    $stmt->close();
-    $conn->close();
-
-    return $dettagliCollezione;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// ListaCategorie.php --------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER LISTA CATEGORIE ----------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function visualizzaCategorie($nomeCollezione)
-{
-    require '../../conn.php'; 
-
-    $nomeCollezione = mysqli_real_escape_string($conn, $nomeCollezione);
-
-    $query = "SELECT id_categoria, nome_cat, associazione FROM categorie WHERE associazione = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $nomeCollezione); 
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        echo "<table class='table'>";
-        echo "<thead>
-                <tr>
-                    <th>Nome Categoria</th>
-                    <th>Associazione</th>
-                    <th>Azioni</th>
-                </tr>
-            </thead>";
-        echo "<tbody>";
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>
-            <td>" . htmlspecialchars($row['nome_cat'], ENT_QUOTES) . "</td>
-            <td>" . htmlspecialchars($row['associazione'], ENT_QUOTES) . "</td>
-            <td><button onclick='confermaEliminazione(" . $row['id_categoria'] . ")' class='btn btn-danger'>Elimina</button></td>
-            </tr>";
-        }
-        echo "</tbody></table>";
-    } else {
-        echo "<p>Nessuna categoria associata a questa collezione.</p>";
-    }
-
-    $stmt->close();
-    $conn->close();
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// codiciSconto.php ----------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER AGGIUNTA CODICE SCONTO ---------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function aggiunta_codicesconto()
-{
-    require '../../conn.php'; 
-
-    $feedback = '';
-    $codicesconto = 'NUOVOCODICESCONTO';
-    $importo = '20';
-    $stato = 'Non Valido';
-
-    $query = "INSERT INTO codici_sconto (codicesconto, importo, stato) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($query);
-    if ($stmt) {
-        $stmt->bind_param("sss", $codicesconto, $importo, $stato);
-        $result = $stmt->execute();
-        if ($result) {
-            $feedback = "Codice sconto creato con successo.";
-            header('Location: ../ui/codicisconto?success=' . urlencode($feedback));
-            exit;
-        } else {
-            $feedback = "Errore durante l'inserimento della collezione: " . $stmt->error;
-            header('Location: ../ui/codicisconto?error=' . urlencode($feedback));
-            exit;
-        }
-        $stmt->close();
-    } else {
-        $feedback = "Errore durante la preparazione della query: " . $conn->error;
-        header('Location: ../ui/codicisconto?error=' . urlencode($feedback));
-        exit;
-    }
-    $conn->close();
-}
-// ------------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER LISTA CODICI SCONTO ---------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------------------
-function listaCodicisconto()
-{
-    require '../../conn.php'; 
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="table-responsive">';
-    $html .= '<table class="table table-bordered table-hover" id="myTable">';
-    $html .= '<thead class="table-dark">';
-    $html .= '<tr>';
-    $html .= '<th>ID</th>';
-    $html .= '<th>Codice</th>';
-    $html .= '<th>Importo</th>';
-    $html .= '<th>Stato</th>';
-    $html .= '</tr>';
-    $html .= '</thead>';
-    $html .= '<tbody class="table-light">';
-
-    $query = "SELECT * FROM codici_sconto ORDER BY id_codicesconto DESC";
-
-    $result = mysqli_query($conn, $query);
-
-    while ($row = mysqli_fetch_assoc($result)) {
-
-        if ($row['stato'] == 'Valido') {
-            $check = '<i class="fa-solid fa-circle text-success"></i>';
-        } else if ($row['stato'] == 'Non Valido') {
-            $check = '<i class="fa-solid fa-circle text-danger"></i>';
-        } else {
-            $check = 'non definito';
-        }
-
-        $html .= "<tr style='cursor: pointer;' onclick='apriModifica(" . $row['id_codicesconto'] . ")'>";
-        $html .= "<td>#00" . htmlspecialchars($row['id_codicesconto'], ENT_QUOTES) . "</td>";
-        $html .= "<td>" . htmlspecialchars($row['codicesconto'], ENT_QUOTES) . "</td>";
-        $html .= "<td>" . htmlspecialchars($row['importo'], ENT_QUOTES) . "</td>";
-        $html .= "<td>$check&nbsp;" . htmlspecialchars($row['stato'], ENT_QUOTES) . "</td>";
-        $html .= "</tr>";
-    }
-
-    $html .= '</tbody>';
-    $html .= '</table>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    return $html;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER MODIFICA CODICE SCONTO ---------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function modificaCodicesconto($id_codicesconto)
-{
-    require '../../conn.php'; 
-
-    if (!is_numeric($id_codicesconto)) {
-        return "ID del codice sconto non valido.";
-    }
-
-    $result = ""; 
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'delete') {
-        $query = "DELETE FROM codici_sconto WHERE id_codicesconto = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $id_codicesconto);
-        if ($stmt->execute()) {
-            $stmt->close();
-            $conn->close();
-            return "Codice Sconto eliminato con successo."; 
-        } else {
-            $stmt->close();
-            $conn->close();
-            return "Errore durante l'eliminazione Codice Sconto eliminato: " . $stmt->error;
-        }
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST['action']) || $_POST['action'] !== 'delete')) {
-        $codicesconto = $_POST["codicesconto"];
-        $importo = $_POST["importo"];
-        $stato = $_POST["stato"];
-
-        $query = "UPDATE codici_sconto SET codicesconto=?, importo=?, stato=?  WHERE id_codicesconto = ?";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("sssi", $codicesconto, $importo, $stato, $id_codicesconto);
-            if ($stmt->execute()) {
-                $result = "Modifiche apportate con successo.";
-            } else {
-                $result = "Errore durante la modifica: " . $stmt->error;
-            }
-            $stmt->close();
-        } else {
-            $result = "Errore nella preparazione della query: " . $conn->error;
-        }
-    }
-
-    $conn->close();
-    return $result;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI CODICE SCONTO ---------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function ottieniDettagliCodicesconto($id_codicesconto)
-{
-    require '../../conn.php'; 
-
-    if (!is_numeric($id_codicesconto)) {
-        return "ID del codice sconto non valido.";
-    }
-
-    $query = "SELECT * FROM codici_sconto WHERE id_codicesconto = ?";
-    $stmt = $conn->prepare($query);
-
-    if ($stmt === false) {
-        return "Errore nella preparazione della query: " . $conn->error;
-    }
-
-    $stmt->bind_param('i', $id_codicesconto);
-
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-
-    if ($result->num_rows == 0) {
-        return "Nessun codice sconto trovato con l'ID specificato.";
-    }
-
-    $dettagliCodicesconto = $result->fetch_assoc();
-
-    $stmt->close();
-    $conn->close();
-
-    return $dettagliCodicesconto;
-}
-// ---------------------------------------------------------------------------------------------------------------------
 // ListaClienti.php ----------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 
@@ -1796,42 +554,6 @@ function aggiuntaClienti()
         exit;
     }
 }
-// ------------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI COLLEZIONE ---------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------------------
-function ottieniDettagliClienti($id_utente)
-{
-    require '../../conn.php'; 
-
-    if (!is_numeric($id_utente)) {
-        return "ID della collezione non valido.";
-    }
-
-    $query = "SELECT * FROM user_db WHERE id_utente = ?";
-    $stmt = $conn->prepare($query);
-
-    if ($stmt === false) {
-        return "Errore nella preparazione della query: " . $conn->error;
-    }
-
-    $stmt->bind_param('i', $id_utente);
-
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-
-    if ($result->num_rows == 0) {
-        return "Nessun cliente trovato con l'ID specificato.";
-    }
-
-    $dettagliClienti = $result->fetch_assoc();
-
-    $stmt->close();
-    $conn->close();
-
-    return $dettagliClienti;
-}
-
 // ---------------------------------------------------------------------------------------------------------------------
 // DettagliNegozio.php -------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
@@ -2145,224 +867,6 @@ function modificaRuoliAdmin()
     }
 }
 // ---------------------------------------------------------------------------------------------------------------------
-// Pagamenti.php -------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER PAGAMENTI E MODIFICA -----------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function getPaymentProviderDetailsAndUpdate($conn, &$messaggio_risultato)
-{
-    $provider = isset($_GET['provider']) ? $_GET['provider'] : null;
-
-    if ($provider === null) {
-        echo 'Provider non trovato nel Database';
-        exit;
-    }
-
-    $query_pay = "SELECT * FROM payment_systems WHERE provider = ?";
-    $stmt = $conn->prepare($query_pay);
-    if ($stmt) {
-        $stmt->bind_param("s", $provider);
-        $stmt->execute();
-        $result_set = $stmt->get_result();
-        if ($result_set->num_rows == 1) {
-            $row = $result_set->fetch_assoc();
-        } else {
-            echo 'Errore 404: Provider non trovato.';
-            exit;
-        }
-        $stmt->close();
-    } else {
-        echo "<script>alert('Errore nella preparazione della query: " . $conn->error . "');</script>";
-        exit;
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $client_id = $_POST["client_id"];
-        $secret_key = $_POST["secret_key"];
-        $environment = $_POST["environment"];
-        $status = $_POST["status"];
-        $provider = $_POST["provider"];
-
-        $query_pay = "UPDATE payment_systems SET client_id=?, secret_key=?, environment=?, status=? WHERE provider = ?";
-        $stmt = $conn->prepare($query_pay);
-        if ($stmt) {
-            $stmt->bind_param("sssss", $client_id, $secret_key, $environment, $status, $provider);
-            if ($stmt->execute()) {
-                header('Location: ' . $_SERVER['PHP_SELF'] . '?provider=' . urlencode($provider));
-                $messaggio_risultato = "<div class='alert alert-success' role='alert'>Dati Salvati con successo! </div>";
-            } else {
-                $messaggio_risultato = "<div class='alert alert-danger' role='alert'>Errore durante la modifica del pagamento: " . $stmt->error . "</div>";
-            }
-            $stmt->close();
-        } else {
-            $messaggio_risultato = "<div class='alert alert-danger' role='alert'>Errore nella preparazione della query: " . $conn->error . "</div>";
-        }
-    }
-    return $row; 
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// Spedizioni.php ------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER LISTA SPEDIZIONI ---------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function listaSpedizioni()
-{
-    require '../../conn.php'; 
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="table-responsive">';
-    $html .= '<table class="table table-bordered table-hover" id="myTable">';
-    $html .= '<thead class="table-dark">';
-    $html .= '<tr>';
-    $html .= '<th>ID</th>';
-    $html .= '<th>Tipo</th>';
-    $html .= '<th>Prezzo</th>';
-    $html .= '<th>Peso</th>';
-    $html .= '</tr>';
-    $html .= '</thead>';
-    $html .= '<tbody class="table-light">';
-
-    $query = "SELECT * FROM spedizioni ORDER BY id_spedizione DESC";
-
-    $result = mysqli_query($conn, $query);
-
-    while ($row = mysqli_fetch_assoc($result)) {
-
-        $html .= "<tr style='cursor: pointer;' onclick='apriModifica(" . $row['id_spedizione'] . ")'>";
-        $html .= "<td>#00" . htmlspecialchars($row['id_spedizione'], ENT_QUOTES) . "</td>";
-        $html .= "<td>" . htmlspecialchars($row['tipo_spedizione'], ENT_QUOTES) . "</td>";
-        $html .= "<td>" . htmlspecialchars($row['prezzo_spedizione'], ENT_QUOTES) . "€</td>";
-        $html .= "<td>&nbsp;" . htmlspecialchars($row['peso_spedizione'], ENT_QUOTES) . "Kg</td>";
-        $html .= "</tr>";
-    }
-
-    $html .= '</tbody>';
-    $html .= '</table>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    return $html;
-}
-// ------------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER AGGIUNTA SPEDIZIONE ---------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------------------
-function aggiunta_spedizione()
-{
-    require '../../conn.php'; 
-
-    $feedback = '';
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'addSpedizione') {
-        $tipo_spedizione = 'Nuova Spedizione';
-        $prezzo_spedizione = '0';
-        $peso_spedizione = '0';
-
-        $query = "INSERT INTO spedizioni (tipo_spedizione, prezzo_spedizione, peso_spedizione) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("sss", $tipo_spedizione, $prezzo_spedizione, $peso_spedizione);
-            $result = $stmt->execute();
-            if ($result) {
-                $feedback = "Spedizione creata con successo.";
-                header('Location: ../ui/spedizioni?success=' . urlencode($feedback));
-                exit;
-            } else {
-                $feedback = "Errore durante l'inserimento della spedizione: " . $stmt->error;
-                header('Location: ../ui/spedizioni?error=' . urlencode($feedback));
-                exit;
-            }
-            $stmt->close();
-        } else {
-            $feedback = "Errore durante la preparazione della query: " . $conn->error;
-            header('Location: ../ui/spedizioni?error=' . urlencode($feedback));
-            exit;
-        }
-        $conn->close();
-    } else {
-        header('Location: ../ui/spedizioni');
-        exit;
-    }
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER MODIFICA SPEDIZIONE ------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function modificaSpedizione($id_spedizione)
-{
-    require '../../conn.php'; 
-
-    if (!is_numeric($id_spedizione)) {
-        return "ID della spedizione non valido.";
-    }
-
-    $result = ""; 
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'delete') {
-        $query = "DELETE FROM spedizioni WHERE id_spedizione = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $id_spedizione);
-        if ($stmt->execute()) {
-            $stmt->close();
-            $conn->close();
-            return "Spedizione eliminata con successo."; 
-        } else {
-            $stmt->close();
-            $conn->close();
-            return "Errore durante l'eliminazione della spedizione: " . $stmt->error;
-        }
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST['action']) || $_POST['action'] !== 'delete')) {
-        $tipo_spedizione = $_POST["tipo_spedizione"];
-        $prezzo_spedizione = $_POST["prezzo_spedizione"];
-        $peso_spedizione = $_POST["peso_spedizione"];
-
-        $query = "UPDATE spedizioni SET tipo_spedizione=?, prezzo_spedizione=?, peso_spedizione=?  WHERE id_spedizione = ?";
-        $stmt = $conn->prepare($query);
-        if ($stmt) {
-            $stmt->bind_param("sssi", $tipo_spedizione, $prezzo_spedizione, $peso_spedizione, $id_spedizione);
-            if ($stmt->execute()) {
-                $result = "Modifiche apportate con successo.";
-            } else {
-                $result = "Errore durante la modifica: " . $stmt->error;
-            }
-            $stmt->close();
-        } else {
-            $result = "Errore nella preparazione della query: " . $conn->error;
-        }
-    }
-
-    $conn->close();
-    return $result;
-}
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI SPEDIZIONE ------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function ottieniDettagliSpedizione($id_spedizione)
-{
-    require '../../conn.php'; 
-    if (!is_numeric($id_spedizione)) {
-        return "ID della spedizione non valido.";
-    }
-    $query = "SELECT * FROM spedizioni WHERE id_spedizione = ?";
-    $stmt = $conn->prepare($query);
-    if ($stmt === false) {
-        return "Errore nella preparazione della query: " . $conn->error;
-    }
-    $stmt->bind_param('i', $id_spedizione);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows == 0) {
-        return "Nessuna Spedizione trovata con l'ID specificato.";
-    }
-    $dettagliSpedizione = $result->fetch_assoc();
-    $stmt->close();
-    $conn->close();
-    return $dettagliSpedizione;
-}
-// ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER DETTAGLI LEADS ---------------------------------------------------------------------------------------
 function listaLeads()
 {
@@ -2455,41 +959,6 @@ function modificaLead($lead)
 
     $conn->close();
     return $result;
-}
-// ------------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER DETTAGLI COLLEZIONE ---------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------------------------
-function ottieniDettagliLead($lead)
-{
-    require '../../conn.php'; 
-
-    if (!is_numeric($lead)) {
-        return "ID del Lead non valido.";
-    }
-
-    $query = "SELECT * FROM leads WHERE lead = ?";
-    $stmt = $conn->prepare($query);
-
-    if ($stmt === false) {
-        return "Errore nella preparazione della query: " . $conn->error;
-    }
-
-    $stmt->bind_param('i', $lead);
-
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-
-    if ($result->num_rows == 0) {
-        return "Nessun Lead trovato con l'ID specificato.";
-    }
-
-    $dettagliLead = $result->fetch_assoc();
-
-    $stmt->close();
-    $conn->close();
-
-    return $dettagliLead;
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // Marketing.php -------------------------------------------------------------------------------------------------------
@@ -2605,24 +1074,6 @@ function customNav()
     $conn->close();
 }
 
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER PLACEHOLDER DROPDOWN NAVBAR ---------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function replaceCatalogPlaceholder($content)
-{
-    require 'conn.php';
-
-    $categoriesHTML = '<ul class="dropdown-menu">';
-    $query = "SELECT nome_c, slug_c FROM collezioni";
-    $result = $conn->query($query);
-
-    while ($row = $result->fetch_assoc()) {
-        $categoriesHTML .= '<li><a class="dropdown-item" href="/catalogs/' . htmlspecialchars($row['slug_c']) . '">' . htmlspecialchars($row['nome_c']) . '</a></li>';
-    }
-    $categoriesHTML .= '</ul>';
-
-    return str_replace('{{listaCatalogo}}', $categoriesHTML, $content);
-}
 
 // -------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER VISUALIZZARE LA NAVBAR -------------------------------------------------------------------------------
@@ -2631,150 +1082,170 @@ function customFooter()
 {
     require 'conn.php';
     $standard = 'footer';
-
+    
     $stmt = $conn->prepare("SELECT content FROM editor_contents WHERE name_page = ? ORDER BY id DESC LIMIT 1");
     $stmt->bind_param("s", $standard); 
     $stmt->execute();
     $result = $stmt->get_result();
-
+    
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         echo $row['content']; 
     } else {
         echo "";
     }
-
+    
     $stmt->close();
     $conn->close();
 }
-// ---------------------------------------------------------------------------------------------------------------------
-// 1) FUNZIONE PER TENERE SESSIONE DEL CARRELLO ------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------
+// CLASSE PER EVENTI -------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------
+class EventoManager {
+    private $conn;
 
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
-}
+    public function __construct($dbConnection) {
+        $this->conn = $dbConnection;
+    }
 
-// ---------------------------------------------------------------------------------------------------------------------
-// 2) FUNZIONE PER AGGIUNGERE ALLA SESSIONE DEL CARRELLO ---------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-function addToCart($productId, $quantity)
-{
-    if ($quantity > 0) {
-        if (!isset($_SESSION['cart'][$productId])) {
-            $_SESSION['cart'][$productId] = 0;
+    // Ottieni tutti gli eventi
+    public function getEventi($status = null) {
+        $query = "SELECT * FROM eventi";
+        if ($status !== null) {
+            $query .= " WHERE pubblicato = ?";
         }
-        $_SESSION['cart'][$productId] += $quantity;
-    }
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER VISUALIZZARE DATI DEL PRODOTTO -------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-function prendeProdutti()
-{
-    require 'conn.php';
-
-    $stmt = $conn->prepare("SELECT id_prodotto, titolo, titolo_seo, descrizione, categoria, collezione, stato, prezzo, prezzo_comparato, quantita, peso, varianti, sku, marca FROM prodotti WHERE id_prodotto = ");
-    $stmt->execute();
-    $stmt->bind_param("isssssssssssss", $id_prodotto, $titolo, $titolo_seo, $descrizione, $categoria, $collezione, $stato, $prezzo, $prezzo_comparato, $quantita, $peso, $varianti, $sku, $marca);
-
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        while ($stmt->fetch()) {
-            $prodotti[] = array(
-                'id_prodotto' => $id_prodotto,
-                'titolo' => $titolo,
-                'titolo_seo' => $titolo_seo,
-                'descrizione' => $descrizione,
-                'categoria' => $categoria,
-                'collezione' => $collezione,
-                'stato' => $stato,
-                'prezzo' => $prezzo,
-                'prezzo_comparato' => $prezzo_comparato,
-                'quantita' => $quantita,
-                'peso' => $peso,
-                'varianti' => $varianti,
-                'sku' => $sku,
-                'marca' => $marca,
-            );
+        $stmt = $this->conn->prepare($query);
+        if ($status !== null) {
+            $stmt->bind_param('i', $status); // 0 = bozza, 1 = pubblicato
         }
-    } else {
-        echo " Nessun prodotto trovato ";
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    $stmt->close();
-    $conn->close();
+    // Ottieni un singolo evento per ID
+    public function getEventoById($id) {
+        $stmt = $this->conn->prepare("SELECT * FROM eventi WHERE id_evento = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+    // Aggiungi un nuovo evento
+    public function aggiungiEvento($titolo, $descrizione, $immagine, $categoria, $dataEvento, $oraEvento, $pubblicato) {
+        $stmt = $this->conn->prepare("
+            INSERT INTO eventi (titolo, descrizione, immagine, categoria, data_evento, ora_evento, pubblicato)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        ");
+        $stmt->bind_param('ssssssi', $titolo, $descrizione, $immagine, $categoria, $dataEvento, $oraEvento, $pubblicato);
+        return $stmt->execute();
+    }
+
+    // Modifica un evento esistente
+    public function modificaEvento($id, $titolo, $descrizione, $immagine, $categoria, $dataEvento, $oraEvento, $pubblicato) {
+        $stmt = $this->conn->prepare("
+            UPDATE eventi 
+            SET titolo = ?, descrizione = ?, immagine = ?, categoria = ?, data_evento = ?, ora_evento = ?, pubblicato = ?
+            WHERE id_evento = ?
+        ");
+        $stmt->bind_param('ssssssii', $titolo, $descrizione, $immagine, $categoria, $dataEvento, $oraEvento, $pubblicato, $id);
+        return $stmt->execute();
+    }
+
+    // Elimina un evento
+    public function eliminaEvento($id) {
+        $stmt = $this->conn->prepare("DELETE FROM eventi WHERE id_evento = ?");
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
 }
 
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER PRENDERE L'IMMAGINE DEL PRODOTTO -----------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
+class ChatManager {
+    private $conn;
 
-function getMedia($id_prodotto)
-{
-    require('conn.php');
-
-    $stmt = $conn->prepare("SELECT * FROM media WHERE id_prodotto = ?");
-    $stmt->bind_param("i", $id_prodotto);
-
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $media = $result->fetch_assoc();
-        $image_url = $media['immagine'];
-    } else {
-        $image_url = 'default.jpg';
+    public function __construct($dbConnection) {
+        $this->conn = $dbConnection;
     }
 
-    $stmt->close();
-    return $image_url;
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER VISUALIZZARE DATI DEL PRODOTTO -------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-function mostraProdotto($productTitle)
-{
-    require('conn.php');
-
-    $stmt = $conn->prepare("SELECT * FROM prodotti WHERE titolo_seo = ? AND stato = 'online'");
-    $stmt->bind_param("s", $productTitle);
-
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $product = $result->fetch_assoc();
-
-        $id_prodotto = $product['id_prodotto'];
-        $image_url = getMedia($id_prodotto);
-
-        return [
-            'id_prodotto' => $id_prodotto,
-            'titolo' => $product['titolo'],
-            'titolo_seo' => $product['titolo_seo'],
-            'descrizione' => $product['descrizione'],
-            'categoria' => $product['categoria'],
-            'collezione' => $product['collezione'],
-            'stato' => $product['stato'],
-            'prezzo' => $product['prezzo'],
-            'prezzo_comparato' => $product['prezzo_comparato'],
-            'quantita' => $product['quantita'],
-            'peso' => $product['peso'],
-            'varianti' => $product['varianti'],
-            'sku' => $product['sku'],
-            'marca' => $product['marca'],
-            'image_url' => $image_url
-        ];
-    } else {
-        header("Location: ../home");
-        exit;
+    // Ottieni tutti i messaggi per un utente
+    public function getMessaggiPerUtente($senderName) {
+        $stmt = $this->conn->prepare("
+            SELECT * FROM chat_messages 
+            WHERE sender_name = ? OR sender_type = 'admin' 
+            ORDER BY created_at ASC
+        ");
+        $stmt->bind_param('s', $senderName);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
-    $stmt->close();
-    $conn->close();
+
+    // Invia un messaggio
+    public function inviaMessaggio($senderType, $senderName, $message) {
+        $stmt = $this->conn->prepare("
+            INSERT INTO chat_messages (sender_type, sender_name, message, created_at, is_read, is_read_admin)
+            VALUES (?, ?, ?, NOW(), 0, 0)
+        ");
+        $stmt->bind_param('sss', $senderType, $senderName, $message);
+        return $stmt->execute();
+    }
+
+    // Marca i messaggi come letti per un utente
+    public function marcaMessaggiComeLetti($senderName) {
+        $stmt = $this->conn->prepare("
+            UPDATE chat_messages 
+            SET is_read = 1 
+            WHERE sender_name = ? AND sender_type = 'user'
+        ");
+        $stmt->bind_param('s', $senderName);
+        return $stmt->execute();
+    }
+
+    // Marca i messaggi come letti dall'admin
+    public function marcaMessaggiComeLettiAdmin($senderName) {
+        $stmt = $this->conn->prepare("
+            UPDATE chat_messages 
+            SET is_read_admin = 1 
+            WHERE sender_name = ? AND sender_type = 'admin'
+        ");
+        $stmt->bind_param('s', $senderName);
+        return $stmt->execute();
+    }
+
+    // Controlla i messaggi non letti per un utente
+    public function contaMessaggiNonLettiUtente($senderName) {
+        $stmt = $this->conn->prepare("
+            SELECT COUNT(*) as non_letti 
+            FROM chat_messages 
+            WHERE sender_name = ? AND sender_type = 'user' AND is_read = 0
+        ");
+        $stmt->bind_param('s', $senderName);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+    // Controlla i messaggi non letti dall'admin
+    public function contaMessaggiNonLettiAdmin($senderName) {
+        $stmt = $this->conn->prepare("
+            SELECT COUNT(*) as non_letti 
+            FROM chat_messages 
+            WHERE sender_name = ? AND sender_type = 'admin' AND is_read_admin = 0
+        ");
+        $stmt->bind_param('s', $senderName);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+    // Elimina tutti i messaggi di un utente
+    public function eliminaMessaggiUtente($senderName) {
+        $stmt = $this->conn->prepare("
+            DELETE FROM chat_messages 
+            WHERE sender_name = ?
+        ");
+        $stmt->bind_param('s', $senderName);
+        return $stmt->execute();
+    }
 }

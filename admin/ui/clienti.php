@@ -36,6 +36,7 @@ loggato()
         <?php include "prometheus.php" ?>
 
     </main>
+    <!--
     <script>
         // SCRIPT DI APERTURA MODIFICA 
         function apriModifica(idUtente) {
@@ -43,7 +44,7 @@ loggato()
             window.open('../ui-gestisci/cliente_modifica.php?id=' + idUtente, 'ModificaClienti', <?php echo $resolution; ?>);
         }
     </script>
-
+    -->
     <?php include '../materials/script.php'; ?>
     <script src="../materials/main_clienti.js"></script>
 </body>

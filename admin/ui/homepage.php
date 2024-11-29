@@ -27,25 +27,15 @@ loggato();
 
         <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link" id="nav-visite-tab" data-bs-toggle="tab" data-bs-target="#nav-visite" type="button" role="tab" aria-controls="nav-visite" aria-selected="true">Visite</button>
-
-          <button class="nav-link active" id="nav-vendite-tab" data-bs-toggle="tab" data-bs-target="#nav-vendite" type="button" role="tab" aria-controls="nav-vendite" aria-selected="false">Vendite</button>
-
-          <button class="nav-link" id="nav-ordini-tab" data-bs-toggle="tab" data-bs-target="#nav-ordini" type="button" role="tab" aria-controls="nav-ordini" aria-selected="false">Ordini</button>
+        <button class="nav-link active" id="nav-visite-tab" data-bs-toggle="tab" data-bs-target="#nav-visite" type="button" role="tab" aria-controls="nav-visite" aria-selected="true">Visite</button>
           
           <button class="nav-link" id="nav-clienti-tab" data-bs-toggle="tab" data-bs-target="#nav-clienti" type="button" role="tab" aria-controls="nav-clienti" aria-selected="false">Clienti</button>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
         <!-- TAB PER LE VISITE ECOMMERCE -->
-        <div class="tab-pane fade" id="nav-visite" role="tabpanel" aria-labelledby="nav-visite-tab" tabindex="0">
+        <div class="tab-pane fade active show" id="nav-visite" role="tabpanel" aria-labelledby="nav-visite-tab" tabindex="0">
             <?php echo visite();?>
-        </div>
-        <div class="tab-pane fade show active" id="nav-vendite" role="tabpanel" aria-labelledby="nav-vendite-tab" tabindex="0">
-            <?php echo vendite();?>
-        </div>
-        <div class="tab-pane fade" id="nav-ordini" role="tabpanel" aria-labelledby="nav-ordini-tab" tabindex="0">
-            <?php echo ordini();?>
         </div>
         <div class="tab-pane fade" id="nav-clienti" role="tabpanel" aria-labelledby="nav-clienti-tab" tabindex="0">
             <?php echo visualizzaClientiELeads();?>

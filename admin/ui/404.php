@@ -1,6 +1,6 @@
 <?php 
 require ('../../app.php');
-loggato()
+loggato();
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -8,12 +8,13 @@ loggato()
     <!-- Meta tags, title, and Bootstrap 5 CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkBay - 404 Errore</title>
+    <title>LinkBay - Pagina Non trovata</title>
     <?php include '../materials/head_content.php'; ?>
 </head>
 <body style="background-color: #f1f1f1;">
     
-    <?php
+    <?php 
+    $currentPage = basename($_SERVER['PHP_SELF']);
     include '../materials/sidebar.php'; 
     ?>
 
@@ -41,3 +42,4 @@ loggato()
 <?php include '../materials/script.php'; ?>
 </body>
 </html>
+

@@ -43,6 +43,7 @@ $conn->close();
     <script src="https://unpkg.com/grapesjs"></script>
     <!-- Plugin GrapesJS per i blocchi predefiniti -->
     <script src="https://unpkg.com/grapesjs-preset-webpage"></script>
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body style="background-color: #f1f1f1;">
     

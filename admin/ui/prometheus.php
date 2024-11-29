@@ -684,7 +684,309 @@
 
 
 
-<?php else : ?>
+<?php elseif ($currentPage == 'clienti.php') : ?>
 
+    <!---------------------------------------------------------------------- PROMETHEUS CLIENTI ------------------------------------------------------------------------------------------>
+    <div id="itembar" class="toolbar bg-dark text-white">
+        <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + Q }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
+        <div class="toolbar-content">
+            <div class="row">
+                <div class="col-md-2">
+                    <input class="form-control" id="searchInputClienti" type="text" placeholder="Cerca..." aria-label="Cerca">
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-sm btn-outline-danger" title="Aggiungi Cliente { CTRL + N }" onclick="addClient()"><i class="fa-solid fa-plus"></i></button>
+                    <button class="btn btn-sm btn-outline-success" title="Esporta in Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary" title="Aggiorna pagina { CTRL + R }" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate"></i></button>
+                    <button class="btn btn-sm btn-outline-info" title="Tutorial & Istruzioni" onclick=""><i class="fa-solid fa-circle-info"></i></button>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" id="rowsPerPageClienti">
+                        <option selected value="10">Mostra 10 Righe</option>
+                        <option value="20">Mostra 20 Righe</option>
+                        <option value="50">Mostra 50 Righe</option>
+                        <option value="Tutti">Mostra Tutto</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var toolbar = document.getElementById('itembar');
+                if (localStorage.getItem('toolbarExpanded') === 'true') {
+                    toolbar.classList.add('expanded');
+                }
+            });
+
+            // COMANDI SHORTCUT ------------------------------------------------------------------------------------------------------------------------------------------
+            document.addEventListener('keydown', function(event) {
+                var isWindows = navigator.platform.toUpperCase().indexOf('WIN') !== -1;
+
+                // Scorciatoie per sistemi non Windows
+                if (!isWindows) {
+                    if (event.key === 'q' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        toggleToolbar();
+                    }
+                    if (event.key === 'e' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        exportToExcel();
+                    }
+                    if (event.key === 'n' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        addClient();
+                    }
+                    if (event.key === 'a' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        setSelectedTrueForAll();
+                    }
+                    if (event.key === 'd' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        deleteCollect('');
+                    }
+                    if (event.key === 'f' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        var toolbar = document.getElementById('itembar');
+                        if (toolbar.classList.contains('expanded')) {
+                            document.getElementById('searchInputCollezioni').focus();
+                        } else {
+                            toggleToolbar();
+                            // Usare setTimeout per aspettare la fine dell'animazione di espansione
+                            setTimeout(function() {
+                                document.getElementById('searchInputCollezioni').focus();
+                            }, 200); // 200ms corrisponde alla durata della transizione CSS
+                        }
+                    }
+                    if (event.key === 'r' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        refreshPage();
+                    }
+                }
+                // Scorciatoie per Windows
+                else {
+                    if (event.key === 'y' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        toggleToolbar();
+                    }
+                    if (event.key === 'u' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        exportToExcel();
+                    }
+                    if (event.key === 'i' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        addClient();
+                    }
+                    if (event.key === 'o' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        setSelectedTrueForAll();
+                    }
+                    if (event.key === 'p' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        deleteCollect('');
+                    }
+                    if (event.key === 'l' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        var toolbar = document.getElementById('itembar');
+                        if (toolbar.classList.contains('expanded')) {
+                            document.getElementById('searchInputCollezioni').focus();
+                        } else {
+                            toggleToolbar();
+                            // Usare setTimeout per aspettare la fine dell'animazione di espansione
+                            setTimeout(function() {
+                                document.getElementById('searchInputCollezioni').focus();
+                            }, 200); // 200ms corrisponde alla durata della transizione CSS
+                        }
+                    }
+                    if (event.key === 'k' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        refreshPage();
+                    }
+                }
+            });
+
+            function refreshPage() {
+                location.reload(true);
+            }
+
+            function addClient() {
+                window.location.href = '../ui-gestisci/aggiunta_cliente.php';
+            }
+
+            function deleteCollect() {
+                swal({
+                        title: "Cancellare le collezioni Selezionate?",
+                        text: "Verranno cancellate tutte le collezioni e le rispettive categorie, l'azione è irreversibile.",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href = '../ui-gestisci/cancella_collezioni_selezionate';
+                        }
+                    });
+            }
+
+            function toggleToolbar() {
+                var toolbar = document.getElementById('itembar');
+                toolbar.classList.toggle('expanded');
+                // Salva lo stato della toolbar in localStorage
+                localStorage.setItem('toolbarExpanded', toolbar.classList.contains('expanded'));
+            }
+        </script>
+    </div>
+
+<?php elseif ($currentPage == 'leads.php') : ?>
+
+    <!---------------------------------------------------------------------- PROMETHEUS LEADS ------------------------------------------------------------------------------------------>
+    <div id="itembar" class="toolbar bg-dark text-white">
+        <div class="toggle-button btn-outline-danger" title="Shortcut { CTRL + Q }" onclick="toggleToolbar()">Prometheus <i class="fa-solid fa-fire-flame-curved"></i></div>
+        <div class="toolbar-content">
+            <div class="row">
+                <div class="col-md-2">
+                    <input class="form-control" id="searchInputLeads" type="text" placeholder="Cerca..." aria-label="Cerca">
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-sm btn-outline-success" title="Esporta in Excel { CTRL + E }" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i></button>
+                    <button class="btn btn-sm btn-outline-secondary" title="Aggiorna pagina { CTRL + R }" onclick="refreshPage()"><i class="fa-solid fa-arrows-rotate"></i></button>
+                    <button class="btn btn-sm btn-outline-info" title="Tutorial & Istruzioni" onclick=""><i class="fa-solid fa-circle-info"></i></button>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select" id="rowsPerPageLeads">
+                        <option selected value="10">Mostra 10 Righe</option>
+                        <option value="20">Mostra 20 Righe</option>
+                        <option value="50">Mostra 50 Righe</option>
+                        <option value="Tutti">Mostra Tutto</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var toolbar = document.getElementById('itembar');
+                if (localStorage.getItem('toolbarExpanded') === 'true') {
+                    toolbar.classList.add('expanded');
+                }
+            });
+
+            // COMANDI SHORTCUT ------------------------------------------------------------------------------------------------------------------------------------------
+            document.addEventListener('keydown', function(event) {
+                var isWindows = navigator.platform.toUpperCase().indexOf('WIN') !== -1;
+
+                // Scorciatoie per sistemi non Windows
+                if (!isWindows) {
+                    if (event.key === 'q' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        toggleToolbar();
+                    }
+                    if (event.key === 'e' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        exportToExcel();
+                    }
+                    if (event.key === 'n' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        addClient();
+                    }
+                    if (event.key === 'a' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        setSelectedTrueForAll();
+                    }
+                    if (event.key === 'd' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        deleteCollect('');
+                    }
+                    if (event.key === 'f' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        var toolbar = document.getElementById('itembar');
+                        if (toolbar.classList.contains('expanded')) {
+                            document.getElementById('searchInputCollezioni').focus();
+                        } else {
+                            toggleToolbar();
+                            // Usare setTimeout per aspettare la fine dell'animazione di espansione
+                            setTimeout(function() {
+                                document.getElementById('searchInputCollezioni').focus();
+                            }, 200); // 200ms corrisponde alla durata della transizione CSS
+                        }
+                    }
+                    if (event.key === 'r' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        refreshPage();
+                    }
+                }
+                // Scorciatoie per Windows
+                else {
+                    if (event.key === 'y' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        toggleToolbar();
+                    }
+                    if (event.key === 'u' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        exportToExcel();
+                    }
+                    if (event.key === 'i' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        addClient();
+                    }
+                    if (event.key === 'o' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        setSelectedTrueForAll();
+                    }
+                    if (event.key === 'p' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        deleteCollect('');
+                    }
+                    if (event.key === 'l' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        var toolbar = document.getElementById('itembar');
+                        if (toolbar.classList.contains('expanded')) {
+                            document.getElementById('searchInputCollezioni').focus();
+                        } else {
+                            toggleToolbar();
+                            // Usare setTimeout per aspettare la fine dell'animazione di espansione
+                            setTimeout(function() {
+                                document.getElementById('searchInputCollezioni').focus();
+                            }, 200); // 200ms corrisponde alla durata della transizione CSS
+                        }
+                    }
+                    if (event.key === 'k' && event.ctrlKey) {
+                        event.preventDefault(); // Previene il comportamento predefinito
+                        refreshPage();
+                    }
+                }
+            });
+
+            function refreshPage() {
+                location.reload(true);
+            }
+
+            function addClient() {
+                window.location.href = '../ui-gestisci/aggiunta_cliente.php';
+            }
+
+            function deleteCollect() {
+                swal({
+                        title: "Cancellare le collezioni Selezionate?",
+                        text: "Verranno cancellate tutte le collezioni e le rispettive categorie, l'azione è irreversibile.",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            window.location.href = '../ui-gestisci/cancella_collezioni_selezionate';
+                        }
+                    });
+            }
+
+            function toggleToolbar() {
+                var toolbar = document.getElementById('itembar');
+                toolbar.classList.toggle('expanded');
+                // Salva lo stato della toolbar in localStorage
+                localStorage.setItem('toolbarExpanded', toolbar.classList.contains('expanded'));
+            }
+        </script>
+    </div>
+
+<?php else : ?>
 
 <?php endif; ?>

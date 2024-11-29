@@ -3,9 +3,6 @@
       <!-- Il toast verrà aggiunto qui dinamicamente -->
   </div>
 </div>
-<?php
-$conteggiOrdini = ordiniNav();
-?>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><img src="../materials/logo_sidebar.png" width="130px" alt=""></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,41 +40,6 @@ $conteggiOrdini = ordiniNav();
             </a>
           </li>
 
-          <!-- Collapsible Gestione ORDINI -->
-          <li class="nav-item">
-            <!-- MODIFICA CON PHP LA CLASSE false -->
-            <a class="nav-link" data-bs-toggle="collapse" href="#gestioneOrdiniCollapse" role="button" aria-expanded="false" aria-controls="gestioneOrdiniCollapse">
-            <i class="fa-solid fa-boxes-stacked"></i>
-              Ordini &nbsp;&nbsp;&nbsp;&nbsp;<span class="badge bg-danger rounded-pill"><?php echo $conteggiOrdini['totali']; ?></span>
-            </a>
-                <!-- MODIFICA CON PHP LO show -->
-            <div class="collapse <?php if($sidebar_cate == 'ordini'){echo 'show';} ?>" id="gestioneOrdiniCollapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
-                <!-- MODIFICA CON PHP IL  custom-link-active-->
-                <li><a href="ordini_inevasi" class="link-dark rounded <?php if($currentView == 'ordini'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ordini&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge bg-danger rounded-pill"><?php echo $conteggiOrdini['inevaso']; ?></span></a></li>
-                <li><a href="ordini_abbandonati" class="link-dark rounded <?php if($currentPage == 'ordini_abbandonati.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Carrelli abbandonati</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <!-- Collapsible Gestione PRODOTTI -->
-          <li class="nav-item">
-            <!-- MODIFICA CON PHP LA CLASSE false -->
-            <a class="nav-link" data-bs-toggle="collapse" href="#gestioneProdottiCollapse" role="button" aria-expanded="false" aria-controls="gestioneProdottiCollapse">
-            <i class="fa-solid fa-tags"></i>
-              Prodotti
-            </a>
-                <!-- MODIFICA CON PHP LO show -->
-            <div class="collapse <?php if($sidebar_cate == 'prodotti'){echo 'show';} ?>" id="gestioneProdottiCollapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
-                <!-- MODIFICA CON PHP IL  custom-link-active-->
-                <li><a href="prodotti" class="link-dark rounded <?php if($currentPage == 'prodotti.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Lista Prodotti</a></li>
-                <li><a href="collezioni" class="link-dark rounded <?php if($currentPage == 'collezioni.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Collezioni</a></li>
-                <li><a href="codicisconto" class="link-dark rounded <?php if($currentPage == 'codicisconto.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Codici Sconto</a></li>
-              </ul>
-            </div>
-          </li>
-
           <!-- Collapsible Gestione CLIENTI -->
           <li class="nav-item">
             <!-- MODIFICA CON PHP LA CLASSE false -->
@@ -113,17 +75,35 @@ $conteggiOrdini = ordiniNav();
           </li>
 
 
+          <!-- Collapsible Gestione APP -->
+          <li class="nav-item">
+             <!-- MODIFICA CON PHP LA CLASSE false-->
+            <a class="nav-link" data-bs-toggle="collapse" href="#gestioneAppCollapse" role="button" aria-expanded="false" aria-controls="gestioneAppCollapse">
+            <i class="fa-solid fa-square-plus"></i>
+              Applicazioni e Plugin
+            </a>
+                 <!-- MODIFICA CON PHP LO show-->
+            <div class="collapse <?php if($sidebar_cate == 'App'){echo 'show';} ?>" id="gestioneAppCollapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
+                 <!-- MODIFICA CON PHP IL  custom-link-active-->
+                <li><a href="chat_clienti" class="link-dark rounded <?php if($currentPage == 'chat_clienti.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Chat con Clienti</a></li>
+                <li><a href="eventi" class="link-dark rounded <?php if($currentPage == 'eventi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Eventi per Clienti</a></li>
+              </ul>
+            </div>
+          </li>
+
+
           <!-- Collapsible Gestione NEGOZIO -->
           <li class="nav-item">
              <!-- MODIFICA CON PHP LA CLASSE false-->
             <a class="nav-link" data-bs-toggle="collapse" href="#gestioneNegozioCollapse" role="button" aria-expanded="false" aria-controls="gestioneNegozioCollapse">
             <i class="fa-solid fa-store"></i>
-            Editor Negozio
+            Editor Sito Web
             </a>
                  <!-- MODIFICA CON PHP LO show-->
             <div class="collapse <?php if($sidebar_cate == 'negozio'){echo 'show';} ?>" id="gestioneNegozioCollapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
-                <li><a href="editor_negozio" class="link-dark rounded <?php if($currentPage == 'editor_negozio.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Modifica Negozio</a></li>
+                <li><a href="editor_negozio" class="link-dark rounded <?php if($currentPage == 'editor_negozio.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Modifica Sito Web</a></li>
                 <li><a href="brand_identity" class="link-dark rounded <?php if($currentPage == 'brand_identity.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Brand identity</a></li>
               </ul>
             </div>
@@ -140,10 +120,8 @@ $conteggiOrdini = ordiniNav();
             <div class="collapse <?php if($sidebar_cate == 'impostazioni'){echo 'show';} ?>" id="gestioneSettingCollapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 20px;">
                 <!-- MODIFICA CON PHP IL  custom-link-active-->
-                <li><a href="dettagli_negozio" class="link-dark rounded <?php if($currentPage == 'dettagli_negozio.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Dettagli Negozio</a></li>
+                <li><a href="dettagli_negozio" class="link-dark rounded <?php if($currentPage == 'dettagli_negozio.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Dettagli Sito Web</a></li>
                 <li><a href="utenti_ruoli" class="link-dark rounded <?php if($currentPage == 'utenti_ruoli.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Utenti e Ruoli</a></li>
-                <li><a href="pagamenti" class="link-dark rounded <?php if($currentPage == 'pagamenti.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Pagamenti</a></li>
-                <li><a href="spedizioni" class="link-dark rounded <?php if($currentPage == 'spedizioni.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Spedizioni</a></li>
                 <li><a href="ore_assistenza" class="link-dark rounded <?php if($currentPage == 'ore_assistenza.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Ore Assistenza</a></li>
                 <li><a href="piano_contratto" class="link-dark rounded <?php if($currentPage == 'piano_contratto.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Piano/Contratto</a></li>
                 <li><a href="aggiornamento" class="link-dark rounded <?php if($currentPage == 'aggiornamento.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Aggiornamento Software</a></li>
@@ -210,7 +188,7 @@ function showToast() {
         <div class="toast show align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="z-index: 999;">
             <div class="d-flex">
                 <div class="toast-body">
-                  <i class="fa-solid fa-link-slash"></i>&nbsp; La tua sessione è scaduta. &nbsp;  <a href="../logout" class="btn btn-light btn-sm">Accedi</a>
+                  <i class="fa-solid fa-link-slash"></i>&nbsp; La tua sessione è scaduta. &nbsp;  <a href="../logout" class="btn btn-outline-light btn-sm">Accedi</a>
                 </div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>

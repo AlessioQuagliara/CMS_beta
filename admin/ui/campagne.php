@@ -34,8 +34,8 @@ loggato()
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 $statusBadge = $row['status'] == 'active' ? 'bg-success' : 'bg-danger';
-                $statusText = $row['status'] == 'active' ? 'Active' : 'Deactive';
-                $buttonText = $row['status'] == 'active' ? 'Manage' : 'Set Up';
+                $statusText = $row['status'] == 'active' ? 'Attivo' : 'Disattivo';
+                $buttonText = $row['status'] == 'active' ? 'Gestisci' : 'Imposta';
                 $icon = '';
                 if ($row['tool'] == 'Google Tag Manager') {
                     $icon = '<img src="https://docs.bemob.com/google-adwords-logo.png" width="150px">';

@@ -50,1633 +50,810 @@
         editor.setComponents(savedContent);
     }
 
-    if (visualizzaPagina === 'footer') {
-        editor.BlockManager.add('pretty-footer', {
-            label: 'Pretty Footer',
-            content: `
-            <footer class="bg-dark text-white text-center text-lg-start">
-            <div class="container p-4">
-            <!-- Section: Social media -->
-            <section class="mb-4">
-            <!-- Facebook -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-            <i class="fab fa-facebook-f"></i>
-            </a>
-            
-            <!-- Twitter -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-            <i class="fab fa-twitter"></i>
-            </a>
-            
-            <!-- Google -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-            <i class="fab fa-google"></i>
-            </a>
-            
-            <!-- Instagram -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-            <i class="fab fa-instagram"></i>
-            </a>
-            
-            <!-- Linkedin -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-            <i class="fab fa-linkedin-in"></i>
-            </a>
-            
-            <!-- Github -->
-            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
-            <i class="fab fa-github"></i>
-            </a>
-            </section>
-            <!-- Section: Social media -->
-            
-            <!-- Section: Links -->
-            <section class="mb-4">
-            <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Link Utili</h5>
-            
-            <ul class="list-unstyled mb-0">
-            <li>
-            <a href="#!" class="text-white">Link 1</a>
-            </li>
-            <li>
-            <a href="#!" class="text-white">Link 2</a>
-            </li>
-            <li>
-            <a href="#!" class="text-white">Link 3</a>
-            </li>
-            <li>
-            <a href="#!" class="text-white">Link 4</a>
-            </li>
-            </ul>
-            </div>
-            
-            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Link Utili</h5>
-            
-            <ul class="list-unstyled mb-0">
-            <li>
-            <a href="#!" class="text-white">Link 1</a>
-            </li>
-            <li>
-            <a href="#!" class="text-white">Link 2</a>
-            </li>
-            <li>
-            <a href="#!" class="text-white">Link 3</a>
-            </li>
-            <li>
-            <a href="#!" class="text-white">Link 4</a>
-            </li>
-            </ul>
-            </div>
-            
-            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Link Utili</h5>
-            
-            <ul class="list-unstyled mb-0">
-            <li>
-            <a href="#!" class="text-white">Link 1</a>
-            </li>
-            <li>
-            <a href="#!" class="text-white">Link 2</a>
-            </li>
-            <li>
-            <a href="#!" class="text-white">Link 3</a>
-            </li>
-            <li>
-            <a href="#!" class="text-white">Link 4</a>
-            </li>
-            </ul>
-            </div>
-            </div>
-            </section>
-            </div><div class="text-center p-3 bg-secondary">&copy; 2024 Copyright:<a class="text-white" href="https://linkbay.it/">LinkBay</a></div></footer>
-                        `,
-            category: 'Footer',
-        });
+  
+    editor.BlockManager.add('missioni-valori', {
+    label: 'Missioni e Valori',
+    content: `
+    <section class="py-5 bg-light">
+    <div class="container">
+        <!-- Titolo -->
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-warning">Missioni e Valori</h2>
+        </div>
 
-        editor.BlockManager.add('complex-footer', {
-                label: 'Complex Footer',
-                content: `
-            <footer class="bg-dark text-white text-center text-lg-start">
-                <div class="container p-4">
-                    <section class="mb-4">
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
-                    </section>
-                    <section class="mb-4">
-                        <form action="">
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-auto">
-                                    <p class="pt-2"><strong>Sign up for our newsletter</strong></p>
-                                </div>
-                                <div class="col-md-5 col-12">
-                                    <div class="form-outline mb-4">
-                                        <input type="email" id="form5Example24" class="form-control" />
-                                        <label class="form-label" for="form5Example24">Email address</label>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <button type="submit" class="btn btn-outline-light mb-4">Subscribe</button>
-                                </div>
-                            </div>
-                        </form>
-                    </section>
-                    <section class="mb-4">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam eum harum corrupti dicta, aliquam sequi voluptate quas.</p>
-                    </section>
-                    <section class="d-flex justify-content-center">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                                <h5 class="text-uppercase">Links</h5>
-                                <ul class="list-unstyled mb-0">
-                                    <li><a class="text-white" href="#!">Link 1</a></li>
-                                    <li><a class="text-white" href="#!">Link 2</a></li>
-                                    <li><a class="text-white" href="#!">Link 3</a></li>
-                                    <li><a class="text-white" href="#!">Link 4</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                                <h5 class="text-uppercase">Links</h5>
-                                <ul class="list-unstyled mb-0">
-                                    <li><a class="text-white" href="#!">Link 1</a></li>
-                                    <li><a class="text-white" href="#!">Link 2</a></li>
-                                    <li><a class="text-white" href="#!">Link 3</a></li>
-                                    <li><a class="text-white" href="#!">Link 4</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                                <h5 class="text-uppercase">Links</h5>
-                                <ul class="list-unstyled mb-0">
-                                    <li><a class="text-white" href="#!">Link 1</a></li>
-                                    <li><a class="text-white" href="#!">Link 2</a></li>
-                                    <li><a class="text-white" href="#!">Link 3</a></li>
-                                    <li><a class="text-white" href="#!">Link 4</a></li>
-                                </ul>
-                            </div>
+        <!-- Cards -->
+        <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm text-center py-4" style="border-radius: 15px;">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <img src="path/to/your/icon1.png" alt="Icon 1" style="width: 50px;">
                         </div>
-                    </section>
-                </div>
-                <div class="text-center p-3 bg-secondary">
-                    &copy; 2024 Copyright: <a class="text-white" href="">LinkBay</a>
-                </div>
-            </footer>
-            `,
-                category: "Footer",
-            }),
-            editor.BlockManager.add('footer-3', {
-                label: 'Simple Footer',
-                content: `
-                <footer class="bg-light text-center text-lg-start">
-                    <div class="text-center p-3">
-                    &copy; 2024 LinkBay. Tutti i diritti riservati.
+                        <h5 class="fw-bold text-primary">Lorem ybu</h5>
+                        <p class="text-muted">
+                            Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed.
+                        </p>
                     </div>
-                </footer>
-        `,
-                category: 'Footer',
-            });
-    } else if (visualizzaPagina === 'navbar') {
-        // Navbar --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        editor.BlockManager.add('bootstrap-navbar', {
-            label: 'Navbar Stile 1',
-            content: `
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Brand</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="aboutus">Chi Siamo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="catalog/">Catalogo</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="cart"><i class="fa-solid fa-cart-shopping"></i></a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="user"><i class="fa-solid fa-user"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="search"><i class="fa-solid fa-magnifying-glass"></i></a>
-                        </li>
-                    </ul>
                 </div>
             </div>
-            <style>
-                body {
-                    padding-top: 56px; /* Altezza della navbar */
-                }
-            </style>
-        </nav>
-                  `,
-            category: 'Navbar',
-        });
-        editor.BlockManager.add('bootstrap-navbar-logo', {
-            label: 'Navbar Stile 2',
-            content: `
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
-                        <img src="path/to/your/logo.png" alt="Logo" width="30" height="24">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-link active" aria-current="page" href="index">Home</a>
-                            <a class="nav-link" href="about_us">Chi siamo</a>
-                            <a class="nav-link" href="#">Catalogo</a>
-                            <a class="nav-link disabled">Carrello</a>
+
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm text-center py-4" style="border-radius: 15px;">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <img src="path/to/your/icon2.png" alt="Icon 2" style="width: 50px;">
                         </div>
+                        <h5 class="fw-bold text-primary">Lorem ybu</h5>
+                        <p class="text-muted">
+                            Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed.
+                        </p>
                     </div>
                 </div>
-                <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
-                <style>
-                    body {
-                        padding-top: 56px; /* Altezza della navbar */
-                    }
-                </style>
-            </nav>
-                `,
-            category: 'Navbar',
-        });
-        editor.BlockManager.add('navbar-with-logo', {
-            label: 'Navbar con Logo',
-            content: `
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        <img src="logo.png" alt="Logo" width="auto" height="30" class="d-inline-block align-top">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
-                            </li>
-                        </ul>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm text-center py-4" style="border-radius: 15px;">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <img src="path/to/your/icon3.png" alt="Icon 3" style="width: 50px;">
+                        </div>
+                        <h5 class="fw-bold text-primary">Lorem ybu</h5>
+                        <p class="text-muted">
+                            Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed.
+                        </p>
                     </div>
                 </div>
-                <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
-                <style>
-                    body {
-                        padding-top: 56px; /* Altezza della navbar */
-                    }
-                </style>
-            </nav>
-              `,
-            category: 'Navbar',
-        });
-        editor.BlockManager.add('navbar-with-centered-logo', {
-            label: 'Navbar con Logo Centrale',
-            content: `
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            </div>
+        </div>
+    </div>
+</section>
+    `,
+});
+
+editor.BlockManager.add('fondi-casse', {
+    label: 'Fondi e Casse',
+    content: `
+<section class="py-5 bg-light">
+    <div class="container">
+        <!-- Titolo -->
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">Lorem ipsum</h2>
+            <p class="text-muted mx-auto" style="max-width: 800px;">
+                Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+            </p>
+        </div>
+
+        <!-- Paragrafi superiori -->
+        <div class="row text-center mb-5">
+            <div class="col-md-6">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                </p>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="position-relative">
+            <div class="timeline-line position-absolute start-50 translate-middle bg-primary" style="height: 4px; width: 100%; top: 50%; z-index: 1;"></div>
+            <div class="row text-center position-relative">
+                <!-- Primo elemento -->
+                <div class="col-md-3 mb-4">
+                    <div class="timeline-item d-inline-block position-relative">
+                        <div class="timeline-icon bg-warning text-white rounded-circle mb-2" style="width: 50px; height: 50px; line-height: 50px;">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <p class="fw-bold text-primary mb-0">BCC</p>
+                        <p class="text-muted small">Lorem ipsum dolor sit amet, consectetur sadipscing elitr</p>
+                        <p class="fw-bold">Anno</p>
+                    </div>
+                </div>
+
+                <!-- Secondo elemento -->
+                <div class="col-md-3 mb-4">
+                    <div class="timeline-item d-inline-block position-relative">
+                        <div class="timeline-icon bg-warning text-white rounded-circle mb-2" style="width: 50px; height: 50px; line-height: 50px;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <p class="fw-bold text-primary mb-0">Intesa San Paolo</p>
+                        <p class="text-muted small">Lorem ipsum dolor sit amet, consectetur sadipscing elitr</p>
+                        <p class="fw-bold">Anno</p>
+                    </div>
+                </div>
+
+                <!-- Terzo elemento -->
+                <div class="col-md-3 mb-4">
+                    <div class="timeline-item d-inline-block position-relative">
+                        <div class="timeline-icon bg-warning text-white rounded-circle mb-2" style="width: 50px; height: 50px; line-height: 50px;">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <p class="fw-bold text-primary mb-0">Banche di Trentino</p>
+                        <p class="text-muted small">Lorem ipsum dolor sit amet, consectetur sadipscing elitr</p>
+                        <p class="fw-bold">Anno</p>
+                    </div>
+                </div>
+
+                <!-- Quarto elemento -->
+                <div class="col-md-3 mb-4">
+                    <div class="timeline-item d-inline-block position-relative">
+                        <div class="timeline-icon bg-warning text-white rounded-circle mb-2" style="width: 50px; height: 50px; line-height: 50px;">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <p class="fw-bold text-primary mb-0">Ecc.</p>
+                        <p class="text-muted small">Lorem ipsum dolor sit amet, consectetur sadipscing elitr</p>
+                        <p class="fw-bold">Anno</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    `,
+});
+
+editor.BlockManager.add('eventi-seminari', {
+    label: 'Eventi e Seminari',
+    content: `
+<section class="py-5 bg-light">
+    <div class="container">
+        <!-- Titolo -->
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-warning">Eventi e Seminari</h2>
+            <p class="text-primary fs-5">Eventi imminenti</p>
+        </div>
+
+        <!-- Cards -->
+        <div class="row g-4" id="eventi-container">
+            <!-- Eventi caricati dinamicamente -->
+        </div>
+
+        <!-- Bottone -->
+        <div class="text-center mt-4">
+            <a href="#" class="btn btn-primary btn-lg" style="border-radius: 25px;">Scopri di più</a>
+        </div>
+    </div>
+</section>
+    `,
+});
+
+editor.BlockManager.add('privacy-policy', {
+    label: 'Privacy e Policy',
+    content: `
+   <header class="bg-primary text-white text-center py-4">
+        <h1>Privacy Policy</h1>
+        <p class="mb-0">AssoLabFondi si impegna a proteggere i tuoi dati personali</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <section class="mb-5">
+            <h2 class="text-primary">1. Introduzione</h2>
+            <p>Benvenuto su AssoLabFondi. La tua privacy è importante per noi e ci impegniamo a proteggere i tuoi dati personali in conformità con il GDPR e altre leggi applicabili.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">2. Chi Siamo</h2>
+            <p>AssoLabFondi è un’associazione dedicata a fornire supporto operativo a fondi pensione, casse di previdenza e fondi sanitari. Per domande sulla privacy, contattaci a: <a href="mailto:privacy@assolabfondi.it">privacy@assolabfondi.it</a>.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">3. Quali Dati Raccogliamo</h2>
+            <ul>
+                <li><strong>Dati forniti dagli utenti:</strong> Nome, cognome, email, numero di telefono, dati di login.</li>
+                <li><strong>Dati relativi all’utilizzo:</strong> Indirizzo IP, browser utilizzato, cronologia di navigazione.</li>
+                <li><strong>Dati aggiuntivi:</strong> Informazioni relative agli eventi e ai seminari a cui partecipi.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">4. Come Utilizziamo i Dati</h2>
+            <p>Utilizziamo i tuoi dati per:</p>
+            <ul>
+                <li>Fornire accesso ai nostri servizi e contenuti.</li>
+                <li>Personalizzare la tua esperienza sulla piattaforma.</li>
+                <li>Comunicare con te in relazione agli eventi e ai servizi.</li>
+                <li>Adempiere a obblighi legali.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">5. Condivisione dei Dati</h2>
+            <p>Non condividiamo i tuoi dati personali con terze parti, salvo nei seguenti casi:</p>
+            <ul>
+                <li>Fornitori di servizi che agiscono per nostro conto.</li>
+                <li>Obblighi legali o richieste delle autorità competenti.</li>
+                <li>Consenso esplicito da parte tua.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">6. Protezione dei Dati</h2>
+            <p>Adottiamo misure di sicurezza tecniche e organizzative per proteggere i tuoi dati personali da accessi non autorizzati, perdite o divulgazioni.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">7. I Tuoi Diritti</h2>
+            <p>Hai diritto a:</p>
+            <ul>
+                <li>Accedere ai tuoi dati personali.</li>
+                <li>Richiedere la modifica o cancellazione dei dati.</li>
+                <li>Revocare il consenso in qualsiasi momento.</li>
+                <li>Presentare un reclamo presso l'autorità di protezione dei dati.</li>
+            </ul>
+            <p>Per esercitare i tuoi diritti, contattaci a: <a href="mailto:privacy@assolabfondi.it">privacy@assolabfondi.it</a>.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">8. Cookie e Tecnologie Simili</h2>
+            <p>Utilizziamo cookie per migliorare la tua esperienza. Puoi gestire le tue preferenze sui cookie tramite le impostazioni del browser.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">9. Termini di Utilizzo</h2>
+            <p>Accedendo alla piattaforma AssoLabFondi, accetti i nostri termini di utilizzo:</p>
+            <ul>
+                <li>Non caricare contenuti illeciti o offensivi.</li>
+                <li>Non compromettere la sicurezza della piattaforma.</li>
+            </ul>
+        </section>
+    </main>
+    `,
+});
+editor.BlockManager.add('cookie-policy', {
+    label: 'Cookie e Policy',
+    content: `
+   <!-- Header -->
+    <header class="bg-warning text-white text-center py-4">
+        <h1>Cookie Policy</h1>
+        <p class="mb-0">Come utilizziamo i cookie sulla piattaforma AssoLabFondi</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <section class="mb-5">
+            <h2 class="text-warning">1. Cosa Sono i Cookie?</h2>
+            <p>I cookie sono piccoli file di testo che vengono salvati sul tuo dispositivo quando visiti un sito web. Servono a migliorare la tua esperienza utente, ricordando le tue preferenze o raccogliendo informazioni anonime sul tuo utilizzo del sito.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-warning">2. Tipi di Cookie Utilizzati</h2>
+            <ul>
+                <li><strong>Cookie Necessari:</strong> Essenziali per il funzionamento della piattaforma, ad esempio per il login e la navigazione sicura.</li>
+                <li><strong>Cookie di Prestazione:</strong> Raccolgono dati anonimi sull’utilizzo del sito per migliorarne le funzionalità.</li>
+                <li><strong>Cookie Funzionali:</strong> Ricordano le tue preferenze, come la lingua o la regione.</li>
+                <li><strong>Cookie di Marketing:</strong> Utilizzati per mostrarti contenuti e pubblicità personalizzati.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-warning">3. Come Utilizziamo i Cookie?</h2>
+            <p>Su AssoLabFondi utilizziamo i cookie per:</p>
+            <ul>
+                <li>Garantire il corretto funzionamento della piattaforma.</li>
+                <li>Analizzare il traffico e migliorare l’esperienza utente.</li>
+                <li>Mostrare contenuti pertinenti agli utenti registrati.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-warning">4. Gestione dei Cookie</h2>
+            <p>Puoi gestire o eliminare i cookie in qualsiasi momento tramite le impostazioni del tuo browser. Disabilitare alcuni cookie potrebbe influire sull’esperienza di navigazione. Ecco alcune guide per i browser principali:</p>
+            <ul>
+                <li><a href="https://support.google.com/chrome/answer/95647" target="_blank">Google Chrome</a></li>
+                <li><a href="https://support.mozilla.org/it/kb/attivare-disattivare-cookie" target="_blank">Mozilla Firefox</a></li>
+                <li><a href="https://support.microsoft.com/it-it/microsoft-edge" target="_blank">Microsoft Edge</a></li>
+                <li><a href="https://support.apple.com/it-it/guide/safari/sfri11471/mac" target="_blank">Apple Safari</a></li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-warning">5. Cookie di Terze Parti</h2>
+            <p>Potremmo utilizzare cookie di terze parti, ad esempio per analisi di traffico o per integrare funzionalità come video e social media. Questi cookie sono soggetti alle policy delle rispettive terze parti.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-warning">6. Aggiornamenti alla Cookie Policy</h2>
+            <p>Questa policy potrebbe essere aggiornata per riflettere cambiamenti nelle leggi o nei nostri servizi. Ti invitiamo a controllare questa pagina periodicamente.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-warning">7. Contatti</h2>
+            <p>Per qualsiasi domanda sulla nostra Cookie Policy, puoi contattarci via email a: <a href="mailto:privacy@assolabfondi.it">privacy@assolabfondi.it</a>.</p>
+        </section>
+    </main>
+    `,
+});
+editor.BlockManager.add('terms-service', {
+    label: 'Termini e condizioni',
+    content: `
+<header class="bg-primary text-white text-center py-4">
+        <h1>Termini di Servizio</h1>
+        <p class="mb-0">Leggi attentamente i termini prima di utilizzare la piattaforma AssoLabFondi</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <section class="mb-5">
+            <h2 class="text-primary">1. Accettazione dei Termini</h2>
+            <p>Utilizzando il sito web AssoLabFondi, accetti di rispettare i termini e le condizioni stabiliti in questa pagina. Se non accetti questi termini, ti invitiamo a non utilizzare il sito.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">2. Servizi Offerti</h2>
+            <p>AssoLabFondi offre servizi informativi, formativi e operativi per fondi pensione, casse di previdenza e fondi sanitari. Tutti i servizi sono soggetti a modifiche senza preavviso.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">3. Registrazione Utente</h2>
+            <p>Per accedere a determinati servizi, potrebbe essere necessario creare un account. Sei responsabile di mantenere la riservatezza delle credenziali e accetti di notificare immediatamente qualsiasi uso non autorizzato del tuo account.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">4. Contenuti Generati dagli Utenti</h2>
+            <p>Gli utenti possono pubblicare contenuti, commenti o partecipare a discussioni. Tuttavia, non sono consentiti contenuti illegali, offensivi o che violino diritti di terze parti. Ci riserviamo il diritto di rimuovere tali contenuti senza preavviso.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">5. Proprietà Intellettuale</h2>
+            <p>Tutti i contenuti del sito, inclusi testi, immagini, loghi e design, sono protetti da copyright e altre leggi sulla proprietà intellettuale. Non è consentito l'uso non autorizzato di tali materiali.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">6. Limitazione di Responsabilità</h2>
+            <p>AssoLabFondi non sarà responsabile per eventuali danni diretti, indiretti o conseguenti derivanti dall'uso o dall'impossibilità di utilizzare i servizi forniti.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">7. Modifiche ai Termini</h2>
+            <p>Ci riserviamo il diritto di aggiornare i termini di servizio in qualsiasi momento. Ti invitiamo a controllare questa pagina periodicamente per verificare eventuali modifiche.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="text-primary">8. Contatti</h2>
+            <p>Per domande sui termini di servizio, puoi contattarci via email a: <a href="mailto:info@assolabfondi.it">info@assolabfondi.it</a>.</p>
+        </section>
+    </main>
+    `,
+});
+
+editor.BlockManager.add('storia-missioni', {
+    label: 'Storia e Missioni',
+    content: `
+        <section class="py-5">
             <div class="container">
-                <div class="d-flex justify-content-center">
-                    <a class="navbar-brand" href="#">
-                        <img src="logo.png" alt="Logo" width="auto" height="50" class="d-inline-block align-top">
-                    </a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
-                    </ul>
+                <h2 class="text-center text-orange mb-4">Storia e Missioni</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy euismod tempor 
+                        incididunt ut labore et dolore magna aliquam erat volutpat. At vero eos et accusam et justo 
+                        duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="text-blue">PERCHÈ SCEGLIERE NOI?</h5>
+                        <ol>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                            <li>Incidunt ut labore et dolore magna aliquam erat volutpat.</li>
+                            <li>At vero eos et accusam et justo duo dolores et ea rebum.</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-            <!-- Aggiungi questo stile per compensare l'altezza della navbar -->
-            <style>
-                body {
-                    padding-top: 70px; /* Altezza della navbar */
-                }
-            </style>
-        </nav>
-            `,
-            category: 'Navbar',
-        });
-        editor.BlockManager.add('navbar-with-large-logo', {
-            label: 'Navbar con Logo Grande',
-            content: `
-        <!-- Contenitore per logo e navbar -->
-            <div class="fixed-top bg-light">
-                <div class="container d-flex justify-content-center py-3">
-                    <a class="navbar-brand" href="#">
-                        <img src="path/to/your/logo.png" alt="Logo" width="auto" height="50" class="d-inline-block align-top">
-                    </a>
+        </section>
+    `,
+});
+
+editor.BlockManager.add('storia-missioni-casse', {
+    label: 'Fondicassepensioni',
+    content: `
+        <section class="py-5 bg-light">
+    <div class="container text-center">
+        <!-- Titolo -->
+        <div class="mb-4">
+            <h2 class="fw-bold text-primary">Fondi e Casse Previdenziali</h2>
+        </div>
+
+        <!-- Contenuto -->
+        <div class="row g-4">
+            <!-- Partner 1 -->
+            <div class="col-md-3">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex align-items-center">
+                        <span class="me-2" style="color: #007bff; font-size: 1.2rem;">•</span>
+                        <h5 class="fw-bold text-primary mb-0">Partner</h5>
+                    </div>
+                    <p class="text-muted mt-2">
+                        Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod.
+                    </p>
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Catalogo</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Chi Siamo</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
-                                </li>
-                            </ul>
+            </div>
+
+            <!-- Partner 2 -->
+            <div class="col-md-3">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex align-items-center">
+                        <span class="me-2" style="color: #007bff; font-size: 1.2rem;">•</span>
+                        <h5 class="fw-bold text-primary mb-0">Partner</h5>
+                    </div>
+                    <p class="text-muted mt-2">
+                        Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Partner 3 -->
+            <div class="col-md-3">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex align-items-center">
+                        <span class="me-2" style="color: #007bff; font-size: 1.2rem;">•</span>
+                        <h5 class="fw-bold text-primary mb-0">Partner</h5>
+                    </div>
+                    <p class="text-muted mt-2">
+                        Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Partner 4 -->
+            <div class="col-md-3">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex align-items-center">
+                        <span class="me-2" style="color: #007bff; font-size: 1.2rem;">•</span>
+                        <h5 class="fw-bold text-primary mb-0">Partner</h5>
+                    </div>
+                    <p class="text-muted mt-2">
+                        Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottone -->
+        <div class="mt-4">
+            <a href="#" class="btn btn-primary btn-lg">Area Utente</a>
+        </div>
+    </div>
+</section>
+    `,
+});
+
+editor.BlockManager.add('sergio', {
+    label: 'Sergio',
+    content: `
+        <section class="py-5">
+            <div class="container text-center">
+                <h2 class="text-orange">Sergio</h2>
+                <p class="text-blue">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy 
+                euismod tempor incidunt ut labore et dolore magna aliquam erat, sed diam volutpat.</p>
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <div class="circle me-3" style="width: 50px; height: 50px; background: #ccc; border-radius: 50%;"></div>
+                            <p><strong>Nome</strong><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         </div>
                     </div>
-                </nav>
-                <!-- Aggiungi questo stile per compensare l'altezza della navbar e del logo -->
-                <style>
-                    body {
-                        padding-top: 150px; /* Altezza del logo + navbar */
-                    }
-                </style>
-            </div>
-          `,
-            category: 'Navbar',
-        });
-    } else {
-        // Sezioni Personalizzate ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        editor.BlockManager.add('hero-section', {
-            label: 'Hero',
-            content: `
-        <section class="hero-section py-5 bg-light text-center">
-        <div class="container">
-        <h1 class="display-4">Benvenuto su LinkBay!</h1>
-        <p class="lead">Questo è un contenitore hero per presentare il tuo prodotto o servizio.</p>
-        <a href="#" class="btn btn-primary btn-lg">Scopri di più</a>
-        </div>
-        </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('testimonials', {
-            label: 'Testimonianze',
-            content: `
-        <section class="testimonials-section py-5 bg-dark text-white">
-        <div class="container">
-        <h2 class="text-center">Cosa dicono di noi</h2>
-        <div class="row">
-        <div class="col-md-6">
-        <blockquote class="blockquote">
-        <p class="mb-0">Ottimo servizio e supporto eccezionale!</p>
-        <br>
-        <footer class="blockquote-footer text-white">Cliente soddisfatto</footer>
-        </blockquote>
-        </div>
-        <div class="col-md-6">
-        <blockquote class="blockquote">
-        <p class="mb-0">Prodotto di alta qualità, consigliatissimo.</p>
-        <br>
-        <footer class="blockquote-footer text-white">Altro cliente soddisfatto</footer>
-        </blockquote>
-        </div>
-        </div>
-        </div>
-        </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('grid-section', {
-            label: 'Contenitore Gliglia',
-            content: `
-        <section class="grid-section py-5">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="card mb-4">
-                <div class="card-body">
-                  <h5 class="card-title">Titolo 1</h5>
-                  <p class="card-text">Breve descrizione o contenuto del primo blocco.</p>
-                  <a href="#" class="btn btn-primary">Leggi di più</a>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center">
+                            <div class="circle me-3" style="width: 50px; height: 50px; background: #ccc; border-radius: 50%;"></div>
+                            <p><strong>Nome</strong><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="col-md-4">
-              <div class="card mb-4">
-                <div class="card-body">
-                  <h5 class="card-title">Titolo 2</h5>
-                  <p class="card-text">Breve descrizione o contenuto del secondo blocco.</p>
-                  <a href="#" class="btn btn-primary">Leggi di più</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4">
-                <div class="card-body">
-                  <h5 class="card-title">Titolo 3</h5>
-                  <p class="card-text">Breve descrizione o contenuto del terzo blocco.</p>
-                  <a href="#" class="btn btn-primary">Leggi di più</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('services-section', {
-            label: 'Servizi',
-            content: `
-        <section class="services-section py-5">
-        <div class="container">
-        <h2 class="text-center">I nostri servizi</h2>
-        <div class="row">
-        <div class="col-md-4">
-        <div class="service-box text-center">
-        <i class="bi bi-gear-fill display-4"></i>
-        <h3>Servizio 1</h3>
-        <p>Descrizione del primo servizio offerto.</p>
-        </div>
-        </div>
-        <div class="col-md-4">
-        <div class="service-box text-center">
-        <i class="bi bi-brush-fill display-4"></i>
-        <h3>Servizio 2</h3>
-        <p>Descrizione del secondo servizio offerto.</p>
-        </div>
-        </div>
-        <div class="col-md-4">
-        <div class="service-box text-center">
-        <i class="bi bi-laptop-fill display-4"></i>
-        <h3>Servizio 3</h3>
-        <p>Descrizione del terzo servizio offerto.</p>
-        </div>
-        </div>
-        </div>
-        </div>
         </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('portfolio', {
-            label: 'Portfolio',
-            content: `
-        <section class="portfolio-section py-5 bg-light">
-        <div class="container">
-        <h2 class="text-center">Il nostro portfolio</h2>
-        <div class="row">
-        <div class="col-md-4">
-        <div class="portfolio-item mb-4">
-        <img src="img/portfolio1.jpg" class="img-fluid" alt="Portfolio 1">
-        <h3 class="mt-3">Progetto 1</h3>
-        <p>Descrizione del primo progetto realizzato.</p>
-        </div>
-        </div>
-        <div class="col-md-4">
-        <div class="portfolio-item mb-4">
-        <img src="img/portfolio2.jpg" class="img-fluid" alt="Portfolio 2">
-        <h3 class="mt-3">Progetto 2</h3>
-        <p>Descrizione del secondo progetto realizzato.</p>
-        </div>
-        </div>
-        <div class="col-md-4">
-        <div class="portfolio-item mb-4">
-        <img src="img/portfolio3.jpg" class="img-fluid" alt="Portfolio 3">
-        <h3 class="mt-3">Progetto 3</h3>
-        <p>Descrizione del terzo progetto realizzato.</p>
-        </div>
-        </div>
-        </div>
-        </div>
+    `,
+});
+
+editor.BlockManager.add('associazioni-partnership', {
+    label: 'Associazioni e Partnership',
+    content: `
+        <section class="py-5 bg-light">
+            <div class="container text-center">
+                <h2 class="text-orange mb-4">Associazioni e Partnership</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="square" style="width: 100%; padding-top: 100%; background: #ccc; border-radius: 8px;"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="square" style="width: 100%; padding-top: 100%; background: #ccc; border-radius: 8px;"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="square" style="width: 100%; padding-top: 100%; background: #ccc; border-radius: 8px;"></div>
+                    </div>
+                </div>
+            </div>
         </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('contact-form', {
-            label: 'Contattaci',
-            content: `
-        <section class="contact-section py-5 bg-dark text-white">
-        <div class="container">
-        <h2 class="text-center">Contattaci</h2>
+    `,
+});
+editor.BlockManager.add('home-hero-bg', {
+    label: 'Hero Con BackGround',
+    content: `
+    <section class="position-relative text-center text-white" style="background: url('admin/materials/senior-couple-communicating-with-insurance-agent-while-having-consultations-with-him-office-focus-is-woman.png') center/cover no-repeat; height: 100vh;">
+        <div class="position-absolute top-50 start-50 translate-middle" style="max-width: 800px;">
+            <h1 class="display-4 fw-bold text-primary">Lorem ipsum dolor sit amet,<br>consetetur</h1>
+            <p class="fs-5 text-primary mt-3">Lorem ipsum dolor sit amet, consetetur Lorem ipsum<br>dolor sit amet, consetetur</p>
+            <div class="mt-4">
+                <a href="#" class="btn text-white btn-lg me-3" style="background: #F08046;">Scopri di più</a>
+                <a href="#" class="btn text-white btn-lg" style="background: #F08046;">Area personale</a>
+            </div>
+        </div>
+    </section>
+    `,
+});
+
+editor.BlockManager.add('aboutus-hero-bg', {
+    label: 'Section why choose us?',
+    content: `
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: #f07e46;">Storia e Missioni</h2>
         <div class="row">
-        <div class="col-md-6">
-        <form method="post" action="public/form">
-        <div class="mb-3">
-        <label for="name" class="form-label">Nome</label>
-        <input name="name" type="text" class="form-control" id="name" placeholder="Il tuo nome">
+            <!-- Colonna Storia -->
+            <div class="col-md-6">
+                <p class="text-primary">
+                    AssoLabFondi nasce con l’obiettivo di rivoluzionare il settore previdenziale in Italia, offrendo 
+                    supporto operativo e formazione su strumenti finanziari innovativi. L'associazione si pone come 
+                    una realtà indipendente e completamente priva di influenze politiche o sindacali. La visione di 
+                    AssoLabFondi è quella di essere un punto di riferimento per i cambiamenti e l’innovazione, creando 
+                    opportunità per aziende e professionisti di diversificare i propri portafogli con soluzioni innovative.
+                </p>
+            </div>
+            <!-- Colonna Perché scegliere noi -->
+            <div class="col-md-6">
+                <h5 class="text-primary fw-bold">PERCHÉ SCEGLIERE NOI?</h5>
+                <ol class="text-primary">
+                    <li>Operiamo con un approccio pratico e senza influenze politiche o sindacali.</li>
+                    <li>Promuoviamo l’adozione di strumenti innovativi come private equity, infrastrutture e polizze catastrofali.</li>
+                    <li>Ci impegniamo a fornire formazione e confronto diretto per creare valore reale nel settore previdenziale.</li>
+                </ol>
+            </div>
         </div>
-        <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input name="email" type="email" class="form-control" id="email" placeholder="La tua email">
+    </div>
+</section>
+    `,
+});
+editor.BlockManager.add('aboutus-conti-bg', {
+    label: 'Who is Character?',
+    content: `
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Immagine principale -->
+            <div class="col-md-4 text-center">
+                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; background-color: #f1f1f1;">
+                    <img src="" alt="Immagine di Sergio Carfizzi" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+            <!-- Testo principale -->
+            <div class="col-md-8">
+                <h2 class="fw-bold" style="color: #f07e46;">Sergio Carfizzi</h2>
+                <p class="text-primary">
+                    Sergio Carfizzi è un esperto di finanza internazionale con una carriera di oltre 20 anni nel settore 
+                    della previdenza complementare. Ha ricoperto ruoli di spicco come Direttore Generale presso 
+                    importanti fondi pensione e ha dedicato la sua vita a promuovere innovazione e inclusività, puntando 
+                    sull'importanza del capitale umano, sia junior che senior. Il suo obiettivo è sempre stato quello 
+                    di coniugare etica e performance, esplorando nuovi orizzonti di investimento come private equity, 
+                    infrastrutture e polizze catastrofali.
+                </p>
+            </div>
         </div>
-        <div class="mb-3">
-        <label for="phone" class="form-label">Telefono</label>
-        <input name="phone" type="phone" class="form-control" id="phone" placeholder="Il Tuo Telefono">
-        </div>
-        <div class="mb-3">
-        <label for="message" class="form-label">Messaggio</label>
-        <textarea name="message" class="form-control" id="message" rows="3" placeholder="Il tuo messaggio"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Invia</button>
+    </div>
+</section>
+    `,
+});
+editor.BlockManager.add('space', {
+    label: 'SPACE',
+    content: `
+    <br>
+    `,
+});
+
+editor.BlockManager.add('login', {
+    label: 'Login',
+    content: `
+<section class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card p-4 shadow-sm" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center text-primary mb-4">Login</h2>
+        <form action="login.php" method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Accedi</button>
         </form>
-        </div>
-        <div class="col-md-6">
-        <h3 class="mt-3">Informazioni di contatto</h3>
-        <p>Email: info@tuosito.com</p>
-        <p>Telefono: +39 123 456 789</p>
-        <p>Indirizzo: Via Esempio, 123, Città, Paese</p>
-        </div>
-        </div>
-        </div>
+        <p class="text-center mt-3">Non hai un account? <a href="Registrati" class="text-primary">Registrati</a></p>
+    </div>
+</section>
+    `,
+});
+
+
+editor.BlockManager.add('dashboard', {
+    label: 'Dashboard',
+    content: `
+        <section class="container py-5">
+            <div class="row mb-4">
+                <div class="col text-center">
+                    <h2 class="text-primary">Dashboard</h2>
+                    <p class="text-muted">Benvenuto {{ nome }} nella tua area riservata.</p>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fa-solid fa-user fa-2x text-primary mb-3"></i>
+                            <h5 class="card-title">Profilo Utente</h5>
+                            <p class="card-text">Gestisci le informazioni del tuo profilo.</p>
+                            <a href="#" class="btn btn-primary btn-sm">Vai</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fa-solid fa-cog fa-2x text-primary mb-3"></i>
+                            <h5 class="card-title">Impostazioni</h5>
+                            <p class="card-text">Configura le tue preferenze.</p>
+                            <a href="#" class="btn btn-primary btn-sm">Vai</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fa-solid fa-sign-out-alt fa-2x text-primary mb-3"></i>
+                            <h5 class="card-title">Logout</h5>
+                            <p class="card-text">Esci dal tuo account in modo sicuro.</p>
+                            <a href="logout.php" class="btn btn-primary btn-sm">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('faq-section', {
-            label: 'Sezione FAQ',
-            content: `
-        <section class="faq-section py-5">
-        <div class="container">
-        <h2 class="text-center">Domande Frequenti</h2>
-        <div class="accordion" id="faqAccordion">
-        <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Domanda 1
-            </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-            Risposta alla domanda 1.
+    `,
+});
+
+editor.BlockManager.add('sign-in', {
+    label: 'Sign-In',
+    content: `
+<section class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card p-4 shadow-sm" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center text-primary mb-4">Sign-In</h2>
+        <!-- Form che invia i dati a register.php -->
+        <form action="register.php" method="POST">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" name="nome" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label for="cognome" class="form-label">Cognome</label>
+                <input type="text" id="cognome" name="cognome" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
             </div>
-            <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Domanda 2
-            </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-            Risposta alla domanda 2.
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Telefono</label>
+                <input type="text" id="telefono" name="telefono" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
             </div>
+            <button type="submit" class="btn btn-primary">Registrati</button>
+        </form>
+        <p class="text-center mt-3">Hai già un account? <a href="Login" class="text-primary">Accedi</a></p>
+    </div>
+</section>
+    `,
+});
+
+editor.BlockManager.add('chat-card-section', {
+    label: 'Chat in Card',
+    content: `
+        <section class="py-5" style="background-color: #f8f8f8;">
+            <div class="container text-center">
+                <h2 class="text-orange mb-4">Sergio è a tua disposizione</h2>
+                <div class="card mx-auto shadow-sm" style="max-width: 400px; border-radius: 15px; padding: 20px;">
+                    <h4 class="text-orange mb-3">Per saperne di più</h4>
+                    <div class="chat-container">
+                        <div id="chat-messages" class="chat-messages" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">
+                            <!-- I messaggi verranno caricati qui dinamicamente -->
+                        </div>
+                        <form id="chat-form" style="margin-top: 10px;">
+                            <input type="text" id="user-message" placeholder="Scrivi un messaggio..." style="width: 80%; padding: 10px;" required>
+                            <button type="submit" style="padding: 10px;">Invia</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Domanda 3
-            </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-            Risposta alla domanda 3.
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('team-section', {
-            label: 'Team',
-            content: `
-        <section class="team-section py-5 bg-light">
-        <div class="container">
-        <h2 class="text-center">Il nostro Team</h2>
-        <div class="row">
-        <div class="col-md-4 text-center">
-        <img src="img/team1.jpg" class="img-fluid rounded-circle mb-3" alt="Team Member 1">
-        <h3>Nome 1</h3>
-        <p>Ruolo 1</p>
-        </div>
-        <div class="col-md-4 text-center">
-        <img src="img/team2.jpg" class="img-fluid rounded-circle mb-3" alt="Team Member 2">
-        <h3>Nome 2</h3>
-        <p>Ruolo 2</p>
-        </div>
-        <div class="col-md-4 text-center">
-        <img src="img/team3.jpg" class="img-fluid rounded-circle mb-3" alt="Team Member 3">
-        <h3>Nome 3</h3>
-        <p>Ruolo 3</p>
-        </div>
-        </div>
-        </div>
         </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('blog-section', {
-            label: 'Blog',
-            content: `
-        <section class="blog-section py-5">
-        <div class="container">
-        <h2 class="text-center">Ultimi Articoli</h2>
-        <div class="row">
-        <div class="col-md-4">
-        <div class="card mb-4">
-        <img src="img/blog1.jpg" class="card-img-top" alt="Blog 1">
-        <div class="card-body">
-        <h5 class="card-title">Titolo Articolo 1</h5>
-        <p class="card-text">Breve descrizione dell'articolo 1.</p>
-        <a href="#" class="btn btn-primary">Leggi di più</a>
-        </div>
-        </div>
-        </div>
-        <div class="col-md-4">
-        <div class="card mb-4">
-        <img src="img/blog2.jpg" class="card-img-top" alt="Blog 2">
-        <div class="card-body">
-        <h5 class="card-title">Titolo Articolo 2</h5>
-        <p class="card-text">Breve descrizione dell'articolo 2.</p>
-        <a href="#" class="btn btn-primary">Leggi di più</a>
-        </div>
-        </div>
-        </div>
-        <div class="col-md-4">
-        <div class="card mb-4">
-        <img src="img/blog3.jpg" class="card-img-top" alt="Blog 3">
-        <div class="card-body">
-        <h5 class="card-title">Titolo Articolo 3</h5>
-        <p class="card-text">Breve descrizione dell'articolo 3.</p>
-        <a href="#" class="btn btn-primary">Leggi di più</a>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('cta-section', {
-            label: 'Call To Action',
-            content: `
-        <section class="cta-section py-5 bg-primary text-white text-center">
-        <div class="container">
-        <h2>Non perdere l'occasione!</h2>
-        <p>Iscriviti ora per ricevere offerte esclusive e aggiornamenti.</p>
-        <a href="#" class="btn btn-light btn-lg">Iscriviti</a>
-        </div>
-        </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('customer-section', {
-            label: 'Clienti',
-            content: `
-        <section class="clients-section py-5">
-        <div class="container">
-        <h2 class="text-center">I nostri clienti</h2>
-        <div class="row text-center">
-        <div class="col-md-2 col-4">
-        <img src="img/client1.png" class="img-fluid mb-4" alt="Client 1">
-        </div>
-        <div class="col-md-2 col-4">
-        <img src="img/client2.png" class="img-fluid mb-4" alt="Client 2">
-        </div>
-        <div class="col-md-2 col-4">
-        <img src="img/client3.png" class="img-fluid mb-4" alt="Client 3">
-        </div>
-        <div class="col-md-2 col-4">
-        <img src="img/client4.png" class="img-fluid mb-4" alt="Client 4">
-        </div>
-        <div class="col-md-2 col-4">
-        <img src="img/client5.png" class="img-fluid mb-4" alt="Client 5">
-        </div>
-        <div class="col-md-2 col-4">
-        <img src="img/client6.png" class="img-fluid mb-4" alt="Client 6">
-        </div>
-        </div>
-        </div>
-        </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('maps-section', {
-            label: 'Maps',
-            content: `
-        <section class="map-section py-5">
-        <div class="container">
-        <h2 class="text-center">La nostra sede</h2>
-        <div class="row">
-        <div class="col-12">
-        <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.0129331236756!2d-122.08424968469202!3d37.42199997982186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb5c4e4b1a3b3%3A0xdf37791f2f3eeb9b!2sGoogleplex!5e0!3m2!1sit!2sit!4v1631020672957!5m2!1sit!2sit" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-            </div>
-            </div>
-            </div>
-            </section>
-        `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('popular-products-section', {
-            label: 'Prodotti Popolari',
-            content: `
-    <section class="popular-products-section py-5">
-        <div class="container">
-            <h2 class="text-center">Prodotti Popolari</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Prodotto 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Prodotto 1</h5>
-                            <p class="card-text">Descrizione breve del prodotto 1.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Prodotto 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Prodotto 2</h5>
-                            <p class="card-text">Descrizione breve del prodotto 2.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Prodotto 3">
-                        <div class="card-body">
-                            <h5 class="card-title">Prodotto 3</h5>
-                            <p class="card-text">Descrizione breve del prodotto 3.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('special-offers-section', {
-            label: 'Offerte Speciali',
-            content: `
-    <section class="special-offers-section py-5">
+});
+
+editor.BlockManager.add('navbar', {
+    label: 'Navbar',
+    content: `
+       <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-body-tertiary">
         <div class="container">
-            <h2 class="text-center">Offerte Speciali</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Offerta 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Offerta 1</h5>
-                            <p class="card-text">Descrizione breve dell'offerta 1.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Offerta 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Offerta 2</h5>
-                            <p class="card-text">Descrizione breve dell'offerta 2.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Offerta 3">
-                        <div class="card-body">
-                            <h5 class="card-title">Offerta 3</h5>
-                            <p class="card-text">Descrizione breve dell'offerta 3.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('services2-section', {
-            label: 'Servizi 2',
-            content: `
-    <section class="services-section py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center">I Nostri Servizi</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Servizio 1</h5>
-                            <p class="card-text">Descrizione breve del servizio 1.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Servizio 2</h5>
-                            <p class="card-text">Descrizione breve del servizio 2.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Servizio 3</h5>
-                            <p class="card-text">Descrizione breve del servizio 3.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    `,
-            category: 'Sezioni',
-        });
-        editor.BlockManager.add('carousel-section', {
-            label: 'Carosello',
-            content: `
-    <section class="carousel-section">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="Slide 1">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Primo Slide</h5>
-                        <p>Descrizione del primo slide.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="Slide 2">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Secondo Slide</h5>
-                        <p>Descrizione del secondo slide.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://via.placeholder.com/800x400" class="d-block w-100" alt="Slide 3">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Terzo Slide</h5>
-                        <p>Descrizione del terzo slide.</p>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+            <!-- Brand -->
+            <a class="navbar-brand" href="#">
+                 <img src="" alt="Logo" width="150px"> 
+            </a>
+            <!-- Toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </section>
-    `,
-            category: 'Sezioni',
-        });
-        // Blocchi Generici ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        editor.BlockManager.add('h1', {
-            label: 'Titolo h1',
-            content: '<h1>Titolo</h1>',
-            category: 'Elementi',
-        });
-        editor.BlockManager.add('h2', {
-            label: 'Titolo h2',
-            content: '<h2>Titolo</h2>',
-            category: 'Elementi',
-        });
-        editor.BlockManager.add('h4', {
-            label: 'Titolo h4',
-            content: '<h4>Titolo</h4>',
-            category: 'Elementi',
-        });
-        editor.BlockManager.add('p', {
-            label: 'Paragrafo',
-            content: '<p>Paragrafo</p>',
-            category: 'Elementi',
-        });
-        editor.BlockManager.add('button', {
-            label: 'Pulsante',
-            content: '<button type="button" class="btn btn-dark">Pulsante</button>',
-            category: 'Elementi',
-        });
-        editor.BlockManager.add('image', {
-            label: 'Immagine',
-            content: '<img src="" alt="">',
-            category: 'Elementi',
-        });
-        // Blocchi Sezioni Vuote --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
-        editor.BlockManager.add('one-column-section', {
-            label: 'Una Colonna',
-            content: `
-    <section class="one-column-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="content">
-                        <h2 class="text-center">Una Colonna</h2>
-                        <p>Contenuto della colonna singola.</p>
-                    </div>
-                </div>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home"> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="About-us"> Chi Siamo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Login"><i class="fa-solid fa-user"></i> Accedi</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </section>
+    </nav>
     `,
-            category: 'sezioni vuote',
-        });
-        editor.BlockManager.add('two-column-section', {
-            label: 'Due Colonne',
-            content: `
-    <section class="two-column-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 1</h2>
-                        <p>Contenuto della prima colonna.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 2</h2>
-                        <p>Contenuto della seconda colonna.</p>
-                    </div>
-                </div>
-            </div>
+});
+
+
+editor.BlockManager.add('footer', {
+    label: 'Footer',
+    content: `
+<footer style="background-color: #003f88; color: #fff; padding: 40px 20px;">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <!-- Logo al centro -->
+        <img src="" alt="Logo AssoLabFondi" style="width: 150px; height: auto;">
+    </div>
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; text-align: center;">
+        <!-- Colonna 1: Info Legali -->
+        <div style="flex: 1; min-width: 200px; margin: 10px;">
+            <h3 style="margin-bottom: 10px;">Info Legali</h3>
+            <p style="font-size: 0.9rem;">Privacy Policy</p>
+            <p style="font-size: 0.9rem;">Termini e Condizioni</p>
+            <p style="font-size: 0.9rem;">Cookie Policy</p>
         </div>
-    </section>
-    `,
-            category: 'sezioni vuote',
-        });
-        editor.BlockManager.add('three-column-section', {
-            label: 'Tre Colonne',
-            content: `
-    <section class="three-column-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 1</h2>
-                        <p>Contenuto della prima colonna.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 2</h2>
-                        <p>Contenuto della seconda colonna.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 3</h2>
-                        <p>Contenuto della terza colonna.</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Colonna 2: Link di Riferimento -->
+        <div style="flex: 1; min-width: 200px; margin: 10px;">
+            <h3 style="margin-bottom: 10px;">Link</h3>
+            <p style="font-size: 0.9rem;"><a href="#" style="color: #fff; text-decoration: none;">Home</a></p>
+            <p style="font-size: 0.9rem;"><a href="#" style="color: #fff; text-decoration: none;">Chi Siamo</a></p>
+            <p style="font-size: 0.9rem;"><a href="#" style="color: #fff; text-decoration: none;">Contatti</a></p>
         </div>
-    </section>
-    `,
-            category: 'sezioni vuote',
-        });
-        editor.BlockManager.add('four-column-section', {
-            label: 'Quattro Colonne',
-            content: `
-    <section class="four-column-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 1</h2>
-                        <p>Contenuto della prima colonna.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 2</h2>
-                        <p>Contenuto della seconda colonna.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 3</h2>
-                        <p>Contenuto della terza colonna.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 4</h2>
-                        <p>Contenuto della quarta colonna.</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Colonna 3: Social -->
+        <div style="flex: 1; min-width: 200px; margin: 10px;">
+            <h3 style="margin-bottom: 10px;">Social</h3>
+            <a href="#" style="margin: 0 5px; color: #fff; text-decoration: none; font-size: 1.5rem;">
+                <i class="fab fa-linkedin"></i>
+            </a>
         </div>
-    </section>
+    </div>
+    <div style="text-align: center; margin-top: 20px; font-size: 0.8rem; border-top: 1px solid #fff; padding-top: 10px;">
+        <p>&copy; 2024 AssoLabFondi. Tutti i diritti riservati.</p>
+    </div>
+</footer>
     `,
-            category: 'sezioni vuote',
-        });
-        editor.BlockManager.add('mixed-column-section', {
-            label: 'Colonne Miste',
-            content: `
-    <section class="mixed-column-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 1</h2>
-                        <p>Contenuto della prima colonna.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 2</h2>
-                        <p>Contenuto della seconda colonna.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="content">
-                        <h2 class="text-center">Colonna 3</h2>
-                        <p>Contenuto della terza colonna.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    `,
-            category: 'sezioni vuote',
-        });
-        // Blocchi Negozio Online --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        editor.BlockManager.add('bootstrap-navbar', {
-            label: 'Prodotto stile 1',
-            content: `
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-4">
-                        <img id="mainImage" src="https://via.placeholder.com/500" class="img-fluid" alt="{{ProductTitle}}">
-                    </div>
-                    <div class="d-flex flex-column">
-                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="{{ProductTitle}} 1">
-                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="{{ProductTitle}} 2">
-                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="{{ProductTitle}} 3">
-                        <img src="https://via.placeholder.com/100" class="img-thumbnail mb-2" alt="Customer Photo">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <form method="GET" action="../public/aggiunta_carrello.php"> <!-- Cambiato a GET -->
-                        <h2>{{ProductTitle}}</h2>
-                        <p>{{ProductCollection}}</p>
-                        <p class="text-muted">€ {{ProductPrice}}</p>
-                        <input type="hidden" value="{{ProductPrice}}" name="prezzo"{{ProductPrice}}">
-                        <div class="d-flex align-items-center mb-3">
-                            <span class="badge bg-warning text-dark">4.5 di 5 stelle</span>
-                            <span class="ms-2">(722 recensioni)</span>
-                        </div>
-                        <div class="mb-3">
-                            <p><span class="badge text-bg-secondary">{{ProductVariant}}</span></p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">Quantità</label>
-                            <input type="number" name="quantita" class="form-control" id="quantity" min="1" value="1">
-                        </div>
-                        <input type="hidden" name="titolo" value="{{ProductTitle}}">
-                        <button type="submit" class="btn btn-dark w-100 mb-2">Acquista Ora</button>
-                        <button type="submit" class="btn btn-outline-dark w-100 mb-4">Aggiungi al carrello</button>
-                        <div class="accordion" id="productDetails">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Dettagli Prodotto
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#productDetails">
-                                    <div class="accordion-body">
-                                        <p class="text-muted">{{ProductDescription}}</p>
-                                        <input type="hidden" value="{{ProductDescription}}" name="descrizione">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Stylist Notes
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#productDetails">
-                                    <div class="accordion-body">
-                                        <p>Notes from the stylist...</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Size & Fit
-                                    </button>
-                                </h2>
-                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#productDetails">
-                                    <div class="accordion-body">
-                                        <p>Information about the size and fit...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-                  `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('featured-products-section', {
-            label: 'Prodotti in Primo Piano',
-            content: `
-    <section class="featured-products-section py-5">
-    <div class="container">
-    <h2 class="text-center">Prodotti in Primo Piano</h2>
-    <div class="row">
-    <div class="col-md-4">
-    <div class="product-card">
-    <img src="product1.jpg" class="img-fluid" alt="Prodotto 1">
-    <h3>Prodotto 1</h3>
-    <p>€29,99</p>
-    <a href="#" class="btn btn-primary">Acquista Ora</a>
-    </div>
-    </div>
-    <div class="col-md-4">
-    <div class="product-card">
-    <img src="product2.jpg" class="img-fluid" alt="Prodotto 2">
-    <h3>Prodotto 2</h3>
-    <p>€39,99</p>
-    <a href="#" class="btn btn-primary">Acquista Ora</a>
-    </div>
-    </div>
-    <div class="col-md-4">
-    <div class="product-card">
-    <img src="product3.jpg" class="img-fluid" alt="Prodotto 3">
-    <h3>Prodotto 3</h3>
-    <p>€49,99</p>
-    <a href="#" class="btn btn-primary">Acquista Ora</a>
-    </div>
-    </div>
-    </div>
-    </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('new-arrivals-section', {
-            label: 'Nuovi Arrivi',
-            content: `
-    <section class="new-arrivals-section py-5">
-    <div class="container">
-    <h2 class="text-center">Nuovi Arrivi</h2>
-    <div class="row">
-    <div class="col-md-4">
-    <div class="product-card">
-    <img src="new1.jpg" class="img-fluid" alt="Nuovo Arrivo 1">
-    <h3>Nuovo Arrivo 1</h3>
-    <p>€29,99</p>
-    <a href="#" class="btn btn-primary">Acquista Ora</a>
-    </div>
-    </div>
-    <div class="col-md-4">
-    <div class="product-card">
-    <img src="new2.jpg" class="img-fluid" alt="Nuovo Arrivo 2">
-    <h3>Nuovo Arrivo 2</h3>
-    <p>€39,99</p>
-    <a href="#" class="btn btn-primary">Acquista Ora</a>
-    </div>
-    </div>
-    <div class="col-md-4">
-    <div class="product-card">
-    <img src="new3.jpg" class="img-fluid" alt="Nuovo Arrivo 3">
-    <h3>Nuovo Arrivo 3</h3>
-    <p>€49,99</p>
-    <a href="#" class="btn btn-primary">Acquista Ora</a>
-    </div>
-    </div>
-    </div>
-    </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('special-offers-section', {
-            label: 'Offerte Speciali',
-            content: `
-    <section class="special-offers-section py-5">
-    <div class="container">
-    <h2 class="text-center">Offerte Speciali</h2>
-    <div class="row">
-    <div class="col-md-4">
-    <div class="offer-card">
-    <img src="offer1.jpg" class="img-fluid" alt="Offerta 1">
-    <h3>Offerta 1</h3>
-    <p>€19,99 <span class="text-muted"><s>€29,99</s></span></p>
-    <a href="#" class="btn btn-primary">Acquista Ora</a>
-    </div>
-    </div>
-    <div class="col-md-4">
-    <div class="offer-card">
-    <img src="offer2.jpg" class="img-fluid" alt="Offerta 2">
-    <h3>Offerta 2</h3>
-    <p>€29,99 <span class="text-muted"><s>€39,99</s></span></p>
-    <a href="#" class="btn btn-primary">Acquista Ora</a>
-    </div>
-    </div>
-    <div class="col-md-4">
-    <div class="offer-card">
-    <img src="offer3.jpg" class="img-fluid" alt="Offerta 3">
-    <h3>Offerta 3</h3>
-    <p>€39,99 <span class="text-muted"><s>€49,99</s></span></p>
-    <a href="#" class="btn btn-primary">Acquista Ora</a>
-    </div>
-    </div>
-    </div>
-    </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('customer-reviews-section', {
-            label: 'Recensioni dei Clienti',
-            content: `
-    <section class="customer-reviews-section py-5">
-    <div class="container">
-    <h2 class="text-center">Recensioni dei Clienti</h2>
-    <div class="row">
-    <div class="col-md-4">
-    <div class="review-card">
-    <p>"Prodotti fantastici, qualità eccellente!"</p>
-    <footer>- Giulia R.</footer>
-    </div>
-    </div>
-    <div class="col-md-4">
-    <div class="review-card">
-    <p>"Servizio clienti impeccabile, consegna rapida."</p>
-    <footer>- Marco T.</footer>
-    </div>
-    </div>
-    <div class="col-md-4">
-    <div class="review-card">
-    <p>"Consiglio vivamente questo negozio online."</p>
-    <footer>- Lucia P.</footer>
-    </div>
-    </div>
-    </div>
-    </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('product-categories-section', {
-            label: 'Categorie di Prodotti',
-            content: `
-    <section class="product-categories-section py-5">
-    <div class="container">
-    <h2 class="text-center">Categorie di Prodotti</h2>
-    <div class="row">
-    <div class="col-md-3">
-    <div class="category-card">
-    <img src="category1.jpg" class="img-fluid" alt="Categoria 1">
-    <h3>Categoria 1</h3>
-    <a href="#" class="btn btn-primary">Scopri di più</a>
-    </div>
-    </div>
-    <div class="col-md-3">
-    <div class="category-card">
-    <img src="category2.jpg" class="img-fluid" alt="Categoria 2">
-    <h3>Categoria 2</h3>
-    <a href="#" class="btn btn-primary">Scopri di più</a>
-    </div>
-    </div>
-    <div class="col-md-3">
-    <div class="category-card">
-    <img src="category3.jpg" class="img-fluid" alt="Categoria 3">
-    <h3>Categoria 3</h3>
-    <a href="#" class="btn btn-primary">Scopri di più</a>
-    </div>
-    </div>
-    <div class="col-md-3">
-    <div class="category-card">
-    <img src="category4.jpg" class="img-fluid" alt="Categoria 4">
-    <h3>Categoria 4</h3>
-    <a href="#" class="btn btn-primary">Scopri di più</a>
-    </div>
-    </div>
-    </div>
-    </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('newsletter-signup-section', {
-            label: 'Registrazione alla Newsletter',
-            content: `
-    <section class="newsletter-signup-section py-5 bg-secondary text-white text-center">
-    <div class="container">
-    <h2>Iscriviti alla nostra Newsletter</h2>
-    <p>Rimani aggiornato su tutte le novità e le offerte speciali.</p>
-    <form>
-    <div class="form-group">
-    <input type="email" class="form-control" placeholder="Inserisci la tua email">
-    </div>
-    <button type="submit" class="btn btn-primary">Iscriviti</button>
-    </form>
-    </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('shipping-returns-section', {
-            label: 'Spedizioni e Resi',
-            content: `
-    <section class="shipping-returns-section py-5">
-    <div class="container">
-    <h2 class="text-center">Spedizioni e Resi</h2>
-    <div class="row">
-    <div class="col-md-6">
-    <h3>Politica di Spedizione</h3>
-    <p>Descrizione delle opzioni di spedizione disponibili, tempi di consegna e costi.</p>
-    </div>
-    <div class="col-md-6">
-    <h3>Politica di Reso</h3>
-    <p>Descrizione della politica di reso, come restituire un prodotto e termini e condizioni.</p>
-    </div>
-    </div>
-    </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('product-header-section', {
-            label: 'Intestazione del Prodotto',
-            content: `
-    <section class="product-header-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h1 class="display-4">Nome del Prodotto</h1>
-                    <p class="lead">Sottotitolo o slogan del prodotto</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('product-images-section', {
-            label: 'Immagini del Prodotto',
-            content: `
-    <section class="product-images-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="https://via.placeholder.com/500" class="img-fluid" alt="Immagine del Prodotto">
-                </div>
-                <div class="col-md-6">
-                    <img src="https://via.placeholder.com/500" class="img-fluid" alt="Immagine del Prodotto">
-                </div>
-            </div>
-        </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('product-description-section', {
-            label: 'Descrizione del Prodotto',
-            content: `
-    <section class="product-description-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Descrizione del Prodotto</h2>
-                    <p>Dettagli completi del prodotto, caratteristiche principali, e benefici per il cliente.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('technical-features-section', {
-            label: 'Caratteristiche Tecniche',
-            content: `
-    <section class="technical-features-section py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Caratteristiche Tecniche</h2>
-                    <ul>
-                        <li>Caratteristica 1</li>
-                        <li>Caratteristica 2</li>
-                        <li>Caratteristica 3</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('cart-section', {
-            label: 'Carrello',
-            content: `
-            <section class="cart-section py-5">
-                <div class="container mt-5">
-                    <h2 class="mb-4">Il Tuo Carrello</h2>
-                    <div class="row">
-                        <!-- Cart Items -->
-                        <div class="col-lg-8">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h4>Articoli aggiunti:</h4>
-                                </div>
-                                <div class="card-body">
-                                    {{elementiCarrello}}
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Order Summary -->
-                        <div class="col-lg-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Totale Ordine</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <p>Sub-totale</p>
-                                        <p>$55.00</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <p>Tasse (22%)</p>
-                                        <p>$5.50</p>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex justify-content-between">
-                                        <h5>Totale</h5>
-                                        <h5>$60.50</h5>
-                                    </div>
-                                    <a href="payments/processa_ordine" class="btn btn-primary btn-block mt-3">Procedi Con il Pagamento</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('customer-reviews-section', {
-            label: 'Recensioni dei Clienti',
-            content: `
-    <section class="customer-reviews-section py-5">
-        <div class="container">
-            <h2 class="text-center">Recensioni dei Clienti</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="review">
-                        <p>Recensione 1</p>
-                        <p><strong>- Cliente 1</strong></p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="review">
-                        <p>Recensione 2</p>
-                        <p><strong>- Cliente 2</strong></p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="review">
-                        <p>Recensione 3</p>
-                        <p><strong>- Cliente 3</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('faq-section', {
-            label: 'Domande Frequenti',
-            content: `
-    <section class="faq-section py-5">
-        <div class="container">
-            <h2 class="text-center">Domande Frequenti</h2>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="accordion" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Domanda 1
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    Risposta alla domanda 1.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Domanda 2
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    Risposta alla domanda 2.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Domanda 3
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">
-                                    Risposta alla domanda 3.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-        editor.BlockManager.add('three-images-description-section', {
-            label: '3 Immagini con Descrizioni',
-            content: `
-    <section class="three-images-description-section py-5">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <img src="https://via.placeholder.com/600" class="img-fluid mb-3" alt="Immagine 1">
-                    <p>Descrizione dell'Immagine 1</p>
-                </div>
-                <div class="col-md-4">
-                    <img src="https://via.placeholder.com/600" class="img-fluid mb-3" alt="Immagine 2">
-                    <p>Descrizione dell'Immagine 2</p>
-                </div>
-                <div class="col-md-4">
-                    <img src="https://via.placeholder.com/600" class="img-fluid mb-3" alt="Immagine 3">
-                    <p>Descrizione dell'Immagine 3</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    `,
-            category: 'Negozio Online',
-        });
-    }
+});
+
 </script>
 
 <!-- SCRIPT PER IL SALVATAGGIO -->

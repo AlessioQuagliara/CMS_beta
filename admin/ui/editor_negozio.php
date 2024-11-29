@@ -58,12 +58,6 @@ $result = $conn->query("SELECT * FROM seo");
                                     $pagename = 'Servizi';
                                 } elseif($row['page_name']=='landing') {
                                     $pagename = 'Landing Page';
-                                } elseif($row['page_name']=='prodotto') {
-                                    $pagename = 'Pagina Prodotto';
-                                } elseif($row['page_name']=='cart') {
-                                    $pagename = 'Carrello';
-                                } elseif($row['page_name']=='catalogs') {
-                                    $pagename = 'Catalogo';
                                 } else {
                                     $pagename = $row['page_name'];
                                 } 

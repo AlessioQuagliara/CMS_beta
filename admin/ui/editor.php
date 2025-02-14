@@ -51,608 +51,198 @@
     }
 
   
-    editor.BlockManager.add('missioni-valori', {
-    label: 'Missioni e Valori',
-    content: `
-    <section class="py-5 bg-light">
-    <div class="container">
-        <!-- Titolo -->
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-warning">Missioni e Valori</h2>
-        </div>
+    editor.BlockManager.add('section', {
+            label: '<i class="fa-solid fa-border-top fa-4x"></i> Section',
+            content: '<section class="py-5 bg-light">\n <div class="container">\n <h2 class="fw-bold text-dark text-center">Section Title</h2>\n <p class="text-center text-muted">\n Add your content here...</p>\n </div>\n </section>',
+            category: 'Layout',
+        });
 
-        <!-- Cards -->
-        <div class="row g-4">
-            <!-- Card 1 -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm text-center py-4" style="border-radius: 15px;">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <img src="path/to/your/icon1.png" alt="Icon 1" style="width: 50px;">
-                        </div>
-                        <h5 class="fw-bold text-primary">Lorem ybu</h5>
-                        <p class="text-muted">
-                            Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed.
-                        </p>
-                    </div>
-                </div>
-            </div>
+        editor.BlockManager.add('full-section', {
+            label: '<i class="fa-solid fa-expand fa-4x"></i> Full Section',
+            content: '<section class="vh-100 d-flex align-items-center justify-content-center bg-dark text-white"><div class="container text-center"><h2 class="fw-bold">Full Width Section</h2><p>This section takes the full viewport height.</p></div></section>',
+            category: 'Layout',
+        });
 
-            <!-- Card 2 -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm text-center py-4" style="border-radius: 15px;">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <img src="path/to/your/icon2.png" alt="Icon 2" style="width: 50px;">
-                        </div>
-                        <h5 class="fw-bold text-primary">Lorem ybu</h5>
-                        <p class="text-muted">
-                            Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed.
-                        </p>
-                    </div>
-                </div>
-            </div>
+        editor.BlockManager.add('container-layout', {
+            label: '<i class="fa-solid fa-box fa-4x"></i> Container',
+            content: '<section class="container py-5 bg-light"></section>',
+            category: 'Layout',
+        });
 
-            <!-- Card 3 -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm text-center py-4" style="border-radius: 15px;">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <img src="path/to/your/icon3.png" alt="Icon 3" style="width: 50px;">
-                        </div>
-                        <h5 class="fw-bold text-primary">Lorem ybu</h5>
-                        <p class="text-muted">
-                            Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-    `,
-});
+        editor.BlockManager.add('heading', {
+            label: '<i class="fa-solid fa-heading fa-4x"></i> Heading',
+            content: '<h2 class="fw-bold text-dark">Heading</h2>',
+            category: 'Basic',
+        });
 
-editor.BlockManager.add('fondi-casse', {
-    label: 'Fondi e Casse',
-    content: `
-<section class="py-5 bg-light">
-    <div class="container">
-        <!-- Titolo -->
-        <div class="text-center mb-4">
-            <h2 class="fw-bold text-primary">Lorem ipsum</h2>
-            <p class="text-muted mx-auto" style="max-width: 800px;">
-                Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-            </p>
-        </div>
+        editor.BlockManager.add('image', {
+            label: '<i class="fa-solid fa-image fa-4x"></i> Image',
+            content: '<img src="https://via.placeholder.com/350x250" class="img-fluid"/>',
+            category: 'Basic',
+        });
 
-        <!-- Paragrafi superiori -->
-        <div class="row text-center mb-5">
-            <div class="col-md-6">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                </p>
-            </div>
-            <div class="col-md-6">
-                <p>
-                    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                </p>
-            </div>
-        </div>
+        editor.BlockManager.add('text-editor', {
+            label: '<i class="fa-solid fa-file-alt fa-4x"></i> Text Editor',
+            content: '<div class="p-3">Write your text here...</div>',
+            category: 'Basic',
+        });
 
-        <!-- Timeline -->
-        <div class="position-relative">
-            <div class="timeline-line position-absolute start-50 translate-middle bg-primary" style="height: 4px; width: 100%; top: 50%; z-index: 1;"></div>
-            <div class="row text-center position-relative">
-                <!-- Primo elemento -->
-                <div class="col-md-3 mb-4">
-                    <div class="timeline-item d-inline-block position-relative">
-                        <div class="timeline-icon bg-warning text-white rounded-circle mb-2" style="width: 50px; height: 50px; line-height: 50px;">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <p class="fw-bold text-primary mb-0">BCC</p>
-                        <p class="text-muted small">Lorem ipsum dolor sit amet, consectetur sadipscing elitr</p>
-                        <p class="fw-bold">Anno</p>
-                    </div>
-                </div>
+        editor.BlockManager.add('video', {
+            label: '<i class="fa-solid fa-video fa-4x"></i> Video',
+            content: '<video controls><source src="movie.mp4" type="video/mp4">Your browser does not support the video tag.</video>',
+            category: 'Basic',
+        });
 
-                <!-- Secondo elemento -->
-                <div class="col-md-3 mb-4">
-                    <div class="timeline-item d-inline-block position-relative">
-                        <div class="timeline-icon bg-warning text-white rounded-circle mb-2" style="width: 50px; height: 50px; line-height: 50px;">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <p class="fw-bold text-primary mb-0">Intesa San Paolo</p>
-                        <p class="text-muted small">Lorem ipsum dolor sit amet, consectetur sadipscing elitr</p>
-                        <p class="fw-bold">Anno</p>
-                    </div>
-                </div>
+        editor.BlockManager.add('button', {
+            label: '<i class="fa-solid fa-hand-pointer fa-4x"></i> Button',
+            content: '<button class="btn btn-primary">Click Me</button>',
+            category: 'Basic',
+        });
 
-                <!-- Terzo elemento -->
-                <div class="col-md-3 mb-4">
-                    <div class="timeline-item d-inline-block position-relative">
-                        <div class="timeline-icon bg-warning text-white rounded-circle mb-2" style="width: 50px; height: 50px; line-height: 50px;">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <p class="fw-bold text-primary mb-0">Banche di Trentino</p>
-                        <p class="text-muted small">Lorem ipsum dolor sit amet, consectetur sadipscing elitr</p>
-                        <p class="fw-bold">Anno</p>
-                    </div>
-                </div>
+        editor.BlockManager.add('divider', {
+            label: '<i class="fa-solid fa-grip-lines fa-4x"></i> Divider',
+            content: '<hr class="my-4"/>',
+            category: 'Basic',
+        });
 
-                <!-- Quarto elemento -->
-                <div class="col-md-3 mb-4">
-                    <div class="timeline-item d-inline-block position-relative">
-                        <div class="timeline-icon bg-warning text-white rounded-circle mb-2" style="width: 50px; height: 50px; line-height: 50px;">
-                            <i class="fas fa-archive"></i>
-                        </div>
-                        <p class="fw-bold text-primary mb-0">Ecc.</p>
-                        <p class="text-muted small">Lorem ipsum dolor sit amet, consectetur sadipscing elitr</p>
-                        <p class="fw-bold">Anno</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-    `,
-});
+        editor.BlockManager.add('spacer', {
+            label: '<i class="fa-solid fa-arrows-alt-v fa-4x"></i> Spacer',
+            content: '<div style="height: 50px;"></div>',
+            category: 'Basic',
+        });
 
-editor.BlockManager.add('eventi-seminari', {
-    label: 'Eventi e Seminari',
-    content: `
-<section class="py-5 bg-light">
-    <div class="container">
-        <!-- Titolo -->
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-warning">Eventi e Seminari</h2>
-            <p class="text-primary fs-5">Eventi imminenti</p>
-        </div>
+        editor.BlockManager.add('google-maps', {
+            label: '<i class="fa-solid fa-map-marker-alt fa-4x"></i> Google Maps',
+            content: '<iframe width="100%" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed" allowfullscreen></iframe>',
+            category: 'Advanced',
+        });
 
-        <!-- Cards -->
-        <div class="row g-4" id="eventi-container">
-            <!-- Eventi caricati dinamicamente -->
-        </div>
+        editor.BlockManager.add('icon', {
+            label: '<i class="fa-solid fa-icons fa-4x"></i> Icon',
+            content: '<i class="fa-solid fa-star"></i>',
+            category: 'Basic',
+        });
 
-        <!-- Bottone -->
-        <div class="text-center mt-4">
-            <a href="#" class="btn btn-primary btn-lg" style="border-radius: 25px;">Scopri di più</a>
-        </div>
-    </div>
-</section>
-    `,
-});
+        editor.BlockManager.add('form', {
+            label: '<i class="fa-solid fa-envelope fa-4x"></i> Form',
+            content: '<form><input type="text" placeholder="Your Name" class="form-control mb-2"/><input type="email" placeholder="Your Email" class="form-control mb-2"/><textarea placeholder="Your Message" class="form-control mb-2"></textarea><button class="btn btn-primary">Submit</button></form>',
+            category: 'Forms',
+        });
 
-editor.BlockManager.add('privacy-policy', {
-    label: 'Privacy e Policy',
-    content: `
-   <header class="bg-primary text-white text-center py-4">
-        <h1>Privacy Policy</h1>
-        <p class="mb-0">AssoLabFondi si impegna a proteggere i tuoi dati personali</p>
-    </header>
+        editor.BlockManager.add('grid', {
+            label: '<i class="fa-solid fa-th-large fa-4x"></i> Grid',
+            content: '<div class="row"><div class="col-md-6 bg-light p-3">Column 1</div><div class="col-md-6 bg-dark text-white p-3">Column 2</div></div>',
+            category: 'Layout',
+        });
 
-    <!-- Main Content -->
-    <main class="container my-5">
-        <section class="mb-5">
-            <h2 class="text-primary">1. Introduzione</h2>
-            <p>Benvenuto su AssoLabFondi. La tua privacy è importante per noi e ci impegniamo a proteggere i tuoi dati personali in conformità con il GDPR e altre leggi applicabili.</p>
-        </section>
+        editor.BlockManager.add('image-box', {
+            label: '<i class="fa-solid fa-image fa-4x"></i> Image Box',
+            content: '<div class="text-center"><img src="https://via.placeholder.com/150" class="img-fluid mb-2"/><h4>Title</h4><p>Description</p></div>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-primary">2. Chi Siamo</h2>
-            <p>AssoLabFondi è un’associazione dedicata a fornire supporto operativo a fondi pensione, casse di previdenza e fondi sanitari. Per domande sulla privacy, contattaci a: <a href="mailto:privacy@assolabfondi.it">privacy@assolabfondi.it</a>.</p>
-        </section>
+        editor.BlockManager.add('icon-box', {
+            label: '<i class="fa-solid fa-icons fa-4x"></i> Icon Box',
+            content: '<div class="text-center"><i class="fa-solid fa-star fa-3x mb-2"></i><h4>Title</h4><p>Description</p></div>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-primary">3. Quali Dati Raccogliamo</h2>
-            <ul>
-                <li><strong>Dati forniti dagli utenti:</strong> Nome, cognome, email, numero di telefono, dati di login.</li>
-                <li><strong>Dati relativi all’utilizzo:</strong> Indirizzo IP, browser utilizzato, cronologia di navigazione.</li>
-                <li><strong>Dati aggiuntivi:</strong> Informazioni relative agli eventi e ai seminari a cui partecipi.</li>
-            </ul>
-        </section>
+        editor.BlockManager.add('image-carousel', {
+            label: '<i class="fa-solid fa-images fa-4x"></i> Image Carousel',
+            content: '<div id="carouselExample" class="carousel slide" data-bs-ride="carousel"><div class="carousel-inner"><div class="carousel-item active"><img src="https://via.placeholder.com/800x400" class="d-block w-100"></div><div class="carousel-item"><img src="https://via.placeholder.com/800x400" class="d-block w-100"></div></div><button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></button><button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></button></div>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-primary">4. Come Utilizziamo i Dati</h2>
-            <p>Utilizziamo i tuoi dati per:</p>
-            <ul>
-                <li>Fornire accesso ai nostri servizi e contenuti.</li>
-                <li>Personalizzare la tua esperienza sulla piattaforma.</li>
-                <li>Comunicare con te in relazione agli eventi e ai servizi.</li>
-                <li>Adempiere a obblighi legali.</li>
-            </ul>
-        </section>
+        editor.BlockManager.add('basic-gallery', {
+            label: '<i class="fa-solid fa-th fa-4x"></i> Basic Gallery',
+            content: '<div class="row"><div class="col-4"><img src="https://via.placeholder.com/150" class="img-fluid"></div><div class="col-4"><img src="https://via.placeholder.com/150" class="img-fluid"></div><div class="col-4"><img src="https://via.placeholder.com/150" class="img-fluid"></div></div>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-primary">5. Condivisione dei Dati</h2>
-            <p>Non condividiamo i tuoi dati personali con terze parti, salvo nei seguenti casi:</p>
-            <ul>
-                <li>Fornitori di servizi che agiscono per nostro conto.</li>
-                <li>Obblighi legali o richieste delle autorità competenti.</li>
-                <li>Consenso esplicito da parte tua.</li>
-            </ul>
-        </section>
+        editor.BlockManager.add('icon-list', {
+            label: '<i class="fa-solid fa-list fa-4x"></i> Icon List',
+            content: '<ul class="list-unstyled"><li><i class="fa-solid fa-check"></i> Item 1</li><li><i class="fa-solid fa-check"></i> Item 2</li><li><i class="fa-solid fa-check"></i> Item 3</li></ul>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-primary">6. Protezione dei Dati</h2>
-            <p>Adottiamo misure di sicurezza tecniche e organizzative per proteggere i tuoi dati personali da accessi non autorizzati, perdite o divulgazioni.</p>
-        </section>
+        editor.BlockManager.add('counter', {
+            label: '<i class="fa-solid fa-sort-numeric-up fa-4x"></i> Counter',
+            content: '<div class="text-center"><h2 class="fw-bold">100</h2><p>Completed Projects</p></div>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-primary">7. I Tuoi Diritti</h2>
-            <p>Hai diritto a:</p>
-            <ul>
-                <li>Accedere ai tuoi dati personali.</li>
-                <li>Richiedere la modifica o cancellazione dei dati.</li>
-                <li>Revocare il consenso in qualsiasi momento.</li>
-                <li>Presentare un reclamo presso l'autorità di protezione dei dati.</li>
-            </ul>
-            <p>Per esercitare i tuoi diritti, contattaci a: <a href="mailto:privacy@assolabfondi.it">privacy@assolabfondi.it</a>.</p>
-        </section>
+        editor.BlockManager.add('progress-bar', {
+            label: '<i class="fa-solid fa-chart-line fa-4x"></i> Progress Bar',
+            content: '<div class="progress"><div class="progress-bar" role="progressbar" style="width: 75%;">75%</div></div>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-primary">8. Cookie e Tecnologie Simili</h2>
-            <p>Utilizziamo cookie per migliorare la tua esperienza. Puoi gestire le tue preferenze sui cookie tramite le impostazioni del browser.</p>
-        </section>
+        editor.BlockManager.add('testimonial', {
+            label: '<i class="fa-solid fa-comment fa-4x"></i> Testimonial',
+            content: '<blockquote class="blockquote"><p>"This is the best service I have ever used!"</p><footer class="blockquote-footer">John Doe</footer></blockquote>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-primary">9. Termini di Utilizzo</h2>
-            <p>Accedendo alla piattaforma AssoLabFondi, accetti i nostri termini di utilizzo:</p>
-            <ul>
-                <li>Non caricare contenuti illeciti o offensivi.</li>
-                <li>Non compromettere la sicurezza della piattaforma.</li>
-            </ul>
-        </section>
-    </main>
-    `,
-});
-editor.BlockManager.add('cookie-policy', {
-    label: 'Cookie e Policy',
-    content: `
-   <!-- Header -->
-    <header class="bg-warning text-white text-center py-4">
-        <h1>Cookie Policy</h1>
-        <p class="mb-0">Come utilizziamo i cookie sulla piattaforma AssoLabFondi</p>
-    </header>
+        editor.BlockManager.add('tabs', {
+            label: '<i class="fa-solid fa-folder fa-4x"></i> Tabs',
+            content: '<ul class="nav nav-tabs"><li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab1">Tab 1</a></li><li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab2">Tab 2</a></li></ul><div class="tab-content"><div id="tab1" class="tab-pane fade show active p-3">Content 1</div><div id="tab2" class="tab-pane fade p-3">Content 2</div></div>',
+            category: 'Elements',
+        });
 
-    <!-- Main Content -->
-    <main class="container my-5">
-        <section class="mb-5">
-            <h2 class="text-warning">1. Cosa Sono i Cookie?</h2>
-            <p>I cookie sono piccoli file di testo che vengono salvati sul tuo dispositivo quando visiti un sito web. Servono a migliorare la tua esperienza utente, ricordando le tue preferenze o raccogliendo informazioni anonime sul tuo utilizzo del sito.</p>
-        </section>
+        editor.BlockManager.add('accordion', {
+            label: '<i class="fa-solid fa-bars fa-4x"></i> Accordion',
+            content: '<div class="accordion" id="accordionExample"><div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">Accordion Item #1</button></h2><div id="collapseOne" class="accordion-collapse collapse show"><div class="accordion-body">Content</div></div></div></div>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-warning">2. Tipi di Cookie Utilizzati</h2>
-            <ul>
-                <li><strong>Cookie Necessari:</strong> Essenziali per il funzionamento della piattaforma, ad esempio per il login e la navigazione sicura.</li>
-                <li><strong>Cookie di Prestazione:</strong> Raccolgono dati anonimi sull’utilizzo del sito per migliorarne le funzionalità.</li>
-                <li><strong>Cookie Funzionali:</strong> Ricordano le tue preferenze, come la lingua o la regione.</li>
-                <li><strong>Cookie di Marketing:</strong> Utilizzati per mostrarti contenuti e pubblicità personalizzati.</li>
-            </ul>
-        </section>
+        editor.BlockManager.add('toggle', {
+            label: '<i class="fa-solid fa-toggle-on fa-4x"></i> Toggle',
+            content: '<label class="switch"><input type="checkbox"><span class="slider round"></span></label>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-warning">3. Come Utilizziamo i Cookie?</h2>
-            <p>Su AssoLabFondi utilizziamo i cookie per:</p>
-            <ul>
-                <li>Garantire il corretto funzionamento della piattaforma.</li>
-                <li>Analizzare il traffico e migliorare l’esperienza utente.</li>
-                <li>Mostrare contenuti pertinenti agli utenti registrati.</li>
-            </ul>
-        </section>
+        editor.BlockManager.add('rating', {
+            label: '<i class="fa-solid fa-star-half-alt fa-4x"></i> Rating',
+            content: '<div class="rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-alt"></i></div>',
+            category: 'Elements',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-warning">4. Gestione dei Cookie</h2>
-            <p>Puoi gestire o eliminare i cookie in qualsiasi momento tramite le impostazioni del tuo browser. Disabilitare alcuni cookie potrebbe influire sull’esperienza di navigazione. Ecco alcune guide per i browser principali:</p>
-            <ul>
-                <li><a href="https://support.google.com/chrome/answer/95647" target="_blank">Google Chrome</a></li>
-                <li><a href="https://support.mozilla.org/it/kb/attivare-disattivare-cookie" target="_blank">Mozilla Firefox</a></li>
-                <li><a href="https://support.microsoft.com/it-it/microsoft-edge" target="_blank">Microsoft Edge</a></li>
-                <li><a href="https://support.apple.com/it-it/guide/safari/sfri11471/mac" target="_blank">Apple Safari</a></li>
-            </ul>
-        </section>
+        editor.BlockManager.add('call-to-action', {
+            label: '<i class="fa-solid fa-bullhorn fa-4x"></i> Call to Action',
+            content: '<div class="text-center p-5 bg-primary text-white"><h2>Join Us Today!</h2><p>Sign up now and enjoy exclusive benefits.</p><button class="btn btn-light">Get Started</button></div>',
+            category: 'Marketing',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-warning">5. Cookie di Terze Parti</h2>
-            <p>Potremmo utilizzare cookie di terze parti, ad esempio per analisi di traffico o per integrare funzionalità come video e social media. Questi cookie sono soggetti alle policy delle rispettive terze parti.</p>
-        </section>
+        editor.BlockManager.add('team-section', {
+            label: '<i class="fa-solid fa-users fa-4x"></i> Team Section',
+            content: '<div class="row text-center"><div class="col-md-4"><img src="https://via.placeholder.com/150" class="rounded-circle mb-2"><h4>Member Name</h4><p>Role</p></div><div class="col-md-4"><img src="https://via.placeholder.com/150" class="rounded-circle mb-2"><h4>Member Name</h4><p>Role</p></div><div class="col-md-4"><img src="https://via.placeholder.com/150" class="rounded-circle mb-2"><h4>Member Name</h4><p>Role</p></div></div>',
+            category: 'Sections',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-warning">6. Aggiornamenti alla Cookie Policy</h2>
-            <p>Questa policy potrebbe essere aggiornata per riflettere cambiamenti nelle leggi o nei nostri servizi. Ti invitiamo a controllare questa pagina periodicamente.</p>
-        </section>
+        editor.BlockManager.add('timeline', {
+            label: '<i class="fa-solid fa-stream fa-4x"></i> Timeline',
+            content: '<ul class="timeline"><li><div class="timeline-badge"><i class="fa-solid fa-check"></i></div><div class="timeline-panel"><h4>Event Title</h4><p>Description of the event.</p></div></li><li><div class="timeline-badge"><i class="fa-solid fa-check"></i></div><div class="timeline-panel"><h4>Event Title</h4><p>Description of the event.</p></div></li></ul>',
+            category: 'Advanced',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-warning">7. Contatti</h2>
-            <p>Per qualsiasi domanda sulla nostra Cookie Policy, puoi contattarci via email a: <a href="mailto:privacy@assolabfondi.it">privacy@assolabfondi.it</a>.</p>
-        </section>
-    </main>
-    `,
-});
-editor.BlockManager.add('terms-service', {
-    label: 'Termini e condizioni',
-    content: `
-<header class="bg-primary text-white text-center py-4">
-        <h1>Termini di Servizio</h1>
-        <p class="mb-0">Leggi attentamente i termini prima di utilizzare la piattaforma AssoLabFondi</p>
-    </header>
+        editor.BlockManager.add('pricing-table', {
+            label: '<i class="fa-solid fa-table fa-4x"></i> Pricing Table',
+            content: '<div class="row text-center"><div class="col-md-4"><div class="card"><div class="card-header">Basic</div><div class="card-body"><h4>$9.99/month</h4><p>Basic Features</p><button class="btn btn-primary">Choose Plan</button></div></div></div><div class="col-md-4"><div class="card"><div class="card-header">Standard</div><div class="card-body"><h4>$19.99/month</h4><p>Standard Features</p><button class="btn btn-primary">Choose Plan</button></div></div></div><div class="col-md-4"><div class="card"><div class="card-header">Premium</div><div class="card-body"><h4>$29.99/month</h4><p>Premium Features</p><button class="btn btn-primary">Choose Plan</button></div></div></div></div>',
+            category: 'Business',
+        });
 
-    <!-- Main Content -->
-    <main class="container my-5">
-        <section class="mb-5">
-            <h2 class="text-primary">1. Accettazione dei Termini</h2>
-            <p>Utilizzando il sito web AssoLabFondi, accetti di rispettare i termini e le condizioni stabiliti in questa pagina. Se non accetti questi termini, ti invitiamo a non utilizzare il sito.</p>
-        </section>
+        editor.BlockManager.add('faq-section', {
+            label: '<i class="fa-solid fa-question-circle fa-4x"></i> FAQ Section',
+            content: '<div class="accordion" id="faqAccordion"><div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">What is your return policy?</button></h2><div id="faq1" class="accordion-collapse collapse show"><div class="accordion-body">We accept returns within 30 days.</div></div></div><div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">How do I track my order?</button></h2><div id="faq2" class="accordion-collapse collapse"><div class="accordion-body">Track your order through our website.</div></div></div></div>',
+            category: 'Support',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-primary">2. Servizi Offerti</h2>
-            <p>AssoLabFondi offre servizi informativi, formativi e operativi per fondi pensione, casse di previdenza e fondi sanitari. Tutti i servizi sono soggetti a modifiche senza preavviso.</p>
-        </section>
+        editor.BlockManager.add('newsletter-signup', {
+            label: '<i class="fa-solid fa-envelope-open-text fa-4x"></i> Newsletter Signup',
+            content: '<div class="text-center p-4 bg-light"><h3>Subscribe to our Newsletter</h3><p>Stay updated with our latest news and offers.</p><input type="email" placeholder="Enter your email" class="form-control mb-2"><button class="btn btn-primary">Subscribe</button></div>',
+            category: 'Marketing',
+        });
 
-        <section class="mb-5">
-            <h2 class="text-primary">3. Registrazione Utente</h2>
-            <p>Per accedere a determinati servizi, potrebbe essere necessario creare un account. Sei responsabile di mantenere la riservatezza delle credenziali e accetti di notificare immediatamente qualsiasi uso non autorizzato del tuo account.</p>
-        </section>
-
-        <section class="mb-5">
-            <h2 class="text-primary">4. Contenuti Generati dagli Utenti</h2>
-            <p>Gli utenti possono pubblicare contenuti, commenti o partecipare a discussioni. Tuttavia, non sono consentiti contenuti illegali, offensivi o che violino diritti di terze parti. Ci riserviamo il diritto di rimuovere tali contenuti senza preavviso.</p>
-        </section>
-
-        <section class="mb-5">
-            <h2 class="text-primary">5. Proprietà Intellettuale</h2>
-            <p>Tutti i contenuti del sito, inclusi testi, immagini, loghi e design, sono protetti da copyright e altre leggi sulla proprietà intellettuale. Non è consentito l'uso non autorizzato di tali materiali.</p>
-        </section>
-
-        <section class="mb-5">
-            <h2 class="text-primary">6. Limitazione di Responsabilità</h2>
-            <p>AssoLabFondi non sarà responsabile per eventuali danni diretti, indiretti o conseguenti derivanti dall'uso o dall'impossibilità di utilizzare i servizi forniti.</p>
-        </section>
-
-        <section class="mb-5">
-            <h2 class="text-primary">7. Modifiche ai Termini</h2>
-            <p>Ci riserviamo il diritto di aggiornare i termini di servizio in qualsiasi momento. Ti invitiamo a controllare questa pagina periodicamente per verificare eventuali modifiche.</p>
-        </section>
-
-        <section class="mb-5">
-            <h2 class="text-primary">8. Contatti</h2>
-            <p>Per domande sui termini di servizio, puoi contattarci via email a: <a href="mailto:info@assolabfondi.it">info@assolabfondi.it</a>.</p>
-        </section>
-    </main>
-    `,
-});
-
-editor.BlockManager.add('storia-missioni', {
-    label: 'Storia e Missioni',
-    content: `
-        <section class="py-5">
-            <div class="container">
-                <h2 class="text-center text-orange mb-4">Storia e Missioni</h2>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy euismod tempor 
-                        incididunt ut labore et dolore magna aliquam erat volutpat. At vero eos et accusam et justo 
-                        duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <h5 class="text-blue">PERCHÈ SCEGLIERE NOI?</h5>
-                        <ol>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                            <li>Incidunt ut labore et dolore magna aliquam erat volutpat.</li>
-                            <li>At vero eos et accusam et justo duo dolores et ea rebum.</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </section>
-    `,
-});
-
-editor.BlockManager.add('storia-missioni-casse', {
-    label: 'Fondicassepensioni',
-    content: `
-        <section class="py-5 bg-light">
-    <div class="container text-center">
-        <!-- Titolo -->
-        <div class="mb-4">
-            <h2 class="fw-bold text-primary">Fondi e Casse Previdenziali</h2>
-        </div>
-
-        <!-- Contenuto -->
-        <div class="row g-4">
-            <!-- Partner 1 -->
-            <div class="col-md-3">
-                <div class="d-flex flex-column align-items-center">
-                    <div class="d-flex align-items-center">
-                        <span class="me-2" style="color: #007bff; font-size: 1.2rem;">•</span>
-                        <h5 class="fw-bold text-primary mb-0">Partner</h5>
-                    </div>
-                    <p class="text-muted mt-2">
-                        Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Partner 2 -->
-            <div class="col-md-3">
-                <div class="d-flex flex-column align-items-center">
-                    <div class="d-flex align-items-center">
-                        <span class="me-2" style="color: #007bff; font-size: 1.2rem;">•</span>
-                        <h5 class="fw-bold text-primary mb-0">Partner</h5>
-                    </div>
-                    <p class="text-muted mt-2">
-                        Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Partner 3 -->
-            <div class="col-md-3">
-                <div class="d-flex flex-column align-items-center">
-                    <div class="d-flex align-items-center">
-                        <span class="me-2" style="color: #007bff; font-size: 1.2rem;">•</span>
-                        <h5 class="fw-bold text-primary mb-0">Partner</h5>
-                    </div>
-                    <p class="text-muted mt-2">
-                        Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Partner 4 -->
-            <div class="col-md-3">
-                <div class="d-flex flex-column align-items-center">
-                    <div class="d-flex align-items-center">
-                        <span class="me-2" style="color: #007bff; font-size: 1.2rem;">•</span>
-                        <h5 class="fw-bold text-primary mb-0">Partner</h5>
-                    </div>
-                    <p class="text-muted mt-2">
-                        Lorem ipsum dolor sit amet, consectetur sadipscing elitr, sed diam nonumy eirmod.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottone -->
-        <div class="mt-4">
-            <a href="#" class="btn btn-primary btn-lg">Area Utente</a>
-        </div>
-    </div>
-</section>
-    `,
-});
-
-editor.BlockManager.add('sergio', {
-    label: 'Sergio',
-    content: `
-        <section class="py-5">
-            <div class="container text-center">
-                <h2 class="text-orange">Sergio</h2>
-                <p class="text-blue">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy 
-                euismod tempor incidunt ut labore et dolore magna aliquam erat, sed diam volutpat.</p>
-                <div class="row mt-5">
-                    <div class="col-md-6">
-                        <div class="d-flex align-items-center">
-                            <div class="circle me-3" style="width: 50px; height: 50px; background: #ccc; border-radius: 50%;"></div>
-                            <p><strong>Nome</strong><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="d-flex align-items-center">
-                            <div class="circle me-3" style="width: 50px; height: 50px; background: #ccc; border-radius: 50%;"></div>
-                            <p><strong>Nome</strong><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    `,
-});
-
-editor.BlockManager.add('associazioni-partnership', {
-    label: 'Associazioni e Partnership',
-    content: `
-        <section class="py-5 bg-light">
-            <div class="container text-center">
-                <h2 class="text-orange mb-4">Associazioni e Partnership</h2>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="square" style="width: 100%; padding-top: 100%; background: #ccc; border-radius: 8px;"></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="square" style="width: 100%; padding-top: 100%; background: #ccc; border-radius: 8px;"></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="square" style="width: 100%; padding-top: 100%; background: #ccc; border-radius: 8px;"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    `,
-});
-editor.BlockManager.add('home-hero-bg', {
-    label: 'Hero Con BackGround',
-    content: `
-    <section class="position-relative text-center text-white" style="background: url('admin/materials/senior-couple-communicating-with-insurance-agent-while-having-consultations-with-him-office-focus-is-woman.png') center/cover no-repeat; height: 100vh;">
-        <div class="position-absolute top-50 start-50 translate-middle" style="max-width: 800px;">
-            <h1 class="display-4 fw-bold text-primary">Lorem ipsum dolor sit amet,<br>consetetur</h1>
-            <p class="fs-5 text-primary mt-3">Lorem ipsum dolor sit amet, consetetur Lorem ipsum<br>dolor sit amet, consetetur</p>
-            <div class="mt-4">
-                <a href="#" class="btn text-white btn-lg me-3" style="background: #F08046;">Scopri di più</a>
-                <a href="#" class="btn text-white btn-lg" style="background: #F08046;">Area personale</a>
-            </div>
-        </div>
-    </section>
-    `,
-});
-
-editor.BlockManager.add('aboutus-hero-bg', {
-    label: 'Section why choose us?',
-    content: `
-<section class="py-5">
-    <div class="container">
-        <h2 class="text-center mb-4" style="color: #f07e46;">Storia e Missioni</h2>
-        <div class="row">
-            <!-- Colonna Storia -->
-            <div class="col-md-6">
-                <p class="text-primary">
-                    AssoLabFondi nasce con l’obiettivo di rivoluzionare il settore previdenziale in Italia, offrendo 
-                    supporto operativo e formazione su strumenti finanziari innovativi. L'associazione si pone come 
-                    una realtà indipendente e completamente priva di influenze politiche o sindacali. La visione di 
-                    AssoLabFondi è quella di essere un punto di riferimento per i cambiamenti e l’innovazione, creando 
-                    opportunità per aziende e professionisti di diversificare i propri portafogli con soluzioni innovative.
-                </p>
-            </div>
-            <!-- Colonna Perché scegliere noi -->
-            <div class="col-md-6">
-                <h5 class="text-primary fw-bold">PERCHÉ SCEGLIERE NOI?</h5>
-                <ol class="text-primary">
-                    <li>Operiamo con un approccio pratico e senza influenze politiche o sindacali.</li>
-                    <li>Promuoviamo l’adozione di strumenti innovativi come private equity, infrastrutture e polizze catastrofali.</li>
-                    <li>Ci impegniamo a fornire formazione e confronto diretto per creare valore reale nel settore previdenziale.</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</section>
-    `,
-});
-editor.BlockManager.add('aboutus-conti-bg', {
-    label: 'Who is Character?',
-    content: `
-<section class="py-5">
-    <div class="container">
-        <div class="row align-items-center">
-            <!-- Immagine principale -->
-            <div class="col-md-4 text-center">
-                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; background-color: #f1f1f1;">
-                    <img src="" alt="Immagine di Sergio Carfizzi" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-            </div>
-            <!-- Testo principale -->
-            <div class="col-md-8">
-                <h2 class="fw-bold" style="color: #f07e46;">Sergio Carfizzi</h2>
-                <p class="text-primary">
-                    Sergio Carfizzi è un esperto di finanza internazionale con una carriera di oltre 20 anni nel settore 
-                    della previdenza complementare. Ha ricoperto ruoli di spicco come Direttore Generale presso 
-                    importanti fondi pensione e ha dedicato la sua vita a promuovere innovazione e inclusività, puntando 
-                    sull'importanza del capitale umano, sia junior che senior. Il suo obiettivo è sempre stato quello 
-                    di coniugare etica e performance, esplorando nuovi orizzonti di investimento come private equity, 
-                    infrastrutture e polizze catastrofali.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-    `,
-});
-editor.BlockManager.add('space', {
-    label: 'SPACE',
-    content: `
-    <br>
-    `,
-});
 
 editor.BlockManager.add('login', {
     label: 'Login',

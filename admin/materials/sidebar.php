@@ -88,6 +88,7 @@
                  <!-- MODIFICA CON PHP IL  custom-link-active-->
                 <li><a href="chat_clienti" class="link-dark rounded <?php if($currentPage == 'chat_clienti.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Chat con Clienti</a></li>
                 <li><a href="eventi" class="link-dark rounded <?php if($currentPage == 'eventi.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Eventi per Clienti</a></li>
+                <li><a href="aggiunta_prodotti" class="link-dark rounded <?php if($currentPage == 'aggiunta_prodotti.php'){echo 'custom-link-active';}else{echo 'custom-link';} ?>">Aggiunta Prodotti Digitali</a></li>
               </ul>
             </div>
           </li>

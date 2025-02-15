@@ -16,7 +16,7 @@ $userName = htmlspecialchars($_SESSION['user']['nome'], ENT_QUOTES, 'UTF-8');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat con AssoLabFondi</title>
+    <title>Chat Assistenza</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
@@ -112,7 +112,7 @@ $userName = htmlspecialchars($_SESSION['user']['nome'], ENT_QUOTES, 'UTF-8');
         <div class="container text-center mt-3">
             <div class="row">
                 <div class="col">
-                    <h1 style="color: #f08046;">Chat con AssoLabFondi</h1>
+                    <h1 style="color:rgb(0, 0, 0);">Chat</h1>
                     <p class="lead">Ciao, <strong><?php echo $userName; ?></strong>! Siamo felici di rivederti.</p>
                 </div>
             </div>
@@ -123,7 +123,7 @@ $userName = htmlspecialchars($_SESSION['user']['nome'], ENT_QUOTES, 'UTF-8');
                 <!-- Colonna Chat -->
                 <div class="col-12 d-flex flex-column">
                     <div class="p-3 border-bottom bg-light d-flex justify-content-between align-items-center">
-                        <h5>Chat con Sergio</h5>
+                        <h5>Scrivici!</h5>
                     </div>
                     <div id="chat-messages" class="flex-grow-1 p-3" style="overflow-y: auto; background-color: #f8f9fa; border-bottom: 1px solid #ddd; height: 500px;">
                         <!-- I messaggi verranno caricati dinamicamente -->

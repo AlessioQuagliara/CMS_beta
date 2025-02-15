@@ -4,33 +4,45 @@ header('Content-Type: application/json');
 require_once '../config.php';
 require_once '../models/prodotti_pubblicitari.php';
 
-// Recupera i dati in input (assumiamo vengano inviati in formato JSON)
+// Recupera i dati JSON inviati
 $input = json_decode(file_get_contents('php://input'), true);
 
-// Imposta dei valori default se non vengono passati
+// Inizializza l'array dei dati del prodotto principale
 $data = [
-    'nome'                => isset($input['nome']) ? $input['nome'] : 'Nuovo prodotto',
-    'slug'                => isset($input['slug']) ? $input['slug'] : 'nuovo-prodotto-' . time(),
-    'description'         => isset($input['description']) ? $input['description'] : '',
-    'mezzo_pubblicitario' => isset($input['mezzo_pubblicitario']) ? $input['mezzo_pubblicitario'] : 'Digital',
-    'dimensione'          => isset($input['dimensione']) ? $input['dimensione'] : 'Locale',
-    'concessionaria'      => isset($input['concessionaria']) ? $input['concessionaria'] : 'Sipra',
-    'genere'              => isset($input['genere']) ? $input['genere'] : 'Entrambi',
-    'eta'                 => isset($input['eta']) ? $input['eta'] : 'Meno di 30 anni',
-    'tipo_periodo'        => isset($input['tipo_periodo']) ? $input['tipo_periodo'] : 'giorno',
-    'valore_periodo'      => isset($input['valore_periodo']) ? $input['valore_periodo'] : date('Y-m-d'),
-    'slot'                => isset($input['slot']) ? $input['slot'] : null,
-    'posizionamento'      => isset($input['posizionamento']) ? $input['posizionamento'] : null,
-    'spot'                => isset($input['spot']) ? $input['spot'] : null,
+    'nome'                => $input['nome'] ?? 'Nuovo prodotto',
+    'slug'                => $input['slug'] ?? 'nuovo-prodotto-' . time(),
+    'description'         => $input['description'] ?? '',
+    'mezzo_pubblicitario' => $input['mezzo_pubblicitario'] ?? 'Digital',
+    'dimensione'          => $input['dimensione'] ?? 'Locale',
+    'concessionaria'      => $input['concessionaria'] ?? 'Sipra',
+    'genere'              => $input['genere'] ?? 'Entrambi',
+    'eta'                 => $input['eta'] ?? 'Meno di 30 anni',
 ];
 
-$model = new ProdottiPubblicitariModel($pdo);
+try {
+    // Inizia una transazione per garantire la coerenza
+    $pdo->beginTransaction();
 
-// Crea il prodotto nel database
-$success = $model->createProduct($data);
+    // Creazione del prodotto pubblicitario
+    $model = new ProdottiPubblicitariModel($pdo);
+    $product_id = $model->createProduct($data);
 
-if ($success) {
-    echo json_encode(['success' => true, 'message' => 'Prodotto creato con successo.']);
-} else {
-    echo json_encode(['success' => false, 'message' => 'Errore durante la creazione del prodotto.']);
+    if (!$product_id) {
+        throw new Exception("Errore durante la creazione del prodotto.");
+    }
+
+    // Conferma la transazione
+    $pdo->commit();
+
+    echo json_encode([
+        'success' => true,
+        'message' => 'Prodotto creato con successo.'
+    ]);
+} catch (Exception $e) {
+    // In caso di errore, annulla tutto
+    $pdo->rollBack();
+    echo json_encode([
+        'success' => false,
+        'message' => 'Errore: ' . $e->getMessage()
+    ]);
 }

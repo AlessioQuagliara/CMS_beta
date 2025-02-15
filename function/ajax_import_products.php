@@ -7,7 +7,7 @@ require_once '../../models/prodotti_pubblicitari.php';
 /**
  * Funzione per importare i prodotti da un file CSV.
  * Il file CSV deve avere le seguenti intestazioni (header):
- * nome, slug, description, mezzo_pubblicitario, dimensione, concessionaria, genere, eta, tipo_periodo, valore_periodo, slot, posizionamento, spot
+ * nome, slug, description, mezzo_pubblicitario, dimensione, concessionaria, genere, eta
  *
  * @param string $csvFilePath Il percorso del file CSV.
  * @param PDO $pdo La connessione PDO.
@@ -32,10 +32,8 @@ function importProductsFromCSV($csvFilePath, $pdo) {
         return ["success" => false, "message" => "CSV vuoto o non valido."];
     }
 
-    // Definisci l'ordine atteso delle colonne
-    $expectedHeaders = ['nome', 'slug', 'description', 'mezzo_pubblicitario', 'dimensione', 'concessionaria', 'genere', 'eta', 'tipo_periodo', 'valore_periodo', 'slot', 'posizionamento', 'spot'];
-    // (Opzionale) Potresti verificare se le intestazioni del CSV corrispondono a quelle attese.
-    // Per semplicità qui assumiamo che l'ordine sia corretto.
+    // Definisci l'ordine atteso delle colonne (senza i campi rimossi)
+    $expectedHeaders = ['nome', 'slug', 'description', 'mezzo_pubblicitario', 'dimensione', 'concessionaria', 'genere', 'eta'];
 
     $importCount = 0;
     $errorCount  = 0;
@@ -48,13 +46,9 @@ function importProductsFromCSV($csvFilePath, $pdo) {
             $errors[] = "Riga incompleta: " . implode(",", $data);
             continue;
         }
+
         // Associa i dati alle intestazioni
         $row = array_combine($header, $data);
-
-        // Gestisci la conversione dei campi numerici
-        $row['slot']           = ($row['slot'] !== "") ? intval($row['slot']) : null;
-        $row['posizionamento'] = ($row['posizionamento'] !== "") ? intval($row['posizionamento']) : null;
-        $row['spot']           = ($row['spot'] !== "") ? intval($row['spot']) : null;
 
         // Inserisci il prodotto tramite il model
         if ($model->createProduct($row)) {

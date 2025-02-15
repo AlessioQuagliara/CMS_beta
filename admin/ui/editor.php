@@ -50,6 +50,51 @@
         editor.setComponents(savedContent);
     }
 
+    editor.BlockManager.add('carousel-logos', {
+    label: 'Carosello Loghi',
+    category: 'Componenti',
+    content: `
+        <div class="container text-center my-4">
+            <h2 class="fw-bold">ALCUNI NOSTRI PARTNER</h2>
+            <div class="divider mx-auto mb-4" style="width: 50px; height: 3px; background-color: red;"></div>
+            
+            <div id="partnerCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://via.placeholder.com/300x150" class="d-block mx-auto" alt="Logo 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://via.placeholder.com/300x150" class="d-block mx-auto" alt="Logo 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://via.placeholder.com/300x150" class="d-block mx-auto" alt="Logo 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://via.placeholder.com/300x150" class="d-block mx-auto" alt="Logo 4">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://via.placeholder.com/300x150" class="d-block mx-auto" alt="Logo 5">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://via.placeholder.com/300x150" class="d-block mx-auto" alt="Logo 6">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://via.placeholder.com/300x150" class="d-block mx-auto" alt="Logo 7">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#partnerCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#partnerCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    `,
+});
+
   
     editor.BlockManager.add('section', {
             label: '<i class="fa-solid fa-border-top fa-4x"></i> Section',

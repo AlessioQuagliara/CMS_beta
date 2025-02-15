@@ -38,63 +38,53 @@ loggato();
     include '../materials/sidebar.php'; 
     ?>
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
-        <!-- Barra di controllo -->
-        <div class="d-flex justify-content-between align-items-center my-3">
-            <div class="btn-group" role="group" aria-label="Toolbar">
-                <!-- Pulsante Crea -->
-                <button type="button" id="btn-create" class="btn btn-dark" title="Crea">
-                    <i class="bi bi-plus"></i>
-                </button>
-                <!-- Pulsante Seleziona -->
-                <button type="button" id="btn-select" class="btn btn-dark" title="Seleziona Tutto">
-                    <i class="bi bi-check2-square"></i>
-                </button>
-                <!-- Pulsante Cancella -->
-                <button type="button" id="btn-delete" class="btn btn-dark" title="Cancella">
-                    <i class="bi bi-trash"></i>
-                </button>
-                <!-- Pulsante Cerca -->
-                <button type="button" id="btn-search" class="btn btn-dark" title="Cerca">
-                    <i class="bi bi-search"></i>
-                </button>
-                <!-- Pulsante Importa -->
-                <button type="button" id="btn-import" class="btn btn-dark" title="Importa">
-                    <i class="bi bi-upload"></i>
-                </button>
-            </div>
+    <!-- Barra di controllo -->
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <div class="btn-group" role="group" aria-label="Toolbar">
+            <button type="button" id="btn-create" class="btn btn-dark" title="Crea">
+                <i class="bi bi-plus"></i>
+            </button>
+            <button type="button" id="btn-select" class="btn btn-dark" title="Seleziona Tutto">
+                <i class="bi bi-check2-square"></i>
+            </button>
+            <button type="button" id="btn-delete" class="btn btn-dark" title="Cancella">
+                <i class="bi bi-trash"></i>
+            </button>
+            <button type="button" id="btn-search" class="btn btn-dark" title="Cerca">
+                <i class="bi bi-search"></i>
+            </button>
+            <button type="button" id="btn-import" class="btn btn-dark" title="Importa">
+                <i class="bi bi-upload"></i>
+            </button>
         </div>
+    </div>
 
-        <!-- Tabella dei prodotti -->
-        <div class="table-responsive">
-            <table id="product-table" class="table table-bordered table-hover rounded">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col"><input type="checkbox" id="select-all"></th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Slug</th>
-                        <th scope="col">Mezzo</th>
-                        <th scope="col">Dimensione</th>
-                        <th scope="col">Concessionaria</th>
-                        <th scope="col">Genere</th>
-                        <th scope="col">Età</th>
-                        <th scope="col">Tipo Periodo</th>
-                        <th scope="col">Valore Periodo</th>
-                        <th scope="col">Slot</th>
-                        <th scope="col">Posizionamento</th>
-                        <th scope="col">Spot</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Le righe verranno caricate tramite Ajax -->
-                </tbody>
-            </table>
-        </div>
-    </main>
+    <!-- Tabella dei prodotti -->
+    <div class="table-responsive">
+        <table id="product-table" class="table table-bordered table-hover rounded">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col"><input type="checkbox" id="select-all"></th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Slug</th>
+                    <th scope="col">Mezzo</th>
+                    <th scope="col">Dimensione</th>
+                    <th scope="col">Concessionaria</th>
+                    <th scope="col">Genere</th>
+                    <th scope="col">Età</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Le righe verranno caricate tramite Ajax -->
+            </tbody>
+        </table>
+    </div>
+</main>
 
-    <?php include '../materials/script.php'; ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php include '../materials/script.php'; ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function loadProducts() {
         fetch('../../function/ajax_load_products.php')
@@ -117,11 +107,6 @@ loggato();
                         <td>${product.concessionaria}</td>
                         <td>${product.genere}</td>
                         <td>${product.eta}</td>
-                        <td>${product.tipo_periodo}</td>
-                        <td>${product.valore_periodo}</td>
-                        <td>${product.slot || ''}</td>
-                        <td>${product.posizionamento || ''}</td>
-                        <td>${product.spot || ''}</td>
                     `;
                     tbody.appendChild(tr);
                 });
@@ -238,11 +223,6 @@ loggato();
                             <td>${product.concessionaria}</td>
                             <td>${product.genere}</td>
                             <td>${product.eta}</td>
-                            <td>${product.tipo_periodo}</td>
-                            <td>${product.valore_periodo}</td>
-                            <td>${product.slot || ''}</td>
-                            <td>${product.posizionamento || ''}</td>
-                            <td>${product.spot || ''}</td>
                         `;
                         tbody.appendChild(tr);
                     });
@@ -251,48 +231,6 @@ loggato();
                 .catch(error => console.error('Errore:', error));
             }
         });
-    });
-
-    document.getElementById('btn-import').addEventListener('click', function() {
-        // Crea un elemento file input in maniera dinamica se non esiste già
-        let fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.accept = '.csv';
-        fileInput.style.display = 'none';
-        
-        // Aggiungi un listener per quando l'utente seleziona il file
-        fileInput.addEventListener('change', function() {
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                let formData = new FormData();
-                formData.append('csv_file', file);
-
-                // Invio del file tramite fetch ad ajax_import_products.php
-                fetch('../../function/ajax_import_products.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.success) {
-                        Swal.fire("Successo!", data.message, "success");
-                        loadProducts(); // ricarica la tabella dei prodotti
-                    } else {
-                        Swal.fire("Errore!", data.message, "error");
-                    }
-                })
-                .catch(error => {
-                    Swal.fire("Errore!", "Errore durante l'importazione.", "error");
-                    console.error('Errore:', error);
-                });
-            }
-        });
-        
-        // Aggiungi il file input al body, cliccalo e poi rimuovilo
-        document.body.appendChild(fileInput);
-        fileInput.click();
-        // Puoi anche rimuoverlo dopo l'uso se vuoi
-        fileInput.remove();
     });
 
     document.getElementById('select-all').addEventListener('change', function() {

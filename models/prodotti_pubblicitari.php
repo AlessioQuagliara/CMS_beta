@@ -19,16 +19,14 @@ class ProdottiPubblicitariModel {
     public function createProduct(array $data) {
         $sql = "INSERT INTO prodotti_pubblicitari (
                     nome, slug, description, mezzo_pubblicitario, dimensione, concessionaria,
-                    genere, eta, tipo_periodo, valore_periodo, slot, posizionamento, spot
+                    genere, eta
                 ) VALUES (
                     :nome, :slug, :description, :mezzo_pubblicitario, :dimensione, :concessionaria,
-                    :genere, :eta, :tipo_periodo, :valore_periodo, :slot, :posizionamento, :spot
+                    :genere, :eta
                 )";
 
         $stmt = $this->pdo->prepare($sql);
 
-        // Assumiamo che $data contenga tutte le chiavi richieste.
-        // Se alcuni campi possono essere null, ricordati di gestirli opportunamente.
         return $stmt->execute([
             ':nome'               => $data['nome'],
             ':slug'               => $data['slug'],
@@ -37,12 +35,7 @@ class ProdottiPubblicitariModel {
             ':dimensione'         => $data['dimensione'],
             ':concessionaria'     => $data['concessionaria'],
             ':genere'             => $data['genere'],
-            ':eta'                => $data['eta'],
-            ':tipo_periodo'       => $data['tipo_periodo'],
-            ':valore_periodo'     => $data['valore_periodo'],
-            ':slot'               => $data['slot'] ?? null,
-            ':posizionamento'     => $data['posizionamento'] ?? null,
-            ':spot'               => $data['spot'] ?? null,
+            ':eta'                => $data['eta']
         ]);
     }
 
@@ -102,11 +95,6 @@ class ProdottiPubblicitariModel {
                     concessionaria = :concessionaria,
                     genere = :genere,
                     eta = :eta,
-                    tipo_periodo = :tipo_periodo,
-                    valore_periodo = :valore_periodo,
-                    slot = :slot,
-                    posizionamento = :posizionamento,
-                    spot = :spot,
                     updated_at = CURRENT_TIMESTAMP
                 WHERE id = :id";
 
@@ -121,12 +109,7 @@ class ProdottiPubblicitariModel {
             ':concessionaria'     => $data['concessionaria'],
             ':genere'             => $data['genere'],
             ':eta'                => $data['eta'],
-            ':tipo_periodo'       => $data['tipo_periodo'],
-            ':valore_periodo'     => $data['valore_periodo'],
-            ':slot'               => $data['slot'] ?? null,
-            ':posizionamento'     => $data['posizionamento'] ?? null,
-            ':spot'               => $data['spot'] ?? null,
-            ':id'                 => $id,
+            ':id'                 => $id
         ]);
     }
 
@@ -138,6 +121,44 @@ class ProdottiPubblicitariModel {
      */
     public function deleteProduct(int $id) {
         $sql = "DELETE FROM prodotti_pubblicitari WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+}
+
+
+
+
+class ProductImagesModel {
+    private $pdo;
+
+    public function __construct(PDO $pdo) {
+        $this->pdo = $pdo;
+    }
+
+    // Aggiunge un'immagine per un prodotto
+    public function addImage($product_id, $image_url) {
+        $sql = "INSERT INTO product_images (product_id, image_url) VALUES (:product_id, :image_url)";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ':product_id' => $product_id,
+            ':image_url' => $image_url
+        ]);
+    }
+
+    // Recupera tutte le immagini di un prodotto
+    public function getImagesByProductId($product_id) {
+        $sql = "SELECT * FROM product_images WHERE product_id = :product_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Elimina un'immagine specifica
+    public function deleteImage($id) {
+        $sql = "DELETE FROM product_images WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();

@@ -63,6 +63,7 @@ if (!file_exists('conn.php')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($product['nome']); ?> - Dettaglio</title>
+    <link rel="shortcut icon" href="src/media_system/favicon_site.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
@@ -94,7 +95,6 @@ if (!file_exists('conn.php')) {
                         <li class="list-group-item"><strong>Genere:</strong> <?php echo htmlspecialchars($product['genere']); ?></li>
                         <li class="list-group-item"><strong>Età Target:</strong> <?php echo htmlspecialchars($product['eta']); ?></li>
                         <li class="list-group-item"><strong>Concessionaria:</strong> <?php echo htmlspecialchars($product['concessionaria']); ?></li>
-                        <li class="list-group-item"><strong>Tipo Periodo:</strong> <?php echo htmlspecialchars($product['tipo_periodo']); ?></li>
                     </ul>
 
                     <form method="POST">

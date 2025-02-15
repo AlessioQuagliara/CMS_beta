@@ -33,11 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $concessionaria     = trim($_POST['concessionaria'] ?? '');
     $genere             = trim($_POST['genere'] ?? '');
     $eta                = trim($_POST['eta'] ?? '');
-    $tipo_periodo       = trim($_POST['tipo_periodo'] ?? '');
-    $valore_periodo     = trim($_POST['valore_periodo'] ?? '');
-    $slot               = (isset($_POST['slot']) && $_POST['slot'] !== '') ? intval($_POST['slot']) : null;
-    $posizionamento     = (isset($_POST['posizionamento']) && $_POST['posizionamento'] !== '') ? intval($_POST['posizionamento']) : null;
-    $spot               = (isset($_POST['spot']) && $_POST['spot'] !== '') ? intval($_POST['spot']) : null;
 
     // Puoi aggiungere ulteriori controlli di validazione qui
 
@@ -49,12 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'dimensione'          => $dimensione,
         'concessionaria'      => $concessionaria,
         'genere'              => $genere,
-        'eta'                 => $eta,
-        'tipo_periodo'        => $tipo_periodo,
-        'valore_periodo'      => $valore_periodo,
-        'slot'                => $slot,
-        'posizionamento'      => $posizionamento,
-        'spot'                => $spot,
+        'eta'                 => $eta
     ];
 
     if ($model->updateProduct($id, $data)) {
@@ -187,44 +177,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </option>
                     <?php endforeach; ?>
                 </select>
-            </div>
-        </div>
-
-        <!-- Row 5: Tipo Periodo e Valore Periodo in linea -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="tipo_periodo" class="form-label">Tipo Periodo</label>
-                <select class="form-select" id="tipo_periodo" name="tipo_periodo" required>
-                    <?php 
-                    $tipi_periodo = ['giorno','settimana','mese'];
-                    foreach ($tipi_periodo as $tp): ?>
-                        <option value="<?php echo $tp; ?>" <?php if($product['tipo_periodo'] == $tp) echo 'selected'; ?>>
-                            <?php echo ucfirst($tp); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="valore_periodo" class="form-label">Valore Periodo</label>
-                <input type="text" class="form-control" id="valore_periodo" name="valore_periodo" 
-                       value="<?php echo htmlspecialchars($product['valore_periodo']); ?>" required>
-            </div>
-        </div>
-
-        <!-- Row 6: Slot, Posizionamento e Spot in linea -->
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <label for="slot" class="form-label">Slot</label>
-                <input type="number" class="form-control" id="slot" name="slot" value="<?php echo htmlspecialchars($product['slot']); ?>">
-            </div>
-            <div class="col-md-4">
-                <label for="posizionamento" class="form-label">Posizionamento</label>
-                <input type="number" class="form-control" id="posizionamento" name="posizionamento" 
-                       value="<?php echo htmlspecialchars($product['posizionamento']); ?>">
-            </div>
-            <div class="col-md-4">
-                <label for="spot" class="form-label">Spot</label>
-                <input type="number" class="form-control" id="spot" name="spot" value="<?php echo htmlspecialchars($product['spot']); ?>">
             </div>
         </div>
 

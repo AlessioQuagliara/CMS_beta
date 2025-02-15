@@ -107,7 +107,7 @@ $nomeUtente = htmlspecialchars($_SESSION['user']['nome'], ENT_QUOTES, 'UTF-8');
         <div class="container text-center">
             <div class="row">
                 <div class="col">
-                    <h1 style="color: #f08046;"> Eventi e Seminari </h1>
+                    <h1 style="color:rgb(0, 56, 73);"> Dashboard </h1>
                 </div>
             </div>
           </div>

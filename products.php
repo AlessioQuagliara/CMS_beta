@@ -186,13 +186,18 @@ if (!file_exists('conn.php')) {
             <div class="col-md-2">
                 <select name="genere" class="form-select">
                     <option value="">Genere</option>
-                    <option value="Uomo" <?php echo $genere == 'Uomo' ? 'selected' : ''; ?>>Uomo</option>
-                    <option value="Donna" <?php echo $genere == 'Donna' ? 'selected' : ''; ?>>Donna</option>
+                    <option value="Uomini" <?php echo $genere == 'Uomini' ? 'selected' : ''; ?>>Uomo</option>
+                    <option value="Donne" <?php echo $genere == 'Donne' ? 'selected' : ''; ?>>Donna</option>
                     <option value="Entrambi" <?php echo $genere == 'Entrambi' ? 'selected' : ''; ?>>Entrambi</option>
                 </select>
             </div>
             <div class="col-md-2">
-                <input type="text" name="eta" class="form-control" placeholder="Età target" value="<?php echo htmlspecialchars($eta); ?>">
+            <select name="eta" class="form-select">
+                <option value="">Età Target</option>
+                <option value="Oltre i 50 anni" <?php echo $eta == 'Oltre i 50 anni' ? 'selected' : ''; ?>>Oltre i 50 anni</option>
+                <option value="Tra i 30 e i 50 anni" <?php echo $eta == 'Tra i 30 e i 50 anni' ? 'selected' : ''; ?>>Tra i 30 e i 50 anni</option>
+                <option value="Meno di 50 anni" <?php echo $eta == 'Meno di 50 anni' ? 'selected' : ''; ?>>Meno di 50 anni</option>
+            </select>
             </div>
             <div class="col-md-2">
                 <select name="concessionaria" class="form-select">
@@ -362,6 +367,9 @@ if (!file_exists('conn.php')) {
             });
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php require_once 'cart_edit.php'; ?>
 </body>
-
 </html>

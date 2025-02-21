@@ -1,6 +1,5 @@
 <?php
-
-$projectDir = realpath(__DIR__ . '/../');
+$projectDir = __DIR__;
 $tempDir = sys_get_temp_dir() . '/backup';
 $token = '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'; 
 

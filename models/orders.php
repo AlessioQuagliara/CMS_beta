@@ -39,6 +39,19 @@ class OrdersModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    
+    /**
+     * Recupera tutti gli ordini.
+     *
+     * @return array Elenco di tutti gli ordini.
+     */
+    public function getAllOrders() {
+        $sql = "SELECT * FROM orders ORDER BY created_at DESC";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /**
      * Recupera tutti gli ordini di un utente.
      *

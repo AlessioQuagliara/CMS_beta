@@ -11,6 +11,14 @@ if (!file_exists('conn.php')) {
 
     // Recuperiamo i dati del carrello dalla sessione
     $cartItems = $_SESSION['cart'] ?? [];
+
+    // Controllo autenticazione utente
+    if (!isset($_SESSION['user'])) {
+        $userPlaceholder = 'ospite';
+    } else {
+        $user = $_SESSION['user'];
+        $userPlaceholder = htmlspecialchars($user['nome'], ENT_QUOTES, 'UTF-8');
+    }
 }
 ?>
 
@@ -42,55 +50,59 @@ if (!file_exists('conn.php')) {
     <?php if (empty($cartItems)) : ?>
         <div class="alert alert-warning text-center">Il tuo carrello è vuoto.</div>
     <?php else : ?>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Immagine</th>
-                    <th>Nome</th>
-                    <th>Periodo</th>
-                    <th>Slot</th>
-                    <th>Spot</th>
-                    <th>Prezzo</th>
-                    <th>Quantità</th>
-                    <th>Totale</th>
-                    <th>Azioni</th>
-                </tr>
-            </thead>
-            <tbody id="cart-items">
-                <?php 
-                $totalAmount = 0;
-                foreach ($cartItems as $key => $item) :
-                    $subtotal = $item['price'] * $item['quantity'];
-                    $totalAmount += $subtotal;
-                ?>
+        <form id="order-form" method="POST">
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td><img src="<?php echo htmlspecialchars($item['image']); ?>" width="50"></td>
-                        <td><?php echo htmlspecialchars($item['name']); ?></td>
-                        <td><?php echo htmlspecialchars($item['tipo_periodo']); ?></td>
-                        <td><?php echo htmlspecialchars($item['slot']); ?></td>
-                        <td><?php echo htmlspecialchars($item['spot']); ?></td>
-                        <td>€<?php echo number_format($item['price'], 2); ?></td>
-                        <td><?php echo $item['quantity']; ?></td>
-                        <td>€<?php echo number_format($subtotal, 2); ?></td>
-                        <td>
-                            <button class="btn btn-sm btn-danger remove-item" data-id="<?php echo $key; ?>">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </td>
+                        <th>Immagine</th>
+                        <th>Nome</th>
+                        <th>Periodo</th>
+                        <th>Slot</th>
+                        <th>Spot</th>
+                        <th>Prezzo</th>
+                        <th>Quantità</th>
+                        <th>Totale</th>
+                        <th>Azioni</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="cart-items">
+                    <?php 
+                    $totalAmount = 0;
+                    foreach ($cartItems as $key => $item) :
+                        $subtotal = $item['price'] * $item['quantity'];
+                        $totalAmount += $subtotal;
+                    ?>
+                        <tr>
+                            <td><img src="<?php echo htmlspecialchars($item['image']); ?>" width="50"></td>
+                            <td><?php echo htmlspecialchars($item['name']); ?></td>
+                            <td><?php echo htmlspecialchars($item['tipo_periodo']); ?></td>
+                            <td><?php echo htmlspecialchars($item['slot']); ?></td>
+                            <td><?php echo htmlspecialchars($item['spot']); ?></td>
+                            <td>€<?php echo number_format($item['price'], 2); ?></td>
+                            <td><?php echo $item['quantity']; ?></td>
+                            <td>€<?php echo number_format($subtotal, 2); ?></td>
+                            <td>
+                                <button class="btn btn-sm btn-danger remove-item" data-id="<?php echo $key; ?>">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 
-        <div class="text-end">
-            <h4>Totale: <strong>€<?php echo number_format($totalAmount, 2); ?></strong></h4>
-            <button id="clear-cart" class="btn btn-danger mt-3"><i class="fa fa-trash-alt"></i> Svuota Carrello</button>
-            <button class="btn btn-success mt-3"><i class="fa fa-shopping-cart"></i> Procedi al Pagamento</button>
-        </div>
+            <div class="text-end">
+                <h4>Totale: <strong>€<?php echo number_format($totalAmount, 2); ?></strong></h4>
+                <button type="button" id="send-order" class="btn btn-success mt-3">
+                    <i class="fa fa-shopping-cart"></i> Invia Ordine
+                </button>
+                <button id="clear-cart" class="btn btn-danger mt-3"><i class="fa fa-trash-alt"></i> Svuota Carrello</button>
+            </div>
+        </form>
     <?php endif; ?>
 </div>
 
-<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
 
 <?php
     if (function_exists('customFooter')) {
@@ -108,55 +120,76 @@ if (!file_exists('conn.php')) {
 
 <script>
 $(document).ready(function() {
-    // Rimozione di un singolo elemento dal carrello
+    $('#send-order').on('click', function() {
+        <?php if (!isset($_SESSION['user'])) : ?>
+            Swal.fire({
+                title: 'Sei un ospite!',
+                text: 'Per inviare un ordine devi creare un account.',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Crea Account',
+                cancelButtonText: 'Annulla'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/Registrati';
+                }
+            });
+        <?php else : ?>
+            Swal.fire({
+                title: 'Confermi l\'invio dell\'ordine?',
+                text: "Una volta confermato, non potrai più modificare il carrello!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sì, invia ordine!',
+                cancelButtonText: 'Annulla'
+            }).then((result) => {
+                $.post('submit_order.php', {}, function(response) {
+                    console.log("Risposta di submit_order:", response);
+                    if (!response) {
+                        console.error("Risposta nulla o indefinita");
+                        return;
+                    }
+                    if (response.success) {
+                        Swal.fire({
+                        icon: 'success',
+                        title: 'Ordine Inviato!',
+                        text: 'Ordine registrato con successo!',
+                        timer: 2000
+                        }).then(() => {
+                        console.log("Redirect verso ordine_inviato.php?order_id=" + response.order_id);
+                        window.location.href = "ordine_inviato.php?order_id=" + response.order_id;
+                        });
+                    } else {
+                        console.error("Errore:", response.message);
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Errore',
+                        text: response.message
+                        });
+                    }
+                    }, "json")
+                    .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Chiamata fallita: " + textStatus, errorThrown);
+                    });
+            });
+        <?php endif; ?>
+    });
+
     $(document).on('click', '.remove-item', function() {
         let uniqueId = $(this).data('id');
-
-        console.log("🗑️ Tentativo di rimozione dal carrello:", uniqueId);
-
         $.post('remove_from_cart.php', { id: uniqueId }, function(response) {
-            console.log("🔄 Risposta rimozione:", response);
-
             if (response.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Rimosso!',
-                    text: 'Prodotto rimosso dal carrello.',
-                    timer: 2000
-                }).then(() => location.reload()); // Ricarica la pagina
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Errore',
-                    text: 'Impossibile rimuovere il prodotto.'
-                });
+                Swal.fire('Rimosso!', 'Prodotto rimosso dal carrello.', 'success').then(() => location.reload());
             }
         }, "json");
     });
 
-    // Svuotare l'intero carrello
     $('#clear-cart').on('click', function() {
-        Swal.fire({
-            title: 'Sei sicuro?',
-            text: "Questa operazione cancellerà tutti i prodotti dal carrello!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sì, svuota!',
-            cancelButtonText: 'Annulla'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.post('clear_cart.php', function(response) {
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Carrello svuotato!',
-                            text: 'Tutti i prodotti sono stati rimossi.',
-                            timer: 2000
-                        }).then(() => location.reload());
-                    }
-                }, "json");
+        $.post('clear_cart.php', function(response) {
+            if (response.success) {
+                Swal.fire('Carrello svuotato!', 'Tutti i prodotti sono stati rimossi.', 'success').then(() => location.reload());
             }
-        });
+        }, "json");
     });
 });
 </script>

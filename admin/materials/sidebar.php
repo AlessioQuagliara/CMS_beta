@@ -90,6 +90,7 @@
                     <li><a href="chat_clienti" class="nav-link text-white <?php echo ($currentPage == 'chat_clienti.php') ? 'active' : ''; ?>">Chat con Clienti</a></li>
                     <li><a href="eventi" class="nav-link text-white <?php echo ($currentPage == 'eventi.php') ? 'active' : ''; ?>">Eventi per Clienti</a></li>
                     <li><a href="aggiunta_prodotti" class="nav-link text-white <?php echo ($currentPage == 'aggiunta_prodotti.php') ? 'active' : ''; ?>">Aggiunta Prodotti Digitali</a></li>
+                    <li><a href="ordini_righe" class="nav-link text-white <?php echo ($currentPage == 'ordini_righe.php') ? 'active' : ''; ?>">Visualizza Ordini</a></li>
                 </ul>
             </div>
         </li>

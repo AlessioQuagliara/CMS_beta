@@ -58,9 +58,9 @@
             <a class="nav-link text-white collapsed" data-bs-toggle="collapse" href="#gestioneClientiCollapse">
                 <i class="fa-solid fa-users"></i>&nbsp; Clienti
             </a>
-            <div class="collapse" id="gestioneClientiCollapse">
+            <div class="collapse <?php echo ($sidebar_cate == 'clienti') ? 'show' : ''; ?>" id="gestioneClientiCollapse">
                 <ul class="nav flex-column ms-3">
-                    <li><a href="clienti" class="nav-link text-white">Lista Clienti</a></li>
+                    <li><a href="clienti" class="nav-link text-white <?php echo ($currentPage == 'clienti.php') ? 'active' : ''; ?>">Lista Clienti</a></li>
                 </ul>
             </div>
         </li>
@@ -69,11 +69,11 @@
             <a class="nav-link text-white collapsed" data-bs-toggle="collapse" href="#gestioneMarketingCollapse">
                 <i class="fa-solid fa-chart-simple"></i>&nbsp; Marketing
             </a>
-            <div class="collapse" id="gestioneMarketingCollapse">
+            <div class="collapse <?php echo ($sidebar_cate == 'marketing') ? 'show' : ''; ?>" id="gestioneMarketingCollapse">
                 <ul class="nav flex-column ms-3">
-                    <li><a href="analisi" class="nav-link text-white">Analisi</a></li>
-                    <li><a href="leads" class="nav-link text-white">Leads</a></li>
-                    <li><a href="campagne" class="nav-link text-white">Campagne</a></li>
+                    <li><a href="analisi" class="nav-link text-white <?php echo ($currentPage == 'analisi.php') ? 'active' : ''; ?>">Analisi</a></li>
+                    <li><a href="leads" class="nav-link text-white <?php echo ($currentPage == 'leads.php') ? 'active' : ''; ?>">Leads</a></li>
+                    <li><a href="campagne" class="nav-link text-white <?php echo ($currentPage == 'campagne.php') ? 'active' : ''; ?>">Campagne</a></li>
                 </ul>
             </div>
         </li>
@@ -86,12 +86,28 @@
                 <i class="fa-solid fa-square-plus"></i>&nbsp; Applicazioni e Plugin
             </a>
             <div class="collapse <?php echo ($sidebar_cate == 'App') ? 'show' : ''; ?>" id="gestioneAppCollapse">
-                <ul class="nav flex-column ms-3">
-                    <li><a href="chat_clienti" class="nav-link text-white <?php echo ($currentPage == 'chat_clienti.php') ? 'active' : ''; ?>">Chat con Clienti</a></li>
-                    <li><a href="eventi" class="nav-link text-white <?php echo ($currentPage == 'eventi.php') ? 'active' : ''; ?>">Eventi per Clienti</a></li>
-                    <li><a href="aggiunta_prodotti" class="nav-link text-white <?php echo ($currentPage == 'aggiunta_prodotti.php') ? 'active' : ''; ?>">Aggiunta Prodotti Digitali</a></li>
-                    <li><a href="ordini_righe" class="nav-link text-white <?php echo ($currentPage == 'ordini_righe.php') ? 'active' : ''; ?>">Visualizza Ordini</a></li>
-                </ul>
+            <ul class="nav flex-column ms-3">
+                <li>
+                    <a href="chat_clienti" class="nav-link text-white <?php echo ($currentPage == 'chat_clienti.php') ? 'active' : ''; ?>">
+                        Chat con Clienti
+                    </a>
+                </li>
+                <li>
+                    <a href="eventi" class="nav-link text-white <?php echo ($currentPage == 'eventi.php') ? 'active' : ''; ?>">
+                        Eventi per Clienti
+                    </a>
+                </li>
+                <li>
+                    <a href="aggiunta_prodotti" class="nav-link text-white <?php echo ($currentPage == 'aggiunta_prodotti.php' || $currentPage == 'modifica_prodotto.php') ? 'active' : ''; ?>">
+                        Aggiunta Prodotti Digitali
+                    </a>
+                </li>
+                <li>
+                    <a href="ordini_righe" class="nav-link text-white <?php echo ($currentPage == 'ordini_righe.php' || $currentPage == 'visualizza_ordine.php') ? 'active' : ''; ?>">
+                        Visualizza Ordini
+                    </a>
+                </li>
+            </ul>
             </div>
         </li>
 

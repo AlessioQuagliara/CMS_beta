@@ -156,8 +156,7 @@ $(document).ready(function() {
                         text: 'Ordine registrato con successo!',
                         timer: 2000
                         }).then(() => {
-                        console.log("Redirect verso ordine_inviato.php?order_id=" + response.order_id);
-                        window.location.href = "ordine_inviato.php?order_id=" + response.order_id;
+                        window.location.href = "order_confirmed.php?order_id=" + response.order_id;
                         });
                     } else {
                         console.error("Errore:", response.message);
@@ -193,6 +192,6 @@ $(document).ready(function() {
     });
 });
 </script>
-
+<?php require_once 'cart_edit.php'; ?>
 </body>
 </html>

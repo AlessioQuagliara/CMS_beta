@@ -153,3 +153,17 @@ $(document).ready(function() {
     updateCart();
 });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const loginSystem = document.getElementById('loginSystem');
+
+        // Supponiamo che lo stato di autenticazione sia memorizzato in un cookie o in localStorage
+        const isLoggedIn = <?php echo isset($_SESSION['user']) ? 'true' : 'false'; ?>;
+
+        if (isLoggedIn) {
+            loginSystem.innerHTML = '<a href="/dashboard.php" class="nav-link text-secondary">Dashboard</a>';
+        } else {
+            loginSystem.innerHTML = '<a href="/login" class="nav-link text-secondary">Login</a>';
+        }
+    });
+</script>

@@ -20,87 +20,32 @@ $userName = htmlspecialchars($_SESSION['user']['nome'], ENT_QUOTES, 'UTF-8');
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
-    <style>
-        #chat-messages .text-start,
-        #chat-messages .text-end {
-            margin-bottom: 10px;
-        }
-
-        #chat-messages .text-start div,
-        #chat-messages .text-end div {
-            padding: 10px 15px;
-            border-radius: 20px;
-            max-width: 75%;
-            word-wrap: break-word;
-        }
-
-        #chat-messages .text-start div {
-            background-color: #f8f9fa;
-            color: #000;
-        }
-
-        #chat-messages .text-end div {
-            background-color: #007bff;
-            color: #fff;
-            margin-left: auto;
-        }
-        .sidebar {
-            height: 100vh;
-            width: 250px;
-            position: fixed;
-            top: 0;
-            left: -250px;
-            background-color: #003f88;
-            color: #fff;
-            transition: left 0.3s ease;
-            z-index: 1040;
-        }
-        .sidebar.active {
-            left: 0;
-        }
-        .sidebar .nav-link {
-            color: #fff;
-            transition: background-color 0.3s ease;
-        }
-        .sidebar .nav-link:hover {
-            background-color: #0056b3;
-        }
-        .sidebar-header {
-            padding: 1rem;
-            font-size: 1.25rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1030;
-        }
-        .overlay.active {
-            display: block;
-        }
-    </style>
 </head>
 <body>
-    <!-- Overlay -->
-    <div class="overlay" id="menu-overlay"></div>
-
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <strong><img src="src/media_system/logo_site.png" width="150px"></strong>
-        </div>
-        <nav class="nav flex-column">
-            <a class="nav-link" href="dashboard.php">Eventi</a>
-            <a class="nav-link" href="chat.php">Chat</a>
-            <a class="nav-link" href="logout.php">Logout</a>
-        </nav>
+<?php
+    if (function_exists('customNav')) {
+        customNav();
+    } else {
+        echo "<p>Errore: funzione customNav non definita.</p>";
+    }
+?>
+    <!-- Menu Footer Fisso -->
+<nav class="navbar navbar-dark bg-dark navbar-expand fixed-bottom shadow-lg">
+    <div class="container-fluid d-flex justify-content-around">
+        <a class="nav-link text-white" href="dashboard.php">
+            <i class="fa fa-home"></i> <br>Dashboard
+        </a>
+        <a class="nav-link text-white" href="chat.php">
+            <i class="fa fa-comments"></i> <br>Chat
+        </a>
+        <a class="nav-link text-white" href="eventi.php">
+            <i class="fa fa-calendar-alt"></i> <br>Eventi
+        </a>
+        <a class="nav-link text-white" href="logout.php">
+            <i class="fa fa-sign-out-alt"></i> <br>Logout
+        </a>
     </div>
+</nav>
 
     <!-- Contenuto della pagina -->
     <div class="container mt-4">
@@ -137,14 +82,6 @@ $userName = htmlspecialchars($_SESSION['user']['nome'], ENT_QUOTES, 'UTF-8');
         </div>
 
     </div>
-
-    <?php
-        if (function_exists('customFooter')) {
-            customFooter();
-        } else {
-            echo "<p>Errore: funzione customFooter non definita.</p>";
-        }
-    ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>

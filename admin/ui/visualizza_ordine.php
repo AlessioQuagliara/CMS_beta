@@ -28,7 +28,28 @@ $orderItems = $orderItemsModel->getItemsByOrderId($order_id);
 // Recupera le informazioni dell'utente associato all'ordine
 $user = $userModel->getUserById($order['user_id']);
 ?>
+<?php
+    // Percorso delle cartelle dei media associati all'ordine
+    $orderMediaPath = '../../uploads/content/' . $order_id;
+    $imageFolder = $orderMediaPath . '/immagini';
+    $videoFolder = $orderMediaPath . '/video';
 
+    // Funzione per contare i file in una cartella
+    function countFilesInFolder($folderPath) {
+        if (file_exists($folderPath)) {
+            $files = glob($folderPath . '/*.*');
+            return count($files);
+        }
+        return 0;
+    }
+
+    // Conta il numero di file nelle cartelle immagini e video
+    $imageFileCount = countFilesInFolder($imageFolder);
+    $videoFileCount = countFilesInFolder($videoFolder);
+
+    // Link per scaricare i media come ZIP
+    $downloadLink = "download_media.php?order_id=" . $order_id;
+    ?>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -158,6 +179,30 @@ $user = $userModel->getUserById($order['user_id']);
             <?php endif; ?>
         </div>
     </div>
+
+        <div class="col-md-6">
+            <div class="card bg-light shadow-sm mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa fa-folder"></i> Media Associati all'Ordine</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><strong>Numero di Immagini:</strong></span> 
+                            <span class="badge bg-info"><?php echo $imageFileCount; ?> file</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><strong>Numero di Video:</strong></span> 
+                            <span class="badge bg-info"><?php echo $videoFileCount; ?> file</span>
+                        </li>
+                    </ul>
+                    <div class="text-end mt-3">
+                        <a href="<?php echo $downloadLink; ?>" class="btn btn-sm btn-primary">
+                            <i class="fa fa-download"></i> Scarica Media
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </main>
 
 <?php include '../materials/script.php'; ?>

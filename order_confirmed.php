@@ -1,7 +1,13 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
+require_once 'app.php';
 require_once 'conn.php';
-require_once 'models/OrdersModel.php';
+require_once 'config.php';
+require_once 'models/orders.php';
+require_once 'models/order_items.php';
 
 if (!isset($_GET['order_id'])) {
     echo "ID dell'ordine non fornito.";
@@ -11,7 +17,6 @@ if (!isset($_GET['order_id'])) {
 $order_id = intval($_GET['order_id']);
 
 try {
-    $pdo = new PDO($dsn, $username, $password, $options);
     $ordersModel = new OrdersModel($pdo);
 
     $order = $ordersModel->getOrderById($order_id);
@@ -32,9 +37,20 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Ordine Confermato</title>
+    <link rel="shortcut icon" href="src/media_system/favicon_site.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </head>
 <body>
+<?php
+    if (function_exists('customNav')) {
+        customNav();
+    } else {
+        echo "<p>Errore: funzione customNav non definita.</p>";
+    }
+?>
+<br><br><br>
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
@@ -57,9 +73,22 @@ try {
             </p>
 
             <a href="products.php" class="btn btn-primary">Torna ai prodotti</a>
+            <a href="dashboard.php" class="btn btn-dark">Vai alla dashboard</a>
         </div>
     </div>
 </div>
+
+<br><br><br><br><br><br>
+
+<?php
+    if (function_exists('customFooter')) {
+        customFooter();
+    } else {
+        echo "<p>Errore: funzione customFooter non definita.</p>";
+    }
+
+    include('public/cookie_banner.php');
+?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

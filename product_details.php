@@ -123,9 +123,9 @@ if (!file_exists('conn.php')) {
         <!-- Card 1: Dettagli del prodotto -->
         <div class="col-md-6">
             <div class="card shadow-lg">
-                <img src="../../<?php echo htmlspecialchars($product_image); ?>"  width="40%" alt="<?php echo htmlspecialchars($product['nome']); ?>">
                 <div class="card-body">
                     <h3 class="card-title"><?php echo htmlspecialchars($product['nome']); ?></h3>
+                    <img src="../../<?php echo htmlspecialchars($product_image); ?>"  width="40%" alt="<?php echo htmlspecialchars($product['nome']); ?>">
                     <p class="text-muted"><?php echo htmlspecialchars($product['description']); ?></p>
                     
                     <ul class="list-group list-group-flush">
@@ -149,43 +149,60 @@ if (!file_exists('conn.php')) {
                     <h4 class="card-title text-center mb-3">Configura il tuo acquisto</h4>
 
                     <form id="add-to-cart-form" method="POST">
-                        <!-- Selezione Tipo di Periodo -->
-                        <h5>Seleziona il periodo</h5>
-                        <select name="tipo_periodo" id="tipo_periodo" class="form-select mb-3" required>
-                            <option value="" data-price="">-- Seleziona un periodo --</option>
-                            <?php foreach ($periodi as $periodo): ?>
-                                <option value="<?php echo htmlspecialchars($periodo['tipo_periodo']); ?>" data-price="<?php echo htmlspecialchars($periodo['valore_periodo']); ?>">
-                                    <?php echo ucfirst(htmlspecialchars($periodo['tipo_periodo'])) . " - " . htmlspecialchars($periodo['valore_periodo']) . "€"; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
 
                         <!-- Selezione Slot Disponibile -->
                         <h5>Seleziona uno slot</h5>
                         <div class="list-group mb-3">
-                            <?php foreach ($slots as $slot): ?>
-                                <label class="list-group-item">
-                                    <input type="radio" name="slot" value="<?php echo htmlspecialchars($slot['slot']); ?>" required>
-                                    <?php echo htmlspecialchars($slot['slot']); ?>
-                                </label>
-                            <?php endforeach; ?>
+                                <select name="slot" class="form-select" required>
+                                    <option value="">Seleziona uno slot</option>
+                                    <?php foreach ($slots as $slot): ?>
+                                        <option value="<?php echo htmlspecialchars($slot['slot']); ?>">
+                                            <?php echo htmlspecialchars($slot['slot']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                         </div>
 
                         <!-- Selezione Spot Disponibile -->
                         <h5>Seleziona uno spot</h5>
                         <div class="list-group mb-3">
-                            <?php foreach ($spots as $spot): ?>
-                                <label class="list-group-item">
-                                    <input type="radio" name="spot" value="<?php echo htmlspecialchars($spot['spot']); ?>" required>
-                                    <?php echo htmlspecialchars($spot['spot']); ?>
-                                </label>
-                            <?php endforeach; ?>
+                            <select name="spot" class="form-select mb-3" required>
+                                <option value="">Seleziona uno spot</option>
+                                <?php foreach ($spots as $spot): ?>
+                                    <option value="<?php echo htmlspecialchars($spot['spot']); ?>">
+                                        <?php echo htmlspecialchars($spot['spot']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
+
+
+                        <!-- Selezione Tipo di Periodo -->
+                        <div class="mb-3">
+                            <h5>Seleziona il periodo</h5>
+                            <select name="tipo_periodo" id="tipo_periodo" class="form-select" required>
+                                <option value="" data-price="">Seleziona un periodo</option>
+                                <?php foreach ($periodi as $periodo): ?>
+                                    <?php 
+                                        // Imposta la localizzazione in italiano se non già fatto
+                                        setlocale(LC_TIME, 'it_IT.UTF-8');
+                                        // Converte la data da "A/M/D" a formato esteso (es. "lunedì 01 gennaio 2020")
+                                        $timestamp = strtotime($periodo['tipo_periodo']);
+                                        $dataEstesa = $timestamp ? strftime("%A %d %B %Y", $timestamp) : htmlspecialchars($periodo['tipo_periodo']);
+                                    ?>
+                                    <option value="<?php echo htmlspecialchars($periodo['tipo_periodo']); ?>" data-price="<?php echo htmlspecialchars($periodo['valore_periodo']); ?>">
+                                        <?php echo ucfirst($dataEstesa) . " - " . htmlspecialchars($periodo['valore_periodo']) . "€"; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
 
                         <!-- Pulsante Aggiungi al Carrello -->
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fa-solid fa-cart-plus"></i> Aggiungi al Carrello
                         </button>
+
                     </form>
                 </div>
             </div>
@@ -223,8 +240,8 @@ $(document).ready(function() {
         e.preventDefault();
 
         let tipoPeriodo = $('#tipo_periodo').val();
-        let slotSelezionato = $('input[name="slot"]:checked').val();
-        let spotSelezionato = $('input[name="spot"]:checked').val();
+        let slotSelezionato = $('select[name="slot"]').val();
+        let spotSelezionato = $('select[name="spot"]').val();
         let product_id = $('input[name="product_id"]').val();
         let product_name = $('input[name="product_name"]').val();
         let product_price = $('#product_price').val();

@@ -223,9 +223,19 @@ $images = $imageModel->getImagesByProductId($id);
             $periodoModel = new ProdottiPeriodiModel($pdo);
             $periodi = $periodoModel->getPeriodiByProductId($id);
             foreach ($periodi as $periodo):
+                // Converte la data in un formato esteso in italiano usando IntlDateFormatter
+                $dateObj = new DateTime($periodo['tipo_periodo']);
+                $formatter = new IntlDateFormatter(
+                    'it_IT',
+                    IntlDateFormatter::LONG,
+                    IntlDateFormatter::NONE,
+                    'Europe/Rome',
+                    IntlDateFormatter::GREGORIAN
+                );
+                $extendedDate = $formatter->format($dateObj);
             ?>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span><?php echo ucfirst($periodo['tipo_periodo']) . " - " . htmlspecialchars($periodo['valore_periodo']); ?>€</span>
+                <span><?php echo ucfirst($extendedDate) . " - " . htmlspecialchars($periodo['valore_periodo']); ?>€</span>
                 <button class="btn btn-danger btn-sm delete-periodo" data-id="<?php echo $periodo['id']; ?>">
                     <i class="bi bi-trash"></i>
                 </button>
@@ -463,11 +473,7 @@ document.querySelectorAll('.delete-slot').forEach(button => {
     Swal.fire({
         title: "Aggiungi Periodo",
         html: `
-            <select id="tipo-periodo" class="swal2-select">
-                <option value="giornaliero">Giornaliero</option>
-                <option value="settimanale">Settimanale</option>
-                <option value="mensile">Mensile</option>
-            </select>
+            <input type="date" id="tipo-periodo" class="swal2-input">
             <input type="number" id="valore-periodo" class="swal2-input" placeholder="Inserisci un Prezzo" min="1" required>
         `,
         showCancelButton: true,

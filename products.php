@@ -45,7 +45,7 @@ if (!file_exists('conn.php')) {
             $page['content'] = str_replace('{{ nome }}', $userPlaceholder, $page['content']);
         }
 
-        $limit = 20;
+        $limit = 6;
         $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
         $offset = ($page - 1) * $limit;
 
@@ -162,113 +162,132 @@ if (!file_exists('conn.php')) {
         echo "<p>Errore: funzione customNav non definita.</p>";
     }
     ?>
-
     <br><br><br>
-
-<div class="container mt-4">
-        <h1 class="text-center">Prodotti Pubblicitari</h1>
-
-        <!-- Form di Ricerca e Filtri -->
-        <form method="GET" class="row g-3 mb-4">
-            <div class="col-md-4">
-                <input type="text" name="search" class="form-control" placeholder="Cerca per nome, slug o descrizione" value="<?php echo htmlspecialchars($search); ?>">
-            </div>
-            <div class="col-md-2">
-                <select name="mezzo_pubblicitario" class="form-select">
-                    <option value="">Mezzo Pubblicitario</option>
-                    <option value="Tv" <?php echo $mezzo_pubblicitario == 'Tv' ? 'selected' : ''; ?>>Tv</option>
-                    <option value="Radio" <?php echo $mezzo_pubblicitario == 'Radio' ? 'selected' : ''; ?>>Radio</option>
-                    <option value="Quotidiani" <?php echo $mezzo_pubblicitario == 'Quotidiani' ? 'selected' : ''; ?>>Quotidiani</option>
-                    <option value="Periodici" <?php echo $mezzo_pubblicitario == 'Periodici' ? 'selected' : ''; ?>>Periodici</option>
-                    <option value="Digital" <?php echo $mezzo_pubblicitario == 'Digital' ? 'selected' : ''; ?>>Digital</option>
-                    <option value="OOH" <?php echo $mezzo_pubblicitario == 'OOH' ? 'selected' : ''; ?>>OOH</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <select name="genere" class="form-select">
-                    <option value="">Genere</option>
-                    <option value="Uomini" <?php echo $genere == 'Uomini' ? 'selected' : ''; ?>>Uomo</option>
-                    <option value="Donne" <?php echo $genere == 'Donne' ? 'selected' : ''; ?>>Donna</option>
-                    <option value="Entrambi" <?php echo $genere == 'Entrambi' ? 'selected' : ''; ?>>Entrambi</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-            <select name="eta" class="form-select">
-                <option value="">Età Target</option>
-                <option value="Oltre i 50 anni" <?php echo $eta == 'Oltre i 50 anni' ? 'selected' : ''; ?>>Oltre i 50 anni</option>
-                <option value="Tra i 30 e i 50 anni" <?php echo $eta == 'Tra i 30 e i 50 anni' ? 'selected' : ''; ?>>Tra i 30 e i 50 anni</option>
-                <option value="Meno di 50 anni" <?php echo $eta == 'Meno di 50 anni' ? 'selected' : ''; ?>>Meno di 50 anni</option>
-            </select>
-            </div>
-            <div class="col-md-2">
-                <select name="concessionaria" class="form-select">
-                    <option value="">Seleziona Concessionaria</option>
-                    <option value="Sipra" <?php echo $concessionaria == 'Sipra' ? 'selected' : ''; ?>>Sipra</option>
-                    <option value="Publitalia 80" <?php echo $concessionaria == 'Publitalia 80' ? 'selected' : ''; ?>>Publitalia 80</option>
-                    <option value="Mediamond" <?php echo $concessionaria == 'Mediamond' ? 'selected' : ''; ?>>Mediamond</option>
-                    <option value="Manzoni" <?php echo $concessionaria == 'Manzoni' ? 'selected' : ''; ?>>Manzoni</option>
-                    <option value="Piemme" <?php echo $concessionaria == 'Piemme' ? 'selected' : ''; ?>>Piemme</option>
-                    <option value="Speed" <?php echo $concessionaria == 'Speed' ? 'selected' : ''; ?>>Speed</option>
-                    <option value="CairoRCS" <?php echo $concessionaria == 'CairoRCS' ? 'selected' : ''; ?>>CairoRCS</option>
-                    <option value="Pubbliesse" <?php echo $concessionaria == 'Pubbliesse' ? 'selected' : ''; ?>>Pubbliesse</option>
-                    <option value="IGPDecaux" <?php echo $concessionaria == 'IGPDecaux' ? 'selected' : ''; ?>>IGPDecaux</option>
-                    <option value="Digitalia 08" <?php echo $concessionaria == 'Digitalia 08' ? 'selected' : ''; ?>>Digitalia 08</option>
-                    <option value="RDS adv" <?php echo $concessionaria == 'RDS adv' ? 'selected' : ''; ?>>RDS adv</option>
-                    <option value="Open Space" <?php echo $concessionaria == 'Open Space' ? 'selected' : ''; ?>>Open Space</option>
-                    <option value="Wayap" <?php echo $concessionaria == 'Wayap' ? 'selected' : ''; ?>>Wayap</option>
-                    <option value="Carminati" <?php echo $concessionaria == 'Carminati' ? 'selected' : ''; ?>>Carminati</option>
-                    <option value="Salina" <?php echo $concessionaria == 'Salina' ? 'selected' : ''; ?>>Salina</option>
-                    <option value="Publiadige" <?php echo $concessionaria == 'Publiadige' ? 'selected' : ''; ?>>Publiadige</option>
-                </select>
-            </div>
-            <div class="col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Filtra</button>
-                <a href="products.php" class="btn btn-secondary">Reset</a>
-            </div>
-        </form>
-
-        <!-- Lista Prodotti -->
+    <div class="container mt-4">
         <div class="row">
-            <?php while ($product = $result->fetch_assoc()): ?>
-                <div class="col-md-4">
-                    <div class="card shadow-sm mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo htmlspecialchars($product['nome']); ?></h5>
-                            <p class="card-text"><?php echo htmlspecialchars(substr($product['description'], 0, 100)) . '...'; ?></p>
-                            <p class="card-text"><strong>Mezzo:</strong> <?php echo htmlspecialchars($product['mezzo_pubblicitario']); ?></p>
-                            <p class="card-text"><strong>Genere:</strong> <?php echo htmlspecialchars($product['genere']); ?></p>
-                            <p class="card-text"><strong>Età Target:</strong> <?php echo htmlspecialchars($product['eta']); ?></p>
-                            <a href="product_details.php?slug=<?php echo htmlspecialchars($product['slug']); ?>" class="btn btn-sm btn-primary">Dettagli</a>
+            <!-- Contenuto centrale: Prodotti -->
+            <div class="col-md-9">
+                <h1 class="text-center">Prodotti Pubblicitari</h1>
+                <div class="row">
+                    <?php while ($product = $result->fetch_assoc()): ?>
+                        <?php
+                        // Recupero l'immagine del prodotto
+                        $stmt_img = $conn->prepare("SELECT image_url FROM product_images WHERE product_id = ? LIMIT 1");
+                        $stmt_img->bind_param('i', $product['id']);
+                        $stmt_img->execute();
+                        $result_img = $stmt_img->get_result();
+                        $image = $result_img->fetch_assoc();
+                        $product_image = $image ? $image['image_url'] : 'src/media_system/placeholder.jpg';
+                        ?>
+                        <div class="col-md-4">
+                            <div class="card shadow-sm mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo htmlspecialchars($product['nome']); ?></h5>
+                                    <img src="<?php echo htmlspecialchars($product_image); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($product['nome']); ?>">
+                                    <p class="card-text"><strong>Mezzo:</strong> <?php echo htmlspecialchars($product['mezzo_pubblicitario']); ?></p>
+                                    <p class="card-text"><strong>Genere:</strong> <?php echo htmlspecialchars($product['genere']); ?></p>
+                                    <p class="card-text"><strong>Età Target:</strong> <?php echo htmlspecialchars($product['eta']); ?></p>
+                                    <a href="product_details.php?slug=<?php echo htmlspecialchars($product['slug']); ?>" class="btn btn-sm btn-primary">Dettagli</a>
+                                </div>
+                            </div>
                         </div>
+                    <?php endwhile; ?>
+                </div>
+                <!-- Paginazione -->
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                            <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
+                                <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
+                </nav>
+            </div>
+
+
+                       <!-- Sidebar: Filtri a sinistra -->
+                       <div class="col-md-3">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Filtra Prodotti
+                    </div>
+                    <div class="card-body">
+                        <!-- Form di Ricerca e Filtri -->
+                        <form method="GET">
+                            <div class="mb-3">
+                                <input type="text" name="search" class="form-control" placeholder="Cerca per nome, slug o descrizione" value="<?php echo htmlspecialchars($search); ?>">
+                            </div>
+                            <div class="mb-3">
+                                <select name="mezzo_pubblicitario" class="form-select">
+                                    <option value="">Mezzo Pubblicitario</option>
+                                    <option value="Tv" <?php echo $mezzo_pubblicitario == 'Tv' ? 'selected' : ''; ?>>Tv</option>
+                                    <option value="Radio" <?php echo $mezzo_pubblicitario == 'Radio' ? 'selected' : ''; ?>>Radio</option>
+                                    <option value="Quotidiani" <?php echo $mezzo_pubblicitario == 'Quotidiani' ? 'selected' : ''; ?>>Quotidiani</option>
+                                    <option value="Periodici" <?php echo $mezzo_pubblicitario == 'Periodici' ? 'selected' : ''; ?>>Periodici</option>
+                                    <option value="Digital" <?php echo $mezzo_pubblicitario == 'Digital' ? 'selected' : ''; ?>>Digital</option>
+                                    <option value="OOH" <?php echo $mezzo_pubblicitario == 'OOH' ? 'selected' : ''; ?>>OOH</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <select name="genere" class="form-select">
+                                    <option value="">Genere</option>
+                                    <option value="Uomini" <?php echo $genere == 'Uomini' ? 'selected' : ''; ?>>Uomo</option>
+                                    <option value="Donne" <?php echo $genere == 'Donne' ? 'selected' : ''; ?>>Donna</option>
+                                    <option value="Entrambi" <?php echo $genere == 'Entrambi' ? 'selected' : ''; ?>>Entrambi</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <select name="eta" class="form-select">
+                                    <option value="">Età Target</option>
+                                    <option value="Meno di 30 anni" <?php echo $eta == 'Meno di 30 anni' ? 'selected' : ''; ?>>Meno di 30 anni</option>
+                                    <option value="Tra i 30 ed i 50 anni" <?php echo $eta == 'Tra i 30 ed i 50 anni' ? 'selected' : ''; ?>>Tra i 30 ed i 50 anni</option>
+                                    <option value="Oltre i 50 anni" <?php echo $eta == 'Oltre i 50 anni' ? 'selected' : ''; ?>>Oltre i 50 anni</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <select name="concessionaria" class="form-select">
+                                    <option value="">Seleziona Concessionaria</option>
+                                    <option value="Sipra" <?php echo $concessionaria == 'Sipra' ? 'selected' : ''; ?>>Sipra</option>
+                                    <option value="Publitalia 80" <?php echo $concessionaria == 'Publitalia 80' ? 'selected' : ''; ?>>Publitalia 80</option>
+                                    <option value="Mediamond" <?php echo $concessionaria == 'Mediamond' ? 'selected' : ''; ?>>Mediamond</option>
+                                    <option value="Manzoni" <?php echo $concessionaria == 'Manzoni' ? 'selected' : ''; ?>>Manzoni</option>
+                                    <option value="Piemme" <?php echo $concessionaria == 'Piemme' ? 'selected' : ''; ?>>Piemme</option>
+                                    <option value="Speed" <?php echo $concessionaria == 'Speed' ? 'selected' : ''; ?>>Speed</option>
+                                    <option value="CairoRCS" <?php echo $concessionaria == 'CairoRCS' ? 'selected' : ''; ?>>CairoRCS</option>
+                                    <option value="Pubbliesse" <?php echo $concessionaria == 'Pubbliesse' ? 'selected' : ''; ?>>Pubbliesse</option>
+                                    <option value="IGPDecaux" <?php echo $concessionaria == 'IGPDecaux' ? 'selected' : ''; ?>>IGPDecaux</option>
+                                    <option value="Digitalia 08" <?php echo $concessionaria == 'Digitalia 08' ? 'selected' : ''; ?>>Digitalia 08</option>
+                                    <option value="RDS adv" <?php echo $concessionaria == 'RDS adv' ? 'selected' : ''; ?>>RDS adv</option>
+                                    <option value="Open Space" <?php echo $concessionaria == 'Open Space' ? 'selected' : ''; ?>>Open Space</option>
+                                    <option value="Wayap" <?php echo $concessionaria == 'Wayap' ? 'selected' : ''; ?>>Wayap</option>
+                                    <option value="Carminati" <?php echo $concessionaria == 'Carminati' ? 'selected' : ''; ?>>Carminati</option>
+                                    <option value="Salina" <?php echo $concessionaria == 'Salina' ? 'selected' : ''; ?>>Salina</option>
+                                    <option value="Publiadige" <?php echo $concessionaria == 'Publiadige' ? 'selected' : ''; ?>>Publiadige</option>
+                                </select>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Filtra</button>
+                                <a href="products.php" class="btn btn-secondary">Reset</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            <?php endwhile; ?>
+            </div>
+
         </div>
-
-        <!-- Paginazione -->
-        <nav>
-            <ul class="pagination justify-content-center">
-                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
-                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                    </li>
-                <?php endfor; ?>
-            </ul>
-        </nav>
     </div>
-
     <?php
     if (function_exists('customFooter')) {
         customFooter();
     } else {
         echo "<p>Errore: funzione customFooter non definita.</p>";
     }
-
     include('public/cookie_banner.php');
     ?>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<?php require_once 'cart_edit.php'; ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <?php require_once 'cart_edit.php'; ?>
 </body>
 </html>

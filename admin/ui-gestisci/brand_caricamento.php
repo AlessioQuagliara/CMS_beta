@@ -5,6 +5,11 @@ $logoTargetDir = "../../src/media_system/";
 $faviconFileName = "favicon_site.ico";
 $logoFileName = "logo_site.png";
 
+// Funzione per mostrare errori con SweetAlert2
+function swalError($message) {
+    echo "<script>Swal.fire({ icon: 'error', title: 'Errore', text: '" . addslashes($message) . "' });</script>";
+}
+
 function uploadFile($file, $targetDir, $fileName) {
     if (isset($file) && $file['error'] === UPLOAD_ERR_OK) {
         $targetFilePath = $targetDir . $fileName;
@@ -18,10 +23,10 @@ function uploadFile($file, $targetDir, $fileName) {
             echo "Il file " . htmlspecialchars(basename($file["name"])) . " è stato caricato con successo come " . $fileName . ".<br>";
             header("Location: ../ui/brand_identity.php");
         } else {
-            echo "Errore durante il caricamento del file " . htmlspecialchars(basename($file["name"])) . ".<br>";
+            swalError("Errore durante il caricamento del file " . htmlspecialchars(basename($file["name"])) . ".");
         }
     } else {
-        echo "Errore: nessun file caricato o errore nel caricamento.<br>";
+        swalError("Errore: nessun file caricato o errore nel caricamento.");
     }
 }
 

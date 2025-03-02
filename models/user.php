@@ -155,5 +155,33 @@ class UserModel {
         $stmt->bindParam(':id_utente', $id_utente, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function aggiornaDatiUtente($userId, array $data) {
+        $sql = "UPDATE user_db 
+                SET codice_fiscale = :codice_fiscale, 
+                    partita_iva = :partita_iva, 
+                    ragione_sociale = :ragione_sociale, 
+                    indirizzo = :indirizzo, 
+                    cap = :cap, 
+                    citta = :citta, 
+                    provincia = :provincia, 
+                    nazione = :nazione 
+                WHERE id_utente = :id_utente";
+    
+        $stmt = $this->pdo->prepare($sql);
+    
+        return $stmt->execute([
+            ':codice_fiscale' => $data['codice_fiscale'],
+            ':partita_iva' => $data['partita_iva'],
+            ':ragione_sociale' => $data['ragione_sociale'],
+            ':indirizzo' => $data['indirizzo'],
+            ':cap' => $data['cap'],
+            ':citta' => $data['citta'],
+            ':provincia' => $data['provincia'],
+            ':nazione' => $data['nazione'],
+            ':id_utente' => $userId
+        ]);
+    }
+
 }
 ?>

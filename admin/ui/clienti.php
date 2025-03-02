@@ -46,18 +46,22 @@ $users = $userModel->getAllUsers(); // Recupera tutti gli utenti
                                     <th>Email</th>
                                     <th>Telefono</th>
                                     <th>Data Registrazione</th>
-                                    <th>Ultimo Accesso</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($users as $user): ?>
-                                    <tr>
+                                    <tr style="cursor: pointer;" onclick="window.location.href='anagrafica_cliente.php?id=<?php echo $user['id_utente']; ?>'">
                                         <td><span class="badge bg-secondary">#<?php echo $user['id_utente']; ?></span></td>
                                         <td><?php echo htmlspecialchars($user['nome'] . ' ' . $user['cognome']); ?></td>
                                         <td><?php echo htmlspecialchars($user['email']); ?></td>
                                         <td><?php echo htmlspecialchars($user['telefono']); ?></td>
-                                        <td><?php echo date('d/m/Y H:i', strtotime($user['data_registrazione'])); ?></td>
-                                        <td><?php echo date('d/m/Y H:i', strtotime($user['ultimo_accesso'])); ?></td>
+                                        <td>
+                                            <?php 
+                                            $date = new DateTime($user['data_registrazione']);
+                                            $formatter = new IntlDateFormatter('it_IT', IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+                                            echo ucfirst($formatter->format($date));
+                                            ?>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

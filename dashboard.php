@@ -11,7 +11,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 // Recupera le informazioni dell'utente loggato
-$userId = intval($_SESSION['user']);
+$userId = intval($_SESSION['user']['id']); // Ora prende l'ID corretto
 $userName = htmlspecialchars($_SESSION['user']['nome'], ENT_QUOTES, 'UTF-8');
 
 // Recupera gli ordini dell'utente
@@ -47,9 +47,6 @@ $userOrders = $ordersModel->getOrdersByUserId($userId);
         </a>
         <a class="nav-link text-white" href="chat.php">
             <i class="fa fa-comments"></i> <br>Chat
-        </a>
-        <a class="nav-link text-white" href="eventi.php">
-            <i class="fa fa-calendar-alt"></i> <br>Eventi
         </a>
         <a class="nav-link text-white" href="logout.php">
             <i class="fa fa-sign-out-alt"></i> <br>Logout

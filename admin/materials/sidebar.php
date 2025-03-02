@@ -133,8 +133,10 @@
                 <ul class="nav flex-column ms-3">
                     <li><a href="dettagli_negozio" class="nav-link text-white <?php echo ($currentPage == 'dettagli_negozio.php') ? 'active' : ''; ?>">Dettagli Sito Web</a></li>
                     <li><a href="utenti_ruoli" class="nav-link text-white <?php echo ($currentPage == 'utenti_ruoli.php') ? 'active' : ''; ?>">Utenti e Ruoli</a></li>
+<!--
                     <li><a href="ore_assistenza" class="nav-link text-white <?php echo ($currentPage == 'ore_assistenza.php') ? 'active' : ''; ?>">Ore Assistenza</a></li>
-                    <li><a href="piano_contratto" class="nav-link text-white <?php echo ($currentPage == 'piano_contratto.php') ? 'active' : ''; ?>">Piano/Contratto</a></li>
+                    <li><a href="piano_contratto" class="nav-link text-white <?php echo ($currentPage == 'piano_contratto.php') ? 'active' : ''; ?>">Piano/Contratto</a></li> 
+-->
                     <li><a href="aggiornamento" class="nav-link text-white <?php echo ($currentPage == 'aggiornamento.php') ? 'active' : ''; ?>">Aggiornamento Software</a></li>
                 </ul>
             </div>
@@ -146,7 +148,7 @@
     <div class="dropdown">
         <a href="#" class="text-white text-decoration-none dropdown-toggle" style="padding: 15px;" data-bs-toggle="dropdown">
             <img src="https://www.linkbay.it/static/image/og-image.png" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong><?php echo $_SESSION['nome']; ?> <?php echo $_SESSION['cognome']; ?></strong>
+            <strong><?php echo $_SESSION['user']['nome']; ?> <?php echo $_SESSION['user']['cognome']; ?></strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
             <li><a class="dropdown-item" href="utenti_ruoli">Impostazioni</a></li>

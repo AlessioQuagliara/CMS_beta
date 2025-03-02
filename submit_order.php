@@ -9,6 +9,7 @@ require "config.php"; // Assicura che $pdo sia correttamente definito
 require_once 'models/orders.php';
 require_once 'models/order_items.php';
 
+
 $ordersModel = new OrdersModel($pdo);
 $orderItemsModel = new OrderItemsModel($pdo);
 

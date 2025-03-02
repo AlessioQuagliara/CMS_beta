@@ -107,7 +107,16 @@ $user = $userModel->getUserById($order['user_id']);
                                                     default: echo 'bg-secondary';
                                                 }
                                             ?>">
-                                            <?php echo ucfirst($order['status']); ?>
+                                            <?php 
+                                                $stati_tradotti = [
+                                                    'pending'   => 'In Attesa',
+                                                    'paid'      => 'Pagato',
+                                                    'shipped'   => 'Spedito',
+                                                    'completed' => 'Completato',
+                                                    'cancelled' => 'Annullato'
+                                                ];
+                                                echo $stati_tradotti[$order['status']] ?? ucfirst($order['status']); 
+                                            ?>
                                         </span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between">

@@ -84,7 +84,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($orders as $order): ?>
+                        <?php 
+                        $statusTranslations = [
+                            'pending'   => 'In Attesa',
+                            'paid'      => 'Pagato',
+                            'shipped'   => 'In Corso',
+                            'completed' => 'Completato',
+                            'cancelled' => 'Annullato'
+                        ];
+                        foreach ($orders as $order): ?>
                             <tr>
                                 <td onclick="window.location.href='visualizza_ordine.php?order_id=<?php echo $order['id']; ?>';" style="cursor: pointer;"><strong>#<?php echo $order['id']; ?></strong></td>
                                 <td onclick="window.location.href='visualizza_ordine.php?order_id=<?php echo $order['id']; ?>';" style="cursor: pointer;"><?php echo $order['user_id']; ?></td>
@@ -101,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
                                                 default: echo 'bg-secondary';
                                             }
                                         ?>">
-                                        <?php echo ucfirst($order['status']); ?>
+                                        <?php echo $statusTranslations[$order['status']] ?? ucfirst($order['status']); ?>
                                     </span>
                                 </td>
                                 <td><?php echo date('d/m/Y H:i', strtotime($order['created_at'])); ?></td>
@@ -110,12 +118,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
                                         <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
                                         <div class="input-group input-group-sm mb-2">
                                             <select name="status" class="form-select form-select-sm">
-                                                <?php 
-                                                $statuses = ['pending', 'paid', 'shipped', 'completed', 'cancelled'];
-                                                foreach ($statuses as $status): ?>
-                                                    <option value="<?php echo $status; ?>" 
-                                                        <?php if ($order['status'] === $status) echo 'selected'; ?>>
-                                                        <?php echo ucfirst($status); ?>
+                                                <?php foreach ($statusTranslations as $statusKey => $statusLabel): ?>
+                                                    <option value="<?php echo $statusKey; ?>" 
+                                                        <?php if ($order['status'] === $statusKey) echo 'selected'; ?>>
+                                                        <?php echo $statusLabel; ?>
                                                     </option>
                                                 <?php endforeach; ?>
                                             </select>

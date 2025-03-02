@@ -18,12 +18,22 @@ if (!isset($_SESSION['cart'])) {
  * @param string $spot          Spot selezionato.
  */
 function addToCart($product_id, $nome, $price, $image, $tipo_periodo, $slot, $spot) {
-    session_start(); // Assicuriamoci che la sessione sia attiva
+    session_start();
 
-    // Creiamo un identificatore univoco
+    if (!empty($tipo_periodo)) {
+        $timestamp = strtotime($tipo_periodo);
+        if ($timestamp !== false) {
+            setlocale(LC_TIME, 'it_IT.UTF-8');
+            $tipo_periodo_esteso = strftime("%A %d %B %Y", $timestamp);
+        } else {
+            $tipo_periodo_esteso = "Data non valida";
+        }
+    } else {
+        $tipo_periodo_esteso = "Nessun periodo";
+    }
+
     $unique_id = md5($product_id . $tipo_periodo . $slot . $spot);
 
-    // Controlliamo se il prodotto con la stessa configurazione è già nel carrello
     if (isset($_SESSION['cart'][$unique_id])) {
         $_SESSION['cart'][$unique_id]['quantity'] += 1;
     } else {
@@ -32,15 +42,14 @@ function addToCart($product_id, $nome, $price, $image, $tipo_periodo, $slot, $sp
             'name' => $nome,
             'price' => $price,
             'image' => $image,
-            'tipo_periodo' => $tipo_periodo,
+            'tipo_periodo' => $tipo_periodo_esteso, // Ora garantiamo che sia sempre una stringa
             'slot' => $slot,
             'spot' => $spot,
             'quantity' => 1
         ];
     }
 
-    // Debug: logghiamo l'elemento aggiunto
-    error_log("Aggiunto al carrello: " . print_r($_SESSION['cart'][$unique_id], true));
+    error_log("✅ Aggiunto al carrello: " . print_r($_SESSION['cart'][$unique_id], true));
 }
 
 // Funzione per ottenere il carrello

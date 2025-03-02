@@ -1,18 +1,11 @@
 <?php
-session_start();
-require ("../../conn.php");
+require_once '../../app.php';
+require_once '../../config.php';
+require_once '../../models/ChatManager.php';
+loggato();
 
-
-$data = json_decode(file_get_contents('php://input'), true);
-$message = $data['message'] ?? '';
-$sender = $data['sender'] ?? 'user'; // Default a 'user'
-$user_name = $data['user_name'] ?? ''; // Nome dell'utente destinatario
-
-if (!empty($message) && !empty($user_name)) {
-    $stmt = $conn->prepare("INSERT INTO chat_messages (sender_type, sender_name, message) VALUES (?, ?, ?)");
-    $stmt->bind_param('sss', $sender, $user_name, $message);
-    $stmt->execute();
-    $stmt->close();
-}
-?>
+$data = json_decode(file_get_contents("php://input"), true);
+$chatManager = new ChatManager($pdo);
+$success = $chatManager->inviaMessaggio('admin', $_SESSION['user']['nome'], $data['user_name'], $data['message']);
+echo json_encode(['success' => $success]);
 ?>

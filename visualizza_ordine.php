@@ -108,9 +108,6 @@ $videoCount = count($videoFiles);
         <a class="nav-link text-white" href="chat.php">
             <i class="fa fa-comments"></i> <br>Chat
         </a>
-        <a class="nav-link text-white" href="eventi.php">
-            <i class="fa fa-calendar-alt"></i> <br>Eventi
-        </a>
         <a class="nav-link text-white" href="logout.php">
             <i class="fa fa-sign-out-alt"></i> <br>Logout
         </a>

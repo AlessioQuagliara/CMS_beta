@@ -48,7 +48,7 @@ loggato();
         <?php echo dettagli_negozio();?>
     </div>
 
-    
+<!--
     <div class="p-3 mb-2 bg-light rounded-3 border">
         <div>
             <h5>&nbsp; Ore assistenza tecnica disponibili</h5>
@@ -59,7 +59,7 @@ loggato();
             <a href="ore_assistenza" class="btn btn-outline-secondary mx-2"><i class="fa-solid fa-eye"></i> Visualizza Dettagli</a>
         </div>
     </div>
-
+-->
 
     </main>
 

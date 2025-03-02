@@ -101,12 +101,14 @@ function login()
 
                 if (password_verify($password, $row['password'])) {
                     $_SESSION['loggato'] = true;
-                    $_SESSION['id_admin'] = $row['id_admin'];
-                    $_SESSION['nome'] = $row['nome'];
-                    $_SESSION['cognome'] = $row['cognome'];
-                    $_SESSION['ruolo'] = $row['ruolo'];
-                    $_SESSION['telefono'] = $row['telefono'];
-                    $_SESSION['email'] = $row['email'];
+                    $_SESSION['user'] = [
+                        'id_admin' => $row['id_admin'],
+                        'nome' => $row['nome'],
+                        'cognome' => $row['cognome'],
+                        'role' => $row['ruolo'],  // ✅ Ora è salvato come 'role' e non 'ruolo'
+                        'telefono' => $row['telefono'],
+                        'email' => $row['email']
+                    ];
 
                     header("Location: ui/homepage");
                     exit;
@@ -1157,95 +1159,6 @@ class EventoManager {
     public function eliminaEvento($id) {
         $stmt = $this->conn->prepare("DELETE FROM eventi WHERE id_evento = ?");
         $stmt->bind_param('i', $id);
-        return $stmt->execute();
-    }
-}
-
-class ChatManager {
-    private $conn;
-
-    public function __construct($dbConnection) {
-        $this->conn = $dbConnection;
-    }
-
-    // Ottieni tutti i messaggi per un utente
-    public function getMessaggiPerUtente($senderName) {
-        $stmt = $this->conn->prepare("
-            SELECT * FROM chat_messages 
-            WHERE sender_name = ? OR sender_type = 'admin' 
-            ORDER BY created_at ASC
-        ");
-        $stmt->bind_param('s', $senderName);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    // Invia un messaggio
-    public function inviaMessaggio($senderType, $senderName, $message) {
-        $stmt = $this->conn->prepare("
-            INSERT INTO chat_messages (sender_type, sender_name, message, created_at, is_read, is_read_admin)
-            VALUES (?, ?, ?, NOW(), 0, 0)
-        ");
-        $stmt->bind_param('sss', $senderType, $senderName, $message);
-        return $stmt->execute();
-    }
-
-    // Marca i messaggi come letti per un utente
-    public function marcaMessaggiComeLetti($senderName) {
-        $stmt = $this->conn->prepare("
-            UPDATE chat_messages 
-            SET is_read = 1 
-            WHERE sender_name = ? AND sender_type = 'user'
-        ");
-        $stmt->bind_param('s', $senderName);
-        return $stmt->execute();
-    }
-
-    // Marca i messaggi come letti dall'admin
-    public function marcaMessaggiComeLettiAdmin($senderName) {
-        $stmt = $this->conn->prepare("
-            UPDATE chat_messages 
-            SET is_read_admin = 1 
-            WHERE sender_name = ? AND sender_type = 'admin'
-        ");
-        $stmt->bind_param('s', $senderName);
-        return $stmt->execute();
-    }
-
-    // Controlla i messaggi non letti per un utente
-    public function contaMessaggiNonLettiUtente($senderName) {
-        $stmt = $this->conn->prepare("
-            SELECT COUNT(*) as non_letti 
-            FROM chat_messages 
-            WHERE sender_name = ? AND sender_type = 'user' AND is_read = 0
-        ");
-        $stmt->bind_param('s', $senderName);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
-    }
-
-    // Controlla i messaggi non letti dall'admin
-    public function contaMessaggiNonLettiAdmin($senderName) {
-        $stmt = $this->conn->prepare("
-            SELECT COUNT(*) as non_letti 
-            FROM chat_messages 
-            WHERE sender_name = ? AND sender_type = 'admin' AND is_read_admin = 0
-        ");
-        $stmt->bind_param('s', $senderName);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
-    }
-
-    // Elimina tutti i messaggi di un utente
-    public function eliminaMessaggiUtente($senderName) {
-        $stmt = $this->conn->prepare("
-            DELETE FROM chat_messages 
-            WHERE sender_name = ?
-        ");
-        $stmt->bind_param('s', $senderName);
         return $stmt->execute();
     }
 }

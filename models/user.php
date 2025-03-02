@@ -11,16 +11,16 @@ class UserModel {
     }
 
     /**
-     * Crea un nuovo utente.
+     * Crea un nuovo utente con tutti i campi richiesti per la fatturazione.
      *
-     * @param array $data I dati dell'utente (es. nome, cognome, email, telefono, password)
+     * @param array $data I dati dell'utente
      * @return bool True se l'inserimento è andato a buon fine, false altrimenti.
      */
     public function createUser(array $data) {
         $sql = "INSERT INTO user_db (
-                    nome, cognome, email, telefono, password, data_registrazione, ultimo_accesso
+                    nome, cognome, email, telefono, codice_fiscale, partita_iva, ragione_sociale, indirizzo, cap, citta, provincia, nazione, password, data_registrazione, ultimo_accesso
                 ) VALUES (
-                    :nome, :cognome, :email, :telefono, :password, :data_registrazione, :ultimo_accesso
+                    :nome, :cognome, :email, :telefono, :codice_fiscale, :partita_iva, :ragione_sociale, :indirizzo, :cap, :citta, :provincia, :nazione, :password, :data_registrazione, :ultimo_accesso
                 )";
 
         $stmt = $this->pdo->prepare($sql);
@@ -30,6 +30,14 @@ class UserModel {
             ':cognome'            => $data['cognome'],
             ':email'              => $data['email'],
             ':telefono'           => $data['telefono'],
+            ':codice_fiscale'     => $data['codice_fiscale'],
+            ':partita_iva'        => $data['partita_iva'],
+            ':ragione_sociale'    => $data['ragione_sociale'],
+            ':indirizzo'          => $data['indirizzo'],
+            ':cap'                => $data['cap'],
+            ':citta'              => $data['citta'],
+            ':provincia'          => $data['provincia'],
+            ':nazione'            => $data['nazione'],
             ':password'           => password_hash($data['password'], PASSWORD_BCRYPT),
             ':data_registrazione' => date('Y-m-d H:i:s'),
             ':ultimo_accesso'     => date('Y-m-d H:i:s')
@@ -76,10 +84,10 @@ class UserModel {
     }
 
     /**
-     * Aggiorna un utente esistente.
+     * Aggiorna un utente esistente con tutti i nuovi campi.
      *
      * @param int   $id_utente L'ID dell'utente da aggiornare.
-     * @param array $data       I nuovi dati dell'utente.
+     * @param array $data      I nuovi dati dell'utente.
      * @return bool True se l'aggiornamento è andato a buon fine, false altrimenti.
      */
     public function updateUser(int $id_utente, array $data) {
@@ -88,6 +96,14 @@ class UserModel {
                     cognome = :cognome,
                     email = :email,
                     telefono = :telefono,
+                    codice_fiscale = :codice_fiscale,
+                    partita_iva = :partita_iva,
+                    ragione_sociale = :ragione_sociale,
+                    indirizzo = :indirizzo,
+                    cap = :cap,
+                    citta = :citta,
+                    provincia = :provincia,
+                    nazione = :nazione,
                     ultimo_accesso = :ultimo_accesso
                 WHERE id_utente = :id_utente";
 
@@ -98,6 +114,14 @@ class UserModel {
             ':cognome'        => $data['cognome'],
             ':email'          => $data['email'],
             ':telefono'       => $data['telefono'],
+            ':codice_fiscale' => $data['codice_fiscale'],
+            ':partita_iva'    => $data['partita_iva'],
+            ':ragione_sociale' => $data['ragione_sociale'],
+            ':indirizzo'      => $data['indirizzo'],
+            ':cap'            => $data['cap'],
+            ':citta'          => $data['citta'],
+            ':provincia'      => $data['provincia'],
+            ':nazione'        => $data['nazione'],
             ':ultimo_accesso' => date('Y-m-d H:i:s'),
             ':id_utente'      => $id_utente
         ]);
@@ -132,3 +156,4 @@ class UserModel {
         return $stmt->execute();
     }
 }
+?>

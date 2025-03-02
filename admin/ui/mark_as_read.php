@@ -1,17 +1,19 @@
 <?php
-require ("../../conn.php");
+require_once '../../app.php';
+require_once '../../config.php';
+require_once '../../models/ChatManager.php';
+loggato();
 
-// Recupera il nome dell'utente dalla richiesta
-$data = json_decode(file_get_contents('php://input'), true);
-$user_name = $data['user_name'] ?? '';
+$data = json_decode(file_get_contents("php://input"), true);
+$userName = $data['user_name'] ?? null;
 
-if (!empty($user_name)) {
-    $stmt = $conn->prepare("UPDATE chat_messages SET is_read_admin = 1 WHERE sender_name = ? AND sender_type = 'user'");
-    $stmt->bind_param('s', $user_name);
-    $stmt->execute();
-    $stmt->close();
+if (!$userName) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Nome utente mancante']);
+    exit();
 }
 
-header('Content-Type: application/json');
-echo json_encode(['status' => 'success']);
+$chatManager = new ChatManager($pdo);
+$success = $chatManager->marcaMessaggiComeLettiAdmin($userName);
+echo json_encode(['success' => $success]);
 ?>

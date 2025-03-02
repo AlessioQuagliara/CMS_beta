@@ -48,21 +48,21 @@ if (!file_exists('conn.php')) {
     $product_image = $image ? $image['image_url'] : 'src/media_system/placeholder.jpg';
 
     // Recupero i periodi associati
-    $stmt_periodi = $conn->prepare("SELECT tipo_periodo, valore_periodo FROM prodotti_periodi WHERE prodotto_id = ?");
+    $stmt_periodi = $conn->prepare("SELECT * FROM prodotti_periodi WHERE prodotto_id = ?");
     $stmt_periodi->bind_param('i', $product['id']);
     $stmt_periodi->execute();
     $result_periodi = $stmt_periodi->get_result();
     $periodi = $result_periodi->fetch_all(MYSQLI_ASSOC);
 
     // Recupero gli slot associati
-    $stmt_slot = $conn->prepare("SELECT slot FROM prodotti_slot WHERE prodotto_id = ?");
+    $stmt_slot = $conn->prepare("SELECT * FROM prodotti_slot WHERE prodotto_id = ?");
     $stmt_slot->bind_param('i', $product['id']);
     $stmt_slot->execute();
     $result_slot = $stmt_slot->get_result();
     $slots = $result_slot->fetch_all(MYSQLI_ASSOC);
 
     // Recupero gli spot associati
-    $stmt_spot = $conn->prepare("SELECT spot FROM prodotti_spot WHERE prodotto_id = ?");
+    $stmt_spot = $conn->prepare("SELECT * FROM prodotti_spot WHERE prodotto_id = ?");
     $stmt_spot->bind_param('i', $product['id']);
     $stmt_spot->execute();
     $result_spot = $stmt_spot->get_result();
@@ -156,7 +156,7 @@ if (!file_exists('conn.php')) {
                                 <select name="slot" class="form-select" required>
                                     <option value="">Seleziona uno slot</option>
                                     <?php foreach ($slots as $slot): ?>
-                                        <option value="<?php echo htmlspecialchars($slot['slot']); ?>">
+                                        <option value="<?php echo htmlspecialchars($slot['slot']); ?>" data-price="<?php echo htmlspecialchars($slot['valore_slot']); ?>">
                                             <?php echo htmlspecialchars($slot['slot']); ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -169,7 +169,7 @@ if (!file_exists('conn.php')) {
                             <select name="spot" class="form-select mb-3" required>
                                 <option value="">Seleziona uno spot</option>
                                 <?php foreach ($spots as $spot): ?>
-                                    <option value="<?php echo htmlspecialchars($spot['spot']); ?>">
+                                    <option value="<?php echo htmlspecialchars($spot['spot']); ?>" data-price="<?php echo htmlspecialchars($spot['valore_spot']); ?>">
                                         <?php echo htmlspecialchars($spot['spot']); ?>
                                     </option>
                                 <?php endforeach; ?>
@@ -191,12 +191,11 @@ if (!file_exists('conn.php')) {
                                         $dataEstesa = $timestamp ? strftime("%A %d %B %Y", $timestamp) : htmlspecialchars($periodo['tipo_periodo']);
                                     ?>
                                     <option value="<?php echo htmlspecialchars($periodo['tipo_periodo']); ?>" data-price="<?php echo htmlspecialchars($periodo['valore_periodo']); ?>">
-                                        <?php echo ucfirst($dataEstesa) . " - " . htmlspecialchars($periodo['valore_periodo']) . "€"; ?>
+                                        <?php echo ucfirst($dataEstesa); ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
-
 
                         <!-- Pulsante Aggiungi al Carrello -->
                         <button type="submit" class="btn btn-primary w-100">
@@ -225,6 +224,50 @@ if (!file_exists('conn.php')) {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const tipoPeriodoSelect = document.getElementById("tipo_periodo");
+    const slotSelect = document.querySelector("select[name='slot']");
+    const spotSelect = document.querySelector("select[name='spot']");
+    const productPriceInput = document.getElementById("product_price");
+    
+    // Crea un elemento per mostrare il prezzo totale
+    const priceDisplay = document.createElement("h5");
+    priceDisplay.classList.add("text-center", "mt-3");
+
+    // Trova il posto giusto per mostrare il prezzo
+    let container = slotSelect.closest(".card-body");
+    if (container) {
+        container.appendChild(priceDisplay);
+    }
+
+    function getOptionPrice(selectElement) {
+        let selectedOption = selectElement.selectedOptions[0];
+        return selectedOption ? parseFloat(selectedOption.getAttribute("data-price")) || 0 : 0;
+    }
+
+    function aggiornaPrezzo() {
+        let periodoPrice = getOptionPrice(tipoPeriodoSelect);
+        let slotPrice = getOptionPrice(slotSelect);
+        let spotPrice = getOptionPrice(spotSelect);
+
+        // Somma tutti i valori
+        let totalPrice = periodoPrice + slotPrice + spotPrice;
+
+        // Aggiorna il valore del form e la UI
+        productPriceInput.value = totalPrice.toFixed(2);
+        priceDisplay.innerHTML = `<strong>Prezzo Totale: €${totalPrice.toFixed(2)}</strong>`;
+    }
+
+    // Assegna gli event listener per aggiornare il prezzo quando cambiano le selezioni
+    tipoPeriodoSelect.addEventListener("change", aggiornaPrezzo);
+    slotSelect.addEventListener("change", aggiornaPrezzo);
+    spotSelect.addEventListener("change", aggiornaPrezzo);
+
+    // Calcola il prezzo iniziale appena carica la pagina
+    aggiornaPrezzo();
+});
+</script>
 <script>
 $(document).ready(function() {
     // Aggiorna il prezzo del prodotto quando viene selezionato un periodo

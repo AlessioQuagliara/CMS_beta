@@ -264,7 +264,7 @@ $images = $imageModel->getImagesByProductId($id);
             foreach ($spots as $spot):
             ?>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span><?php echo htmlspecialchars($spot['spot']); ?></span>
+                <span><?php echo htmlspecialchars($spot['spot']); ?> - <?php echo htmlspecialchars($spot['valore_spot']); ?>€</span>
                 <button class="btn btn-danger btn-sm delete-spot" data-id="<?php echo $spot['id']; ?>">
                     <i class="bi bi-trash"></i>
                 </button>
@@ -293,7 +293,7 @@ $images = $imageModel->getImagesByProductId($id);
             foreach ($slots as $slot):
             ?>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span><?php echo htmlspecialchars($slot['slot']); ?></span>
+                <span><?php echo htmlspecialchars($slot['slot']); ?> - <?php echo htmlspecialchars($slot['valore_slot']); ?>€</span>
                 <button class="btn btn-danger btn-sm delete-slot" data-id="<?php echo $slot['id']; ?>">
                     <i class="bi bi-trash"></i>
                 </button>
@@ -374,65 +374,35 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 <script>
-    document.getElementById('add-spot').addEventListener('click', function() {
-    fetch('../../function/ajax_add_spot.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ product_id: <?php echo $id; ?> })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            location.reload();
-        } else {
-            alert('Errore: ' + data.message);
-        }
-    })
-    .catch(error => console.error('Errore:', error));
-});
-
-document.querySelectorAll('.delete-spot').forEach(button => {
-    button.addEventListener('click', function() {
-        let spotId = this.getAttribute('data-id');
-        fetch('../../function/ajax_delete_spot.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: spotId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            } else {
-                alert('Errore: ' + data.message);
-            }
-        })
-        .catch(error => console.error('Errore:', error));
-    });
-});
-</script>
-<script>
-// Aggiunta di un nuovo slot
-document.getElementById('add-slot').addEventListener('click', function() {
+document.getElementById('add-spot').addEventListener('click', function() {
     Swal.fire({
-        title: "Aggiungi Slot",
-        html: '<input type="time" id="slot-time" class="swal2-input" required>',
+        title: "Aggiungi Spot",
+        html: `
+            <input type="text" id="spot-name" class="swal2-input" placeholder="Nome dello Spot" value="1° Posizione" required>
+            <input type="number" id="valore-spot" class="swal2-input" placeholder="Inserisci un Prezzo" min="1" required>
+        `,
         showCancelButton: true,
         confirmButtonText: "Aggiungi",
         cancelButtonText: "Annulla",
         preConfirm: () => {
-            const slotValue = document.getElementById('slot-time').value;
-            if (!slotValue) {
-                Swal.showValidationMessage("Inserisci un orario valido (HH:MM)");
+            const spotName = document.getElementById('spot-name').value.trim();
+            const valoreSpot = document.getElementById('valore-spot').value;
+
+            if (!spotName || !valoreSpot || valoreSpot < 1) {
+                Swal.showValidationMessage("Inserisci un nome e un valore valido!");
             }
-            return slotValue;
+            return { spotName, valoreSpot };
         }
     }).then((result) => {
         if (result.value) {
-            fetch('../../function/ajax_add_slot.php', {
+            fetch('../../function/ajax_add_spot.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ product_id: <?php echo $id; ?>, slot: result.value })
+                body: JSON.stringify({ 
+                    product_id: <?php echo $id; ?>, 
+                    spot: result.value.spotName,
+                    valore_spot: result.value.valoreSpot
+                })
             })
             .then(response => response.json())
             .then(data => {
@@ -446,25 +416,49 @@ document.getElementById('add-slot').addEventListener('click', function() {
         }
     });
 });
+</script>
+<script>
+// Aggiunta di un nuovo slot
+document.getElementById('add-slot').addEventListener('click', function() {
+    Swal.fire({
+        title: "Aggiungi Slot",
+        html: `
+            <input type="time" id="slot-name" class="swal2-input" placeholder="Seleziona l'ora" required>
+            <input type="number" id="valore-slot" class="swal2-input" placeholder="Inserisci un Prezzo" min="1" required>
+        `,
+        showCancelButton: true,
+        confirmButtonText: "Aggiungi",
+        cancelButtonText: "Annulla",
+        preConfirm: () => {
+            const slotName = document.getElementById('slot-name').value.trim();
+            const valoreSlot = document.getElementById('valore-slot').value;
 
-// Eliminazione di uno slot
-document.querySelectorAll('.delete-slot').forEach(button => {
-    button.addEventListener('click', function() {
-        let slotId = this.getAttribute('data-id');
-        fetch('../../function/ajax_delete_slot.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: slotId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            } else {
-                Swal.fire("Errore!", data.message, "error");
+            if (!slotName || !valoreSlot || valoreSlot < 1) {
+                Swal.showValidationMessage("Inserisci un nome e un valore valido!");
             }
-        })
-        .catch(error => console.error('Errore:', error));
+            return { slotName, valoreSlot };
+        }
+    }).then((result) => {
+        if (result.value) {
+            fetch('../../function/ajax_add_slot.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    product_id: <?php echo $id; ?>, 
+                    slot: result.value.slotName,
+                    valore_slot: result.value.valoreSlot
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    Swal.fire("Errore!", data.message, "error");
+                }
+            })
+            .catch(error => console.error('Errore:', error));
+        }
     });
 });
 </script>
@@ -510,8 +504,48 @@ document.querySelectorAll('.delete-slot').forEach(button => {
         }
     });
 });
+</script>
+<script>
+    document.querySelectorAll('.delete-spot').forEach(button => {
+    button.addEventListener('click', function() {
+        let spotId = this.getAttribute('data-id');
+        fetch('../../function/ajax_delete_spot.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: spotId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                Swal.fire("Errore!", data.message, "error");
+            }
+        })
+        .catch(error => console.error('Errore:', error));
+    });
+});
 
-// Eliminazione di un periodo
+document.querySelectorAll('.delete-slot').forEach(button => {
+    button.addEventListener('click', function() {
+        let slotId = this.getAttribute('data-id');
+        fetch('../../function/ajax_delete_slot.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: slotId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                Swal.fire("Errore!", data.message, "error");
+            }
+        })
+        .catch(error => console.error('Errore:', error));
+    });
+});
+
 document.querySelectorAll('.delete-periodo').forEach(button => {
     button.addEventListener('click', function() {
         let periodoId = this.getAttribute('data-id');

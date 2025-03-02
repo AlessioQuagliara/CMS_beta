@@ -179,18 +179,21 @@ class ProductSpotModel {
     }
 
     /**
-     * Aggiunge uno spot a un prodotto.
+     * Aggiunge uno spot a un prodotto con valore associato.
      *
      * @param int $product_id L'ID del prodotto a cui associare lo spot.
      * @param string $spot Il valore dello spot.
+     * @param string|null $valore_spot Il valore dello spot opzionale.
      * @return bool True se l'inserimento è andato a buon fine, false altrimenti.
      */
-    public function addSpotToProduct($product_id, $spot) {
-        $sql = "INSERT INTO prodotti_spot (prodotto_id, spot) VALUES (:prodotto_id, :spot)";
+    public function addSpotToProduct($product_id, $spot, $valore_spot = null) {
+        $sql = "INSERT INTO prodotti_spot (prodotto_id, spot, valore_spot) 
+                VALUES (:prodotto_id, :spot, :valore_spot)";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ':prodotto_id' => $product_id,
-            ':spot'        => $spot
+            ':spot'        => $spot,
+            ':valore_spot' => $valore_spot
         ]);
     }
 
@@ -208,44 +211,27 @@ class ProductSpotModel {
     }
 
     /**
-     * Recupera un singolo spot per ID.
+     * Aggiorna il valore dello spot per un prodotto.
      *
      * @param int $spot_id L'ID dello spot.
-     * @return array|false Lo spot come array associativo, oppure false se non trovato.
+     * @param string $valore_spot Il valore aggiornato dello spot.
+     * @return bool True se l'aggiornamento è andato a buon fine, false altrimenti.
      */
-    public function getSpotById($spot_id) {
-        $sql = "SELECT * FROM prodotti_spot WHERE id = :id LIMIT 1";
+    public function updateSpotValue($spot_id, $valore_spot) {
+        $sql = "UPDATE prodotti_spot SET valore_spot = :valore_spot WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':id' => $spot_id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->execute([
+            ':id'          => $spot_id,
+            ':valore_spot' => $valore_spot
+        ]);
     }
 
-    /**
-     * Elimina uno spot dal database.
-     *
-     * @param int $spot_id L'ID dello spot da eliminare.
-     * @return bool True se l'eliminazione è andata a buon fine, false altrimenti.
-     */
     public function deleteSpot($spot_id) {
         $sql = "DELETE FROM prodotti_spot WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([':id' => $spot_id]);
     }
-
-    /**
-     * Elimina tutti gli spot di un prodotto specifico.
-     *
-     * @param int $product_id L'ID del prodotto.
-     * @return bool True se l'eliminazione è andata a buon fine, false altrimenti.
-     */
-    public function deleteSpotsByProductId($product_id) {
-        $sql = "DELETE FROM prodotti_spot WHERE prodotto_id = :prodotto_id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([':prodotto_id' => $product_id]);
-    }
 }
-
-
 
 class ProductSlotModel {
     private $pdo;
@@ -255,18 +241,21 @@ class ProductSlotModel {
     }
 
     /**
-     * Aggiunge uno slot a un prodotto.
+     * Aggiunge uno slot a un prodotto con valore associato.
      *
      * @param int $product_id L'ID del prodotto a cui associare lo slot.
      * @param string $slot Il valore dello slot.
+     * @param string|null $valore_slot Il valore dello slot opzionale.
      * @return bool True se l'inserimento è andato a buon fine, false altrimenti.
      */
-    public function addSlotToProduct($product_id, $slot) {
-        $sql = "INSERT INTO prodotti_slot (prodotto_id, slot) VALUES (:prodotto_id, :slot)";
+    public function addSlotToProduct($product_id, $slot, $valore_slot = null) {
+        $sql = "INSERT INTO prodotti_slot (prodotto_id, slot, valore_slot) 
+                VALUES (:prodotto_id, :slot, :valore_slot)";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ':prodotto_id' => $product_id,
-            ':slot'        => $slot
+            ':slot'        => $slot,
+            ':valore_slot' => $valore_slot
         ]);
     }
 
@@ -284,40 +273,25 @@ class ProductSlotModel {
     }
 
     /**
-     * Recupera un singolo slot per ID.
+     * Aggiorna il valore dello slot per un prodotto.
      *
      * @param int $slot_id L'ID dello slot.
-     * @return array|false Lo slot come array associativo, oppure false se non trovato.
+     * @param string $valore_slot Il valore aggiornato dello slot.
+     * @return bool True se l'aggiornamento è andato a buon fine, false altrimenti.
      */
-    public function getSlotById($slot_id) {
-        $sql = "SELECT * FROM prodotti_slot WHERE id = :id LIMIT 1";
+    public function updateSlotValue($slot_id, $valore_slot) {
+        $sql = "UPDATE prodotti_slot SET valore_slot = :valore_slot WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':id' => $slot_id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->execute([
+            ':id'          => $slot_id,
+            ':valore_slot' => $valore_slot
+        ]);
     }
 
-    /**
-     * Elimina uno slot dal database.
-     *
-     * @param int $slot_id L'ID dello slot da eliminare.
-     * @return bool True se l'eliminazione è andata a buon fine, false altrimenti.
-     */
     public function deleteSlot($slot_id) {
         $sql = "DELETE FROM prodotti_slot WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([':id' => $slot_id]);
-    }
-
-    /**
-     * Elimina tutti gli slot di un prodotto specifico.
-     *
-     * @param int $product_id L'ID del prodotto.
-     * @return bool True se l'eliminazione è andata a buon fine, false altrimenti.
-     */
-    public function deleteSlotsByProductId($product_id) {
-        $sql = "DELETE FROM prodotti_slot WHERE prodotto_id = :prodotto_id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([':prodotto_id' => $product_id]);
     }
 }
 
@@ -337,7 +311,8 @@ class ProdottiPeriodiModel {
      * @return bool True se l'inserimento è andato a buon fine, false altrimenti.
      */
     public function addPeriodoToProduct($product_id, $tipo_periodo, $valore_periodo) {
-        $sql = "INSERT INTO prodotti_periodi (prodotto_id, tipo_periodo, valore_periodo) VALUES (:prodotto_id, :tipo_periodo, :valore_periodo)";
+        $sql = "INSERT INTO prodotti_periodi (prodotto_id, tipo_periodo, valore_periodo) 
+                VALUES (:prodotto_id, :tipo_periodo, :valore_periodo)";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([
             ':prodotto_id'   => $product_id,
@@ -360,40 +335,25 @@ class ProdottiPeriodiModel {
     }
 
     /**
-     * Recupera un singolo periodo per ID.
+     * Aggiorna il valore di un periodo per un prodotto.
      *
      * @param int $periodo_id L'ID del periodo.
-     * @return array|false Il periodo come array associativo, oppure false se non trovato.
+     * @param string $valore_periodo Il valore aggiornato del periodo.
+     * @return bool True se l'aggiornamento è andato a buon fine, false altrimenti.
      */
-    public function getPeriodoById($periodo_id) {
-        $sql = "SELECT * FROM prodotti_periodi WHERE id = :id LIMIT 1";
+    public function updatePeriodoValue($periodo_id, $valore_periodo) {
+        $sql = "UPDATE prodotti_periodi SET valore_periodo = :valore_periodo WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':id' => $periodo_id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->execute([
+            ':id'             => $periodo_id,
+            ':valore_periodo' => $valore_periodo
+        ]);
     }
 
-    /**
-     * Elimina un periodo dal database.
-     *
-     * @param int $periodo_id L'ID del periodo da eliminare.
-     * @return bool True se l'eliminazione è andata a buon fine, false altrimenti.
-     */
     public function deletePeriodo($periodo_id) {
         $sql = "DELETE FROM prodotti_periodi WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([':id' => $periodo_id]);
-    }
-
-    /**
-     * Elimina tutti i periodi di un prodotto specifico.
-     *
-     * @param int $product_id L'ID del prodotto.
-     * @return bool True se l'eliminazione è andata a buon fine, false altrimenti.
-     */
-    public function deletePeriodiByProductId($product_id) {
-        $sql = "DELETE FROM prodotti_periodi WHERE prodotto_id = :prodotto_id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([':prodotto_id' => $product_id]);
     }
 }
 ?>

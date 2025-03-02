@@ -15,7 +15,10 @@ $chatManager = new ChatManager($pdo);
 $Orders = $ordersModel->getAllOrders();
 
 // Recupera i messaggi non letti
-$messaggiNonLetti = $chatManager->contaMessaggiNonLettiUtente($_SESSION['user']['nome']);
+$messaggiNonLetti = $chatManager->contaMessaggiNonLettiAdmin($_SESSION['user']['nome']);
+
+// Recupera tutti gli utenti con conversazioni aperte con l'admin
+$utentiConMessaggi = $chatManager->getUtentiConMessaggi();
 
 ?>
 <!DOCTYPE html>
@@ -153,20 +156,25 @@ $messaggiNonLetti = $chatManager->contaMessaggiNonLettiUtente($_SESSION['user'][
                 <div class="tab-pane fade" id="nav-messaggi" role="tabpanel" aria-labelledby="nav-messaggi-tab" tabindex="0">
                     <div class="list-group">
                         <?php 
-                        $messaggi = $chatManager->getMessaggiPerUtente($_SESSION['user']['nome']);
-                        if (!empty($messaggi)):
-                            foreach ($messaggi as $msg):
+                        if (!empty($utentiConMessaggi)):
+                            foreach ($utentiConMessaggi as $utente):
+                                $userName = htmlspecialchars($utente['user_name']);
+                                $messaggi = $chatManager->getMessaggiPerAdmin($userName);
+                                $ultimoMessaggio = end($messaggi);
+                                $messaggiNonLettiUtente = $chatManager->contaMessaggiNonLettiAdmin($userName);
                         ?>
-                            <div class="list-group-item d-flex justify-content-between align-items-start">
+                            <a href="chat_clienti" class="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
                                 <div>
-                                    <strong><?php echo htmlspecialchars($msg['sender_name']); ?>:</strong>
-                                    <p class="mb-1"><?php echo nl2br(htmlspecialchars($msg['message'])); ?></p>
-                                    <small class="text-muted"><?php echo date('d/m/Y H:i', strtotime($msg['created_at'])); ?></small>
+                                    <strong><i class="fa fa-user"></i> <?php echo $userName; ?></strong>
+                                    <p class="mb-1 text-muted"><?php echo nl2br(htmlspecialchars($ultimoMessaggio['message'] ?? '')); ?></p>
+                                    <small class="text-muted">
+                                        <?php echo !empty($ultimoMessaggio) ? date('d/m/Y H:i', strtotime($ultimoMessaggio['created_at'])) : ''; ?>
+                                    </small>
                                 </div>
-                                <span class="badge bg-<?php echo $msg['is_read'] ? 'secondary' : 'primary'; ?>">
-                                    <?php echo $msg['is_read'] ? 'Letto' : 'Nuovo'; ?>
+                                <span class="badge bg-<?php echo $messaggiNonLettiUtente ? 'danger' : 'secondary'; ?>">
+                                    <?php echo $messaggiNonLettiUtente ? $messaggiNonLettiUtente . ' Nuovi' : 'Nessun nuovo'; ?>
                                 </span>
-                            </div>
+                            </a>
                         <?php endforeach; ?>
                         <?php else: ?>
                             <p class="text-center text-muted">Nessun messaggio ricevuto.</p>

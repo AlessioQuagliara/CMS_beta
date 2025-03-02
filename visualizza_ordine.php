@@ -1,12 +1,10 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 session_start();
 require_once 'app.php';
 require_once 'config.php';
 require_once 'models/orders.php';
 require_once 'models/order_items.php';
+require_once 'models/prodotti_pubblicitari.php';
 
 if (!isset($_SESSION['user'])) {
     header('Location: Login');
@@ -16,6 +14,7 @@ if (!isset($_SESSION['user'])) {
 // Recupera i modelli
 $ordersModel = new OrdersModel($pdo);
 $orderItemsModel = new OrderItemsModel($pdo);
+$productsModel = new ProdottiPubblicitariModel($pdo);
 
 // Recupera l'ID dell'ordine dalla query string
 $order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
@@ -27,6 +26,15 @@ if ($order_id === 0) {
 // Recupera i dettagli dell'ordine e gli articoli associati
 $order = $ordersModel->getOrderById($order_id);
 $orderItems = $orderItemsModel->getItemsByOrderId($order_id);
+// Verifica che ci siano articoli nell'ordine
+if (!empty($orderItems)) {
+    foreach ($orderItems as $key => $item) {
+        $product = $productsModel->getProductById($item['product_id']);
+        $orderItems[$key]['product_name'] = $product ? $product['nome'] : "Prodotto non trovato";
+    }
+} else {
+    $orderItems = []; // Assicura che non ci siano errori su array vuoti
+}
 
 // Controlla se l'ordine è nello stato 'completed'
 $isCompleted = $order && $order['status'] === 'completed' || $order && $order['status'] === 'paid';
@@ -70,8 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isCompleted) {
     echo json_encode($response);
     exit;
 }
-?>
-<?php
+
 // Conta i file nelle cartelle immagini e video
 $imageFiles = glob("$uploadDir/immagini/*.{jpg,jpeg,png}", GLOB_BRACE);
 $videoFiles = glob("$uploadDir/video/*.mp4");
@@ -119,6 +126,30 @@ $videoCount = count($videoFiles);
 <div class="container mt-4">
     <h1 class="mb-4" style="color: #003f88;">Dettaglio Ordine #<?php echo $order_id; ?></h1>
 
+    <?php if ($order && $order['status'] === 'completed'): ?>
+    <div class="card mb-4 shadow-lg border-0">
+        <div class="card-body">
+            <h5><i class="fa fa-file-alt"></i> Report della Campagna</h5>
+            <p>Visualizza il report dettagliato della campagna.</p>
+            <?php
+                $reportPDF = "uploads/reports/{$order_id}/report.pdf";
+                $reportImage = "uploads/reports/{$order_id}/report.png";
+            if (file_exists($reportPDF)) {
+                echo '<object data="' . $reportPDF . '" type="application/pdf" width="100%" height="600px">
+                        <p>Il tuo browser non supporta la visualizzazione dei PDF. <a href="' . $reportPDF . '" target="_blank">Clicca qui per visualizzarlo.</a></p>
+                      </object>';
+            } elseif (file_exists($reportImage)) {
+                echo '<img src="' . $reportImage . '" class="img-fluid" alt="Report della Campagna">';
+            } else {
+                echo '<div class="alert alert-warning">
+                        <i class="fa fa-exclamation-circle"></i> Report non disponibile.
+                      </div>';
+            }
+            ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <?php if ($order): ?>
         <div class="card mb-4 shadow-lg border-0">
             <div class="card-body">
@@ -126,13 +157,93 @@ $videoCount = count($videoFiles);
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><strong>ID Ordine:</strong> #<?php echo $order['id']; ?></li>
                     <li class="list-group-item"><strong>Totale:</strong> €<?php echo number_format($order['total_price'], 2); ?></li>
-                    <li class="list-group-item"><strong>Stato:</strong> <?php echo ucfirst($order['status']); ?></li>
-                    <li class="list-group-item"><strong>Creato il:</strong> <?php echo date('d/m/Y H:i', strtotime($order['created_at'])); ?></li>
+                    <?php
+                    $status = $order['status'];
+                    switch ($status) {
+                        case 'pending':
+                            $statusText = 'In attesa';
+                            $badgeClass = 'bg-warning';
+                            break;
+                        case 'paid':
+                            $statusText = 'Pagato';
+                            $badgeClass = 'bg-info';
+                            break;
+                        case 'shipped':
+                            $statusText = 'In Corso';
+                            $badgeClass = 'bg-primary';
+                            break;
+                        case 'completed':
+                            $statusText = 'Completato';
+                            $badgeClass = 'bg-success';
+                            break;
+                        case 'cancelled':
+                            $statusText = 'Annullato';
+                            $badgeClass = 'bg-danger';
+                            break;
+                        default:
+                            $statusText = ucfirst($status);
+                            $badgeClass = 'bg-secondary';
+                            break;
+                    }
+                    ?>
+                    <li class="list-group-item">
+                        <strong>Stato:</strong> <span class="badge <?php echo $badgeClass; ?>"><?php echo $statusText; ?></span>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Creato il:</strong>
+                        <?php
+                        $dateTime = new DateTime($order['created_at']);
+                        $formatter = new IntlDateFormatter('it_IT', IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+                        echo $formatter->format($dateTime);
+                        ?>
+                    </li>
                 </ul>
             </div>
         </div>
 
-        <?php if ($isCompleted): ?>
+        <?php if (!empty($orderItems)): ?>
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white">
+                    <h5><i class="fa fa-boxes"></i> Articoli dell'Ordine</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th>Prodotto</th>
+                                    <th>Periodo</th>
+                                    <th>Slot</th>
+                                    <th>Spot</th>
+                                    <th>Prezzo</th>
+                                    <th>Data Aggiunta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($orderItems as $item): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($item['product_name']); ?></td>
+                                        <td><?php echo ucfirst(htmlspecialchars($item['tipo_periodo'])); ?></td>
+                                        <td><?php echo htmlspecialchars($item['slot']); ?></td>
+                                        <td><?php echo htmlspecialchars($item['spot']); ?></td>
+                                        <td><span class="badge bg-success">€<?php echo number_format($item['price'], 2); ?></span></td>
+                                        <td><?php echo date('d/m/Y H:i', strtotime($item['created_at'])); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="alert alert-warning">
+                <i class="fa fa-exclamation-circle"></i> Nessun articolo trovato per questo ordine.
+            </div>
+        <?php endif; ?>
+
+        <br>
+
+        <?php if ($order && in_array($order['status'], ['completed', 'paid', 'shipped'])): ?>
             <div class="card mb-4 shadow-lg border-0">
                 <div class="card-body">
                     <h5><i class="fa fa-upload"></i> Carica Immagini e Video</h5>
@@ -166,6 +277,8 @@ $videoCount = count($videoFiles);
         </div>
     <?php endif; ?>
 </div>
+
+<br><br><br><br><br><br><br>
 
 <script>
 function showUploadModal() {

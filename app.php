@@ -322,50 +322,120 @@ function stampaOreAssistenza()
 // HomePage.php (dashboard) ---------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
 
-// ---------------------------------------------------------------------------------------------------------------------
-// FUNZIONE PER LE VISITE DEL SITO ---------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
 function visite()
 {
     require '../../conn.php'; 
+    require 'config.php'; 
 
-    $totalVisitsQuery = "SELECT COUNT(*) as total FROM visitatori";
-    $totalResult = $conn->query($totalVisitsQuery);
-    $totalRow = $totalResult->fetch_assoc();
-    $totalVisits = $totalRow['total'];
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $monthlyVisitsQuery = "SELECT YEAR(data_visita) as year, MONTH(data_visita) as month, COUNT(*) as visits FROM visitatori GROUP BY YEAR(data_visita), MONTH(data_visita) ORDER BY YEAR(data_visita) DESC, MONTH(data_visita) DESC";
-    $monthlyResult = $conn->query($monthlyVisitsQuery);
+        // Query per il totale delle visite
+        $totalVisitsQuery = "SELECT COUNT(*) as total FROM visitatori";
+        $totalVisitsStmt = $pdo->query($totalVisitsQuery);
+        $totalVisits = $totalVisitsStmt->fetch(PDO::FETCH_ASSOC)['total'];
 
-    $html = '<div class="container mt-5">';
-    $html .= '<div class="row">';
-    $html .= '<div class="col-md-6">';
-    $html .= '<div class="p-3 mb-3 bg-light rounded-3">';
-    $html .= '<h4>Visite Totali</h4>';
-    $html .= '<p class="fs-1">' . $totalVisits . '</p>';
-    $html .= '</div>';
-    $html .= '</div>';
-    $html .= '<div class="col-md-6">';
-    $html .= '<div class="p-3 mb-3 bg-light rounded-3">';
-    $html .= '<h4>Visite per Mese</h4>';
-    $html .= '<ul class="list-group">';
+        // Query per le visite mensili
+        $monthlyVisitsQuery = "
+            SELECT 
+                DATE_FORMAT(data_visita, '%Y-%m') AS month, 
+                COUNT(*) as visits 
+            FROM visitatori 
+            GROUP BY month 
+            ORDER BY month DESC";
+        $monthlyVisitsStmt = $pdo->query($monthlyVisitsQuery);
+        $monthlyVisits = $monthlyVisitsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    while ($row = $monthlyResult->fetch_assoc()) {
-        $html .= '<li class="list-group-item d-flex justify-content-between align-items-center">';
-        $html .= $row['month'] . '/' . $row['year'];
-        $html .= '<span class="badge bg-primary rounded-pill">' . $row['visits'] . '</span>';
-        $html .= '</li>';
+        // Dati per il grafico
+        $labels = [];
+        $visitsData = [];
+        foreach ($monthlyVisits as $row) {
+            $labels[] = '"' . date("F Y", strtotime($row['month'] . "-01")) . '"';
+            $visitsData[] = $row['visits'];
+        }
+
+        $pdo = null;
+
+        // Inizio HTML
+        $html = '<div class="container mt-4">';
+        $html .= '<div class="row">';
+
+        // Box Visite Totali
+        $html .= '<div class="col-md-6">';
+        $html .= '<div class="p-3 mb-3 bg-light rounded-3 text-center shadow-sm">';
+        $html .= '<h4><i class="fa fa-chart-line"></i> Visite Totali</h4>';
+        $html .= '<p class="fs-1 fw-bold text-primary">' . number_format($totalVisits) . '</p>';
+        $html .= '</div>';
+        $html .= '</div>';
+
+        // Box Grafico Visite
+        $html .= '<div class="col-md-6">';
+        $html .= '<div class="p-3 mb-3 bg-light rounded-3 text-center shadow-sm">';
+        $html .= '<h4><i class="fa fa-chart-bar"></i> Trend Visite</h4>';
+        $html .= '<canvas id="visitsChart"></canvas>';
+        $html .= '</div>';
+        $html .= '</div>';
+
+        // Tabella delle visite mensili
+        $html .= '<div class="col-md-12">';
+        $html .= '<div class="p-3 mb-3 bg-light rounded-3 shadow-sm">';
+        $html .= '<h4><i class="fa fa-calendar-alt"></i> Visite per Mese</h4>';
+        $html .= '<table class="table table-striped table-hover">';
+        $html .= '<thead class="table-dark"><tr><th>Mese</th><th class="text-end">Numero Visite</th></tr></thead>';
+        $html .= '<tbody>';
+        foreach ($monthlyVisits as $row) {
+            $html .= '<tr>';
+            $html .= '<td>' . date("F Y", strtotime($row['month'] . "-01")) . '</td>';
+            $html .= '<td class="text-end"><span class="badge bg-primary fs-6">' . number_format($row['visits']) . '</span></td>';
+            $html .= '</tr>';
+        }
+        $html .= '</tbody>';
+        $html .= '</table>';
+        $html .= '</div>';
+        $html .= '</div>';
+
+        // Chiudi container
+        $html .= '</div>';
+        $html .= '</div>';
+
+        // Aggiunge il grafico
+        $html .= '
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const ctx = document.getElementById("visitsChart").getContext("2d");
+                    new Chart(ctx, {
+                        type: "bar",
+                        data: {
+                            labels: [' . implode(", ", $labels) . '],
+                            datasets: [{
+                                label: "Visite Mensili",
+                                data: [' . implode(", ", $visitsData) . '],
+                                backgroundColor: "rgba(54, 162, 235, 0.5)",
+                                borderColor: "rgba(54, 162, 235, 1)",
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: { beginAtZero: true }
+                            }
+                        }
+                    });
+                });
+            </script>
+        ';
+
+        return $html;
+
+    } catch (PDOException $e) {
+        return '<div class="alert alert-danger">Errore nel recupero delle visite: ' . $e->getMessage() . '</div>';
     }
-
-    $html .= '</ul>';
-    $html .= '</div>';
-    $html .= '</div>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    $conn->close();
-
-    return $html;
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // FUNZIONE PER POP DETTAGLI DEL NEGOZIO ---------------------------------------------------------------------------------------

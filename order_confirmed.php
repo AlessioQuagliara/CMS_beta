@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 session_start();
 require_once 'app.php';
 require_once 'conn.php';
@@ -60,8 +57,35 @@ try {
             <ul class="list-group mb-3">
                 <li class="list-group-item"><strong>ID Ordine:</strong> <?php echo htmlspecialchars($order['id']); ?></li>
                 <li class="list-group-item"><strong>Totale:</strong> €<?php echo htmlspecialchars($order['total_price']); ?></li>
-                <li class="list-group-item"><strong>Stato:</strong> <?php echo htmlspecialchars($order['status']); ?></li>
-                <li class="list-group-item"><strong>Data:</strong> <?php echo htmlspecialchars($order['created_at']); ?></li>
+                <li class="list-group-item">
+                    <strong>Stato:</strong>
+                    <?php 
+                        // Classi badge in base allo status
+                        switch ($order['status']) {
+                            case 'pending': $badgeClass = 'bg-warning text-dark'; break;
+                            case 'paid': $badgeClass = 'bg-info'; break;
+                            case 'shipped': $badgeClass = 'bg-primary'; break;
+                            case 'completed': $badgeClass = 'bg-success'; break;
+                            case 'cancelled': $badgeClass = 'bg-danger'; break;
+                            default: $badgeClass = 'bg-secondary';
+                        }
+                        // Traduzioni front-end
+                        $statusTranslations = [
+                            'pending' => 'In attesa',
+                            'paid' => 'Pagato',
+                            'shipped' => 'In Corso',
+                            'completed' => 'Completato',
+                            'cancelled' => 'Annullato'
+                        ];
+                        $translatedStatus = isset($statusTranslations[$order['status']]) ? $statusTranslations[$order['status']] : ucfirst($order['status']);
+                    ?>
+                    <span class="badge <?php echo $badgeClass; ?>"><?php echo htmlspecialchars($translatedStatus); ?></span>
+                </li>
+                <li class="list-group-item"><strong>Data:</strong> <?php 
+                    setlocale(LC_TIME, 'it_IT.UTF-8');
+                    $date = new DateTime($order['created_at']);
+                    echo htmlspecialchars(ucfirst(strftime('%A %d %B %Y', $date->getTimestamp()))); 
+                ?></li>
             </ul>
 
             <h5>Dettagli per il pagamento:</h5>

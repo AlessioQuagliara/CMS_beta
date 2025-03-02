@@ -15,6 +15,7 @@ $userName = htmlspecialchars($_SESSION['user']['nome'], ENT_QUOTES, 'UTF-8');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Assistenza</title>
+    <link rel="shortcut icon" href="src/media_system/favicon_site.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
@@ -60,6 +61,6 @@ $userName = htmlspecialchars($_SESSION['user']['nome'], ENT_QUOTES, 'UTF-8');
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="chat_user.js"></script>
+<script src="script/chat_user.js"></script>
 </body>
 </html>

@@ -25,7 +25,7 @@ try {
     }
 
     $user = $_SESSION['user'];
-    $user_id = $user['id'];
+    $user_id = $user['id_utente'];
     $total_price = array_sum(array_map(function($item) {
         return $item['price'] * $item['quantity'];
     }, $_SESSION['cart']));

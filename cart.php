@@ -192,6 +192,6 @@ $(document).ready(function() {
     });
 });
 </script>
-<?php require_once 'cart_edit.php'; ?>
+<script src="script/cart_controller.js"></script>
 </body>
 </html>

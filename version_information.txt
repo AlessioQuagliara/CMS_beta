@@ -1,1 +1,1 @@
-- Implementazione di un nuovo plugin
+Modifiche e risoluzioni bug

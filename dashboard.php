@@ -3,6 +3,7 @@ session_start();
 require_once 'app.php'; // Connessione al database
 require_once 'config.php';
 require_once 'models/orders.php';
+require_once 'models/user.php';
 
 // Controlla se l'utente è loggato
 if (!isset($_SESSION['user'])) {
@@ -11,12 +12,19 @@ if (!isset($_SESSION['user'])) {
 }
 
 // Recupera le informazioni dell'utente loggato
-$userId = intval($_SESSION['user']['id']); // Ora prende l'ID corretto
+$userId = intval($_SESSION['user']['id_utente']); // Ora prende l'ID corretto
 $userName = htmlspecialchars($_SESSION['user']['nome'], ENT_QUOTES, 'UTF-8');
 
 // Recupera gli ordini dell'utente
 $ordersModel = new OrdersModel($pdo);
 $userOrders = $ordersModel->getOrdersByUserId($userId);
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+if (isset($_SESSION['user']['id'])) {
+    $userModel = new UserModel($pdo);
+    $_SESSION['user'] = $userModel->getUserById($_SESSION['user']['id']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +53,9 @@ $userOrders = $ordersModel->getOrdersByUserId($userId);
         <a class="nav-link text-white" href="dashboard.php">
             <i class="fa fa-home"></i> <br>Dashboard
         </a>
+        <a class="nav-link text-white" href="impostazioni.php">
+            <i class="fa fa-cog"></i> <br>Impostazioni
+        </a>
         <a class="nav-link text-white" href="chat.php">
             <i class="fa fa-comments"></i> <br>Chat
         </a>
@@ -54,11 +65,32 @@ $userOrders = $ordersModel->getOrdersByUserId($userId);
     </div>
 </nav>
 
+<?php
+$required_fields = ['codice_fiscale', 'partita_iva', 'ragione_sociale', 'indirizzo', 'cap', 'citta', 'provincia', 'nazione'];
+$missingData = false;
+
+foreach ($required_fields as $field) {
+    if (empty($_SESSION['user'][$field])) {
+        $missingData = true;
+        break;
+    }
+}
+
+if ($missingData): ?>
+<div class="container mt-4">
+    <br><br><br>
+    <div class="card text-white bg-warning mb-3">
+        <div class="card-header">Dati Profilo Incompleti</div>
+        <div class="card-body">
+            <p class="card-text">Hai dei dati mancanti nel tuo profilo. Completa le informazioni nelle impostazioni.</p>
+            <a href="impostazioni.php" class="btn btn-primary">Vai alle impostazioni</a>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
     <!-- Contenuto della pagina -->
     <div class="container mt-4">
-        <button class="btn btn-primary" id="toggle-sidebar">
-            <i class="fa-solid fa-bars"></i>
-        </button>
 
         <h1 class="mt-4" style="color: #003f88;">I miei ordini</h1>
 
@@ -80,21 +112,36 @@ $userOrders = $ordersModel->getOrdersByUserId($userId);
                                 <td>#<?php echo $order['id']; ?></td>
                                 <td><span class="badge bg-success">€<?php echo number_format($order['total_price'], 2); ?></span></td>
                                 <td>
-                                    <span class="badge 
-                                        <?php 
-                                            switch ($order['status']) {
-                                                case 'pending': echo 'bg-warning text-dark'; break;
-                                                case 'paid': echo 'bg-info'; break;
-                                                case 'shipped': echo 'bg-primary'; break;
-                                                case 'completed': echo 'bg-success'; break;
-                                                case 'cancelled': echo 'bg-danger'; break;
-                                                default: echo 'bg-secondary';
-                                            }
-                                        ?>">
-                                        <?php echo ucfirst($order['status']); ?>
+                                    <?php 
+                                        // Classi badge in base allo status
+                                        switch ($order['status']) {
+                                            case 'pending': $badgeClass = 'bg-warning text-dark'; break;
+                                            case 'paid': $badgeClass = 'bg-info'; break;
+                                            case 'shipped': $badgeClass = 'bg-primary'; break;
+                                            case 'completed': $badgeClass = 'bg-success'; break;
+                                            case 'cancelled': $badgeClass = 'bg-danger'; break;
+                                            default: $badgeClass = 'bg-secondary';
+                                        }
+                                        // Traduzioni front-end
+                                        $statusTranslations = [
+                                            'pending' => 'In attesa',
+                                            'paid' => 'Pagato',
+                                            'shipped' => 'In Corso',
+                                            'completed' => 'Completato',
+                                            'cancelled' => 'Annullato'
+                                        ];
+                                        $translatedStatus = isset($statusTranslations[$order['status']]) ? $statusTranslations[$order['status']] : ucfirst($order['status']);
+                                    ?>
+                                    <span class="badge <?php echo $badgeClass; ?>">
+                                        <?php echo $translatedStatus; ?>
                                     </span>
                                 </td>
-                                <td><?php echo date('d/m/Y H:i', strtotime($order['created_at'])); ?></td>
+                                <td>
+                                    <?php
+                                        setlocale(LC_TIME, 'it_IT.UTF-8');
+                                        echo strftime('%A %d %B %Y', strtotime($order['created_at']));
+                                    ?>
+                                </td>
                                 <td>
                                     <a href="visualizza_ordine.php?order_id=<?php echo $order['id']; ?>" class="btn btn-sm btn-outline-primary">
                                         <i class="fa fa-eye"></i> Dettagli

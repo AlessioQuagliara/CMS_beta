@@ -198,5 +198,44 @@ if (!file_exists('conn.php')) {
     });
 </script>
 <?php require_once 'cart_edit.php'; ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+// Seleziona il form e gestisci l'invio
+document.getElementById("contact-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Previeni il ricaricamento della pagina
+
+    let formData = new FormData(this);
+
+    fetch("i_send_email.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire({
+                icon: "success",
+                title: "Email inviata!",
+                text: "Ti risponderemo al più presto."
+            });
+            document.getElementById("contact-form").reset();
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Errore",
+                text: "Si è verificato un problema, riprova più tardi."
+            });
+        }
+    })
+    .catch(error => {
+        Swal.fire({
+            icon: "error",
+            title: "Errore",
+            text: "Errore di connessione."
+        });
+    });
+});
+
+</script>
 </body>
 </html>

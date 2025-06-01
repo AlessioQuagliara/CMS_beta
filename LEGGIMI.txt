@@ -1,7 +1,0 @@
-Per installare i database apri phpmyadmin sulla tua macchina virtuale e installa tutti i database della cartella /database.
-
-Per accedere al pannello ADMIN vai sulla URL e digita 'admin/' il sistema ti porterà direttamente al login
-
-
-//$servername = "89.46.111.200"; $username = "Sql1701673"; $password = "WtQ5i8h20@"; $dbname = "Sql1701673_1";
-

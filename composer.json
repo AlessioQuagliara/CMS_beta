@@ -1,23 +1,5 @@
 {
-    "name": "alessio/cms",
-    "description": "CMS Payments Stripe",
-    "autoload": {
-        "psr-4": {
-            "Alessio\\Cms\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Spotex Srl"
-        }
-    ],
     "require": {
-        "stripe/stripe-php": "^13.9",
-        "paypal/rest-api-sdk-php": "^1.14",
-        "twbs/bootstrap": "^5.3",
-        "sonata-project/google-authenticator": "^2.3",
-        "mailchimp/marketing": "^3.0",
-        "guzzlehttp/guzzle": "^7.8",
-        "czproject/git-php": "^4.2"
+        "phpmailer/phpmailer": "^6.10"
     }
 }

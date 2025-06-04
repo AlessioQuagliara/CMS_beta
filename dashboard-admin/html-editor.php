@@ -82,7 +82,7 @@ if (!$admin) {
         <a href="#" data-target="slide-out" class="sidenav-trigger show-on-medium-and-down"><i class="material-icons">menu</i></a>
         <ul class="right" style="display: flex; align-items: center; gap: 10px; margin-right: 20px;">
           <li>
-            <a class="btn white blue-text text-darken-3 waves-effect waves-blue" style="margin-right: 8px;" onclick="editor.store()">
+            <a class="btn white blue-text text-darken-3 waves-effect waves-blue" style="margin-right: 8px;" onclick="savePage()">
               <i class="material-icons left">save</i>Salva
             </a>
           </li>
@@ -92,15 +92,9 @@ if (!$admin) {
             </a>
           </li>
           <li>
-            <div class="input-field" style="margin: 0;">
-              <select id="page-select" class="browser-default" onchange="changePage(this.value)">
-                <option value="" disabled selected>Scegli Pagina</option>
-                <option value="home.html">Home</option>
-                <option value="chi-siamo.html">Chi Siamo</option>
-                <option value="contatti.html">Contatti</option>
-                <!-- Aggiungi altre opzioni se necessario -->
-              </select>
-            </div>
+            <a class="btn white blue-text text-darken-3 waves-effect waves-blue modal-trigger" href="#pageModal" style="margin-right: 8px;">
+              <i class="material-icons left">file_open</i>Pagine
+            </a>
           </li>
           <li>
             <div style="display: flex; gap: 4px;">
@@ -173,11 +167,15 @@ if (!$admin) {
       pluginsOpts: {},
     });
 
-    function changePage(page) {
-      fetch('pages/' + page)
-        .then(response => response.text())
-        .then(html => {
-          editor.setComponents(html);
+    function changePage(pageSlug) {
+      fetch('../api/get_page.php?slug=' + encodeURIComponent(pageSlug))
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            editor.setComponents(data.content);
+          } else {
+            console.error('Errore: contenuto non trovato');
+          }
         })
         .catch(error => {
           console.error('Errore nel caricamento della pagina:', error);
@@ -422,5 +420,149 @@ if (!$admin) {
       </div>
     </div>
   </div>
+  <div id="pageModal" class="modal">
+    <div class="modal-content">
+      <h5>Gestione Pagine</h5>
+      <div class="input-field">
+        <input id="new-page-title" type="text">
+        <label for="new-page-title">Titolo Pagina</label>
+      </div>
+      <div class="input-field">
+        <input id="new-page-slug" type="text">
+        <label for="new-page-slug">Slug (es. chi-siamo)</label>
+      </div>
+      <button class="btn blue white-text" onclick="createPage()">Crea Pagina</button>
+      <hr><br>
+      <div class="input-field">
+        <select id="existing-pages-select" class="browser-default" onchange="changePage(this.value)">
+          <option value="" disabled selected>Seleziona una pagina esistente</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close btn-flat">Chiudi</a>
+    </div>
+  </div>
+
+<script>
+// Popola il select delle pagine esistenti nel modale
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    const response = await fetch('../api/list_pages.php');
+    const data = await response.json();
+
+    if (Array.isArray(data)) {
+      const select = document.getElementById('existing-pages-select');
+      data.forEach(page => {
+        const opt = document.createElement('option');
+        opt.value = page.slug;
+        opt.textContent = page.title;
+        select.appendChild(opt);
+      });
+    } else {
+      M.toast({ html: 'Nessuna pagina trovata o errore nel caricamento' });
+    }
+  } catch (error) {
+    console.error('Errore durante il fetch delle pagine:', error);
+    M.toast({ html: 'Errore di rete nel caricamento pagine' });
+  }
+});
+
+async function createPage() {
+  const title = document.getElementById('new-page-title').value.trim();
+  const slug = document.getElementById('new-page-slug').value.trim();
+
+  if (!title || !slug) {
+    M.toast({ html: 'Compila titolo e slug' });
+    return;
+  }
+
+  try {
+    const response = await fetch('../api/create_page.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, slug })
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      M.toast({ html: 'Pagina creata con successo!' });
+      const opt = document.createElement('option');
+      opt.value = slug;
+      opt.textContent = title;
+      document.getElementById('existing-pages-select').appendChild(opt);
+      document.getElementById('new-page-title').value = '';
+      document.getElementById('new-page-slug').value = '';
+    } else {
+      M.toast({ html: 'Errore: ' + (data.error || 'Creazione fallita') });
+    }
+  } catch (error) {
+    M.toast({ html: 'Errore di rete: ' + error.message });
+  }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function savePage() {
+    const html = editor.getHtml();
+    const css = editor.getCss();
+    const slug = document.getElementById('existing-pages-select').value;
+
+    if (!slug) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Attenzione',
+        text: 'Seleziona una pagina prima di salvare.'
+      });
+      return;
+    }
+
+    Swal.fire({
+      title: 'Salvataggio in corso...',
+      text: 'Attendere prego',
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false
+    });
+
+    fetch('../api/save_page.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        slug: slug,
+        content: html
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Salvato!',
+          text: data.message || 'Contenuto salvato correttamente.',
+          timer: 2000,
+          showConfirmButton: false
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Errore!',
+          text: data.error || 'Errore durante il salvataggio.'
+        });
+      }
+    })
+    .catch(() => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Errore!',
+        text: 'Errore di connessione al server.'
+      });
+    });
+  }
+</script>
 </body>
 </html>

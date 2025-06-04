@@ -24,17 +24,19 @@ $stmt->bindValue(':slug', $slug, SQLITE3_TEXT);
 $result = $stmt->execute();
 
 if ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-    echo json_encode([
+    echo json_encode(array_merge([
+        'success' => true
+    ], [
         'title' => $row['title'],
         'slug' => $row['slug'],
         'description' => $row['description'],
         'keywords' => $row['keywords'],
         'language' => $row['language'],
         'content' => $row['content']
-    ]);
+    ]));
 } else {
     http_response_code(404);
-    echo json_encode(['error' => 'Page not found']);
+    echo json_encode(['success' => false, 'error' => 'Page not found']);
 }
 
 $db->close();

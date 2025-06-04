@@ -2,22 +2,22 @@
 header('Content-Type: application/json');
 
 $data = json_decode(file_get_contents('php://input'), true);
-if (!$data || !isset($data['page_id']) || !isset($data['content'])) {
+if (!$data || !isset($data['slug']) || !isset($data['content'])) {
     http_response_code(400);
-    echo json_encode(['error' => 'Invalid input: missing page_id or content']);
+    echo json_encode(['error' => 'Invalid input: missing slug or content']);
     exit;
 }
 
-$pageId = intval($data['page_id']);
+$slug = $data['slug'];
 $content = $data['content'];
 
 try {
     $db = new SQLite3(__DIR__ . '/../db/database.db');
 
-    $stmt = $db->prepare("UPDATE pages SET content = :content, updated_at = :updated_at WHERE id = :id");
+    $stmt = $db->prepare("UPDATE pages SET content = :content, updated_at = :updated_at WHERE slug = :slug");
     $stmt->bindValue(':content', $content, SQLITE3_TEXT);
     $stmt->bindValue(':updated_at', date('c'), SQLITE3_TEXT);
-    $stmt->bindValue(':id', $pageId, SQLITE3_INTEGER);
+    $stmt->bindValue(':slug', $slug, SQLITE3_TEXT);
 
     $result = $stmt->execute();
 
